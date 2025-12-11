@@ -11,21 +11,21 @@ export interface AuraThresholds {
     diamond: number;
 }
 
-// Thresholds in cents (ARS)
+// Thresholds in Aura Points
 export const AURA_THRESHOLDS: AuraThresholds = {
-    bronze: 0,           // 0 ARS
-    silver: 1000000,     // 10,000 ARS saved
-    gold: 5000000,       // 50,000 ARS saved
-    diamond: 20000000,   // 200,000 ARS saved
+    bronze: 0,
+    silver: 1000,
+    gold: 5000,
+    diamond: 20000,
 };
 
 /**
- * Calculate Aura level based on total savings generated
+ * Calculate Aura level based on Aura Points
  */
-export function calculateAuraLevel(totalSavings: number): AuraLevel {
-    if (totalSavings >= AURA_THRESHOLDS.diamond) return 'diamond';
-    if (totalSavings >= AURA_THRESHOLDS.gold) return 'gold';
-    if (totalSavings >= AURA_THRESHOLDS.silver) return 'silver';
+export function calculateAuraLevel(auraPoints: number): AuraLevel {
+    if (auraPoints >= AURA_THRESHOLDS.diamond) return 'diamond';
+    if (auraPoints >= AURA_THRESHOLDS.gold) return 'gold';
+    if (auraPoints >= AURA_THRESHOLDS.silver) return 'silver';
     return 'bronze';
 }
 

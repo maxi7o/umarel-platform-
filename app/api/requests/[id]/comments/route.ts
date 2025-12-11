@@ -3,12 +3,14 @@ import { db } from '@/lib/db';
 import { comments, sliceCards, wizardMessages, slices, users, contributionEvaluations } from '@/lib/db/schema'; // Added imports
 import { eq, desc, sql } from 'drizzle-orm';
 import { processExpertComment } from '@/lib/ai/openai'; // Added import
+import { calculateAuraLevel } from '@/lib/aura/calculations';
 
 export async function POST(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
-    let aiDebug = null; // Capture AI result for debugging response
+    let aiDebug: any = null; // Capture AI result for debugging response
+    let allCards: any[] = [];
 
     try {
         const { id } = await params;
@@ -31,12 +33,9 @@ export async function POST(
         }).returning();
 
         // --- UMAREL FEEDBACK LOOP ---
-        // Fire and forget (or await if we want to return AI actions to UI, but usually async background)
-        // For this demo, we await to ensure it happens before we return.
-
         try {
             // 1. Get Context (All Slices)
-            const allCards = await db.query.sliceCards.findMany({
+            allCards = await db.query.sliceCards.findMany({
                 where: eq(sliceCards.requestId, id),
             });
 
@@ -122,31 +121,42 @@ export async function POST(
             if (score < 2) auraPoints = 0;
 
             if (auraPoints > 0) {
-                // Update User Aura
+                // Update User Aura & Level
+                // We need to fetch current points first to calculate total new points for level check
+                // OR we can do it in a transaction. For MVP, we'll just increment and let the next read handle it,
+                // BUT we want immediate feedback.
+                // Let's do a fetch-update for accuracy or a stored procedure.
+                // Simpler JS approach:
+                const [currentUser] = await db.select().from(users).where(eq(users.id, userId));
+                const newTotalPoints = (currentUser?.auraPoints || 0) + auraPoints;
+                const newLevel = calculateAuraLevel(newTotalPoints);
+
                 await db.update(users)
                     .set({
-                        auraPoints: sql`aura_points + ${auraPoints}`,
+                        auraPoints: newTotalPoints,
+                        auraLevel: newLevel,
                         totalSavingsGenerated: sql`total_savings_generated + ${savings}`
                     })
                     .where(eq(users.id, userId));
 
-                // Log Contribution (Best Effort linking to a Slice)
+                // Log Contribution (Best Effort linking to a Slice or Request)
                 const targetSlice = allCards[0]?.sliceId; // Link to first slice context if available
-                if (targetSlice) {
-                    await db.insert(contributionEvaluations).values({
-                        sliceId: targetSlice,
-                        evaluatorModel: 'gpt-4-turbo-preview',
-                        contributions: [{
-                            userId,
-                            userName: 'Expert', // We'd fetch real name in prod
-                            score,
-                            reasoning: `Impact: ${impactType}. Savings: ${savings}`,
-                            contributionType: impactType === 'risk_mitigation' ? 'risk_mitigation' :
-                                impactType === 'savings' ? 'savings' : 'quality'
-                        }],
-                        totalScore: auraPoints
-                    });
-                }
+
+                // We now log even if no slice exists, linking to the Request ID directly
+                await db.insert(contributionEvaluations).values({
+                    sliceId: targetSlice || null, // Optional now
+                    requestId: id, // Always link to the request
+                    evaluatorModel: 'gpt-4-turbo-preview',
+                    contributions: [{
+                        userId,
+                        userName: 'Expert', // We'd fetch real name in prod
+                        score,
+                        reasoning: `Impact: ${impactType}. Savings: ${savings}`,
+                        contributionType: impactType === 'risk_mitigation' ? 'risk_mitigation' :
+                            impactType === 'savings' ? 'savings' : 'quality'
+                    }],
+                    totalScore: auraPoints
+                });
             }
         }
 

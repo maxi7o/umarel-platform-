@@ -199,5 +199,26 @@
         "acceptanceCriteriaLabel": "Criterios de Aceptación",
         "saveChanges": "Guardar Cambios",
         "version": "Parte de Proyecto v{version}"
+    },
+    "wallet": {
+        "title": "El Diario del Umarel",
+        "stash": "Tu Canuto",
+        "aura": "Aura Acumulada",
+        "impact": "Impacto en Obras",
+        "redemptions": "Canjear Puntos",
+        "greetings": {
+            "bronze": "Hola pibe. Recién arrancás, pero veo potencial. Hacé buena letra.",
+            "silver": "¡Bien ahí! Ya le vas agarrando la mano. Seguí así.",
+            "gold": "¡Che, qué ojo tenés! Sos un espectáculo. La comunidad te respeta.",
+            "diamond": "¡Maestro Mayor de Obras! Sos una leyenda acá. Sentate, yo invito el mate."
+        },
+        "impactType": {
+            "risk_mitigation": "¡Salvaste las papas!",
+            "savings": "Cuidando el bolsillo",
+            "clarity": "Clarito como el agua",
+            "quality": "Calidad pura"
+        },
+        "emptyStash": "Aún no hay guita en el canuto. ¡Empezá a comentar!",
+        "withdraw": "Retirar Ganancias"
     }
 }

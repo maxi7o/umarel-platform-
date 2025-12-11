@@ -377,7 +377,8 @@ export const serviceRatings = pgTable('service_ratings', {
 
 export const contributionEvaluations = pgTable('contribution_evaluations', {
     id: uuid('id').primaryKey().defaultRandom(),
-    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    requestId: uuid('request_id').references(() => requests.id), // Link to request
+    sliceId: uuid('slice_id').references(() => slices.id), // Link to slice (optional)
     evaluatorModel: text('evaluator_model').notNull(), // e.g., "gpt-4o"
     contributions: jsonb('contributions').$type<{
         userId: string;
