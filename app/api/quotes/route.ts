@@ -37,9 +37,11 @@ export async function POST(request: Request) {
         return NextResponse.json(newQuote);
     } catch (error) {
         console.error('Error creating quote:', error);
-        return NextResponse.json(
-            { error: 'Internal Server Error' },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
+}
+
+export async function GET() {
+    const allQuotes = await db.select().from(quotes);
+    return NextResponse.json(allQuotes);
 }

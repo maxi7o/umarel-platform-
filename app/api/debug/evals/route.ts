@@ -1,9 +1,11 @@
 
 import { db } from '@/lib/db';
-import { contributionEvaluations } from '@/lib/db/schema';
+import { slices } from '@/lib/db/schema';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
-    const evals = await db.select().from(contributionEvaluations);
-    return NextResponse.json(evals);
+    const data = await db.select().from(slices);
+    return NextResponse.json(data);
 }
