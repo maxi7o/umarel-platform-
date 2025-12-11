@@ -70,6 +70,14 @@
             "postButton": "Publicar una Necesidad – 100% Gratis",
             "browseButton": "Explorar Servicios",
             "joinText": "Únete a miles de personas convirtiendo conocimiento en ingresos"
+        },
+        "trattoria": {
+            "welcome": "Benvegnuti a",
+            "slogan": "Ayudándote a construir mejor, un plato de pasta a la vez.",
+            "capisci": "¿Capisci?",
+            "orderProject": "Ordina un Projecto 🏗️",
+            "browseMenu": "Mirar el Menú 🍕",
+            "wip": "En Obra 🚧"
         }
     },
     "login": {

@@ -1,12 +1,13 @@
 "use client"
 
 import Link from 'next/link';
+import Image from 'next/image'; // Import Image
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export function TrattoriaHero() {
-    const t = useTranslations('landing');
+    const t = useTranslations('landing.trattoria');
 
     return (
         <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
@@ -32,7 +33,7 @@ export function TrattoriaHero() {
                 {/* The "Menu Header" */}
                 <div className="mb-6 rotate-[-2deg]">
                     <span className="font-hand text-4xl md:text-5xl text-trattoria-red font-bold tracking-wider">
-                        Benvenuti a
+                        {t('welcome')}
                     </span>
                     <h1 className="text-6xl md:text-8xl font-black font-sans text-stone-900 leading-[0.9] mt-2 tracking-tighter shadow-sm">
                         UMAREL<span className="text-orange-600">.ORG</span>
@@ -46,7 +47,7 @@ export function TrattoriaHero() {
                         <div className="absolute -top-6 -right-6 z-20"> {/* Inverted sticker position */}
                             {/* Tape / Sticker */}
                             <div className="bg-yellow-200/80 w-32 h-10 rotate-[15deg] shadow-sm flex items-center justify-center font-hand text-stone-700 font-bold">
-                                Work in Progress 🚧
+                                {t('wip')}
                             </div>
                         </div>
 
@@ -59,10 +60,19 @@ export function TrattoriaHero() {
                                     <div className="absolute bottom-10 right-20 w-32 h-32 bg-stone-400/20 rotate-45" /> {/* Debris */}
                                 </div>
                             </div>
-                            {/* The Umarel */}
-                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-[150px] drop-shadow-2xl filter contrast-125">
-                                👴
+
+                            {/* The Real Umarel Cartoon (Replaces Emoji) */}
+                            {/* Note: The parent is already flipped scale-x-[-1], so this image will face the 'other' way dynamically */}
+                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 drop-shadow-2xl">
+                                <Image
+                                    src="/hero-grandpa.png"
+                                    alt="Umarel Cartoon"
+                                    width={300}
+                                    height={300}
+                                    className="object-contain" // Keep aspect ratio
+                                />
                             </div>
+
                             <div className="absolute bottom-8 right-10 text-6xl animate-bounce delay-700">
                                 🍝
                             </div>
@@ -75,21 +85,21 @@ export function TrattoriaHero() {
 
                 {/* Engaging Quote */}
                 <p className="font-hand text-3xl md:text-4xl text-stone-600 mb-10 max-w-2xl leading-relaxed rotate-1">
-                    "Helping you build better, one plate of pasta at a time.
+                    "{t('slogan')}
                     <br />
-                    <span className="text-orange-600 font-bold">Capisci?</span>"
+                    <span className="text-orange-600 font-bold">{t('capisci')}</span>"
                 </p>
 
                 {/* CTAs - Menu Style */}
                 <div className="flex flex-col sm:flex-row gap-6 items-center">
                     <Link href="/requests/create">
                         <Button size="lg" className="h-16 px-10 text-xl font-bold bg-orange-600 hover:bg-orange-700 text-white shadow-xl hover:shadow-2xl border-4 border-white transform transition hover:-translate-y-1">
-                            Ordina un Projecto 🏗️
+                            {t('orderProject')}
                         </Button>
                     </Link>
                     <Link href="/browse">
                         <Button size="lg" variant="outline" className="h-16 px-10 text-xl font-hand font-bold text-stone-600 hover:text-orange-600 border-2 border-dashed border-stone-300 hover:border-orange-300 bg-white/50">
-                            Browse the Menu 🍕
+                            {t('browseMenu')}
                         </Button>
                     </Link>
                 </div>
