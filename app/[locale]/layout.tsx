@@ -13,6 +13,8 @@ import { LanguageSwitchPrompt } from '@/components/location/language-switch-prom
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+import { Instrument_Serif } from "next/font/google";
+const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
     title: "Umarel - Get things done with wisdom",
@@ -44,7 +46,7 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={`${inter.variable} ${outfit.variable} font-sans antialiased min-h-screen flex flex-col`}>
+            <body className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} font-sans antialiased min-h-screen flex flex-col`}>
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
                         <Navbar />

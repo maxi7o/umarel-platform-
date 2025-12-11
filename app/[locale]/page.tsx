@@ -1,7 +1,5 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, Users, Briefcase, Lightbulb, Heart, TrendingDown, Zap } from 'lucide-react';
+
+import { DigitalPiazza } from '@/components/landing/digital-piazza';
 import { RotatingQuotes } from '@/components/landing/rotating-quotes';
 import { useTranslations } from 'next-intl';
 
@@ -9,177 +7,77 @@ export default function LandingPage() {
   const t = useTranslations('landing');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      {/* Hero Section */}
-      <section className="container mx-auto px-6 pt-20 pb-32">
-        <div className="max-w-6xl mx-auto">
-          {/* Main Headline */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-7xl font-bold font-outfit mb-6 bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent leading-tight">
-              {t('hero.title')}
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed">
-              {t('hero.subtitle1')}
-              <br />
-              <span className="font-semibold text-gray-800 dark:text-gray-200">
-                {t('hero.subtitle2')}
-              </span>
-            </p>
-            <div className="mt-10 flex justify-center">
-              <Link href="/browse">
-                <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-6 text-xl font-bold shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
-                  {t('hero.cta')}
-                  <ArrowRight className="ml-2 h-6 w-6" />
-                </Button>
-              </Link>
-            </div>
-          </div>
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
 
-          {/* Umarel Caricature */}
-          <div className="flex justify-center mb-12">
-            <div className="relative">
-              {/* Placeholder for umarel caricature - replace with actual image */}
-              <div className="w-64 h-64 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900 dark:to-orange-800 rounded-full flex items-center justify-center shadow-2xl">
-                <div className="text-center">
-                  <div className="text-8xl mb-2">👴</div>
-                  <p className="text-sm font-semibold text-orange-800 dark:text-orange-200">
-                    The Umarel
-                  </p>
-                </div>
+      {/* 1. Digital Piazza Hero */}
+      <DigitalPiazza />
+
+      {/* 2. Philosophy / Wisdom Section (The Rotating Quotes) */}
+      <section className="py-24 border-y border-stone-200 dark:border-stone-800 bg-white/50 dark:bg-stone-900/50 backdrop-blur-sm">
+        <div className="container mx-auto px-6 text-center">
+          <h3 className="text-sm font-serif italic text-stone-400 mb-8 uppercase tracking-widest">
+            Wisdom of the Ages
+          </h3>
+          <RotatingQuotes />
+        </div>
+      </section>
+
+      {/* 3. The Three Pillars (Restyled) */}
+      <section className="py-32 container mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-12">
+
+          {/* Pillar 1 */}
+          <div className="group text-center">
+            <div className="w-full h-64 mb-6 bg-stone-200 dark:bg-stone-900 rounded-t-[10rem] rounded-b-lg overflow-hidden relative">
+              {/* Placeholder for "Classic Art" style image */}
+              <div className="absolute inset-0 bg-stone-300 dark:bg-stone-800 group-hover:bg-orange-100 dark:group-hover:bg-orange-900/20 transition duration-500" />
+              <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-20 grayscale group-hover:grayscale-0 transition duration-500">
+                🏛️
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full opacity-20 animate-pulse" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-orange-400 rounded-full opacity-20 animate-pulse delay-75" />
             </div>
+            <h3 className="text-3xl font-serif mb-4 text-stone-900 dark:text-stone-50 group-hover:text-orange-600 transition">
+              The Client
+            </h3>
+            <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
+              Start a project with clarity. Our AI breaks down complexity into artisan slices.
+            </p>
           </div>
 
-          {/* Rotating Italian Quotes */}
-          <div className="mb-16">
-            <RotatingQuotes />
+          {/* Pillar 2 */}
+          <div className="group text-center mt-12 md:mt-0">
+            <div className="w-full h-64 mb-6 bg-stone-200 dark:bg-stone-900 rounded-t-[10rem] rounded-b-lg overflow-hidden relative">
+              <div className="absolute inset-0 bg-stone-300 dark:bg-stone-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/20 transition duration-500" />
+              <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-20 grayscale group-hover:grayscale-0 transition duration-500">
+                ⚒️
+              </div>
+            </div>
+            <h3 className="text-3xl font-serif mb-4 text-stone-900 dark:text-stone-50 group-hover:text-blue-600 transition">
+              The Maker
+            </h3>
+            <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
+              Local experts providing verified craftsmanship. Guaranteed via secure escrow.
+            </p>
           </div>
+
+          {/* Pillar 3 */}
+          <div className="group text-center mt-24 md:mt-0">
+            <div className="w-full h-64 mb-6 bg-stone-200 dark:bg-stone-900 rounded-t-[10rem] rounded-b-lg overflow-hidden relative">
+              <div className="absolute inset-0 bg-stone-300 dark:bg-stone-800 group-hover:bg-yellow-100 dark:group-hover:bg-yellow-900/20 transition duration-500" />
+              <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-20 grayscale group-hover:grayscale-0 transition duration-500">
+                👴
+              </div>
+            </div>
+            <h3 className="text-3xl font-serif mb-4 text-stone-900 dark:text-stone-50 group-hover:text-yellow-600 transition">
+              The Umarel
+            </h3>
+            <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
+              The wise observer. Providing feedback, ensuring quality, and earning Aura.
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* Value Proposition Cards */}
-      <section className="container mx-auto px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">
-            {t('howItWorks')}
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1: Clients */}
-            <Card className="border-2 border-blue-200 dark:border-blue-800 hover:shadow-2xl transition-shadow">
-              <CardContent className="pt-8 pb-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-center mb-4">
-                  {t('clients.title')}
-                </h3>
-                <p className="text-center text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-                  {t('clients.description')}
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-2 text-sm text-blue-600 dark:text-blue-400">
-                  <TrendingDown className="h-4 w-4" />
-                  <span className="font-semibold">{t('clients.badge')}</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Card 2: Providers */}
-            <Card className="border-2 border-green-200 dark:border-green-800 hover:shadow-2xl transition-shadow">
-              <CardContent className="pt-8 pb-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                  <Briefcase className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-center mb-4">
-                  {t('providers.title')}
-                </h3>
-                <p className="text-center text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-                  {t('providers.description')}
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-400">
-                  <Zap className="h-4 w-4" />
-                  <span className="font-semibold">{t('providers.badge')}</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Card 3: Umarels (Community) */}
-            <Card className="border-2 border-orange-200 dark:border-orange-800 hover:shadow-2xl transition-shadow">
-              <CardContent className="pt-8 pb-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                  <Lightbulb className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-center mb-4">
-                  {t('umarels.title')}
-                </h3>
-                <p className="text-center text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-                  {t('umarels.description')}
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-2 text-sm text-orange-600 dark:text-orange-400">
-                  <Heart className="h-4 w-4" />
-                  <span className="font-semibold">{t('umarels.badge')}</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof / Stats */}
-      <section className="container mx-auto px-6 py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">{t('stats.savings')}</div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t('stats.savingsLabel')}</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">{t('stats.free')}</div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t('stats.freeLabel')}</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">{t('stats.daily')}</div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t('stats.dailyLabel')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            {t('cta.title')}
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-            {t('cta.subtitle')}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/requests/create">
-              <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-12 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all">
-                {t('cta.postButton')}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/browse">
-              <Button size="lg" variant="outline" className="px-12 py-6 text-lg">
-                {t('cta.browseButton')}
-              </Button>
-            </Link>
-          </div>
-
-          <p className="mt-8 text-sm text-gray-500">
-            {t('cta.joinText')}
-          </p>
-        </div>
-      </section>
-
-      {/* Footer Spacer */}
-      <div className="h-20" />
     </div>
   );
 }
