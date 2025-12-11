@@ -158,6 +158,9 @@ export async function processExpertComment(
         return { wizardQuestion: null, actions: [] };
     }
 
+    console.log('🤖 Starting AI Analysis for comment:', commentContent);
+    console.log('Cards Context:', JSON.stringify(currentSliceCards.map(c => ({ id: c.id, title: c.title }))));
+
     const systemPrompt = `You are the "Umarel Brain" - an AI that integrates expert feedback into project definitions.
     
 Context:
@@ -178,29 +181,38 @@ Instructions:
 
 Output Format (JSON):
 {
-  "wizardQuestion": "Natural language question to ask the requestor (or null)",
+  "message": "Natural language response...",
+  "wizardQuestion": "Optional question for user...",
+  "qualityScore": 1-10 (1=Spam/Low Effort, 10=Game Changing Insight),
+  "impactType": "risk_mitigation" | "clarity" | "savings" | "general" | "spam",
+  "estimatedSavings": 0 (in ARS cents, if applicable),
   "actions": [
     // same action format as Wizard (UPDATE_CARD, CREATE_CARD)
   ]
 }
 `;
 
-    const response = await openai.chat.completions.create({
-        model: 'gpt-4-turbo-preview',
-        messages: [{ role: 'system', content: systemPrompt }],
-        response_format: { type: "json_object" },
-    });
-
     try {
-        const content = response.choices[0].message.content || '{}';
-        const parsed = JSON.parse(content);
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo-preview",
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Comment: "${commentContent}"` }
+            ],
+            response_format: { type: "json_object" }
+        });
+
+        const result = JSON.parse(response.choices[0].message.content || '{}');
         return {
-            wizardQuestion: parsed.wizardQuestion || null,
-            actions: Array.isArray(parsed.actions) ? parsed.actions : []
+            wizardQuestion: result.wizardQuestion || null,
+            actions: result.actions || [],
+            qualityScore: result.qualityScore || 0,
+            impactType: result.impactType || 'general',
+            estimatedSavings: result.estimatedSavings || 0
         };
-    } catch (e) {
-        console.error("Failed to parse Expert AI response", e);
-        return { wizardQuestion: null, actions: [] };
+    } catch (error) {
+        console.error('AI Error:', error);
+        return { wizardQuestion: null, actions: [], qualityScore: 0, impactType: 'general', estimatedSavings: 0 };
     }
 }
 

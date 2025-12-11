@@ -10,6 +10,8 @@ interface DetectedLocation {
     country: string;
     countryCode: string;
     flag: string;
+    lat?: number;
+    lon?: number;
 }
 
 export function useLocationDetection() {
@@ -26,7 +28,6 @@ export function useLocationDetection() {
         if (location?.countryCode && !marketId) {
             const markets = getMarketsByCountry(location.countryCode);
             if (markets.length > 0) {
-                // simple heuristic: pick the first one, or try to match city
                 const match = markets.find(m => m.city.toLowerCase() === location.city.toLowerCase()) || markets[0];
                 console.log(`Auto-setting market to ${match.id} based on detected location: ${location.country}`);
                 setMarket(match.id);
@@ -34,11 +35,8 @@ export function useLocationDetection() {
         }
     }, [location, marketId, setMarket]);
 
-
-
     const detectLocation = async () => {
         try {
-            // Try browser geolocation first
             if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
@@ -46,7 +44,6 @@ export function useLocationDetection() {
                         await reverseGeocode(latitude, longitude);
                     },
                     () => {
-                        // Fallback to IP-based detection
                         detectByIP();
                     }
                 );
@@ -61,7 +58,6 @@ export function useLocationDetection() {
 
     const reverseGeocode = async (lat: number, lon: number) => {
         try {
-            // Using OpenStreetMap Nominatim (free, no API key needed)
             const response = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
             );
@@ -72,6 +68,8 @@ export function useLocationDetection() {
                 country: data.address.country || 'Unknown',
                 countryCode: data.address.country_code?.toUpperCase() || 'XX',
                 flag: getFlag(data.address.country_code),
+                lat,
+                lon
             });
         } catch (error) {
             detectByIP();
@@ -90,6 +88,8 @@ export function useLocationDetection() {
                 country: data.country_name || 'Unknown',
                 countryCode: data.country_code || 'XX',
                 flag: getFlag(data.country_code?.toLowerCase()),
+                lat: data.latitude,
+                lon: data.longitude
             });
         } catch (error) {
             setDefaultLocation();
@@ -104,6 +104,8 @@ export function useLocationDetection() {
             country: 'Argentina',
             countryCode: 'AR',
             flag: '🇦🇷',
+            lat: -34.6037,
+            lon: -58.3816
         });
         setIsLoading(false);
     };

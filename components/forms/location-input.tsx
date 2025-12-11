@@ -12,29 +12,25 @@ interface LocationInputProps {
 
 import { useMarket } from '@/lib/market-context';
 
+import { useLocationDetection } from '@/components/landing/location-detection';
+
 export function LocationInput({ name, placeholder, required }: LocationInputProps) {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState('');
     const { market } = useMarket();
+    const { location } = useLocationDetection(); // Get detected location (lat/lon)
 
     const [userCountry, setUserCountry] = useState<string>('');
 
     useEffect(() => {
-        // Priority 1: Market Country (Explicit selection in top bar)
+        // ... (existing country logic)
         if (market?.countryCode) {
             setUserCountry(market.countryCode.toLowerCase());
             return;
         }
-
-        // Priority 2: Browser Locale (e.g. "es-AR" -> "ar")
-        if (typeof window !== 'undefined' && navigator.language) {
-            const parts = navigator.language.split('-');
-            if (parts.length > 1) {
-                setUserCountry(parts[1].toLowerCase());
-            }
-        }
+        // ...
     }, [market]);
 
     useEffect(() => {
@@ -45,9 +41,6 @@ export function LocationInput({ name, placeholder, required }: LocationInputProp
 
         const timer = setTimeout(async () => {
             try {
-                // Photon API (Komoot) - specialized for autocomplete/typeahead
-                // LIMITATION: Photon only supports en, de, fr, it. If we send 'es', it crashes with 400.
-                // We will default to 'default' (local name) if not in supported list.
                 const userLang = (market?.locale || navigator.language || 'en').split('-')[0];
                 const photonLang = ['en', 'de', 'fr', 'it'].includes(userLang) ? userLang : 'default';
 
@@ -59,6 +52,20 @@ export function LocationInput({ name, placeholder, required }: LocationInputProp
                 if (photonLang !== 'default') {
                     params.append('lang', photonLang);
                 }
+
+                // --- LOCATION BIAS ---
+                // If we have detected coordinates, assume user wants results nearby first.
+                // Photon uses 'lat' and 'lon' to prioritize proximity.
+                if (location?.lat && location?.lon) {
+                    params.append('lat', location.lat.toString());
+                    params.append('lon', location.lon.toString());
+                    // Optional: params.append('zoom', '10'); to tune local vs global
+                } else if (userCountry === 'ar') {
+                    // Fallback for Argentina if no GPS but country detected
+                    params.append('lat', '-34.6');
+                    params.append('lon', '-58.4');
+                }
+
 
                 // Filter by OSM Tags (Server-side filtering!)
                 // We want places (cities, towns), boundaries (states), and highways (streets)

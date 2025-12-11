@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { comments, sliceCards, wizardMessages, slices } from '@/lib/db/schema'; // Added imports
+import { comments, sliceCards, wizardMessages, slices, users, contributionEvaluations } from '@/lib/db/schema'; // Added imports
 import { eq, desc, sql } from 'drizzle-orm';
 import { processExpertComment } from '@/lib/ai/openai'; // Added import
 
@@ -8,6 +8,8 @@ export async function POST(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    let aiDebug = null; // Capture AI result for debugging response
+
     try {
         const { id } = await params;
         const body = await request.json();
@@ -40,6 +42,7 @@ export async function POST(
 
             // 2. Process Comment
             const aiResult = await processExpertComment(content, allCards, id);
+            aiDebug = aiResult; // Capture result
 
             // 3. Execute Actions
             if (aiResult.actions.length > 0) {
@@ -92,10 +95,63 @@ export async function POST(
 
         } catch (aiError) {
             console.error('Failed to process expert comment:', aiError);
-            // Don't fail the request, just log
+            aiDebug = { error: String(aiError) };
+        }
+
+        // --- AURA ALGORITHM APPLICATION ---
+        if (aiDebug?.qualityScore && userId) {
+            const score = aiDebug.qualityScore as number;
+            const impactType = aiDebug.impactType as string;
+            const savings = (aiDebug.estimatedSavings as number) || 0;
+
+            let auraPoints = 0;
+
+            // 1. Base Score calculation
+            if (impactType === 'risk_mitigation') {
+                // Exponential reward for risk: Score^2 * 5
+                auraPoints = Math.pow(score, 2) * 5;
+            } else if (impactType === 'savings') {
+                // Savings reward: 1 point per 1000 ARS saved + Base Clarity score
+                auraPoints = Math.floor(savings / 1000) + (score * 10);
+            } else {
+                // Default/Clarity: Linear 10x
+                auraPoints = score * 10;
+            }
+
+            // Spam filter override
+            if (score < 2) auraPoints = 0;
+
+            if (auraPoints > 0) {
+                // Update User Aura
+                await db.update(users)
+                    .set({
+                        auraPoints: sql`aura_points + ${auraPoints}`,
+                        totalSavingsGenerated: sql`total_savings_generated + ${savings}`
+                    })
+                    .where(eq(users.id, userId));
+
+                // Log Contribution (Best Effort linking to a Slice)
+                const targetSlice = allCards[0]?.sliceId; // Link to first slice context if available
+                if (targetSlice) {
+                    await db.insert(contributionEvaluations).values({
+                        sliceId: targetSlice,
+                        evaluatorModel: 'gpt-4-turbo-preview',
+                        contributions: [{
+                            userId,
+                            userName: 'Expert', // We'd fetch real name in prod
+                            score,
+                            reasoning: `Impact: ${impactType}. Savings: ${savings}`,
+                            contributionType: impactType === 'risk_mitigation' ? 'risk_mitigation' :
+                                impactType === 'savings' ? 'savings' : 'quality'
+                        }],
+                        totalScore: auraPoints
+                    });
+                }
+            }
         }
 
         return NextResponse.json(newComment);
+
     } catch (error) {
         console.error('Error creating comment:', error);
         return NextResponse.json(
