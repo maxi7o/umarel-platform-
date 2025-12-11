@@ -39,19 +39,19 @@ export function TrattoriaHero() {
                     </h1>
                 </div>
 
-                {/* The Scene: Old Man + Construction */}
+                {/* The Scene: Old Man + Construction (INVERTED/MIRRORED) */}
                 <div className="relative w-full max-w-2xl h-[400px] mb-12 group perspective-1000">
-                    {/* The "Polaroid" style image container */}
+                    {/* The "Polaroid" */}
                     <div className="relative w-full h-full bg-white p-4 shadow-2xl rotate-2 transform transition-transform duration-500 hover:rotate-0 hover:scale-[1.02] border border-stone-200">
-                        <div className="absolute -top-6 -left-6 z-20">
+                        <div className="absolute -top-6 -right-6 z-20"> {/* Inverted sticker position */}
                             {/* Tape / Sticker */}
-                            <div className="bg-yellow-200/80 w-32 h-10 rotate-[-15deg] shadow-sm flex items-center justify-center font-hand text-stone-700 font-bold">
+                            <div className="bg-yellow-200/80 w-32 h-10 rotate-[15deg] shadow-sm flex items-center justify-center font-hand text-stone-700 font-bold">
                                 Work in Progress 🚧
                             </div>
                         </div>
 
-                        {/* Simulation of Old Man watching Construction */}
-                        <div className="w-full h-full bg-stone-100 overflow-hidden relative rounded-sm border border-stone-100">
+                        {/* Content wrapper with Horizontal Flip to "Invert" the scene */}
+                        <div className="w-full h-full bg-stone-100 overflow-hidden relative rounded-sm border border-stone-100 transform scale-x-[-1]">
                             <div className="absolute inset-0 bg-gradient-to-b from-sky-200 to-stone-200 flex items-end justify-center">
                                 {/* Construction Site Background (Abstract) */}
                                 <div className="w-full h-1/2 bg-stone-300 relative">
@@ -59,7 +59,7 @@ export function TrattoriaHero() {
                                     <div className="absolute bottom-10 right-20 w-32 h-32 bg-stone-400/20 rotate-45" /> {/* Debris */}
                                 </div>
                             </div>
-                            {/* The Umarel (Emoji for classic feel) */}
+                            {/* The Umarel */}
                             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-[150px] drop-shadow-2xl filter contrast-125">
                                 👴
                             </div>
@@ -69,7 +69,7 @@ export function TrattoriaHero() {
                         </div>
 
                         {/* Wine Stain */}
-                        <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full border-[12px] border-red-900/10 blur-sm pointer-events-none mix-blend-multiply" />
+                        <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full border-[12px] border-red-900/10 blur-sm pointer-events-none mix-blend-multiply" />
                     </div>
                 </div>
 
@@ -94,6 +94,16 @@ export function TrattoriaHero() {
                     </Link>
                 </div>
 
+            </div>
+
+            {/* Side Banners (Italian Food) */}
+            {/* Left Banner: Pizza */}
+            <div className="absolute left-0 top-1/4 transform -translate-x-1/2 rotate-12 opacity-80 pointer-events-none grayscale-[0.2] hover:grayscale-0 transition duration-700">
+                <div className="text-[200px]">🍕</div>
+            </div>
+            {/* Right Banner: Spaghetti */}
+            <div className="absolute right-0 bottom-1/4 transform translate-x-[30%] -rotate-12 opacity-80 pointer-events-none grayscale-[0.2] hover:grayscale-0 transition duration-700">
+                <div className="text-[250px]">🍝</div>
             </div>
 
             {/* Grease Stains Decoration */}
