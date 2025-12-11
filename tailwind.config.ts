@@ -22,7 +22,7 @@ const config = {
             fontFamily: {
                 sans: ["var(--font-outfit)", "ui-sans-serif", "system-ui"],
                 serif: ["var(--font-serif)", "ui-serif", "Georgia"],
-                // "display" can be our unique Avant-Garde font
+                hand: ["var(--font-hand)", "cursive"],
                 display: ["var(--font-serif)", "serif"],
             },
             colors: {
@@ -64,6 +64,10 @@ const config = {
                     orange: "#F97316", // Classic Orange
                     stone: "#F5F5F4", // Light Stone
                     dark: "#1C1917", // Warm Black
+                },
+                trattoria: {
+                    red: "#C41E3A", // Sauce Red
+                    check: "#FFE4E1", // Pinkish White for checks
                 }
             },
             borderRadius: {
@@ -90,6 +94,9 @@ const config = {
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "float": "float 6s ease-in-out infinite"
             },
+            backgroundImage: {
+                'checkered': "repeating-linear-gradient(45deg, #C41E3A 25%, transparent 25%, transparent 75%, #C41E3A 75%, #C41E3A), repeating-linear-gradient(45deg, #C41E3A 25%, #F0F0F0 25%, #F0F0F0 75%, #C41E3A 75%, #C41E3A)",
+            }
         },
     },
     plugins: [require("tailwindcss-animate")],
