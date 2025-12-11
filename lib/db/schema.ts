@@ -390,3 +390,13 @@ export const contributionEvaluations = pgTable('contribution_evaluations', {
     totalScore: integer('total_score').default(0), // Sum of all scores
     createdAt: timestamp('created_at').defaultNow(),
 });
+
+export const sliceEvidence = pgTable('slice_evidence', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    providerId: uuid('provider_id').references(() => users.id).notNull(),
+    fileUrl: text('file_url').notNull(),
+    fileType: text('file_type').default('image'),
+    description: text('description'),
+    createdAt: timestamp('created_at').defaultNow(),
+});
