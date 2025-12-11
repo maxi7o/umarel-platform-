@@ -1,2 +1,25 @@
 [2025-12-11 18:54:32] Changes detected. Syncing...
 🚀 Syncing to GitHub...
+[main aebefa7] Auto-sync: 2025-12-11 18:54:32
+ Committer: Maxi <maxi@MacBook-Air-de-Maxi.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 148 insertions(+), 42 deletions(-)
+ create mode 100644 components/landing/trattoria-hero.tsx
+ create mode 100644 git_sync.log
+To github.com:6vmksv66bv-droid/um-platform.git
+   ad6e7a5..aebefa7  main -> main
+✅ Done!
+[2025-12-11 18:54:32] ✅ Sync successful.
+[2025-12-11 18:59:36] Changes detected. Syncing...
+🚀 Syncing to GitHub...
