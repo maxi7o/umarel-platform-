@@ -1,0 +1,203 @@
+{
+    "nav": {
+        "browse": "Explorar",
+        "offerServices": "Ofrecer Servicios",
+        "login": "Iniciar sesión",
+        "postNeed": "Publicar Necesidad"
+    },
+    "footer": {
+        "platform": "Plataforma",
+        "howItWorks": "Cómo funciona",
+        "becomeUmarel": "Conviértete en Umarel",
+        "findWork": "Encontrar Trabajo",
+        "legal": "Legal",
+        "terms": "Términos de Servicio",
+        "privacy": "Política de Privacidad",
+        "copyright": "© 2025 Umarel. Todos los derechos reservados. Hecho con 🧡 y café."
+    },
+    "home": {
+        "heroTitle": "No te estreses.",
+        "heroTitleLine2Pre": "Deja que un ",
+        "heroTitleHighlight": "Umarel",
+        "heroTitleLine2Post": " te ayude.",
+        "heroSubtitle": "Publica tu proyecto. Nuestra comunidad de expertos sabios lo dividirá en partes manejables. Solo pagas por lo que se completa.",
+        "postNeed": "Publica tu necesidad",
+        "howItWorks": "Cómo funciona",
+        "howItWorksTitle": "Cómo Funciona Umarel",
+        "howItWorksSubtitle": "Traemos la sabiduría del sitio de construcción a tus tareas diarias.",
+        "step1Title": "1. Publica una Solicitud",
+        "step1Desc": "Describe lo que necesitas. \"Arreglar mi cocina\" o \"Construir un sitio web\". No necesitas detalles técnicos todavía.",
+        "step2Title": "2. Los Umarels lo Dividen",
+        "step2Desc": "Nuestra comunidad de sabios Umarels divide tu solicitud en pequeñas \"Porciones de Servicio\" precisas.",
+        "step3Title": "3. Paga por Porción",
+        "step3Desc": "Los proveedores cotizan porciones individuales. Aceptas y pagas solo cuando se completa cada porción.",
+        "trustedTitle": "Confiado por los mejores Umarels"
+    },
+    "landing": {
+        "hero": {
+            "title": "Gana dinero real todos los días solo compartiendo lo que sabes",
+            "subtitle1": "Ayer los top 50 umarels ganaron $1.2 M combinados —",
+            "subtitle2": "sin CV, sin entrevistas, sin jefe.",
+            "cta": "Empieza a ganar como umarel – 100% gratis"
+        },
+        "howItWorks": "Cómo Funciona Umarel",
+        "clients": {
+            "title": "Para Clientes",
+            "description": "Paga 30–60% menos que las cotizaciones tradicionales gracias a la inteligencia colectiva",
+            "badge": "Ahorros Masivos"
+        },
+        "providers": {
+            "title": "Para Proveedores",
+            "description": "Gana trabajos sin llamadas en frío – solo pagas cuando realmente trabajas",
+            "badge": "Costo Inicial Cero"
+        },
+        "umarels": {
+            "title": "Para Umarels",
+            "description": "Gana dinero todos los días solo compartiendo tu conocimiento – sin CV necesario",
+            "badge": "Pagos Diarios"
+        },
+        "stats": {
+            "savings": "30-60%",
+            "savingsLabel": "Ahorro Promedio",
+            "free": "100%",
+            "freeLabel": "Gratis para Empezar",
+            "daily": "Diario",
+            "dailyLabel": "Pagos a la Comunidad"
+        },
+        "cta": {
+            "title": "Empieza a ahorrar (y ganar) hoy",
+            "subtitle": "0 costo para publicar · 0 costo para cotizar · Solo ganamos cuando apruebas el trabajo terminado",
+            "postButton": "Publicar una Necesidad – 100% Gratis",
+            "browseButton": "Explorar Servicios",
+            "joinText": "Únete a miles de personas convirtiendo conocimiento en ingresos"
+        }
+    },
+    "login": {
+        "title": "Iniciar sesión en Umarel",
+        "subtitle": "Ingresa tu correo electrónico para acceder a tu cuenta",
+        "googleButton": "Iniciar sesión con Google",
+        "or": "O",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "signIn": "Iniciar Sesión",
+        "signUp": "Registrarse"
+    },
+    "createRequest": {
+        "title": "Publicar Nueva Solicitud",
+        "subtitle": "Describe lo que necesitas. Nuestros Umarels te ayudarán a dividirlo.",
+        "form": {
+            "title": "Título",
+            "titlePlaceholder": "ej. Arreglar mi fregadero y pintar la pared",
+            "description": "Descripción",
+            "descPlaceholder": "Proporciona más detalles sobre la tarea...",
+            "location": "Ubicación",
+            "locationPlaceholder": "Ciudad o Dirección",
+            "photos": "Fotos (Opcional)",
+            "uploadText": "Haz clic para subir o arrastra y suelta",
+            "submit": "Publicar Solicitud"
+        }
+    },
+    "requestDetail": {
+        "openForSlicing": "Abierto para División",
+        "postedBy": "Publicado por",
+        "splittingZone": "Zona de División Umarel",
+        "splittingZoneDesc": "Ayuda a dividir esta solicitud en porciones pagables. ¡Gana puntos de Aura!",
+        "suggestedBy": "Sugerido por",
+        "est": "Est.",
+        "discuss": "Discutir",
+        "noSlices": "Aún no hay porciones. ¡Sé el primer Umarel en ayudar!"
+    },
+    "dashboard": {
+        "provider": {
+            "title": "Panel de Proveedor",
+            "subtitle": "Encuentra trabajo cerca de ti y envía cotizaciones.",
+            "updateProfile": "Actualizar Perfil",
+            "project": "Proyecto:",
+            "viewDetails": "Ver Detalles y Cotizar"
+        },
+        "customer": {
+            "title": "Mis Solicitudes",
+            "subtitle": "Gestiona tus proyectos y pagos.",
+            "postNew": "Publicar Nueva Solicitud",
+            "slicesDefined": "Partes definidas",
+            "quotesReceived": "Cotizaciones recibidas",
+            "viewDetails": "Ver Detalles",
+            "postedOn": "Publicado el"
+        }
+    },
+    "profile": {
+        "memberSince": "Miembro desde",
+        "auraPoints": "Puntos de Aura",
+        "yourJourney": "Tu Viaje",
+        "keepContributing": "¡Sigue contribuyendo para alcanzar el siguiente rango!",
+        "currentRank": "Rango Actual:",
+        "nextRank": "Siguiente Rango:",
+        "pointsToGo": "puntos para llegar",
+        "slicesCreated": "Partes Creadas",
+        "upvotesReceived": "Votos Recibidos",
+        "slicesCompleted": "Partes Completadas",
+        "topUmarels": "Mejores Umarels"
+    },
+    "quotes": [
+        "Así no se hace... (That's not how you do it...)",
+        "En mis tiempos aquí era todo campo. (In my times this was all countryside.)",
+        "¿Pero quién hizo este trabajo? (Who did this job?)",
+        "Mira, mira... ¡torcido! (Look, look... crooked!)",
+        "Se necesita paciencia. (You need patience.)",
+        "¡Excelente trabajo! (Great job!)",
+        "Falta el toque final. (Missing the final touch.)"
+    ],
+    "NotFound": {
+        "title": "Página No Encontrada",
+        "description": "La página que buscas no existe."
+    },
+    "browse": {
+        "title": "Explorar Servicios",
+        "subtitle": "Encuentra solicitudes de servicio y proveedores en tu área",
+        "searchPlaceholder": "Buscar servicios...",
+        "postRequest": "Publicar Solicitud",
+        "offerServices": "Ofrecer Servicios",
+        "showing": "Mostrando",
+        "results": "resultados",
+        "in": "en",
+        "noResults": "No se encontraron resultados en",
+        "tryAdjusting": "Intenta ajustar tus filtros o seleccionar una ubicación diferente",
+        "clearFilters": "Limpiar Filtros",
+        "beFirstToOffer": "Sé el Primero en Ofrecer Servicios"
+    },
+    "filters": {
+        "show": "Mostrar",
+        "allListings": "Todos los Listados",
+        "requestsOnly": "Solo Solicitudes de Servicio",
+        "offeringsOnly": "Solo Ofertas de Servicio",
+        "category": "Categoría",
+        "allCategories": "Todas las Categorías",
+        "location": "Ubicación",
+        "includeVirtual": "Incluir Servicios Virtuales",
+        "hourlyRate": "Tarifa por Hora",
+        "activeFilters": "Filtros Activos",
+        "localOnly": "Solo local",
+        "categories": {
+            "plumbing": "Plomería",
+            "electrical": "Electricidad",
+            "carpentry": "Carpintería",
+            "painting": "Pintura",
+            "cleaning": "Limpieza",
+            "gardening": "Jardinería",
+            "moving": "Mudanzas",
+            "other": "Otro"
+        }
+    },
+    "sliceCard": {
+        "titleLabel": "Título",
+        "descriptionLabel": "Descripción",
+        "locationLabel": "Ubicación",
+        "finalPriceLabel": "Precio Final",
+        "requiredSkillsLabel": "Habilidades Requeridas",
+        "estimatedTimeLabel": "Tiempo Estimado",
+        "dependenciesLabel": "Dependencias",
+        "acceptanceCriteriaLabel": "Criterios de Aceptación",
+        "saveChanges": "Guardar Cambios",
+        "version": "Parte de Proyecto v{version}"
+    }
+}

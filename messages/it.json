@@ -1,0 +1,56 @@
+{
+    "nav": {
+        "browse": "Esplora",
+        "offerServices": "Offri Servizi",
+        "login": "Accedi",
+        "postNeed": "Pubblica Bisogno"
+    },
+    "footer": {
+        "platform": "Piattaforma",
+        "howItWorks": "Come funziona",
+        "becomeUmarel": "Diventa un Umarel",
+        "findWork": "Trova Lavoro",
+        "legal": "Legale",
+        "terms": "Termini di Servizio",
+        "privacy": "Privacy Policy",
+        "copyright": "© 2025 Umarel. Tutti i diritti riservati. Fatto con 🧡 e caffè."
+    },
+    "landing": {
+        "hero": {
+            "title": "Trasformiamo la conoscenza inattiva di milioni in lavoro reale e denaro reale",
+            "subtitle1": "Ogni giorno, migliaia di persone sanno esattamente come fare qualcosa in modo più economico, veloce o migliore…",
+            "subtitle2": "Umarel dà loro una fetta del lavoro e una fetta del denaro."
+        },
+        "howItWorks": "Come Funziona Umarel",
+        "clients": {
+            "title": "Per Clienti",
+            "description": "Paga il 30–60% in meno rispetto ai preventivi tradizionali grazie all'intelligenza collettiva",
+            "badge": "Risparmi Massicci"
+        },
+        "providers": {
+            "title": "Per Fornitori",
+            "description": "Ottieni lavori senza chiamate a freddo – paghi solo quando lavori davvero",
+            "badge": "Costo Iniziale Zero"
+        },
+        "umarels": {
+            "title": "Per Umarels",
+            "description": "Guadagna ogni giorno condividendo la tua conoscenza – nessun CV necessario",
+            "badge": "Pagamenti Giornalieri"
+        },
+        "stats": {
+            "savings": "30-60%",
+            "savingsLabel": "Risparmio Medio",
+            "free": "100%",
+            "freeLabel": "Gratis per Iniziare",
+            "daily": "Giornaliero",
+            "dailyLabel": "Pagamenti alla Comunità"
+        },
+        "cta": {
+            "title": "Inizia a risparmiare (e guadagnare) oggi",
+            "subtitle": "0 costi per pubblicare · 0 costi per preventivare · Guadagniamo solo quando approvi il lavoro finito",
+            "postButton": "Pubblica un Bisogno – 100% Gratis",
+            "browseButton": "Esplora Servizi",
+            "joinText": "Unisciti a migliaia di persone che trasformano la conoscenza in reddito"
+        }
+    }
+}

@@ -1,0 +1,203 @@
+{
+    "nav": {
+        "browse": "Browse",
+        "offerServices": "Offer Services",
+        "login": "Log in",
+        "postNeed": "Post a Need"
+    },
+    "footer": {
+        "platform": "Platform",
+        "howItWorks": "How it works",
+        "becomeUmarel": "Become an Umarel",
+        "findWork": "Find Work",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "copyright": "© 2025 Umarel. All rights reserved. Made with 🧡 and espresso."
+    },
+    "home": {
+        "heroTitle": "Don't stress.",
+        "heroTitleLine2Pre": "Let an ",
+        "heroTitleHighlight": "Umarel",
+        "heroTitleLine2Post": " help.",
+        "heroSubtitle": "Post your project. Our community of wise experts will break it down into manageable slices. You only pay for what gets done.",
+        "postNeed": "Post your need",
+        "howItWorks": "How it works",
+        "howItWorksTitle": "How Umarel Works",
+        "howItWorksSubtitle": "We bring the wisdom of the construction site to your daily tasks.",
+        "step1Title": "1. Post a Request",
+        "step1Desc": "Describe what you need done. \"Fix my kitchen\" or \"Build a website\". No need for technical details yet.",
+        "step2Title": "2. Umarels Split It",
+        "step2Desc": "Our community of wise Umarels breaks your request into small, precise \"Service Slices\".",
+        "step3Title": "3. Pay Per Slice",
+        "step3Desc": "Providers quote on individual slices. You accept and pay only when each slice is completed.",
+        "trustedTitle": "Trusted by the best Umarels"
+    },
+    "landing": {
+        "hero": {
+            "title": "Earn real money every day just by sharing what you know",
+            "subtitle1": "Yesterday the top 50 umarels earned $1.2 M combined —",
+            "subtitle2": "no CV, no interviews, no boss.",
+            "cta": "Start earning as an umarel – 100 % free"
+        },
+        "howItWorks": "How Umarel Works",
+        "clients": {
+            "title": "For Clients",
+            "description": "Pay 30–60% less than traditional quotes thanks to collective intelligence",
+            "badge": "Massive Savings"
+        },
+        "providers": {
+            "title": "For Providers",
+            "description": "Win jobs without cold-calling – only pay when you actually work",
+            "badge": "Zero Upfront Cost"
+        },
+        "umarels": {
+            "title": "For Umarels",
+            "description": "Earn money every day just by sharing your knowledge – no CV needed",
+            "badge": "Daily Payouts"
+        },
+        "stats": {
+            "savings": "30-60%",
+            "savingsLabel": "Average Savings",
+            "free": "100%",
+            "freeLabel": "Free to Start",
+            "daily": "Daily",
+            "dailyLabel": "Community Payouts"
+        },
+        "cta": {
+            "title": "Start saving (and earning) today",
+            "subtitle": "0 cost to post · 0 cost to quote · We only earn when you approve the finished work",
+            "postButton": "Post a Need – 100% Free",
+            "browseButton": "Browse Services",
+            "joinText": "Join thousands of people turning knowledge into income"
+        }
+    },
+    "login": {
+        "title": "Sign in to Umarel",
+        "subtitle": "Enter your email below to login to your account",
+        "googleButton": "Sign in with Google",
+        "or": "OR",
+        "email": "Email",
+        "password": "Password",
+        "signIn": "Sign In",
+        "signUp": "Sign Up"
+    },
+    "createRequest": {
+        "title": "Post a New Request",
+        "subtitle": "Describe what you need done. Our Umarels will help you break it down.",
+        "form": {
+            "title": "Title",
+            "titlePlaceholder": "e.g. Fix my kitchen sink and paint the wall",
+            "description": "Description",
+            "descPlaceholder": "Provide more details about the task...",
+            "location": "Location",
+            "locationPlaceholder": "City or Address",
+            "photos": "Photos (Optional)",
+            "uploadText": "Click to upload or drag and drop",
+            "submit": "Post Request"
+        }
+    },
+    "requestDetail": {
+        "openForSlicing": "Open for Slicing",
+        "postedBy": "Posted by",
+        "splittingZone": "Umarel Splitting Zone",
+        "splittingZoneDesc": "Help break this request down into payable slices. Earn Aura points!",
+        "suggestedBy": "Suggested by",
+        "est": "Est.",
+        "discuss": "Discuss",
+        "noSlices": "No slices yet. Be the first Umarel to help!"
+    },
+    "dashboard": {
+        "provider": {
+            "title": "Provider Dashboard",
+            "subtitle": "Find work near you and submit quotes.",
+            "updateProfile": "Update Profile",
+            "project": "Project:",
+            "viewDetails": "View Details & Quote"
+        },
+        "customer": {
+            "title": "My Requests",
+            "subtitle": "Manage your projects and payments.",
+            "postNew": "Post New Request",
+            "slicesDefined": "Slices defined",
+            "quotesReceived": "Quotes received",
+            "viewDetails": "View Details",
+            "postedOn": "Posted on"
+        }
+    },
+    "profile": {
+        "memberSince": "Member since",
+        "auraPoints": "Aura Points",
+        "yourJourney": "Your Journey",
+        "keepContributing": "Keep contributing to reach the next rank!",
+        "currentRank": "Current Rank:",
+        "nextRank": "Next Rank:",
+        "pointsToGo": "points to go",
+        "slicesCreated": "Slices Created",
+        "upvotesReceived": "Upvotes Received",
+        "slicesCompleted": "Slices Completed",
+        "topUmarels": "Top Umarels"
+    },
+    "quotes": [
+        "Non si fa così... (That's not how you do it...)",
+        "Ai miei tempi qui era tutta campagna. (In my times this was all countryside.)",
+        "Ma chi ha fatto questo lavoro? (Who did this job?)",
+        "Guarda, guarda... storto! (Look, look... crooked!)",
+        "Ci vuole pazienza. (You need patience.)",
+        "Ottimo lavoro! (Great job!)",
+        "Manca il tocco finale. (Missing the final touch.)"
+    ],
+    "NotFound": {
+        "title": "Page Not Found",
+        "description": "The page you are looking for does not exist."
+    },
+    "browse": {
+        "title": "Browse Services",
+        "subtitle": "Find service requests and providers in your area",
+        "searchPlaceholder": "Search services...",
+        "postRequest": "Post Request",
+        "offerServices": "Offer Services",
+        "showing": "Showing",
+        "results": "results",
+        "in": "in",
+        "noResults": "No results found in",
+        "tryAdjusting": "Try adjusting your filters or selecting a different location",
+        "clearFilters": "Clear Filters",
+        "beFirstToOffer": "Be the First to Offer Services"
+    },
+    "filters": {
+        "show": "Show",
+        "allListings": "All Listings",
+        "requestsOnly": "Service Requests Only",
+        "offeringsOnly": "Service Offerings Only",
+        "category": "Category",
+        "allCategories": "All Categories",
+        "location": "Location",
+        "includeVirtual": "Include Virtual Services",
+        "hourlyRate": "Hourly Rate",
+        "activeFilters": "Active Filters",
+        "localOnly": "Local only",
+        "categories": {
+            "plumbing": "Plumbing",
+            "electrical": "Electrical",
+            "carpentry": "Carpentry",
+            "painting": "Painting",
+            "cleaning": "Cleaning",
+            "gardening": "Gardening",
+            "moving": "Moving",
+            "other": "Other"
+        }
+    },
+    "sliceCard": {
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "locationLabel": "Location",
+        "finalPriceLabel": "Final Price",
+        "requiredSkillsLabel": "Required Skills",
+        "estimatedTimeLabel": "Estimated Time",
+        "dependenciesLabel": "Dependencies",
+        "acceptanceCriteriaLabel": "Acceptance Criteria",
+        "saveChanges": "Save Changes",
+        "version": "Slice Card v{version}"
+    }
+}
