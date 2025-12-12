@@ -78,6 +78,13 @@
             "orderProject": "Ordina un Projecto 🏗️",
             "browseMenu": "Mirar el Menú 🍕",
             "wip": "En Obra 🚧"
+        },
+        "italianQuotes": {
+            "q1": "Umarel: el que mira la obra con las manos atrás",
+            "q2": "El umarel siempre sabe cómo hacerlo mejor",
+            "q3": "Si no fuera por el umarel, el trabajo nunca terminaría",
+            "q4": "Cada umarel tiene la solución que nadie pidió",
+            "q5": "El umarel: el experto que no necesitas... pero siempre necesitas"
         }
     },
     "login": {

@@ -101,7 +101,7 @@ export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
 
                     {/* Price - The "Bill" */}
                     <div className="flex items-center justify-between border-t border-dashed border-orange-200 pt-2">
-                        <span className="font-hand text-lg text-stone-500">Prezzo:</span>
+                        <span className="font-hand text-lg text-stone-500">{t('finalPriceLabel')}:</span>
                         {isEditing ? (
                             <Input
                                 type="number"

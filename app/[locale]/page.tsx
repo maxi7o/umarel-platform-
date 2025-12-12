@@ -6,7 +6,7 @@ export default function LandingPage() {
   const t = useTranslations('landing');
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen">
 
       {/* 1. Trattoria Hero (Dinner Table Vibe) */}
       <TrattoriaHero />

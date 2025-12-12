@@ -158,13 +158,15 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
 
     const extractQuestions = (content: string) => {
         // Extract all questions from AI message
-        const questionMatches = content.match(/[¿?][^¿?]+[?¿]/g);
+        const questionMatches = content.match(/[¿][^¿?]+[?]/g);
         if (questionMatches && questionMatches.length > 0) {
             setQuestionQueue(questionMatches);
             setCurrentQuestionIndex(0);
         } else {
-            // Also look for English questions ending in ?
-            const enQuestionMatches = content.match(/[^.!?]+\?/g);
+            // English/General Fallback: Match sentences ending in ?
+            // Look for a capital letter, followed by non-sentence-ending punctuation, ending in ?
+            // This avoids catching ", ink?" as a question.
+            const enQuestionMatches = content.match(/[A-Z][^.!?]*\?/g);
             if (enQuestionMatches && enQuestionMatches.length > 0) {
                 setQuestionQueue(enQuestionMatches.map(q => q.trim()));
                 setCurrentQuestionIndex(0);
@@ -518,24 +520,26 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                         accept="image/*,.pdf,.doc,.docx"
                     />
 
-                    <Button
-                        onClick={askNext}
-                        disabled={isAskingNext || sliceCards.length === 0}
-                        variant="outline"
-                        className="w-full"
-                    >
-                        {isAskingNext ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                {t.thinking}
-                            </>
-                        ) : (
-                            <>
-                                <Sparkles className="mr-2 h-4 w-4" />
-                                {t.askNext}
-                            </>
-                        )}
-                    </Button>
+                    {!input.trim() && (
+                        <Button
+                            onClick={askNext}
+                            disabled={isAskingNext || sliceCards.length === 0}
+                            variant="outline"
+                            className="w-full"
+                        >
+                            {isAskingNext ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    {t.thinking}
+                                </>
+                            ) : (
+                                <>
+                                    <Sparkles className="mr-2 h-4 w-4" />
+                                    {t.askNext}
+                                </>
+                            )}
+                        </Button>
+                    )}
                 </div>
             </div>
 

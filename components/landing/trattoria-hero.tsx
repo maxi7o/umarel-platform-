@@ -10,21 +10,9 @@ export function TrattoriaHero() {
     const t = useTranslations('landing.trattoria');
 
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
-
-            {/* The Tablecloth Background */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(45deg, #C41E3A 25%, transparent 25%, transparent 75%, #C41E3A 75%, #C41E3A),
-                        linear-gradient(45deg, #C41E3A 25%, transparent 25%, transparent 75%, #C41E3A 75%, #C41E3A)
-                     `,
-                    backgroundPosition: '0 0, 20px 20px',
-                    backgroundSize: '40px 40px'
-                }}
-            />
-            {/* Soft Overlay to make text readable */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white/95 z-0" />
+        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+            {/* Soft Overlay to make text readable (lighter than before) */}
+            <div className="absolute inset-0 bg-white/60 z-0" />
 
 
             {/* Content Container */}

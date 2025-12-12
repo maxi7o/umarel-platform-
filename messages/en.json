@@ -70,6 +70,13 @@
             "postButton": "Post a Need – 100% Free",
             "browseButton": "Browse Services",
             "joinText": "Join thousands of people turning knowledge into income"
+        },
+        "italianQuotes": {
+            "q1": "Umarel: the one who watches the worksite with hands behind his back",
+            "q2": "The umarel always knows how to do it better",
+            "q3": "If it weren't for the umarel, the job would never get done",
+            "q4": "Every umarel has the solution nobody asked for",
+            "q5": "The umarel: the expert you don't need... but always need"
         }
     },
     "login": {

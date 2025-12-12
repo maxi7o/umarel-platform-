@@ -5,33 +5,34 @@ import { useTranslations } from 'next-intl';
 
 interface ItalianQuote {
     italian: string;
-    translation: string;
+    key: string;
 }
 
 const ITALIAN_QUOTES: ItalianQuote[] = [
     {
         italian: "Umarel: chi guarda il cantiere con le mani dietro la schiena",
-        translation: "Umarel: the one who watches the worksite with hands behind his back"
+        key: "q1"
     },
     {
         italian: "L'umarel sa sempre come fare meglio",
-        translation: "The umarel always knows how to do it better"
+        key: "q2"
     },
     {
         italian: "Se non fosse per l'umarel, il lavoro non finirebbe mai",
-        translation: "If it weren't for the umarel, the job would never get done"
+        key: "q3"
     },
     {
         italian: "Ogni umarel ha la soluzione che nessuno ha chiesto",
-        translation: "Every umarel has the solution nobody asked for"
+        key: "q4"
     },
     {
         italian: "L'umarel: l'esperto che non serve... ma serve sempre",
-        translation: "The umarel: the expert you don't need... but always need"
+        key: "q5"
     }
 ];
 
 export function RotatingQuotes() {
+    const t = useTranslations('landing.italianQuotes');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
 
@@ -56,11 +57,11 @@ export function RotatingQuotes() {
                 className={`transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'
                     }`}
             >
-                <p className="text-lg italic text-gray-600 dark:text-gray-400 mb-2">
+                <p className="text-lg italic text-gray-600 dark:text-gray-400 mb-2 font-hand">
                     "{currentQuote.italian}"
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-500">
-                    → {currentQuote.translation}
+                    → {t(currentQuote.key)}
                 </p>
             </div>
 
@@ -70,8 +71,8 @@ export function RotatingQuotes() {
                     <div
                         key={index}
                         className={`h-1.5 rounded-full transition-all ${index === currentIndex
-                                ? 'w-8 bg-orange-600'
-                                : 'w-1.5 bg-gray-300 dark:bg-gray-600'
+                            ? 'w-8 bg-orange-600'
+                            : 'w-1.5 bg-gray-300 dark:bg-gray-600'
                             }`}
                     />
                 ))}
