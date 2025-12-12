@@ -86,3 +86,27 @@ To github.com:6vmksv66bv-droid/um-platform.git
 [2025-12-11 19:14:47] ✅ Sync successful.
 [2025-12-11 19:35:01] Changes detected. Syncing...
 🚀 Syncing to GitHub...
+[main 7969b96] Auto-sync: 2025-12-11 19:35:01
+ Committer: Maxi <maxi@MacBook-Air-de-Maxi.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 4 files changed, 210 insertions(+)
+ create mode 100644 app/admin/layout.tsx
+ create mode 100644 app/admin/page.tsx
+ create mode 100644 components/admin/admin-sidebar.tsx
+To github.com:6vmksv66bv-droid/um-platform.git
+   3c11634..7969b96  main -> main
+✅ Done!
+[2025-12-11 19:35:01] ✅ Sync successful.
+[2025-12-11 21:35:02] Changes detected. Syncing...
+🚀 Syncing to GitHub...
