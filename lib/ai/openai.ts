@@ -151,7 +151,10 @@ export async function processExpertComment(
     sliceId: string
 ): Promise<{
     wizardQuestion: string | null;
-    actions: WizardAction[]
+    actions: WizardAction[];
+    qualityScore?: number;
+    impactType?: string;
+    estimatedSavings?: number;
 }> {
 
     // 🛑 COST CONTROL: Skip AI for low-value comments
