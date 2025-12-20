@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -33,8 +33,14 @@ export function RequestInteractionLayout({
     const [quotes, setQuotes] = useState(initialQuotes);
     const [questions, setQuestions] = useState(initialQuestions);
 
+    const [isDemo, setIsDemo] = useState(false);
+    useEffect(() => {
+        setIsDemo(request?.id === 'demo');
+    }, [request]);
+
     const handleCommentAdded = (newComment: any) => {
-        setComments(prev => [...prev, newComment]);
+        // If it's the demo page, ensure we update the local state which is passed to CommentThread
+        setComments(prev => [...prev.filter(c => c.id !== newComment.id), newComment]);
     };
 
     const handleSliceUpdated = (updatedSlice: any) => {
@@ -43,6 +49,10 @@ export function RequestInteractionLayout({
 
     const handleSlicesCreated = (newSlices: any[]) => {
         setSlices(prev => [...prev, ...newSlices]);
+        // If demo, we might need to trigger a re-render or state update
+        if (isDemo) {
+            // No separate state, just add to slices and CommentThread should see it if linked
+        }
     };
 
     const handleQuoteCreated = (newQuote: any) => {
@@ -65,7 +75,7 @@ export function RequestInteractionLayout({
         ));
     };
 
-    const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id;
+    const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
 
     return (
         <div className="space-y-6">
@@ -218,9 +228,10 @@ export function RequestInteractionLayout({
                         <div>
                             <QuoteBuilder
                                 requestId={request.id}
+                                requestTitle={request.title}
                                 slices={slices.filter((s: any) => s.status === 'accepted' || s.status === 'proposed')}
                                 onQuoteCreated={handleQuoteCreated}
-                                currentUser={currentUser}
+                                userId={currentUser?.id}
                             />
                         </div>
                     </div>

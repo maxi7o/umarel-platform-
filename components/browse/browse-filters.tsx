@@ -14,22 +14,18 @@ interface BrowseFiltersProps {
     selectedType: 'all' | 'requests' | 'offerings';
     selectedCategory?: string;
     includeVirtual: boolean;
-    priceRange: [number, number];
     onTypeChange: (type: 'all' | 'requests' | 'offerings') => void;
     onCategoryChange: (category: string | undefined) => void;
     onVirtualToggle: (include: boolean) => void;
-    onPriceRangeChange: (range: [number, number]) => void;
 }
 
 export function BrowseFilters({
     selectedType,
     selectedCategory,
     includeVirtual,
-    priceRange,
     onTypeChange,
     onCategoryChange,
     onVirtualToggle,
-    onPriceRangeChange,
 }: BrowseFiltersProps) {
     const t = useTranslations('filters');
 
@@ -126,30 +122,6 @@ export function BrowseFilters({
                 </CardContent>
             </Card>
 
-            {/* Price Range (for offerings) */}
-            {selectedType !== 'requests' && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">{t('hourlyRate')}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-4">
-                            <Slider
-                                value={priceRange}
-                                onValueChange={(value) => onPriceRangeChange(value as [number, number])}
-                                min={0}
-                                max={200}
-                                step={10}
-                                className="w-full"
-                            />
-                            <div className="flex items-center justify-between text-sm text-muted-foreground">
-                                <span>${priceRange[0]}/hr</span>
-                                <span>${priceRange[1]}/hr</span>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
 
             {/* Active Filters Summary */}
             {(selectedCategory || !includeVirtual) && (

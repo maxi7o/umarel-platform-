@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Sparkles, Send, User, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { SliceProposal } from './slice-proposal';
 
 interface Comment {
     id: string;
@@ -17,6 +18,7 @@ interface Comment {
     createdAt: string;
     quoteId?: string;
     user?: { fullName: string; avatarUrl: string }; // In real app, joined
+    slices?: any[]; // Array of propose/created slices from AI response
 }
 
 interface CommentThreadProps {
@@ -115,39 +117,57 @@ export function CommentThread({
             // 2. If it's a prompt, trigger AI
             if (isPromptMode) {
                 toast.info("AI Agent is analyzing...");
+
+                // Use Wizard API for Request Slicing flow
+                // For quotes, valid endpoint is different, but for this demo let's focus on Wizard flow
                 const aiEndpoint = quoteId
                     ? `/api/quotes/${quoteId}/optimize`
-                    : `/api/requests/${requestId}/slice`;
+                    : `/api/wizard/message`;
 
                 const aiRes = await fetch(aiEndpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        prompt: promptContent,
+                        content: promptContent,
+                        sliceId: "primary", // TODO: Pass actual context/primary slice ID properly
                         userId: currentUser.id
+                        // The Wizard API expects 'sliceId' and 'content'
                     })
                 });
 
                 if (aiRes.ok) {
                     const aiData = await aiRes.json();
 
-                    // Add AI comment to state
-                    if (aiData.comment) {
+                    // The Wizard API returns { message: string, sliceCards: [], userMessage: ... }
+                    // We need to adapt it to a "Comment" structure for this thread
+
+                    if (aiData.message) {
+                        const aiComment: Comment = {
+                            id: aiData.message.id || `ai-${Date.now()}`,
+                            content: aiData.message.content,
+                            type: 'ai_response',
+                            isAiGenerated: true,
+                            userId: 'ai-agent',
+                            createdAt: new Date().toISOString(),
+                            user: { fullName: 'AI Agent', avatarUrl: '' },
+                            // Identify newly created slices from the wizard response
+                            slices: aiData.sliceCards?.filter((sc: any) =>
+                                !comments.some(c => c.slices?.some(s => s.id === sc.id)) && // Dedupe if needed
+                                sc.title !== "Primary Request" // Filter out the main card if it returns it
+                            )
+                        };
+
                         if (onCommentAdded) {
-                            onCommentAdded(aiData.comment);
+                            onCommentAdded(aiComment);
                         } else {
-                            setLocalComments(prev => [...prev, aiData.comment]);
+                            setLocalComments(prev => [...prev, aiComment]);
                         }
                     }
 
-                    // Handle slices if generated
-                    if (aiData.slices && onSlicesCreated) {
-                        onSlicesCreated(aiData.slices);
-                        toast.success(`AI generated ${aiData.slices.length} slices!`);
-                    } else if (aiData.suggestions) {
-                        toast.success("AI provided optimization suggestions!");
-                    } else {
-                        toast.success("AI response received!");
+                    // Handle slices if generated (Global Handler)
+                    if (aiData.sliceCards && onSlicesCreated) {
+                        onSlicesCreated(aiData.sliceCards);
+                        toast.success(`AI updated project structure!`);
                     }
                 } else {
                     toast.error("AI processing failed. Please try again.");
@@ -183,16 +203,36 @@ export function CommentThread({
                                 <AvatarFallback><User size={16} /></AvatarFallback>
                             )}
                         </Avatar>
-                        <div className="flex-1 space-y-1">
+                        <div className="flex-1 space-y-2">
                             <div className="flex items-center justify-between">
                                 <span className="font-semibold text-sm">
-                                    {comment.isAiGenerated ? "AI Agent" : "User"}
+                                    {comment.isAiGenerated ? "AI Agent" : (comment.user?.fullName || "User")}
                                 </span>
                                 <span className="text-xs text-muted-foreground">
                                     {new Date(comment.createdAt).toLocaleTimeString()}
                                 </span>
                             </div>
                             <div className="text-sm whitespace-pre-wrap">{comment.content}</div>
+
+                            {/* Render Slice Proposals if Any */}
+                            {comment.slices && comment.slices.length > 0 && (
+                                <div className="mt-3 grid gap-2">
+                                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                                        Proposed Slices
+                                    </p>
+                                    {comment.slices.map((slice: any) => (
+                                        <SliceProposal
+                                            key={slice.id}
+                                            slice={slice}
+                                            // onAccept handled globally implicitly for now via creating them directly
+                                            // In a clearer flow, we would create them as "drafts" and let user accept here.
+                                            // For now, since Wizard creates them directly, we just show them "interactive-like"
+                                            isAccepted={true}
+                                            onAccept={() => toast.success("Opening slice details...")}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -207,8 +247,14 @@ export function CommentThread({
                 <Textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder={isPromptMode ? "Ask the AI Agent to split tasks, optimize, or suggest..." : "Write a comment..."}
+                    placeholder={isPromptMode ? "Ask to split tasks ('Split into 2 slices')..." : "Write a comment..."}
                     className="min-h-[80px] border-0 focus-visible:ring-0 p-0 resize-none shadow-none"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleSubmit();
+                        }
+                    }}
                 />
                 <div className="flex items-center justify-between mt-2 pt-2 border-t">
                     <Button
@@ -221,7 +267,7 @@ export function CommentThread({
                         )}
                     >
                         <Sparkles size={16} />
-                        {isPromptMode ? "AI Prompt Mode Active" : "AI Prompt Mode"}
+                        {isPromptMode ? "AI Mode Active" : "AI Mode"}
                     </Button>
                     <Button
                         size="sm"

@@ -13,12 +13,13 @@ import { toast } from 'sonner';
 
 interface QuoteBuilderProps {
     requestId: string;
-    requestTitle: string;
+    requestTitle?: string; // Made optional to avoid breaking if not passed immediately
     slices: any[];
     userId: string;
+    onQuoteCreated?: (quote: any) => void;
 }
 
-export function QuoteBuilder({ requestId, requestTitle, slices, userId }: QuoteBuilderProps) {
+export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, userId, onQuoteCreated }: QuoteBuilderProps) {
     const router = useRouter();
     const [selectedSlices, setSelectedSlices] = useState<string[]>([]);
     const [amount, setAmount] = useState('');
@@ -63,7 +64,14 @@ export function QuoteBuilder({ requestId, requestTitle, slices, userId }: QuoteB
 
             if (!res.ok) throw new Error("Error submitting quote");
 
+            const newQuote = await res.json(); // Assuming API returns the created object
+
             toast.success("¡Cotización enviada!");
+
+            if (onQuoteCreated) {
+                onQuoteCreated(newQuote);
+            }
+
             router.push(`/requests/${requestId}`); // Go back to request
             router.refresh();
 

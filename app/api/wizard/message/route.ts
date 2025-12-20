@@ -4,6 +4,7 @@ import { sliceCards, wizardMessages, slices, users } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { processWizardMessage, WizardAction } from '@/lib/ai/openai';
 import { createClient } from '@/lib/supabase/server';
+import { awardAura } from '@/lib/aura/actions';
 
 export async function POST(request: NextRequest) {
     try {
@@ -75,12 +76,22 @@ export async function POST(request: NextRequest) {
         }
 
         // 6. Call AI
-        const { message: aiContent, actions } = await processWizardMessage(
+        const { message: aiContent, actions, qualityScore = 0, refusalReason } = await processWizardMessage(
             content,
             allCards, // Pass all cards as context
             recentMessages.reverse(), // Chronological order
             locale // Pass locale
         );
+
+        // 6b. Aura Reward Logic (Quality Gate)
+        if (qualityScore >= 7 && userId) {
+            // Check if action was substantial (Creation or Clarification)
+            if (actions.some(a => a.type === 'CREATE_CARD')) {
+                await awardAura(userId, 'VALID_SLICE_CREATION');
+            } else {
+                await awardAura(userId, 'HELPFUL_CLARIFICATION'); // General high quality input
+            }
+        }
 
         // 7. Execute Actions
         let updatedCards = [...allCards];
@@ -124,25 +135,16 @@ export async function POST(request: NextRequest) {
         }
 
         // 8. Save AI Response
-        // 8. Save AI Response
         const AI_USER_ID = '00000000-0000-0000-0000-000000000000'; // Specific UUID for AI
 
         // Ensure AI user exists in DB to satisfy FK
         try {
-            // We use a raw SQL query or check existence to avoid throwing if possible, 
-            // but insert on conflict do nothing is easiest if supported or we just catch.
-            // Since 'users' table might be enforced by Supabase auth in real prod, 
-            // this might be tricky if we don't have a real usage. 
-            // BUT, for now, let's try to insert it.
-            // NOTE: 'users' table usually mirrors auth.users. 
-            // If we can't insert into users easily, we might need a workaround.
-            // However, let's assume we can for this "app level" users table.
+            // ... (existing check logic omitted for brevity, handled below)
         } catch (e) {
             // ignore
         }
 
-        // Actually, let's just use the ID. If FK fails, we need to fix schema or insert user.
-        // Let's safe-insert the AI user first.
+        // Using safe-insert for AI user as before
         await db.insert(users).values({
             id: AI_USER_ID,
             email: 'ai@umarel.org',
@@ -155,7 +157,13 @@ export async function POST(request: NextRequest) {
             userId: AI_USER_ID,
             content: aiContent,
             role: 'assistant',
-            metadata: { model: 'gpt-4-turbo-preview', actionsExecuted: actions.length },
+            metadata: {
+                model: 'gpt-4-turbo-preview',
+                actionsExecuted: actions.length,
+                userQualityScore: qualityScore,
+                refusalReason,
+                auraAwarded: qualityScore >= 7
+            },
         }).returning();
 
         return NextResponse.json({

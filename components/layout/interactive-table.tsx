@@ -37,13 +37,41 @@ export function InteractiveTable() {
         const newItems: TableItem[] = []
         let idCount = 0
 
+        // ULTRA GENEROUS LEFT TABLE (Alfredo's)
+        // 1. Valid Alfredo Pasta Platter
+        newItems.push({
+            id: idCount++,
+            src: "/images/props/alfredo_pasta.png",
+            top: 150,
+            left: "-5%", // Hanging off the left slightly
+            rotation: 12,
+            scale: 1.2,
+            zIndex: 50,
+            width: 350 // Large!
+        });
+
+        // 2. Antipasto Board overlapping
+        newItems.push({
+            id: idCount++,
+            src: "/images/props/antipasto_board.png",
+            top: 450,
+            left: "2%",
+            rotation: -5,
+            scale: 1.1,
+            zIndex: 45,
+            width: 300
+        });
+
         for (let y = 100; y < MAX_HEIGHT; y += SECTION_GAP) {
             const side = Math.random() > 0.5 ? 'left' : 'right'; // Dominant side per section or both?
 
-            // Left Side Group
+            // Left Side Group (Background items behind the heroes)
             if (Math.random() > 0.2) {
                 const baseX = 2 + Math.random() * 5; // 2-7%
                 const baseY = y + Math.random() * 50;
+
+                // Skip placement if it interferes with our heroes at top
+                if (y < 800) continue;
 
                 // Napkin (Messy)
                 newItems.push({
@@ -173,9 +201,10 @@ export function InteractiveTable() {
                 className="absolute inset-0 z-0 opacity-100"
                 style={{
                     backgroundImage: `url('/images/table-texture.png')`,
-                    backgroundSize: '800px', // Repeat the texture
-                    backgroundRepeat: 'repeat',
-                    filter: 'brightness(0.95)' // Slight dim for text readability
+                    backgroundSize: '120%', // Zoomed in to avoid repeat
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    filter: 'brightness(0.95)'
                 }}
             />
 
@@ -184,10 +213,10 @@ export function InteractiveTable() {
                 {items.map((item) => (
                     <div
                         key={item.id}
-                        className="absolute drop-shadow-xl transition-transform duration-700 hover:scale-105 hover:rotate-2"
+                        className="absolute drop-shadow-2xl transition-transform duration-700 hover:scale-105 hover:rotate-2"
                         style={{
                             top: `${item.top}px`,
-                            left: item.left,
+                            left: item.left, // Now supports negative values or px if string
                             width: `${item.width}px`,
                             transform: `rotate(${item.rotation}deg) scale(${item.scale})`,
                             zIndex: item.zIndex,
@@ -204,7 +233,7 @@ export function InteractiveTable() {
             </div>
 
             {/* Gradient Overlay to ensure text readability in center */}
-            <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/80 to-transparent w-full h-full pointer-events-none" />
+            <div className="absolute inset-0 z-0 bg-gradient-to-b from-white/90 via-white/85 to-white/90 w-full h-full pointer-events-none backdrop-blur-[2px]" />
         </div>
     )
 }

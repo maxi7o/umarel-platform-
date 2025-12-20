@@ -21,7 +21,7 @@ export async function processWizardMessage(
     currentSliceCards: any[],
     messages: any[],
     locale: string = 'en' // Added locale parameter
-): Promise<{ message: string; actions: WizardAction[] }> {
+): Promise<{ message: string; actions: WizardAction[]; qualityScore?: number; refusalReason?: string }> {
 
     // Simplification: We usually focus on the "active" card, but context includes all.
     // For now, let's assume we pass the full array of cards to context.
@@ -49,6 +49,11 @@ ${JSON.stringify(currentSliceCards, null, 2)}
 
 Instructions:
 - Analyze the user's latest message: "${userMessage}"
+- **QUALITY GATE**: 
+    - You must VALIDATE if the user provided enough context for a requested action (especially "Split").
+    - If the user says "Split" or "Split into 2" WITHOUT giving a reason or distinct tasks, **REFUSE** the action. Ask them "Why? What are the distinct tasks?".
+    - If the user asks for a split but doesn't define the resulting parts, ask for clarification.
+    - If the input is low-effort (e.g. "ok", "yes"), do not generate actions, just acknowledge.
 - DETECT SEPARATE TASKS: If the user mentions a task that requires a different skill set or tool than the existing card, CREATE A NEW CARD. Do not just append to description.
 - If the user adds details to an existing task (same skill), UPDATE that card.
 - Always respond with a helpful natural language message to the user.
@@ -60,6 +65,8 @@ Instructions:
 Output Format (JSON):
 {
   "message": "Your natural language response...",
+  "qualityScore": 1-10 (Score of the user's input. 1=Spam/Vague, 5=Average, 8-10=High Value/Clear Context),
+  "refusalReason": "Optional string if action was refused (e.g. 'Missing context for split')",
   "actions": [
     { 
       "type": "UPDATE_CARD", 
@@ -104,13 +111,16 @@ Ensure "updates" only contains fields that changed.
         const parsed = JSON.parse(content);
         return {
             message: parsed.message || "I've updated the project details.",
-            actions: Array.isArray(parsed.actions) ? parsed.actions : []
+            actions: Array.isArray(parsed.actions) ? parsed.actions : [],
+            qualityScore: parsed.qualityScore || 5, // Default to average
+            refusalReason: parsed.refusalReason
         };
     } catch (e) {
         console.error("Failed to parse AI response", e);
         return {
             message: content, // Fallback to raw text if JSON fails
-            actions: []
+            actions: [],
+            qualityScore: 1
         };
     }
 }

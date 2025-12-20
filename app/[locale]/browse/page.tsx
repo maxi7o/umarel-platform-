@@ -20,7 +20,6 @@ export default function BrowsePage() {
     const [includeVirtual, setIncludeVirtual] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedQuery, setDebouncedQuery] = useState('');
-    const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
     const [results, setResults] = useState<any>({ requests: [], offerings: [], total: 0 });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -142,16 +141,14 @@ export default function BrowsePage() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Filters Sidebar */}
                 <aside className="lg:col-span-1">
-                    <div className="sticky top-6">
+                    <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
                         <BrowseFilters
                             selectedType={selectedType}
                             selectedCategory={selectedCategory}
                             includeVirtual={includeVirtual}
-                            priceRange={priceRange}
                             onTypeChange={setSelectedType}
                             onCategoryChange={setSelectedCategory}
                             onVirtualToggle={setIncludeVirtual}
-                            onPriceRangeChange={setPriceRange}
                         />
                     </div>
                 </aside>

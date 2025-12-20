@@ -66,6 +66,33 @@ describe('AI Logic (Mocked)', () => {
         expect(mockCreate).toHaveBeenCalledTimes(1);
     });
 
+    // Test Case 5b: Quality Gate Refusal (Mocked)
+    it('processWizardMessage handles low-quality inputs via Quality Gate', async () => {
+        mockCreate.mockResolvedValueOnce({
+            choices: [{
+                message: {
+                    content: JSON.stringify({
+                        message: "Why do you want to split this? Please clarify.",
+                        qualityScore: 2,
+                        refusalReason: "Missing context for split",
+                        actions: []
+                    })
+                }
+            }]
+        });
+
+        const result = await processWizardMessage(
+            "Split it", // Low quality input
+            [{ id: '123', title: 'Test' }],
+            []
+        );
+
+        expect(result.qualityScore).toBe(2);
+        expect(result.refusalReason).toBe("Missing context for split");
+        expect(result.actions).toHaveLength(0);
+        expect(result.message).toContain("Why do you want to split");
+    });
+
     // Test Case 6: Expert Comment Processing (Mocked)
     it('processExpertComment handles valid technical feedback', async () => {
         mockCreate.mockResolvedValueOnce({

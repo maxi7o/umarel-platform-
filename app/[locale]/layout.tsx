@@ -46,7 +46,10 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${caveat.variable} font-sans antialiased min-h-screen flex flex-col`}>
+            <body
+                suppressHydrationWarning
+                className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${caveat.variable} font-sans antialiased min-h-screen flex flex-col`}
+            >
                 <InteractiveTable />
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>

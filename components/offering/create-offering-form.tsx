@@ -34,8 +34,8 @@ const formSchema = z.object({
     category: z.string().min(1, 'Please select a category'),
     location: z.string().optional(),
     isVirtual: z.boolean(),
-    hourlyRate: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-        message: 'Hourly rate must be a positive number',
+    hourlyRate: z.string().optional().refine((val) => !val || (!isNaN(Number(val)) && Number(val) > 0), {
+        message: 'If provided, hourly rate must be a positive number',
     }),
     availability: z.string().min(5, 'Please describe your availability'),
     skills: z.string().min(3, 'Please list at least one skill'),
@@ -100,7 +100,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     category: values.category,
                     location: values.location,
                     isVirtual: values.isVirtual,
-                    hourlyRate: Math.round(Number(values.hourlyRate) * 100), // Convert to cents
+                    hourlyRate: values.hourlyRate ? Math.round(Number(values.hourlyRate) * 100) : null, // Convert to cents or null
                     availability: values.availability,
                     skills: values.skills.split(',').map((s) => s.trim()).filter(Boolean),
                     portfolioImages,
@@ -244,7 +244,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                             name="hourlyRate"
                             render={({ field }: { field: any }) => (
                                 <FormItem>
-                                    <FormLabel>Hourly Rate ($)</FormLabel>
+                                    <FormLabel>Hourly Rate ($) (Optional)</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="50" {...field} />
                                     </FormControl>
