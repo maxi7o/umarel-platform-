@@ -24,6 +24,7 @@ export async function calculateProviderScore(providerId: string): Promise<number
     }
 
     // Calculate average overall rating
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const avgRating = ratings.reduce((sum, r) => sum + parseFloat(r.overallRating as any), 0) / ratings.length;
 
     // Calculate recommendation rate
@@ -102,6 +103,7 @@ export async function getProviderStats(providerId: string) {
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const avgRating = ratings.reduce((sum, r) => sum + parseFloat(r.overallRating as any), 0) / ratings.length;
     const recommendCount = ratings.filter(r => r.wouldRecommend).length;
 
