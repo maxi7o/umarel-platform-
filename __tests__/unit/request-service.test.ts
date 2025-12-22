@@ -1,23 +1,27 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createRequest } from '@/lib/services/request-service';
+import { initializeRequest } from '@/lib/services/request-service';
 
 // Hoist mocks
 const { mockDb, mockTx, mockInsert } = vi.hoisted(() => {
     const mockInsert = {
         values: vi.fn().mockReturnThis(),
-        returning: vi.fn().mockResolvedValue([{
-            id: 'req-123',
-            status: 'open',
-            title: 'Bathroom Renovation'
-        }])
+        returning: vi.fn()
+            .mockResolvedValueOnce([{ id: 'req-1' }]) // Request
+            .mockResolvedValueOnce([{ id: 'slice-1' }]) // Slice
+            .mockResolvedValueOnce([{ id: 'card-1' }]) // Card
     };
 
-    const mockDb = {
+    const mockTx = {
         insert: vi.fn().mockReturnValue(mockInsert),
     };
 
-    return { mockDb, mockTx: {}, mockInsert };
+    const mockDb = {
+        transaction: vi.fn(async (cb) => cb(mockTx)),
+        insert: vi.fn().mockReturnValue(mockInsert),
+    };
+
+    return { mockDb, mockTx, mockInsert };
 });
 
 vi.mock('@/lib/db', () => ({
@@ -25,47 +29,42 @@ vi.mock('@/lib/db', () => ({
 }));
 
 vi.mock('@/lib/db/schema', () => ({
-    requests: {
-        userId: 'user_id',
-        title: 'title',
-        description: 'description',
-        status: 'status',
-    },
+    requests: { userId: 'uid' },
+    slices: { requestId: 'rid' },
+    sliceCards: { sliceId: 'sid' }
 }));
 
 describe('Request Service', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         mockInsert.values.mockReturnThis();
-        mockInsert.returning.mockResolvedValue([{
-            id: 'req-123',
-            status: 'open',
-            title: 'Bathroom Renovation'
-        }]);
+        // Reset mock implementations sequence
+        mockInsert.returning
+            .mockResolvedValueOnce([{ id: 'req-1' }])
+            .mockResolvedValueOnce([{ id: 'slice-1' }])
+            .mockResolvedValueOnce([{ id: 'card-1' }]);
     });
 
-    describe('createRequest', () => {
-        it('should create a new request with open status', async () => {
-            const requestData = {
+    describe('initializeRequest', () => {
+        it('should create request, slice, and card in transaction', async () => {
+            const result = await initializeRequest({
                 userId: 'user-1',
-                title: 'Bathroom Renovation',
-                description: 'I want to renovate my bathroom',
-                category: 'renovation'
-            };
+                title: 'New Project',
+                description: 'Description',
+                location: 'NYC'
+            });
 
-            const result = await createRequest(requestData);
+            // 1. Transaction started
+            expect(mockDb.transaction).toHaveBeenCalled();
 
-            expect(mockDb.insert).toHaveBeenCalled();
-            expect(mockInsert.values).toHaveBeenCalledWith(expect.objectContaining({
-                userId: 'user-1',
-                title: 'Bathroom Renovation',
-                status: 'open'
-            }));
+            // 2. Three inserts occurred in transaction
+            expect(mockTx.insert).toHaveBeenCalledTimes(3);
 
-            expect(result).toEqual(expect.objectContaining({
-                id: 'req-123',
-                status: 'open'
-            }));
+            // 3. Result contains needed IDs
+            expect(result).toEqual({
+                request: { id: 'req-1' },
+                initialSliceId: 'slice-1'
+            });
         });
     });
 });

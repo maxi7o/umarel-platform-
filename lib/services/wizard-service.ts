@@ -1,47 +1,156 @@
+
 import { db } from '@/lib/db';
-import { slices, wizardMessages } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { processWizardMessage, WizardAction } from '@/lib/ai/openai';
+import { slices, sliceCards, wizardMessages, users } from '@/lib/db/schema';
+import { eq, desc } from 'drizzle-orm';
+import { processWizardMessage } from '@/lib/ai/openai';
+import { awardAura } from '@/lib/aura/actions';
 
-export async function handleWizardMessage(requestId: string, userId: string, message: string, locale: string = 'en') {
+export interface WizardServiceResponse {
+    userMessage: typeof wizardMessages.$inferSelect | undefined;
+    aiMessage: typeof wizardMessages.$inferSelect;
+    sliceCards: typeof sliceCards.$inferSelect[];
+}
 
-    // 1. Fetch current slices for context
-    const currentSlices = await db
-        .select()
-        .from(slices)
-        .where(eq(slices.requestId, requestId));
+export async function handleWizardMessage(
+    sliceId: string,
+    userId: string,
+    content: string,
+    locale: string = 'en'
+): Promise<WizardServiceResponse> {
 
-    // 2. Fetch recent messages for context (optional optimization)
-    const recentMessages = await db
-        .select()
-        .from(wizardMessages)
-        // This query assumes we're linking wizard messages to a request via slice card or direct. 
-        // Schema checks: wizardMessages -> sliceCardId. 
-        // The new flow suggests wizard messages are per request?
-        // For now, let's pass empty array for messages mock or assume we fetch them if needed. 
-        // Simplified for this Iteration.
-        // Actually, processWizardMessage needs messages history.
-        // Let's pass empty for the MVP TDD pass.
-        .limit(0);
+    // 1. Get the primary slice first to know the requestId
+    const originalSlice = await db.query.slices.findFirst({
+        where: eq(slices.id, sliceId),
+    });
 
-    // 3. Call AI
-    // We cast the messages to any[] because DB schema types might differ slightly from OpenAI message types
-    const aiResponse = await processWizardMessage(message, currentSlices, [], locale);
+    if (!originalSlice) throw new Error('Slice not found');
 
-    // 4. Handle Actions
-    for (const action of aiResponse.actions) {
-        if (action.type === 'CREATE_CARD') {
-            await db.insert(slices).values({
-                requestId,
-                creatorId: userId,
-                title: action.data.title,
-                description: action.data.description,
-                skillsRequired: action.data.skills,
-                status: 'proposed',
-                isAiGenerated: true
-            });
+    const requestId = originalSlice.requestId;
+
+    // 2. Ensure initial slice card exists for this slice
+    let primaryCard = await db.query.sliceCards.findFirst({
+        where: eq(sliceCards.sliceId, sliceId),
+    });
+
+    if (!primaryCard) {
+        [primaryCard] = await db.insert(sliceCards).values({
+            sliceId: originalSlice.id,
+            requestId: originalSlice.requestId,
+            title: originalSlice.title,
+            description: originalSlice.description,
+            finalPrice: originalSlice.finalPrice,
+            currency: 'ARS',
+            skills: [],
+        }).returning();
+    }
+
+    // 3. Get ALL slice cards for this Request (Context for AI)
+    const allCards = await db.query.sliceCards.findMany({
+        where: eq(sliceCards.requestId, requestId),
+    });
+
+    // 4. Get conversation history
+    const recentMessages = await db.query.wizardMessages.findMany({
+        where: eq(wizardMessages.sliceCardId, primaryCard.id),
+        orderBy: (messages, { desc }) => [desc(messages.createdAt)],
+        limit: 10,
+    });
+
+    // 5. Save User Message (Skip if hidden trigger)
+    let userMessage;
+    if (content !== 'INITIAL_ANALYSIS_TRIGGER') {
+        [userMessage] = await db.insert(wizardMessages).values({
+            sliceCardId: primaryCard.id,
+            userId,
+            content,
+            role: 'user',
+        }).returning();
+    }
+
+    // 6. Call AI
+    const { message: aiContent, actions, qualityScore = 0, refusalReason } = await processWizardMessage(
+        content,
+        allCards,
+        recentMessages.reverse(), // Chronological order
+        locale
+    );
+
+    // 6b. Aura Reward Logic (Quality Gate)
+    if (qualityScore >= 7 && userId) {
+        if (actions.some(a => a.type === 'CREATE_CARD')) {
+            await awardAura(userId, 'VALID_SLICE_CREATION');
+        } else {
+            await awardAura(userId, 'HELPFUL_CLARIFICATION');
         }
     }
 
-    return aiResponse;
+    // 7. Execute Actions
+    let updatedCards = [...allCards];
+
+    for (const action of actions) {
+        if (action.type === 'UPDATE_CARD') {
+            const [updated] = await db.update(sliceCards)
+                .set({
+                    ...action.updates,
+                    updatedAt: new Date(),
+                    version: (primaryCard.version || 1) + 1,
+                })
+                .where(eq(sliceCards.id, action.cardId))
+                .returning();
+
+            updatedCards = updatedCards.map(c => c.id === action.cardId ? updated : c);
+
+        } else if (action.type === 'CREATE_CARD') {
+            const [newSlice] = await db.insert(slices).values({
+                requestId: requestId,
+                creatorId: userId,
+                title: action.data.title,
+                description: action.data.description,
+                status: 'proposed',
+            }).returning();
+
+            const [newCard] = await db.insert(sliceCards).values({
+                sliceId: newSlice.id,
+                requestId: requestId,
+                title: action.data.title,
+                description: action.data.description,
+                skills: action.data.skills || [],
+                currency: 'ARS',
+            }).returning();
+
+            updatedCards.push(newCard);
+        }
+    }
+
+    // 8. Save AI Response
+    const AI_USER_ID = '00000000-0000-0000-0000-000000000000';
+
+    // Ensure AI user exists (Idempotent)
+    await db.insert(users).values({
+        id: AI_USER_ID,
+        email: 'ai@umarel.org',
+        fullName: 'Umarel AI',
+        role: 'admin',
+        auraPoints: 999999
+    }).onConflictDoNothing();
+
+    const [aiResponse] = await db.insert(wizardMessages).values({
+        sliceCardId: primaryCard.id,
+        userId: AI_USER_ID,
+        content: aiContent,
+        role: 'assistant',
+        metadata: {
+            model: 'gpt-4-turbo-preview',
+            actionsExecuted: actions.length,
+            userQualityScore: qualityScore,
+            refusalReason,
+            auraAwarded: qualityScore >= 7
+        },
+    }).returning();
+
+    return {
+        userMessage,
+        aiMessage: aiResponse,
+        sliceCards: updatedCards
+    };
 }

@@ -3,6 +3,7 @@ import { db } from '@/lib/db'
 import { requests, slices, comments, quotes, users, questions, answers, changeProposals } from '@/lib/db/schema'
 import { eq, desc } from 'drizzle-orm'
 import { RequestInteractionLayout } from '@/components/interaction/request-interaction-layout'
+import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
 
 // Mock data for development when DB is not connected
 const MOCK_REQUEST = {
@@ -60,8 +61,11 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
         request = result[0];
 
         if (request) {
+            import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
+
+            // ... inside component ...
             // Fetch Slices
-            requestSlices = await db.select().from(slices).where(eq(slices.requestId, id));
+            requestSlices = await getOpenSlicesForProvider(id);
 
             // Fetch Comments
             requestComments = await db

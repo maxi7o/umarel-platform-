@@ -1,51 +1,41 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
-import { slices, quotes } from '@/lib/db/schema'
-import { db } from '@/lib/db'
+import { submitQuote } from '@/lib/services/quote-service';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 
-export async function createSlice(requestId: string, formData: FormData) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-        throw new Error('Unauthorized')
-    }
-
-    const title = formData.get('title') as string
-    const description = formData.get('description') as string
-    const estimatedEffort = formData.get('estimatedEffort') as string
-
-    await db.insert(slices).values({
-        requestId,
-        creatorId: user.id,
-        title,
-        description,
-        estimatedEffort,
-    })
-
-    revalidatePath(`/requests/${requestId}`)
-}
-
-export async function createQuote(sliceId: string, formData: FormData) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+export async function submitQuoteAction(formData: FormData) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-        throw new Error('Unauthorized')
+        throw new Error('Unauthorized');
     }
 
-    const amount = parseInt(formData.get('amount') as string) * 100 // convert to cents
-    const message = formData.get('message') as string
+    const requestId = formData.get('requestId') as string;
+    const amount = parseFloat(formData.get('amount') as string);
+    const message = formData.get('message') as string;
+    const sliceIds = (formData.get('sliceIds') as string).split(',');
 
-    await db.insert(quotes).values({
-        sliceId,
-        providerId: user.id,
-        amount,
-        message,
-    })
+    if (!requestId || isNaN(amount) || sliceIds.length === 0) {
+        throw new Error('Invalid form data');
+    }
 
-    // In a real app we'd revalidate the path where this quote is shown
-    // revalidatePath(...)
+    try {
+        await submitQuote({
+            providerId: user.id,
+            requestId,
+            amount,
+            message,
+            sliceIds,
+            // estimatedDeliveryDate: new Date() // Optional
+        });
+
+        revalidatePath(`/requests/${requestId}`);
+
+    } catch (error) {
+        console.error('Failed to submit quote:', error);
+        throw new Error('Failed to submit quote');
+    }
 }

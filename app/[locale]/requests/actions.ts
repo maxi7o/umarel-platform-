@@ -3,9 +3,9 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { requests, users, slices, sliceCards } from '@/lib/db/schema'
+import { users } from '@/lib/db/schema'
 import { db } from '@/lib/db'
-import { sql } from 'drizzle-orm'
+import { initializeRequest } from '@/lib/services/request-service'
 
 export async function createRequest(formData: FormData) {
     const supabase = await createClient()
@@ -47,40 +47,18 @@ export async function createRequest(formData: FormData) {
 
     // Create request
     try {
-        const insertedRequests = await db.insert(requests).values({
+        const { initialSliceId } = await initializeRequest({
             userId,
             title,
             description,
-            location,
-        }).returning()
-
-        const newRequest = insertedRequests[0]
-
-        // Create initial slice for the Wizard
-        const insertedSlices = await db.insert(slices).values({
-            requestId: newRequest.id,
-            creatorId: userId,
-            title: title,
-            description: description,
-            status: 'proposed',
-        }).returning()
-
-        const initialSlice = insertedSlices[0]
-
-        // Create initial Slice Card
-        await db.insert(sliceCards).values({
-            sliceId: initialSlice.id,
-            requestId: newRequest.id,
-            title: title,
-            description: description,
-            version: 1,
+            location
         });
 
         revalidatePath('/requests')
-        redirectPath = `/wizard/${initialSlice.id}`;
+        redirectPath = `/wizard/${initialSliceId}`;
 
     } catch (error) {
-        console.error('Database error:', error)
+        console.error('Service error:', error)
 
         // In development, if DB fails (e.g. no connection), log it
         if (process.env.NODE_ENV === 'development') {

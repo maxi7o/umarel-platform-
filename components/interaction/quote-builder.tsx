@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { SliceSelector } from './slice-selector';
 import { Loader2, DollarSign, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
+import { submitQuoteAction } from '@/app/[locale]/requests/[id]/actions';
 
 interface QuoteBuilderProps {
     requestId: string;
@@ -49,31 +50,31 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
         const amountCents = Math.round(parseFloat(amount) * 100);
 
         try {
-            const res = await fetch('/api/quotes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    requestId,
-                    providerId: userId, // Send the user ID
-                    sliceIds: selectedSlices,
-                    amount: amountCents, // Total amount for ALL selected slices
-                    message,
-                    estimatedDeliveryDate: new Date(Date.now() + (parseInt(estimatedDays) || 1) * 86400000).toISOString()
-                })
-            });
+            const formData = new FormData();
+            formData.append('requestId', requestId);
+            formData.append('amount', amount); // Sending raw string, action handles parsing
+            formData.append('message', message);
+            formData.append('sliceIds', selectedSlices.join(','));
 
-            if (!res.ok) throw new Error("Error submitting quote");
+            await submitQuoteAction(formData);
 
-            const newQuote = await res.json(); // Assuming API returns the created object
+            // Fetch handling removed as Action redirects/revalidates
 
+            // Success assumed if no error thrown
             toast.success("¡Cotización enviada!");
 
             if (onQuoteCreated) {
-                onQuoteCreated(newQuote);
+                // Pass placeholder as action manages state
+                onQuoteCreated({ id: 'new', status: 'pending', amount: amountCents, message, providerId: userId });
             }
 
-            router.push(`/requests/${requestId}`); // Go back to request
-            router.refresh();
+            // router.push(...) handled by action redirect if needed, or revalidatePath handles refresh
+            // Ideally we clear form or just let revalidate update the UI state if we stay on page
+            if (onQuoteCreated) {
+                // We might not have the full object here anymore unless action returns it, 
+                // but for now let's assume we rely on refresh.
+            }
+            // router.refresh(); // Action revalidates
 
         } catch (error) {
             console.error(error);

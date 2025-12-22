@@ -29,7 +29,7 @@ interface WizardInterfaceProps {
 
 export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en' }: WizardInterfaceProps) {
     const [messages, setMessages] = useState<any[]>([]);
-    const [sliceCards, setSliceCards] = useState<any[]>([]); // Changed to Array
+    const [sliceCards, setSliceCards] = useState<any[]>([]); // TODO: Import SliceCard type
     const [activeCardId, setActiveCardId] = useState<string | null>(null);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -102,10 +102,6 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                 if (data.sliceCards.length > 0) {
                     setActiveCardId(data.sliceCards[0].id);
                 }
-            } else if (data.sliceCard) {
-                // Fallback for legacy API response
-                setSliceCards([data.sliceCard]);
-                setActiveCardId(data.sliceCard.id);
             }
 
             setMessages(data.messages || []);
@@ -139,7 +135,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     sliceId,
-                    content: "INITIAL_ANALYSIS_TRIGGER", // Special flag for backend
+                    content: "INITIAL_ANALYSIS_TRIGGER", // Triggers AI analysis without user message
                     currentSliceCards: cards,
                     locale,
                 }),
