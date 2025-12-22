@@ -5,6 +5,7 @@ interface SubmitQuoteParams {
     providerId: string;
     requestId: string;
     amount: number;
+    currency?: string; // Default 'ARS'
     message?: string;
     sliceIds: string[];
     estimatedDeliveryDate?: Date;
@@ -21,6 +22,7 @@ export async function submitQuote(params: SubmitQuoteParams) {
                 providerId,
                 requestId,
                 amount,
+                currency: (params.currency || 'ARS') as 'ARS' | 'USD' | 'BRL' | 'MXN' | 'COP',
                 message,
                 estimatedDeliveryDate,
                 status: 'pending' // pending by default

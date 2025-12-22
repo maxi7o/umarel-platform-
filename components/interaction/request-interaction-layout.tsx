@@ -10,6 +10,7 @@ import { QuoteBuilder } from './quote-builder';
 import { ChangeProposalCard } from './change-proposal-card';
 import { MessageSquare, KanbanSquare, FileText, Activity } from 'lucide-react';
 import { toast } from 'sonner';
+import { CurrencyDisplay } from '@/components/currency-display';
 
 interface RequestInteractionLayoutProps {
     request: any;
@@ -217,7 +218,7 @@ export function RequestInteractionLayout({
                                                 <Badge>{quote.status}</Badge>
                                             </div>
                                             <div className="text-2xl font-bold text-orange-600">
-                                                ${(quote.amount / 100).toFixed(2)}
+                                                <CurrencyDisplay amount={quote.amount} currency={quote.currency || 'ARS'} />
                                             </div>
                                         </CardHeader>
                                         <CardContent>

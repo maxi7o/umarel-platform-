@@ -61,6 +61,7 @@ describe('Quote Service', () => {
                 providerId: 'provider-1',
                 requestId: 'req-1',
                 amount: 50000, // cents
+                currency: 'USD',
                 message: 'I can do this',
                 sliceIds: ['slice-1', 'slice-2']
             };
@@ -83,7 +84,8 @@ describe('Quote Service', () => {
             const firstInsertValues = mockInsert.values.mock.calls[0][0];
             expect(firstInsertValues).toEqual(expect.objectContaining({
                 providerId: 'provider-1',
-                amount: 50000
+                amount: 50000,
+                currency: 'USD'
             }));
 
             // Second call for quote items

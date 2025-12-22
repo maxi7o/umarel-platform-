@@ -68,6 +68,7 @@ export const quotes = pgTable('quotes', {
     providerId: uuid('provider_id').references(() => users.id).notNull(),
     requestId: uuid('request_id').references(() => requests.id).notNull(), // Added direct link to request
     amount: integer('amount').notNull(), // in cents
+    currency: currencyEnum('currency').default('ARS'),
     message: text('message'),
     estimatedDeliveryDate: timestamp('estimated_delivery_date'),
     status: quoteStatusEnum('status').default('pending'),

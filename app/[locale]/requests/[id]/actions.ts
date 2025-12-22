@@ -15,6 +15,7 @@ export async function submitQuoteAction(formData: FormData) {
 
     const requestId = formData.get('requestId') as string;
     const amount = parseFloat(formData.get('amount') as string);
+    const currency = (formData.get('currency') as string) || 'ARS';
     const message = formData.get('message') as string;
     const sliceIds = (formData.get('sliceIds') as string).split(',');
 
@@ -27,6 +28,7 @@ export async function submitQuoteAction(formData: FormData) {
             providerId: user.id,
             requestId,
             amount,
+            currency,
             message,
             sliceIds,
             // estimatedDeliveryDate: new Date() // Optional

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -24,6 +25,7 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
     const router = useRouter();
     const [selectedSlices, setSelectedSlices] = useState<string[]>([]);
     const [amount, setAmount] = useState('');
+    const [currency, setCurrency] = useState('ARS');
     const [message, setMessage] = useState('');
     const [estimatedDays, setEstimatedDays] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,6 +55,7 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
             const formData = new FormData();
             formData.append('requestId', requestId);
             formData.append('amount', amount); // Sending raw string, action handles parsing
+            formData.append('currency', currency);
             formData.append('message', message);
             formData.append('sliceIds', selectedSlices.join(','));
 
@@ -107,18 +110,29 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="amount">Precio Total (ARS)</Label>
-                            <div className="relative">
-                                <DollarSign className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                    id="amount"
-                                    placeholder="0.00"
-                                    className="pl-9 text-lg font-semibold"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    type="number"
-                                    min="0"
-                                    required
-                                />
+                            <div className="relative flex gap-2">
+                                <Select value={currency} onValueChange={setCurrency}>
+                                    <SelectTrigger className="w-[100px]">
+                                        <SelectValue placeholder="Currency" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="ARS">ARS</SelectItem>
+                                        <SelectItem value="USD">USD</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <div className="relative flex-1">
+                                    <DollarSign className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                    <Input
+                                        id="amount"
+                                        placeholder="0.00"
+                                        className="pl-9 text-lg font-semibold"
+                                        value={amount}
+                                        onChange={(e) => setAmount(e.target.value)}
+                                        type="number"
+                                        min="0"
+                                        required
+                                    />
+                                </div>
                             </div>
                             <p className="text-xs text-muted-foreground">
                                 Incluye tu mano de obra y materiales si corresponde.
