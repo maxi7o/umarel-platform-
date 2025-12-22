@@ -29,6 +29,7 @@ interface CommentThreadProps {
     onCommentAdded?: (comment: Comment) => void;
     onSlicesCreated?: (slices: any[]) => void;
     currentUser?: any;
+    mode?: 'public' | 'private_insight';
 }
 
 export function CommentThread({
@@ -38,7 +39,8 @@ export function CommentThread({
     initialComments = [],
     onCommentAdded,
     onSlicesCreated,
-    currentUser
+    currentUser,
+    mode = 'public'
 }: CommentThreadProps) {
     // Use parent-controlled state if provided, otherwise use local state
     const [localComments, setLocalComments] = useState<Comment[]>(initialComments);
@@ -55,7 +57,12 @@ export function CommentThread({
 
         const interval = setInterval(async () => {
             try {
-                const res = await fetch(`/api/requests/${requestId}/comments`);
+                let url = `/api/requests/${requestId}/comments`;
+                if (mode === 'private_insight' && currentUser?.id) {
+                    url += `?userId=${currentUser.id}`;
+                }
+
+                const res = await fetch(url);
                 if (res.ok) {
                     const data = await res.json();
                     const filtered = quoteId
@@ -68,7 +75,7 @@ export function CommentThread({
             }
         }, 5000);
         return () => clearInterval(interval);
-    }, [requestId, quoteId, isControlled]);
+    }, [requestId, quoteId, isControlled, mode, currentUser?.id]);
 
     const handleSubmit = async () => {
         if (!newComment.trim()) return;
@@ -238,7 +245,9 @@ export function CommentThread({
                 ))}
                 {comments.length === 0 && (
                     <div className="text-center text-muted-foreground py-8 text-sm">
-                        No comments yet. Start the conversation!
+                        {mode === 'private_insight'
+                            ? "No insights submitted yet. Share your expertise!"
+                            : "No comments yet. Start the conversation!"}
                     </div>
                 )}
             </div>
@@ -247,7 +256,13 @@ export function CommentThread({
                 <Textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder={isPromptMode ? "Ask to split tasks ('Split into 2 slices')..." : "Write a comment..."}
+                    placeholder={
+                        isPromptMode
+                            ? "Ask to split tasks ('Split into 2 slices')..."
+                            : mode === 'private_insight'
+                                ? "Share an insight privately... (e.g. 'This needs a vapor barrier')"
+                                : "Write a comment..."
+                    }
                     className="min-h-[80px] border-0 focus-visible:ring-0 p-0 resize-none shadow-none"
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {

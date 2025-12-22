@@ -206,5 +206,38 @@
         "acceptanceCriteriaLabel": "Acceptance Criteria",
         "saveChanges": "Save Changes",
         "version": "Slice Card v{version}"
+    },
+    "createOffering": {
+        "pageTitle": "Offer Your Services",
+        "pageSubtitle": "Create a professional listing to showcase your skills and get discovered by people in your area.",
+        "cardTitle": "Service Details",
+        "cardDescription": "Provide comprehensive information about the service you wish to offer.",
+        "form": {
+            "titleLabel": "Service Title",
+            "titlePlaceholder": "e.g., Experienced Plumber for Residential Repairs",
+            "titleDesc": "A clear, professional title for your service.",
+            "categoryLabel": "Category",
+            "categoryPlaceholder": "Select a category",
+            "descriptionLabel": "Description",
+            "descriptionPlaceholder": "Describe your experience, services offered, and what makes you unique...",
+            "virtualLabel": "Virtual Service",
+            "virtualDesc": "Check this if your service can be performed remotely (e.g., consulting, design).",
+            "locationLabel": "Location",
+            "locationPlaceholder": "e.g., Milano, Italy",
+            "locationDesc": "The primary area where you offer your services.",
+            "hourlyRateLabel": "Hourly Rate ($) (Optional)",
+            "availabilityLabel": "Availability",
+            "availabilityPlaceholder": "e.g., Weekends, Evenings, Mon-Fri 9-5",
+            "skillsLabel": "Skills",
+            "skillsPlaceholder": "e.g., Pipe fitting, Leak repair, Water heater installation",
+            "skillsDesc": "Comma-separated list of specific skills.",
+            "portfolioLabel": "Portfolio Images",
+            "addImage": "Add Image",
+            "portfolioDesc": "Add photos of your past work to build trust.",
+            "submitButton": "Publish Service Offering",
+            "submittingButton": "Creating Offering...",
+            "successMessage": "Service offering created successfully!",
+            "errorMessage": "Failed to create service offering. Please try again."
+        }
     }
 }

@@ -9,6 +9,7 @@ import {
     serviceRatings,
     userWallets
 } from '../lib/db/schema';
+import { eq } from 'drizzle-orm';
 
 async function seedDemoData() {
     console.log('🌱 Seeding demo data for investor meeting...');
@@ -44,6 +45,14 @@ async function seedDemoData() {
             auraPoints: 847,
             auraLevel: 'silver',
             totalSavingsGenerated: 234500,
+        }).returning();
+
+        const [aiWizard] = await db.insert(users).values({
+            id: '99999999-9999-9999-9999-999999999999',
+            email: 'wizard@umarel.ai',
+            fullName: 'Asistente Umarel',
+            role: 'admin',
+            avatarUrl: 'https://umarel.org/wizard-avatar.png',
         }).returning();
 
         // Create wallets
@@ -100,22 +109,22 @@ async function seedDemoData() {
         }).returning();
 
         // 4. Create Slice Card
-        await db.insert(sliceCards).values({
+        const [sliceCard] = await db.insert(sliceCards).values({
             sliceId: bathroomSlice.id,
             requestId: bathroomRequest.id,
             title: 'Renovar baño pequeño',
             description: 'Renovación completa de baño 3x2m con materiales de calidad media. Incluye: azulejos nacionales, sanitarios marca estándar, grifería cromada.',
             version: 2,
             isLocked: false,
-        });
+        }).returning();
 
         // 5. Create Wizard Messages
         console.log('Creating wizard messages...');
 
         await db.insert(wizardMessages).values([
             {
-                sliceCardId: bathroomSlice.id,
-                userId: 'ai-wizard',
+                sliceCardId: sliceCard.id,
+                userId: aiWizard.id,
                 content: `¡Hola! Soy el Asistente Umarel 🧙‍♂️
 
 He recibido tu solicitud: "Renovar baño pequeño"
@@ -131,13 +140,13 @@ Voy a hacerte algunas preguntas para entender mejor lo que necesitas:
                 metadata: { type: 'welcome' },
             },
             {
-                sliceCardId: bathroomSlice.id,
+                sliceCardId: sliceCard.id,
                 userId: maria.id,
                 content: 'Necesito que esté listo en 2 semanas. Prefiero materiales de buena calidad pero no los más caros. Mi presupuesto es de $150,000.',
                 role: 'user',
             },
             {
-                sliceCardId: bathroomSlice.id,
+                sliceCardId: sliceCard.id,
                 userId: diego.id,
                 content: 'Te recomiendo usar cerámica nacional en vez de importada. Ahorras un 30% sin perder calidad. Marcas como Cerro Negro o San Lorenzo son excelentes. También, considera grifería FV en vez de marcas importadas - mismo resultado, mitad de precio.',
                 role: 'user',
@@ -146,8 +155,8 @@ Voy a hacerte algunas preguntas para entender mejor lo que necesitas:
                 savingsGenerated: 45000,
             },
             {
-                sliceCardId: bathroomSlice.id,
-                userId: 'ai-wizard',
+                sliceCardId: sliceCard.id,
+                userId: aiWizard.id,
                 content: 'Excelente! He actualizado tu solicitud con estas recomendaciones. Basándome en tu presupuesto y las sugerencias de la comunidad, he optimizado el proyecto:\n\n✅ Cerámica nacional (Cerro Negro) - Ahorro: $25,000\n✅ Grifería FV - Ahorro: $15,000\n✅ Sanitarios Ferrum - Ahorro: $5,000\n\nTotal estimado: $120,000 (ahorraste $30,000)\n\n¿Te gustaría agregar algo más o publicar la solicitud?',
                 role: 'assistant',
                 metadata: { type: 'optimization' },

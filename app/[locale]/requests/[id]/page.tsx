@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { requests, slices, comments, quotes, users, questions, answers } from '@/lib/db/schema'
+import { requests, slices, comments, quotes, users, questions, answers, changeProposals } from '@/lib/db/schema'
 import { eq, desc } from 'drizzle-orm'
 import { RequestInteractionLayout } from '@/components/interaction/request-interaction-layout'
 
@@ -49,6 +49,8 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
     let requestQuotes: any[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let requestQuestions: any[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let requestProposals: any[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let currentUser: any = null;
 
@@ -112,9 +114,17 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                 })
             );
 
+            // Fetch Change Proposals
+            requestProposals = await db
+                .select()
+                .from(changeProposals)
+                .where(eq(changeProposals.requestId, id))
+                .orderBy(desc(changeProposals.createdAt));
+
             // Fetch a "current user" for interaction (simulating logged in user)
             // In a real app, this would come from auth session
-            const [dbUser] = await db.select().from(users).limit(1);
+            // Fetch "Maria" (Owner) for interaction
+            const [dbUser] = await db.select().from(users).where(eq(users.email, 'maria@demo.com'));
             currentUser = dbUser;
         }
 
@@ -175,6 +185,8 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                 initialComments={requestComments}
                 initialQuotes={requestQuotes}
                 initialQuestions={requestQuestions}
+
+                initialProposals={requestProposals}
                 currentUser={currentUser}
             />
         </div>

@@ -158,7 +158,8 @@ export function shouldAnalyzeComment(content: string): boolean {
 export async function processExpertComment(
     commentContent: string,
     currentSliceCards: any[],
-    sliceId: string
+    sliceId: string,
+    locale: string = 'en'
 ): Promise<{
     wizardQuestion: string | null;
     actions: WizardAction[];
@@ -175,6 +176,10 @@ export async function processExpertComment(
 
     console.log('🤖 Starting AI Analysis for comment:', commentContent);
     console.log('Cards Context:', JSON.stringify(currentSliceCards.map(c => ({ id: c.id, title: c.title }))));
+
+    const languageInstruction = locale === 'es'
+        ? "CRITICAL: You MUST respond in SPANISH (Español). Do NOT use English."
+        : "Respond in English.";
 
     const systemPrompt = `You are the "Umarel Brain" - an AI that integrates expert feedback into project definitions.
     
@@ -193,11 +198,12 @@ Instructions:
 2. If they ask a question or point out a vague requirement (e.g. "How big is the room?"), generate a **Wizard Question** to ask the Requestor.
 3. If they suggest a concrete task (e.g. "You also need to paint the ceiling"), generate a CREATE_CARD action.
 4. If they correct a detail (e.g. "That requires a specialized saw"), generate an UPDATE_CARD action.
+5. ${languageInstruction}
 
 Output Format (JSON):
 {
   "message": "Natural language response...",
-  "wizardQuestion": "Optional question for user...",
+  "wizardQuestion": "Optional question for user (in the requested language)...",
   "qualityScore": 1-10 (1=Spam/Low Effort, 10=Game Changing Insight),
   "impactType": "risk_mitigation" | "clarity" | "savings" | "general" | "spam",
   "estimatedSavings": 0 (in ARS cents, if applicable),

@@ -235,5 +235,38 @@
         },
         "emptyStash": "Aún no hay guita en el canuto. ¡Empezá a comentar!",
         "withdraw": "Retirar Ganancias"
+    },
+    "createOffering": {
+        "pageTitle": "Ofrece tus Servicios",
+        "pageSubtitle": "Crea un listado profesional para mostrar tus habilidades y ser descubierto por personas en tu área.",
+        "cardTitle": "Detalles del Servicio",
+        "cardDescription": "Proporciona información completa sobre el servicio que deseas ofrecer.",
+        "form": {
+            "titleLabel": "Título del Servicio",
+            "titlePlaceholder": "ej. Plomero con experiencia para reparaciones residenciales",
+            "titleDesc": "Un título claro y profesional para tu servicio.",
+            "categoryLabel": "Categoría",
+            "categoryPlaceholder": "Selecciona una categoría",
+            "descriptionLabel": "Descripción",
+            "descriptionPlaceholder": "Describe tu experiencia, servicios ofrecidos y lo que te hace único...",
+            "virtualLabel": "Servicio Virtual",
+            "virtualDesc": "Marca esto si tu servicio se puede realizar de forma remota (ej. consultoría, diseño).",
+            "locationLabel": "Ubicación",
+            "locationPlaceholder": "ej. Milán, Italia",
+            "locationDesc": "El área principal donde ofreces tus servicios.",
+            "hourlyRateLabel": "Tarifa por Hora ($) (Opcional)",
+            "availabilityLabel": "Disponibilidad",
+            "availabilityPlaceholder": "ej. Fines de semana, tardes, Lun-Vie 9-5",
+            "skillsLabel": "Habilidades",
+            "skillsPlaceholder": "ej. Instalación de tuberías, reparación de fugas",
+            "skillsDesc": "Lista separada por comas de habilidades específicas.",
+            "portfolioLabel": "Imágenes del Portafolio",
+            "addImage": "Agregar Imagen",
+            "portfolioDesc": "Agrega fotos de tu trabajo anterior para generar confianza.",
+            "submitButton": "Publicar Oferta de Servicio",
+            "submittingButton": "Creando Oferta...",
+            "successMessage": "¡Oferta de servicio creada con éxito!",
+            "errorMessage": "Error al crear la oferta de servicio. Por favor inténtalo de nuevo."
+        }
     }
 }

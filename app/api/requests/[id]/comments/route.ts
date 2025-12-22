@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { comments, sliceCards, wizardMessages, slices, users, contributionEvaluations } from '@/lib/db/schema'; // Added imports
+import { comments, sliceCards, wizardMessages, slices, users, contributionEvaluations, changeProposals } from '@/lib/db/schema'; // Added imports
 import { eq, desc, sql } from 'drizzle-orm';
 import { processExpertComment } from '@/lib/ai/openai'; // Added import
 import { calculateAuraLevel } from '@/lib/aura/calculations';
@@ -15,7 +15,7 @@ export async function POST(
     try {
         const { id } = await params;
         const body = await request.json();
-        const { content, type, userId } = body;
+        const { content, type, userId, locale = 'en' } = body; // Added locale extraction
 
         if (!content || !userId) {
             return NextResponse.json(
@@ -39,53 +39,54 @@ export async function POST(
                 where: eq(sliceCards.requestId, id),
             });
 
-            // 2. Process Comment
-            const aiResult = await processExpertComment(content, allCards, id);
+            // 2. Process Comment (Pass locale)
+            const aiResult = await processExpertComment(content, allCards, id, locale);
             aiDebug = aiResult; // Capture result
 
             // 3. Execute Actions
             if (aiResult.actions.length > 0) {
-                for (const action of aiResult.actions) {
-                    if (action.type === 'UPDATE_CARD') {
-                        await db.update(sliceCards)
-                            .set({
-                                ...action.updates,
-                                updatedAt: new Date(),
-                                version: sql`version + 1`, // increment version
-                            })
-                            .where(eq(sliceCards.id, action.cardId));
-                    } else if (action.type === 'CREATE_CARD') {
-                        // Create slice + card
-                        const [newSlice] = await db.insert(slices).values({
-                            requestId: id,
-                            creatorId: userId, // Attribute creation to the Expert? Or System? Let's use Expert ID.
-                            title: action.data.title,
-                            description: action.data.description,
-                            status: 'proposed',
-                        }).returning();
-
-                        await db.insert(sliceCards).values({
-                            sliceId: newSlice.id,
-                            requestId: id,
-                            title: action.data.title,
-                            description: action.data.description,
-                            skills: action.data.skills || [],
-                            currency: 'ARS',
-                        });
+                await db.insert(changeProposals).values({
+                    requestId: id,
+                    commentId: newComment.id,
+                    proposedActions: aiResult.actions,
+                    status: 'pending',
+                    aiImpact: {
+                        qualityScore: aiResult.qualityScore,
+                        impactType: aiResult.impactType,
+                        estimatedSavings: aiResult.estimatedSavings
                     }
-                }
-            }
+                });
 
-            // 4. Post Wizard Question (if any)
-            if (aiResult.wizardQuestion) {
-                // Attach to the FIRST card found (or active one if we knew it)
+                // Notify via Wizard (Localized)
                 const targetCard = allCards[0];
-
                 if (targetCard) {
+                    const messageContent = locale === 'es'
+                        ? `📢 **Un experto ha propuesto cambios.**\n\nRevisa la propuesta arriba para validarla.`
+                        : `📢 **An expert has proposed changes.**\n\nReview the proposal above to validate it.`;
+
                     await db.insert(wizardMessages).values({
                         sliceCardId: targetCard.id,
                         userId: 'ai',
-                        content: `📢 **Un experto comentó:** "${content}"\n\n🤔 ${aiResult.wizardQuestion}`,
+                        content: messageContent,
+                        role: 'assistant',
+                        metadata: { source: 'change_proposal', originalCommentId: newComment.id },
+                    });
+                }
+            }
+
+            // 4. Post Wizard Question (Localized Header)
+            if (aiResult.wizardQuestion) {
+                const targetCard = allCards[0];
+
+                if (targetCard) {
+                    const params = locale === 'es'
+                        ? { header: "Un experto comentó", question: aiResult.wizardQuestion }
+                        : { header: "An expert commented", question: aiResult.wizardQuestion };
+
+                    await db.insert(wizardMessages).values({
+                        sliceCardId: targetCard.id,
+                        userId: 'ai',
+                        content: `📢 **${params.header}:** "${content}"\n\n🤔 ${params.question}`,
                         role: 'assistant',
                         metadata: { source: 'expert_feedback', originalCommentId: newComment.id },
                     });
@@ -98,67 +99,8 @@ export async function POST(
         }
 
         // --- AURA ALGORITHM APPLICATION ---
-        if (aiDebug?.qualityScore && userId) {
-            const score = aiDebug.qualityScore as number;
-            const impactType = aiDebug.impactType as string;
-            const savings = (aiDebug.estimatedSavings as number) || 0;
+        // DEFERRED: Aura is now awarded when the Owner accepts the proposal in /api/proposals/[id]/respond
 
-            let auraPoints = 0;
-
-            // 1. Base Score calculation
-            if (impactType === 'risk_mitigation') {
-                // Exponential reward for risk: Score^2 * 5
-                auraPoints = Math.pow(score, 2) * 5;
-            } else if (impactType === 'savings') {
-                // Savings reward: 1 point per 1000 ARS saved + Base Clarity score
-                auraPoints = Math.floor(savings / 1000) + (score * 10);
-            } else {
-                // Default/Clarity: Linear 10x
-                auraPoints = score * 10;
-            }
-
-            // Spam filter override
-            if (score < 2) auraPoints = 0;
-
-            if (auraPoints > 0) {
-                // Update User Aura & Level
-                // We need to fetch current points first to calculate total new points for level check
-                // OR we can do it in a transaction. For MVP, we'll just increment and let the next read handle it,
-                // BUT we want immediate feedback.
-                // Let's do a fetch-update for accuracy or a stored procedure.
-                // Simpler JS approach:
-                const [currentUser] = await db.select().from(users).where(eq(users.id, userId));
-                const newTotalPoints = (currentUser?.auraPoints || 0) + auraPoints;
-                const newLevel = calculateAuraLevel(newTotalPoints);
-
-                await db.update(users)
-                    .set({
-                        auraPoints: newTotalPoints,
-                        auraLevel: newLevel,
-                        totalSavingsGenerated: sql`total_savings_generated + ${savings}`
-                    })
-                    .where(eq(users.id, userId));
-
-                // Log Contribution (Best Effort linking to a Slice or Request)
-                const targetSlice = allCards[0]?.sliceId; // Link to first slice context if available
-
-                // We now log even if no slice exists, linking to the Request ID directly
-                await db.insert(contributionEvaluations).values({
-                    sliceId: targetSlice || null, // Optional now
-                    requestId: id, // Always link to the request
-                    evaluatorModel: 'gpt-4-turbo-preview',
-                    contributions: [{
-                        userId,
-                        userName: 'Expert', // We'd fetch real name in prod
-                        score,
-                        reasoning: `Impact: ${impactType}. Savings: ${savings}`,
-                        contributionType: impactType === 'risk_mitigation' ? 'risk_mitigation' :
-                            impactType === 'savings' ? 'savings' : 'quality'
-                    }],
-                    totalScore: auraPoints
-                });
-            }
-        }
 
         return NextResponse.json(newComment);
 

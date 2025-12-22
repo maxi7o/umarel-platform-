@@ -13,6 +13,7 @@ export const paymentMethodEnum = pgEnum('payment_method', ['stripe', 'mercado_pa
 export const commentTypeEnum = pgEnum('comment_type', ['text', 'prompt', 'ai_response']);
 export const auraLevelEnum = pgEnum('aura_level', ['bronze', 'silver', 'gold', 'diamond']);
 export const wizardMessageRoleEnum = pgEnum('wizard_message_role', ['user', 'assistant', 'system']);
+export const changeProposalStatusEnum = pgEnum('change_proposal_status', ['pending', 'accepted', 'rejected']);
 export const currencyEnum = pgEnum('currency', ['ARS', 'USD', 'BRL', 'MXN', 'COP']);
 
 export const users = pgTable('users', {
@@ -399,4 +400,16 @@ export const sliceEvidence = pgTable('slice_evidence', {
     fileType: text('file_type').default('image'),
     description: text('description'),
     createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const changeProposals = pgTable('change_proposals', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    requestId: uuid('request_id').references(() => requests.id).notNull(),
+    sliceId: uuid('slice_id').references(() => slices.id), // Optional, if related to a specific existing slice
+    commentId: uuid('comment_id').references(() => comments.id).notNull(),
+    proposedActions: jsonb('proposed_actions').notNull(), // Array of WizardAction
+    status: changeProposalStatusEnum('status').default('pending'),
+    aiImpact: jsonb('ai_impact'), // { qualityScore, impactType, estimatedSavings }
+    createdAt: timestamp('created_at').defaultNow(),
+    reviewedAt: timestamp('reviewed_at'),
 });

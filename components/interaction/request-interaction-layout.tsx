@@ -7,8 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { CommentThread } from './comment-thread';
 import { SliceKanban } from './slice-kanban';
 import { QuoteBuilder } from './quote-builder';
-import { QuestionThread } from './question-thread';
-import { MessageSquare, KanbanSquare, FileText, Activity, MessageCircleQuestion } from 'lucide-react';
+import { ChangeProposalCard } from './change-proposal-card';
+import { MessageSquare, KanbanSquare, FileText, Activity } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface RequestInteractionLayoutProps {
     request: any;
@@ -16,6 +17,7 @@ interface RequestInteractionLayoutProps {
     initialComments: any[];
     initialQuotes?: any[];
     initialQuestions?: any[];
+    initialProposals?: any[]; // Added
     currentUser?: any; // In real app, use hook
 }
 
@@ -25,13 +27,14 @@ export function RequestInteractionLayout({
     initialComments,
     initialQuotes = [],
     initialQuestions = [],
+    initialProposals = [],
     currentUser
 }: RequestInteractionLayoutProps) {
     const [activeTab, setActiveTab] = useState('overview');
     const [slices, setSlices] = useState(initialSlices);
     const [comments, setComments] = useState(initialComments);
     const [quotes, setQuotes] = useState(initialQuotes);
-    const [questions, setQuestions] = useState(initialQuestions);
+    const [proposals, setProposals] = useState(initialProposals);
 
     const [isDemo, setIsDemo] = useState(false);
     useEffect(() => {
@@ -49,31 +52,12 @@ export function RequestInteractionLayout({
 
     const handleSlicesCreated = (newSlices: any[]) => {
         setSlices(prev => [...prev, ...newSlices]);
-        // If demo, we might need to trigger a re-render or state update
-        if (isDemo) {
-            // No separate state, just add to slices and CommentThread should see it if linked
-        }
     };
 
     const handleQuoteCreated = (newQuote: any) => {
         setQuotes(prev => [...prev, newQuote]);
     };
 
-    const handleQuestionAdded = (newQuestion: any) => {
-        setQuestions(prev => [...prev, newQuestion]);
-    };
-
-    const handleQuestionUpdated = (updatedQuestion: any) => {
-        setQuestions(prev => prev.map((q: any) => q.id === updatedQuestion.id ? updatedQuestion : q));
-    };
-
-    const handleAnswerAdded = (questionId: string, newAnswer: any) => {
-        setQuestions(prev => prev.map((q: any) =>
-            q.id === questionId
-                ? { ...q, answers: [...(q.answers || []), newAnswer] }
-                : q
-        ));
-    };
 
     const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
 
@@ -95,11 +79,6 @@ export function RequestInteractionLayout({
                         <span className="hidden sm:inline">Quotes</span>
                         <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{quotes.length}</Badge>
                     </TabsTrigger>
-                    <TabsTrigger value="questions" className="gap-2">
-                        <MessageCircleQuestion size={16} />
-                        <span className="hidden sm:inline">Q&A</span>
-                        <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{questions.length}</Badge>
-                    </TabsTrigger>
                     <TabsTrigger value="activity" className="gap-2">
                         <Activity size={16} />
                         <span className="hidden sm:inline">Activity</span>
@@ -108,6 +87,50 @@ export function RequestInteractionLayout({
 
                 {/* Overview Tab: Description + Main Comment Thread */}
                 <TabsContent value="overview" className="space-y-6 mt-6">
+                    {/* Pending Proposals Section */}
+                    {proposals.length > 0 && proposals.some((p: any) => p.status === 'pending') && (
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-semibold flex items-center gap-2">
+                                <Activity className="text-orange-600" size={20} />
+                                Pending Change Proposals
+                            </h3>
+                            <div className="grid gap-4 md:grid-cols-2">
+                                {proposals
+                                    .filter((p: any) => p.status === 'pending')
+                                    .map((proposal: any) => (
+                                        <ChangeProposalCard
+                                            key={proposal.id}
+                                            proposal={proposal}
+                                            onRespond={async (id, status) => {
+                                                const userId = currentUser?.id;
+                                                // Call API
+                                                const res = await fetch(`/api/proposals/${id}/respond`, {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ status, userId })
+                                                });
+
+                                                if (!res.ok) throw new Error('Failed');
+
+                                                // Update local state
+                                                setProposals(prev => prev.map((p: any) =>
+                                                    p.id === id ? { ...p, status } : p
+                                                ));
+
+                                                if (status === 'accepted') {
+                                                    // Refresh data or simpler: wait for user reload. 
+                                                    // Ideally we get the new slices back from the API, but for MVP we might just prompt reload or trigger parent refresh.
+                                                    // We can optimistically apply if we knew exactly what happened, but it's complex.
+                                                    toast.success('Changes applied! Refreshing data...');
+                                                    window.location.reload();
+                                                }
+                                            }}
+                                        />
+                                    ))}
+                            </div>
+                        </div>
+                    )}
+
                     <div className="grid gap-6 md:grid-cols-3">
                         <div className="md:col-span-2 space-y-6">
                             <Card>
@@ -123,7 +146,7 @@ export function RequestInteractionLayout({
 
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Discussion & AI Prompts</CardTitle>
+                                    <CardTitle>Private Insights & Suggestions</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <CommentThread
@@ -132,6 +155,7 @@ export function RequestInteractionLayout({
                                         onCommentAdded={handleCommentAdded}
                                         onSlicesCreated={handleSlicesCreated}
                                         currentUser={currentUser}
+                                        mode="private_insight"
                                     />
                                 </CardContent>
                             </Card>
@@ -238,17 +262,7 @@ export function RequestInteractionLayout({
                 </TabsContent>
 
                 {/* Questions Tab: Q&A for Service Providers */}
-                <TabsContent value="questions" className="mt-6">
-                    <QuestionThread
-                        requestId={request.id}
-                        questions={questions}
-                        currentUser={currentUser}
-                        isOwner={isOwner}
-                        onQuestionAdded={handleQuestionAdded}
-                        onQuestionUpdated={handleQuestionUpdated}
-                        onAnswerAdded={handleAnswerAdded}
-                    />
-                </TabsContent>
+
 
                 {/* Activity Tab: Just a full view of comments for now */}
                 <TabsContent value="activity" className="mt-6">

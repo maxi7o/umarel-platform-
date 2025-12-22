@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useTranslations } from 'next-intl';
 import { Loader2, Upload, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +28,7 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
+import { LocationInput } from '@/components/forms/location-input';
 
 const formSchema = z.object({
     title: z.string().min(10, 'Title must be at least 10 characters'),
@@ -60,6 +62,8 @@ interface CreateOfferingFormProps {
 
 export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     const router = useRouter();
+    const t = useTranslations('createOffering');
+    const tFilter = useTranslations('filters');
     const [isLoading, setIsLoading] = useState(false);
     const [portfolioImages, setPortfolioImages] = useState<string[]>([]);
 
@@ -83,7 +87,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
         if (!isVirtual && !values.location) {
             form.setError('location', {
                 type: 'manual',
-                message: 'Location is required for non-virtual services',
+                message: 'Location is required for non-virtual services', // Should translate, but schema validation usually separate
             });
             return;
         }
@@ -112,11 +116,11 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                 throw new Error(error.message || 'Failed to create offering');
             }
 
-            toast.success('Service offering created successfully!');
+            toast.success(t('form.successMessage'));
             router.push('/browse?type=offerings');
         } catch (error) {
             console.error('Error creating offering:', error);
-            toast.error('Failed to create service offering. Please try again.');
+            toast.error(t('form.errorMessage'));
         } finally {
             setIsLoading(false);
         }
@@ -141,12 +145,12 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         name="title"
                         render={({ field }: { field: any }) => (
                             <FormItem>
-                                <FormLabel>Service Title</FormLabel>
+                                <FormLabel>{t('form.titleLabel')}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="e.g., Experienced Plumber for Residential Repairs" {...field} />
+                                    <Input placeholder={t('form.titlePlaceholder')} {...field} />
                                 </FormControl>
                                 <FormDescription>
-                                    A clear, professional title for your service.
+                                    {t('form.titleDesc')}
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -158,17 +162,17 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         name="category"
                         render={({ field }: { field: any }) => (
                             <FormItem>
-                                <FormLabel>Category</FormLabel>
+                                <FormLabel>{t('form.categoryLabel')}</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select a category" />
+                                            <SelectValue placeholder={t('form.categoryPlaceholder')} />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
                                         {CATEGORIES.map((cat) => (
                                             <SelectItem key={cat.id} value={cat.id}>
-                                                {cat.label}
+                                                {tFilter(`categories.${cat.id}`) || cat.label}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -183,10 +187,10 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         name="description"
                         render={({ field }: { field: any }) => (
                             <FormItem>
-                                <FormLabel>Description</FormLabel>
+                                <FormLabel>{t('form.descriptionLabel')}</FormLabel>
                                 <FormControl>
                                     <Textarea
-                                        placeholder="Describe your experience, services offered, and what makes you unique..."
+                                        placeholder={t('form.descriptionPlaceholder')}
                                         className="min-h-[150px]"
                                         {...field}
                                     />
@@ -209,9 +213,9 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                         />
                                     </FormControl>
                                     <div className="space-y-1 leading-none">
-                                        <FormLabel>Virtual Service</FormLabel>
+                                        <FormLabel>{t('form.virtualLabel')}</FormLabel>
                                         <FormDescription>
-                                            Check this if your service can be performed remotely (e.g., consulting, design).
+                                            {t('form.virtualDesc')}
                                         </FormDescription>
                                     </div>
                                 </FormItem>
@@ -224,12 +228,18 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="location"
                                 render={({ field }: { field: any }) => (
                                     <FormItem>
-                                        <FormLabel>Location</FormLabel>
+                                        <FormLabel>{t('form.locationLabel')}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="e.g., Milano, Italy" {...field} />
+                                            <LocationInput
+                                                name="location"
+                                                placeholder={t('form.locationPlaceholder')}
+                                                required={!isVirtual}
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                            />
                                         </FormControl>
                                         <FormDescription>
-                                            The primary area where you offer your services.
+                                            {t('form.locationDesc')}
                                         </FormDescription>
                                         <FormMessage />
                                     </FormItem>
@@ -244,7 +254,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                             name="hourlyRate"
                             render={({ field }: { field: any }) => (
                                 <FormItem>
-                                    <FormLabel>Hourly Rate ($) (Optional)</FormLabel>
+                                    <FormLabel>{t('form.hourlyRateLabel')}</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="50" {...field} />
                                     </FormControl>
@@ -258,9 +268,9 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                             name="availability"
                             render={({ field }: { field: any }) => (
                                 <FormItem>
-                                    <FormLabel>Availability</FormLabel>
+                                    <FormLabel>{t('form.availabilityLabel')}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="e.g., Weekends, Evenings, Mon-Fri 9-5" {...field} />
+                                        <Input placeholder={t('form.availabilityPlaceholder')} {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -273,12 +283,12 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         name="skills"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Skills</FormLabel>
+                                <FormLabel>{t('form.skillsLabel')}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="e.g., Pipe fitting, Leak repair, Water heater installation" {...field} />
+                                    <Input placeholder={t('form.skillsPlaceholder')} {...field} />
                                 </FormControl>
                                 <FormDescription>
-                                    Comma-separated list of specific skills.
+                                    {t('form.skillsDesc')}
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -286,7 +296,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     />
 
                     <div className="space-y-4">
-                        <FormLabel>Portfolio Images</FormLabel>
+                        <FormLabel>{t('form.portfolioLabel')}</FormLabel>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {portfolioImages.map((url, index) => (
                                 <div key={index} className="relative aspect-video rounded-lg overflow-hidden border bg-muted">
@@ -306,11 +316,11 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed hover:border-primary hover:bg-accent/50 transition-colors"
                             >
                                 <Upload className="h-6 w-6 mb-2 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">Add Image</span>
+                                <span className="text-xs text-muted-foreground">{t('form.addImage')}</span>
                             </button>
                         </div>
                         <FormDescription>
-                            Add photos of your past work to build trust.
+                            {t('form.portfolioDesc')}
                         </FormDescription>
                     </div>
                 </div>
@@ -319,10 +329,10 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     {isLoading ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Creating Offering...
+                            {t('form.submittingButton')}
                         </>
                     ) : (
-                        'Publish Service Offering'
+                        t('form.submitButton')
                     )}
                 </Button>
             </form>

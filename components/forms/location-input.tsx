@@ -8,17 +8,32 @@ interface LocationInputProps {
     name: string;
     placeholder: string;
     required?: boolean;
+    value?: string;
+    onChange?: (value: string) => void;
 }
 
 import { useMarket } from '@/lib/market-context';
 
 import { useLocationDetection } from '@/components/landing/location-detection';
 
-export function LocationInput({ name, placeholder, required }: LocationInputProps) {
-    const [query, setQuery] = useState('');
+export function LocationInput({ name, placeholder, required, value, onChange }: LocationInputProps) {
+    const [internalQuery, setInternalQuery] = useState('');
+
+    // Controlled vs Uncontrolled
+    const isControlled = value !== undefined;
+    const query = isControlled ? value : internalQuery;
+
+    const setQuery = (newVal: string) => {
+        if (!isControlled) {
+            setInternalQuery(newVal);
+        }
+        onChange?.(newVal);
+    };
+
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [selectedLocation, setSelectedLocation] = useState('');
+    // Remove separate selectedLocation state as it's redundant with query/value for this use case
+    // const [selectedLocation, setSelectedLocation] = useState('');
     const { market } = useMarket();
     const { location } = useLocationDetection(); // Get detected location (lat/lon)
 
@@ -115,7 +130,7 @@ export function LocationInput({ name, placeholder, required }: LocationInputProp
 
     const handleSelect = (location: any) => {
         const displayName = location.display_name;
-        setSelectedLocation(displayName);
+        // setSelectedLocation(displayName);
         setQuery(displayName);
         setShowSuggestions(false);
     };
