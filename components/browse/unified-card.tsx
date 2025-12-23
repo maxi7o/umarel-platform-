@@ -14,8 +14,11 @@ import {
     Star,
     Sparkles
 } from 'lucide-react';
+import { CurrencyDisplay } from '@/components/currency-display';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { formatDate, getUserTimezone } from '@/lib/utils/date';
+
 
 interface UnifiedCardProps {
     item: any; // Request or Offering
@@ -116,7 +119,7 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                             )}
                             <span className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
-                                {new Date(item.createdAt).toLocaleDateString()}
+                                {formatDate(new Date(item.createdAt), getUserTimezone())}
                             </span>
                         </div>
                     </div>
@@ -147,8 +150,8 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                     <div className="flex items-center gap-4">
                         {!isRequest && item.hourlyRate && (
                             <div className="flex items-center gap-1 text-lg font-semibold">
-                                <DollarSign className="h-4 w-4" />
-                                {(item.hourlyRate / 100).toFixed(0)}/hr
+                                <CurrencyDisplay amount={item.hourlyRate} />
+                                <span className="text-sm font-normal text-muted-foreground">/hr</span>
                             </div>
                         )}
 

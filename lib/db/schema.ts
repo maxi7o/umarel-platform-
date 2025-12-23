@@ -2,12 +2,12 @@ import { pgTable, uuid, text, integer, timestamp, pgEnum, boolean, jsonb, decima
 
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 export const requestStatusEnum = pgEnum('request_status', ['open', 'in_progress', 'completed']);
-export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'in_progress', 'completed', 'approved_by_client', 'paid']);
+export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'in_progress', 'completed', 'approved_by_client', 'paid', 'disputed']);
 export const quoteStatusEnum = pgEnum('quote_status', ['pending', 'accepted', 'rejected']);
 export const transactionStatusEnum = pgEnum('transaction_status', ['pending', 'completed', 'confirmed', 'disputed']);
 export const bidStatusEnum = pgEnum('bid_status', ['pending', 'accepted', 'rejected']);
 export const serviceOfferingStatusEnum = pgEnum('service_offering_status', ['active', 'paused', 'inactive']);
-export const paymentStatusEnum = pgEnum('payment_status', ['pending_escrow', 'in_escrow', 'released', 'refunded', 'failed']);
+export const paymentStatusEnum = pgEnum('payment_status', ['pending_escrow', 'in_escrow', 'released', 'refunded', 'failed', 'disputed']);
 export const paymentMethodEnum = pgEnum('payment_method', ['stripe', 'mercado_pago']);
 
 export const commentTypeEnum = pgEnum('comment_type', ['text', 'prompt', 'ai_response']);
@@ -25,6 +25,10 @@ export const users = pgTable('users', {
     auraLevel: auraLevelEnum('aura_level').default('bronze'),
     totalSavingsGenerated: integer('total_savings_generated').default(0),
     role: userRoleEnum('role').default('user'),
+    timezone: text('timezone').default('UTC'),
+    lastCommentAt: timestamp('last_comment_at'), // Anti-spam cooldown
+    lastTosAcceptedAt: timestamp('last_tos_accepted_at'),
+    tosVersion: integer('tos_version').default(0), // Current active version
     createdAt: timestamp('created_at').defaultNow(),
 });
 
@@ -35,6 +39,7 @@ export const requests = pgTable('requests', {
     description: text('description').notNull(),
     category: text('category'), // For filtering/browsing
     location: text('location'),
+    locationDetails: jsonb('location_details'), // { lat, lng, address, ... }
     isVirtual: boolean('is_virtual').default(false),
     featured: boolean('featured').default(false), // Premium placement
     status: requestStatusEnum('status').default('open'),
@@ -60,6 +65,7 @@ export const slices = pgTable('slices', {
     escrowPaymentId: text('escrow_payment_id'), // Reference to escrow payment
     approvedByClientAt: timestamp('approved_by_client_at'),
     paidAt: timestamp('paid_at'),
+    disputedAt: timestamp('disputed_at'),
     createdAt: timestamp('created_at').defaultNow(),
 });
 
@@ -179,6 +185,7 @@ export const serviceOfferings = pgTable('service_offerings', {
     description: text('description').notNull(),
     category: text('category').notNull(), // "plumbing", "electrical", etc.
     location: text('location'), // null if virtual
+    locationDetails: jsonb('location_details'), // { lat, lng, address, ... }
     isVirtual: boolean('is_virtual').default(false),
     hourlyRate: integer('hourly_rate'), // in cents
     fixedRate: integer('fixed_rate'), // in cents (for fixed-price services)
@@ -256,6 +263,12 @@ export const escrowPayments = pgTable('escrow_payments', {
     stripePaymentIntentId: text('stripe_payment_intent_id'),
     mercadoPagoPreapprovalId: text('mercado_pago_preapproval_id'),
     status: paymentStatusEnum('status').default('pending_escrow'),
+
+    // Dispute fields
+    disputeReason: text('dispute_reason'),
+    resolutionNotes: text('resolution_notes'),
+    resolvedBy: uuid('resolved_by').references(() => users.id),
+
     createdAt: timestamp('created_at').defaultNow(),
     releasedAt: timestamp('released_at'),
     refundedAt: timestamp('refunded_at'),
@@ -400,6 +413,8 @@ export const sliceEvidence = pgTable('slice_evidence', {
     fileUrl: text('file_url').notNull(),
     fileType: text('file_type').default('image'),
     description: text('description'),
+    metadata: jsonb('metadata'), // { lat, lng, altitude, accuracy, timestamp, deviceId }
+    isVerified: boolean('is_verified').default(false), // Trusted source vs EXIF
     createdAt: timestamp('created_at').defaultNow(),
 });
 

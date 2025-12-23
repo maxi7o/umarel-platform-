@@ -1,36 +1,69 @@
-import { db } from '@/lib/db';
-import { notifications } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
 
-// Mock email sender for now
-async function sendEmail(to: string, subject: string, body: string) {
-    console.log(`[EMAIL MOCK] To: ${to}, Subject: ${subject}, Body: ${body}`);
-    // In production, integrate with Resend/SendGrid here
+import { db } from './db';
+import { eq } from 'drizzle-orm';
+import { users } from './db/schema';
+
+type AlertType = 'DISPUTE_RAISED' | 'HIGH_VALUE_SLICE' | 'ERROR_500' | 'PAYMENT_FAILED';
+
+interface AlertData {
+    title: string;
+    description: string;
+    metadata?: Record<string, any>;
+    url?: string;
 }
 
-export async function createNotification(userId: string, title: string, message: string, link?: string) {
+export async function sendAlert(type: AlertType, data: AlertData) {
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+        console.warn(`[Notifications] DISCORD_WEBHOOK_URL not set. Alert skipped: ${type}`);
+        return;
+    }
+
+    const payload = {
+        username: "Umarel Ops Bot 🤖",
+        avatar_url: "https://umarel.org/bot-avatar.png",
+        embeds: [{
+            title: `${getEmoji(type)} ${data.title}`,
+            description: data.description,
+            color: getColor(type),
+            fields: data.metadata ? Object.entries(data.metadata).map(([key, value]) => ({
+                name: key,
+                value: String(value),
+                inline: true
+            })) : [],
+            url: data.url,
+            timestamp: new Date().toISOString()
+        }]
+    };
+
     try {
-        // 1. Save to Database
-        await db.insert(notifications).values({
-            userId,
-            title,
-            message,
-            link,
-            read: 0,
+        await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
-
-        // 2. Send Email (Traditional strategy: don't spam, maybe batch? For now, direct send)
-        // Fetch user email (mock)
-        const userEmail = "user@example.com";
-        await sendEmail(userEmail, `Umarel: ${title}`, message);
-
     } catch (error) {
-        console.error('Failed to create notification:', error);
+        console.error(`[Notifications] Failed to send Discord alert:`, error);
     }
 }
 
-export async function markAsRead(notificationId: string) {
-    await db.update(notifications)
-        .set({ read: 1 })
-        .where(eq(notifications.id, notificationId));
+function getEmoji(type: AlertType): string {
+    switch (type) {
+        case 'DISPUTE_RAISED': return '🚨';
+        case 'HIGH_VALUE_SLICE': return '💰';
+        case 'ERROR_500': return '🔥';
+        case 'PAYMENT_FAILED': return '❌';
+        default: return '📢';
+    }
+}
+
+function getColor(type: AlertType): number {
+    switch (type) {
+        case 'DISPUTE_RAISED': return 0xFF4500; // Orange Red
+        case 'HIGH_VALUE_SLICE': return 0xFFD700; // Gold
+        case 'ERROR_500': return 0xFF0000; // Red
+        case 'PAYMENT_FAILED': return 0x8B0000; // Dark Red
+        default: return 0x3498DB; // Blue
+    }
 }

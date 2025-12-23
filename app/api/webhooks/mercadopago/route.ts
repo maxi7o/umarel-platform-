@@ -1,93 +1,42 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { payment } from '@/lib/mercadopago';
-import { db } from '@/lib/db';
-import { escrowPayments } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { escrowService } from '@/lib/services/escrow-service';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
-        const body = await request.json();
+        // Mercado Pago sends the event details in the query or body depending on config
+        // Typically: POST with body { type: 'payment', data: { id: '...' } }
+        const body = await req.json();
 
-        // Mercado Pago sends different types of notifications
-        const { type, data } = body;
+        console.log('[MP Webhook] Received:', body);
 
-        if (type === 'payment') {
-            const paymentId = data.id;
+        // Check if it's a payment notification
+        const isPayment = body.type === 'payment' || body.topic === 'payment';
+        const paymentId = body.data?.id || body.id;
 
-            // Get payment details from Mercado Pago
+        if (isPayment && paymentId) {
+            // Verify the payment status with Mercado Pago API to prevent spoofing
             const paymentData = await payment.get({ id: paymentId });
 
+            // The external_reference should contain our escrowId
             const escrowId = paymentData.external_reference;
 
-            if (!escrowId) {
-                console.error('No escrow ID in payment metadata');
-                return NextResponse.json({ received: true });
-            }
-
-            // Update escrow based on payment status
-            switch (paymentData.status) {
-                case 'approved':
-                    // Payment approved - funds are available
-                    await db
-                        .update(escrowPayments)
-                        .set({
-                            status: 'in_escrow',
-                            mercadoPagoPreapprovalId: paymentId.toString(),
-                        })
-                        .where(eq(escrowPayments.id, escrowId));
-
-                    console.log(`Mercado Pago payment ${paymentId} approved`);
-                    break;
-
-                case 'pending':
-                case 'in_process':
-                    // Payment is being processed
-                    await db
-                        .update(escrowPayments)
-                        .set({
-                            status: 'pending_escrow',
-                        })
-                        .where(eq(escrowPayments.id, escrowId));
-
-                    console.log(`Mercado Pago payment ${paymentId} pending`);
-                    break;
-
-                case 'rejected':
-                case 'cancelled':
-                    // Payment failed or was cancelled
-                    await db
-                        .update(escrowPayments)
-                        .set({
-                            status: 'failed',
-                        })
-                        .where(eq(escrowPayments.id, escrowId));
-
-                    console.log(`Mercado Pago payment ${paymentId} failed/cancelled`);
-                    break;
-
-                case 'refunded':
-                case 'charged_back':
-                    // Payment was refunded
-                    await db
-                        .update(escrowPayments)
-                        .set({
-                            status: 'refunded',
-                            refundedAt: new Date(),
-                        })
-                        .where(eq(escrowPayments.id, escrowId));
-
-                    console.log(`Mercado Pago payment ${paymentId} refunded`);
-                    break;
-
-                default:
-                    console.log(`Unhandled Mercado Pago status: ${paymentData.status}`);
+            if (escrowId) {
+                if (paymentData.status === 'approved') {
+                    await escrowService.updateStatusByEscrowId(escrowId, 'in_escrow');
+                } else if (paymentData.status === 'rejected' || paymentData.status === 'cancelled') {
+                    await escrowService.updateStatusByEscrowId(escrowId, 'failed');
+                }
+            } else {
+                console.warn('[MP Webhook] Payment missing external_reference (escrowId)');
             }
         }
 
         return NextResponse.json({ received: true });
+
     } catch (error) {
-        console.error('Mercado Pago webhook error:', error);
-        // Always return 200 to Mercado Pago to avoid retries
-        return NextResponse.json({ received: true });
+        console.error('[MP Webhook] Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

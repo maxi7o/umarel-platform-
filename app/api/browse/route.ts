@@ -14,6 +14,10 @@ export async function GET(request: Request) {
         const page = parseInt(searchParams.get('page') || '1');
         const limit = parseInt(searchParams.get('limit') || '20');
 
+        const lat = parseFloat(searchParams.get('lat') || '0');
+        const lng = parseFloat(searchParams.get('lng') || '0');
+        const radius = parseInt(searchParams.get('radius') || '0');
+
         const results: any = {
             requests: [],
             offerings: [],
@@ -43,7 +47,7 @@ export async function GET(request: Request) {
                 );
             }
 
-            if (location) {
+            if (location && !lat) { // Only text search if no coords
                 requestConditions.push(
                     or(
                         includeVirtual ? eq(requests.isVirtual, true) : undefined,
@@ -59,19 +63,35 @@ export async function GET(request: Request) {
                 .from(requests)
                 .where(requestConditions.length > 0 ? and(...requestConditions) : undefined)
                 .orderBy(desc(requests.featured), desc(requests.createdAt))
-                .limit(limit);
+                .limit(limit); // Pagination might be tricky with in-memory filter, but MVP okay
 
             // Fetch user info for each request
-            results.requests = await Promise.all(
+            const mappedRequests = await Promise.all(
                 fetchedRequests.map(async (req) => {
                     const [user] = await db
                         .select()
                         .from(users)
                         .where(eq(users.id, req.userId));
 
+                    let distance = 0;
+                    if (lat && lng && req.locationDetails && (req.locationDetails as any).lat) {
+                        const dLat = (req.locationDetails as any).lat;
+                        const dLng = (req.locationDetails as any).lng;
+                        // Haversine
+                        const R = 6371;
+                        const dLatRad = (dLat - lat) * Math.PI / 180;
+                        const dLngRad = (dLng - lng) * Math.PI / 180;
+                        const a = Math.sin(dLatRad / 2) * Math.sin(dLatRad / 2) +
+                            Math.cos(lat * Math.PI / 180) * Math.cos(dLat * Math.PI / 180) *
+                            Math.sin(dLngRad / 2) * Math.sin(dLngRad / 2);
+                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        distance = R * c;
+                    }
+
                     return {
                         ...req,
                         type: 'request',
+                        distance,
                         user: {
                             id: user.id,
                             fullName: user.fullName,
@@ -79,6 +99,12 @@ export async function GET(request: Request) {
                     };
                 })
             );
+
+            if (radius > 0 && lat && lng) {
+                results.requests = mappedRequests.filter(r => r.distance <= radius || (includeVirtual && r.isVirtual));
+            } else {
+                results.requests = mappedRequests;
+            }
         }
 
         // Fetch Service Offerings
@@ -98,7 +124,7 @@ export async function GET(request: Request) {
                 );
             }
 
-            if (location) {
+            if (location && !lat) {
                 offeringConditions.push(
                     or(
                         includeVirtual ? eq(serviceOfferings.isVirtual, true) : undefined,
@@ -117,7 +143,7 @@ export async function GET(request: Request) {
                 .limit(limit);
 
             // Fetch provider info and metrics for each offering
-            results.offerings = await Promise.all(
+            const mappedOfferings = await Promise.all(
                 fetchedOfferings.map(async (offering) => {
                     const [provider] = await db
                         .select()
@@ -129,9 +155,25 @@ export async function GET(request: Request) {
                         .from(providerMetrics)
                         .where(eq(providerMetrics.providerId, offering.providerId));
 
+                    let distance = 0;
+                    if (lat && lng && offering.locationDetails && (offering.locationDetails as any).lat) {
+                        const dLat = (offering.locationDetails as any).lat;
+                        const dLng = (offering.locationDetails as any).lng;
+                        // Haversine
+                        const R = 6371;
+                        const dLatRad = (dLat - lat) * Math.PI / 180;
+                        const dLngRad = (dLng - lng) * Math.PI / 180;
+                        const a = Math.sin(dLatRad / 2) * Math.sin(dLatRad / 2) +
+                            Math.cos(lat * Math.PI / 180) * Math.cos(dLat * Math.PI / 180) *
+                            Math.sin(dLngRad / 2) * Math.sin(dLngRad / 2);
+                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        distance = R * c;
+                    }
+
                     return {
                         ...offering,
                         type: 'offering',
+                        distance,
                         provider: {
                             id: provider.id,
                             fullName: provider.fullName,
@@ -150,6 +192,22 @@ export async function GET(request: Request) {
                     };
                 })
             );
+
+            if (radius > 0 && lat && lng) {
+                results.offerings = mappedOfferings.filter(o => o.distance <= radius || (includeVirtual && o.isVirtual));
+            } else {
+                results.offerings = mappedOfferings;
+            }
+        }
+
+        // Sort by distance if location provided
+        if (lat && lng) {
+            const combined = [...results.requests, ...results.offerings].sort((a: any, b: any) => {
+                if (a.isVirtual && !b.isVirtual) return 1; // Virtual last or depends on preference
+                if (!a.isVirtual && b.isVirtual) return -1;
+                return a.distance - b.distance;
+            });
+            // Re-slice might be needed if we fetched too many, but for now just returning what we have
         }
 
         results.total = results.requests.length + results.offerings.length;

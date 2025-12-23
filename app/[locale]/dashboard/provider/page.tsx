@@ -41,5 +41,11 @@ export default async function ProviderDashboard() {
         opportunities = MOCK_OPPORTUNITIES
     }
 
-    return <ProviderDashboardClient opportunities={opportunities} />
+    const mockStats = {
+        totalEarnings: 1250000, // 12,500.00 in cents
+        pendingEarnings: 450000,
+        auraScore: 94
+    }
+
+    return <ProviderDashboardClient opportunities={opportunities} stats={mockStats} />
 }

@@ -1,0 +1,83 @@
+{
+    "nav": {
+        "browse": "Navegar",
+        "offerServices": "Oferecer Serviços",
+        "login": "Entrar",
+        "postNeed": "Publicar Pedido"
+    },
+    "footer": {
+        "platform": "Plataforma",
+        "howItWorks": "Como funciona",
+        "becomeUmarel": "Torne-se um Umarel",
+        "findWork": "Encontrar Trabalho",
+        "legal": "Legal",
+        "terms": "Termos de Serviço",
+        "privacy": "Política de Privacidade",
+        "copyright": "© 2025 Umarel. Todos os direitos reservados. Feito com 🧡 e café."
+    },
+    "landing": {
+        "hero": {
+            "title": "Construa confiança, compartilhe sabedoria, ganhe Aura.",
+            "subtitle1": "Junte-se a uma comunidade de especialistas ajudando vizinhos a fazer as coisas direito —",
+            "subtitle2": "construa sua reputação, uma parte de cada vez.",
+            "cta": "Junte-se à Comunidade"
+        },
+        "howItWorks": "Como Funciona o Umarel",
+        "clients": {
+            "title": "Para Clientes",
+            "description": "Obtenha escopos claros e preços justos através da sabedoria verificada pela comunidade.",
+            "badge": "Impulsionado por Sabedoria"
+        },
+        "providers": {
+            "title": "Para Prestadores",
+            "description": "Concentre-se no seu ofício. Nós cuidamos do escopo e da clareza com o cliente.",
+            "badge": "Qualidade Verificada"
+        },
+        "umarels": {
+            "title": "Para Umarels",
+            "description": "Compartilhe sua experiência, ajude vizinhos a evitar erros e ganhe reconhecimento da comunidade.",
+            "badge": "Aura e Respeito"
+        },
+        "stats": {
+            "foundations": "Pronto",
+            "foundationsLabel": "Para Construir",
+            "savings": "Inteligente",
+            "savingsLabel": "Divisão",
+            "free": "100%",
+            "freeLabel": "Transparente",
+            "daily": "Confiança",
+            "dailyLabel": "Pros Verificados"
+        },
+        "cta": {
+            "title": "Comece a economizar (e ganhar) hoje",
+            "postButton": "Publicar um Pedido",
+            "browseButton": "Navegar Serviços"
+        },
+        "roles": {
+            "client": {
+                "title": "O Cliente",
+                "description": "Você tem a visão. Use nossos projetos para definir exatamente o que precisa ser construído."
+            },
+            "builder": {
+                "title": "O Construtor",
+                "description": "Profissionais qualificados que executam o plano. Avaliações verificadas garantem qualidade."
+            },
+            "umarel": {
+                "title": "O Umarel",
+                "description": "O inspetor da comunidade. Observando de fora (digitalmente), oferecendo sabedoria."
+            }
+        },
+        "safetyTips": {
+            "title": "Dica Diária de Segurança",
+            "tips": [
+                "Meça duas vezes, corte uma.",
+                "Sempre use seu EPI.",
+                "Uma obra limpa é uma obra segura.",
+                "Verifique as plantas antes de cavar.",
+                "Se vir algo inseguro, diga algo.",
+                "Confie, mas verifique com um Umarel.",
+                "Qualidade não é um ato, é um hábito."
+            ]
+        }
+    }
+}

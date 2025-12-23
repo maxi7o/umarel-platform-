@@ -1,25 +1,25 @@
-import { useMemo } from 'react';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface CurrencyDisplayProps {
     amount: number; // in cents
-    currency: string;
-    locale?: string;
+    currency?: string; // Optional override
+    locale?: string; // Optional override
     className?: string; // for styling
 }
 
-export function CurrencyDisplay({ amount, currency, locale = 'es-AR', className }: CurrencyDisplayProps) {
-    const formatted = useMemo(() => {
-        try {
-            return new Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: currency,
-                minimumFractionDigits: 2,
-            }).format(amount / 100);
-        } catch (e) {
-            console.warn('Currency formatting failed', e);
-            return `${currency} ${(amount / 100).toFixed(2)}`;
-        }
-    }, [amount, currency, locale]);
+export function CurrencyDisplay({ amount, currency, locale, className }: CurrencyDisplayProps) {
+    const { format: formatContext, currency: contextCurrency, locale: contextLocale } = useCurrency();
 
-    return <span className={className}>{formatted}</span>;
+    // If currency/locale are explicitly provided, use discrete formatter
+    if (currency || locale) {
+        const customFormat = new Intl.NumberFormat(locale || contextLocale, {
+            style: 'currency',
+            currency: currency || contextCurrency,
+            minimumFractionDigits: 2,
+        }).format(amount / 100);
+
+        return <span className={className}>{customFormat}</span>;
+    }
+
+    return <span className={className}>{formatContext(amount)}</span>;
 }

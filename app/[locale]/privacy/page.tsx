@@ -1,19 +1,28 @@
+
+import React from 'react';
+
 export default function PrivacyPage() {
     return (
-        <div className="container mx-auto max-w-3xl py-12 px-4">
-            <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-            <div className="prose prose-gray max-w-none">
-                <p>Last updated: {new Date().toLocaleDateString()}</p>
-                <p>Your privacy is important to us.</p>
+        <div className="container mx-auto max-w-4xl py-12 px-4">
+            <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
-                <h3>1. Data Collection</h3>
-                <p>We collect information you provide directly to us, such as when you create an account or post a listing.</p>
+            <div className="prose prose-orange max-w-none">
+                <p className="text-sm text-gray-500 mb-8">Last Updated: December 22, 2025</p>
 
-                <h3>2. Data Usage</h3>
-                <p>We use your data to provide and improve our services.</p>
+                <section className="mb-8">
+                    <h2 className="text-2xl font-semibold mb-4">1. Data Collection</h2>
+                    <p>We collect email, profile information, and transaction data to provide our services.</p>
+                </section>
 
-                <h3>3. Cookies</h3>
-                <p>We use cookies to enhance your experience.</p>
+                <section className="mb-8">
+                    <h2 className="text-2xl font-semibold mb-4">2. Evidence Data</h2>
+                    <p>To verify the authenticity of work ("Proof of Slicing"), we collect <strong>Geolocation</strong> and <strong>Device Metadata</strong> when you upload evidence. This helps us resolve disputes and prevent fraud.</p>
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-semibold mb-4">3. Data Usage</h2>
+                    <p>We use your data to operate the marketplace, facilitate payments, prevent fraud, and comply with legal obligations.</p>
+                </section>
             </div>
         </div>
     );

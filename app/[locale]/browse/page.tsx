@@ -23,9 +23,13 @@ export default function BrowsePage() {
     const [results, setResults] = useState<any>({ requests: [], offerings: [], total: 0 });
     const [isLoading, setIsLoading] = useState(false);
 
-    // Sync location with market
+    // New State for Location/Radius
+    const [radius, setRadius] = useState(50);
+    const [locationData, setLocationData] = useState<any>(null);
+
+    // Sync location with market initially
     useEffect(() => {
-        if (market) {
+        if (market && !location && !locationData) {
             setLocation(`${market.city}, ${market.country}`);
         }
     }, [market]);
@@ -40,16 +44,22 @@ export default function BrowsePage() {
 
     useEffect(() => {
         fetchResults();
-    }, [location, selectedType, selectedCategory, includeVirtual, debouncedQuery]);
+    }, [location, locationData, radius, selectedType, selectedCategory, includeVirtual, debouncedQuery]);
 
     const fetchResults = async () => {
         setIsLoading(true);
         try {
             const params = new URLSearchParams({
-                location: location === 'Virtual' ? '' : location,
+                location: locationData ? locationData.address : (location === 'Virtual' ? '' : location),
                 type: selectedType,
                 includeVirtual: includeVirtual.toString(),
             });
+
+            if (locationData && locationData.lat) {
+                params.append('lat', locationData.lat.toString());
+                params.append('lng', locationData.lng.toString());
+                params.append('radius', radius.toString());
+            }
 
             if (selectedCategory) {
                 params.append('category', selectedCategory);
@@ -73,9 +83,18 @@ export default function BrowsePage() {
         ...(results.requests || []).map((r: any) => ({ ...r, type: 'request' })),
         ...(results.offerings || []).map((o: any) => ({ ...o, type: 'offering' })),
     ].sort((a, b) => {
+        // If sorting by distance is needed, relies on API order or we can re-sort here
+        // For now, let's keep the existing logic (Featured > Date) but maybe API returns distance
+
         // Featured first
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
+
+        // If distance available, use it?
+        if (a.distance !== undefined && b.distance !== undefined && a.distance !== b.distance) {
+            return a.distance - b.distance;
+        }
+
         // Then by date
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
@@ -120,7 +139,7 @@ export default function BrowsePage() {
                 {/* Results Summary */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <span>
-                        {t('showing')} {allItems.length} {t('results')}{allItems.length !== 1 ? '' : ''}
+                        {t('showing')} {allItems.length} {t('results')}
                     </span>
                     {location && location !== 'Virtual' && (
                         <>
@@ -146,9 +165,17 @@ export default function BrowsePage() {
                             selectedType={selectedType}
                             selectedCategory={selectedCategory}
                             includeVirtual={includeVirtual}
+                            locationData={locationData}
+                            radius={radius}
                             onTypeChange={setSelectedType}
                             onCategoryChange={setSelectedCategory}
                             onVirtualToggle={setIncludeVirtual}
+                            onLocationChange={(data) => {
+                                setLocationData(data);
+                                if (data) setLocation(data.address);
+                                else setLocation('');
+                            }}
+                            onRadiusChange={setRadius}
                         />
                     </div>
                 </aside>

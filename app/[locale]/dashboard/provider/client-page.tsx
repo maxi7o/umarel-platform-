@@ -23,7 +23,23 @@ interface ProviderDashboardClientProps {
     opportunities: Opportunity[]
 }
 
-export function ProviderDashboardClient({ opportunities }: ProviderDashboardClientProps) {
+import { CurrencyDisplay } from '@/components/currency-display'
+import { Sparkles, DollarSign, Wallet } from 'lucide-react'
+
+// ... (Opportunity interface remains)
+
+interface ProviderDashboardStats {
+    totalEarnings: number
+    pendingEarnings: number
+    auraScore: number
+}
+
+interface ProviderDashboardClientProps {
+    opportunities: Opportunity[]
+    stats?: ProviderDashboardStats
+}
+
+export function ProviderDashboardClient({ opportunities, stats }: ProviderDashboardClientProps) {
     const t = useTranslations()
 
     return (
@@ -36,6 +52,61 @@ export function ProviderDashboardClient({ opportunities }: ProviderDashboardClie
                 <Button variant="outline">{t("dashboard.provider.updateProfile")}</Button>
             </div>
 
+            {/* Stats Overview */}
+            {stats && (
+                <div className="grid gap-4 md:grid-cols-3">
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Total Earnings
+                            </CardTitle>
+                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">
+                                <CurrencyDisplay amount={stats.totalEarnings} />
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                +20.1% from last month
+                            </p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Pending Payouts
+                            </CardTitle>
+                            <Wallet className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">
+                                <CurrencyDisplay amount={stats.pendingEarnings} />
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                Available on next cycle
+                            </p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Aura Score
+                            </CardTitle>
+                            <Sparkles className="h-4 w-4 text-orange-500" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-orange-600">
+                                {stats.auraScore} <span className="text-sm font-normal text-muted-foreground">/ 100</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                Top rated provider (Gold Tier)
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+
+            <h2 className="text-xl font-semibold mt-8">Recent Opportunities</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {opportunities.map((slice: Opportunity) => (
                     <Card key={slice.id} className="flex flex-col">
@@ -56,7 +127,7 @@ export function ProviderDashboardClient({ opportunities }: ProviderDashboardClie
                                     <span>{slice.request.location}</span>
                                 </div>
                                 <div className="font-medium text-foreground">
-                                    {t("dashboard.provider.project} {slice.request.title")}
+                                    {t("dashboard.provider.project")} {slice.request.title}
                                 </div>
                             </div>
                         </CardContent>

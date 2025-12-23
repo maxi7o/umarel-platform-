@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useMarket } from '@/lib/market-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -12,6 +13,7 @@ import { SliceSelector } from './slice-selector';
 import { Loader2, DollarSign, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import { submitQuoteAction } from '@/app/[locale]/requests/[id]/actions';
+import { formatDate, getUserTimezone } from '@/lib/utils/date';
 
 interface QuoteBuilderProps {
     requestId: string;
@@ -23,9 +25,10 @@ interface QuoteBuilderProps {
 
 export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, userId, onQuoteCreated }: QuoteBuilderProps) {
     const router = useRouter();
+    const { market } = useMarket();
     const [selectedSlices, setSelectedSlices] = useState<string[]>([]);
     const [amount, setAmount] = useState('');
-    const [currency, setCurrency] = useState('ARS');
+    const [currency, setCurrency] = useState(market?.currency || 'USD');
     const [message, setMessage] = useState('');
     const [estimatedDays, setEstimatedDays] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -118,6 +121,14 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                                     <SelectContent>
                                         <SelectItem value="ARS">ARS</SelectItem>
                                         <SelectItem value="USD">USD</SelectItem>
+                                        <SelectItem value="EUR">EUR</SelectItem>
+                                        <SelectItem value="BRL">BRL</SelectItem>
+                                        <SelectItem value="MXN">MXN</SelectItem>
+                                        <SelectItem value="GBP">GBP</SelectItem>
+                                        {/* Add dynamic one if missing */}
+                                        {!['ARS', 'USD', 'EUR', 'BRL', 'MXN', 'GBP'].includes(market?.currency || '') && (
+                                            <SelectItem value={market?.currency || 'UNK'}>{market?.currency}</SelectItem>
+                                        )}
                                     </SelectContent>
                                 </Select>
                                 <div className="relative flex-1">
@@ -154,6 +165,11 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                                     required
                                 />
                             </div>
+                            {estimatedDays && !isNaN(Number(estimatedDays)) && (
+                                <p className="text-xs text-muted-foreground">
+                                    Entrega estimada: {formatDate(new Date(Date.now() + Number(estimatedDays) * 86400000), getUserTimezone())}
+                                </p>
+                            )}
                         </div>
                     </div>
 

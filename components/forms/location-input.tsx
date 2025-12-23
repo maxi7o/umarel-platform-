@@ -1,176 +1,196 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
-import { MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Search, MapPin, Loader2, X } from 'lucide-react';
+import { useDebounce } from '@/hooks/use-debounce'; // Assuming we have this or need to create it. I'll implement a simple debounce here if simpler.
+import { cn } from '@/lib/utils';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 interface LocationInputProps {
-    name: string;
-    placeholder: string;
+    value?: string; // Display string
+    onChange?: (value: string, structuredData?: any) => void;
+    placeholder?: string;
+    className?: string;
     required?: boolean;
-    value?: string;
-    onChange?: (value: string) => void;
+    name?: string;
 }
 
-import { useMarket } from '@/lib/market-context';
+interface NominatimResult {
+    place_id: number;
+    licence: string;
+    osm_type: string;
+    osm_id: number;
+    boundingbox: string[];
+    lat: string;
+    lon: string;
+    display_name: string;
+    class: string;
+    type: string;
+    importance: number;
+    icon?: string;
+    address?: any;
+}
 
-import { useLocationDetection } from '@/components/landing/location-detection';
+export function LocationInput({
+    value = '',
+    onChange,
+    placeholder = 'Search address...',
+    className,
+    required,
+    name
+}: LocationInputProps) {
+    const [open, setOpen] = useState(false);
+    const [query, setQuery] = useState(value); // Input value
+    const [results, setResults] = useState<NominatimResult[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState<string | null>(value ? value : null);
 
-export function LocationInput({ name, placeholder, required, value, onChange }: LocationInputProps) {
-    const [internalQuery, setInternalQuery] = useState('');
+    // Debounce query
+    const [debouncedQuery, setDebouncedQuery] = useState(query);
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(query);
+        }, 500); // 500ms debounce
+        return () => clearTimeout(handler);
+    }, [query]);
 
-    // Controlled vs Uncontrolled
-    const isControlled = value !== undefined;
-    const query = isControlled ? value : internalQuery;
-
-    const setQuery = (newVal: string) => {
-        if (!isControlled) {
-            setInternalQuery(newVal);
+    // Search effect
+    useEffect(() => {
+        if (!debouncedQuery || debouncedQuery.length < 3 || debouncedQuery === selectedLocation) {
+            setResults([]);
+            return;
         }
-        onChange?.(newVal);
+
+        async function search() {
+            setLoading(true);
+            try {
+                // Nominatim Search
+                const params = new URLSearchParams({
+                    q: debouncedQuery,
+                    format: 'json',
+                    addressdetails: '1',
+                    limit: '5',
+                    'accept-language': 'es-AR,es;q=0.9,en;q=0.8' // Bias to user locale ideally
+                });
+
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setResults(data);
+                }
+            } catch (e) {
+                console.error("Location search failed", e);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        search();
+    }, [debouncedQuery, selectedLocation]);
+
+    const handleSelect = (result: NominatimResult) => {
+        const structured = {
+            address: result.display_name,
+            lat: parseFloat(result.lat),
+            lng: parseFloat(result.lon),
+            raw: result
+        };
+
+        setQuery(result.display_name);
+        setSelectedLocation(result.display_name);
+        if (onChange) {
+            onChange(result.display_name, structured);
+        }
+        setOpen(false);
     };
 
-    const [suggestions, setSuggestions] = useState<any[]>([]);
-    const [showSuggestions, setShowSuggestions] = useState(false);
-    // Remove separate selectedLocation state as it's redundant with query/value for this use case
-    // const [selectedLocation, setSelectedLocation] = useState('');
-    const { market } = useMarket();
-    const { location } = useLocationDetection(); // Get detected location (lat/lon)
-
-    const [userCountry, setUserCountry] = useState<string>('');
-
-    useEffect(() => {
-        // ... (existing country logic)
-        if (market?.countryCode) {
-            setUserCountry(market.countryCode.toLowerCase());
-            return;
+    const handleClear = () => {
+        setQuery('');
+        setSelectedLocation(null);
+        setResults([]);
+        if (onChange) {
+            onChange('', null);
         }
-        // ...
-    }, [market]);
-
-    useEffect(() => {
-        if (query.length < 3) {
-            setSuggestions([]);
-            return;
-        }
-
-        const timer = setTimeout(async () => {
-            try {
-                const userLang = (market?.locale || navigator.language || 'en').split('-')[0];
-                const photonLang = ['en', 'de', 'fr', 'it'].includes(userLang) ? userLang : 'default';
-
-                const params = new URLSearchParams({
-                    q: query,
-                    limit: '15',
-                });
-
-                if (photonLang !== 'default') {
-                    params.append('lang', photonLang);
-                }
-
-                // --- LOCATION BIAS ---
-                // If we have detected coordinates, assume user wants results nearby first.
-                // Photon uses 'lat' and 'lon' to prioritize proximity.
-                if (location?.lat && location?.lon) {
-                    params.append('lat', location.lat.toString());
-                    params.append('lon', location.lon.toString());
-                    // Optional: params.append('zoom', '10'); to tune local vs global
-                } else if (userCountry === 'ar') {
-                    // Fallback for Argentina if no GPS but country detected
-                    params.append('lat', '-34.6');
-                    params.append('lon', '-58.4');
-                }
-
-
-                // Filter by OSM Tags (Server-side filtering!)
-                // We want places (cities, towns), boundaries (states), and highways (streets)
-                params.append('osm_tag', 'place');
-                params.append('osm_tag', 'boundary');
-                params.append('osm_tag', 'highway');
-
-                const response = await fetch(
-                    `https://photon.komoot.io/api/?${params.toString()}`
-                );
-                const data = await response.json();
-
-                // Transform Photon GeoJSON to our format
-                const mappedSuggestions = (data.features || []).map((feature: any) => {
-                    const props = feature.properties;
-
-                    // Synthesize a display_name
-                    const parts = [
-                        props.name,
-                        props.street,
-                        props.district,
-                        props.city,
-                        props.state,
-                        props.country
-                    ].filter(Boolean);
-
-                    // Deduplicate adjacent parts
-                    const uniqueParts = parts.filter((item: any, pos: number, arr: any[]) => !pos || item !== arr[pos - 1]);
-                    const displayName = uniqueParts.join(', ');
-
-                    return {
-                        display_name: displayName,
-                        importance: 0,
-                        ...props
-                    };
-                });
-
-                setSuggestions(mappedSuggestions);
-                setShowSuggestions(true);
-            } catch (error) {
-                console.error('Failed to fetch location suggestions:', error);
-            }
-        }, 300);
-
-        return () => clearTimeout(timer);
-    }, [query, userCountry, market]);
-
-    const handleSelect = (location: any) => {
-        const displayName = location.display_name;
-        // setSelectedLocation(displayName);
-        setQuery(displayName);
-        setShowSuggestions(false);
     };
 
     return (
-        <div className="relative">
-            <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-                id={name}
-                name={name}
-                placeholder={placeholder}
-                className="pl-9"
-                required={required}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                autoComplete="off"
-            />
-            {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-900 border rounded-md shadow-lg max-h-60 overflow-auto">
-                    {suggestions.map((suggestion, index) => (
-                        <button
-                            key={index}
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <div className={cn("relative w-full", className)}>
+                    <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        name={name}
+                        placeholder={placeholder}
+                        value={query}
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                            if (!open && e.target.value.length >= 3) setOpen(true);
+                            if (e.target.value === '') handleClear();
+                        }}
+                        required={required}
+                        className="pl-9 pr-9 text-left truncate"
+                        autoComplete="off"
+                        role="combobox"
+                        aria-expanded={open}
+                    />
+                    {query && (
+                        <Button
                             type="button"
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                            onClick={() => handleSelect(suggestion)}
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleClear();
+                            }}
                         >
-                            <div className="flex items-start gap-2">
-                                <MapPin className="h-4 w-4 mt-0.5 text-orange-600 flex-shrink-0" />
-                                <div className="text-sm">
-                                    <div className="font-medium">{suggestion.display_name.split(',')[0]}</div>
-                                    <div className="text-xs text-muted-foreground">
-                                        {suggestion.display_name}
-                                    </div>
-                                </div>
-                            </div>
-                        </button>
-                    ))}
+                            <X className="h-4 w-4 text-muted-foreground" />
+                        </Button>
+                    )}
                 </div>
-            )}
-        </div>
+            </PopoverTrigger>
+            <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[300px]" align="start">
+                <Command shouldFilter={false}>
+                    {/* We filter manually via API */}
+                    <CommandList>
+                        {loading && (
+                            <CommandItem disabled className='flex justify-center py-4'>
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" /> Searching...
+                            </CommandItem>
+                        )}
+                        {!loading && results.length === 0 && query.length >= 3 && (
+                            <CommandEmpty className='py-4 text-center text-sm text-muted-foreground'>
+                                No locations found.
+                            </CommandEmpty>
+                        )}
+                        {!loading && results.map((result) => (
+                            <CommandItem
+                                key={result.place_id}
+                                value={result.place_id.toString()} // Value must be string
+                                onSelect={() => handleSelect(result)}
+                                className="cursor-pointer"
+                            >
+                                <MapPin className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />
+                                <div className="flex flex-col overflow-hidden">
+                                    <span className="truncate font-medium">{result.display_name.split(',')[0]}</span>
+                                    <span className="truncate text-xs text-muted-foreground">{result.display_name}</span>
+                                </div>
+                            </CommandItem>
+                        ))}
+                    </CommandList>
+                </Command>
+            </PopoverContent>
+        </Popover>
     );
 }

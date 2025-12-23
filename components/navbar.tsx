@@ -18,6 +18,7 @@ import { useTranslations } from 'next-intl'
 import { LocationBadge } from '@/components/landing/location-detection';
 import { usePathname } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
+import { LOCALE_CONFIG } from '@/i18n/config'
 
 export function Navbar() {
     const t = useTranslations('nav')
@@ -66,22 +67,21 @@ export function Navbar() {
                                     <Globe className="h-5 w-5" />
                                 </Button>
                             </DropdownMenuTrigger>
+
+
                             <DropdownMenuContent align="end">
-                                <I18nLink href={pathname} locale="en" onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}>
-                                    <DropdownMenuItem>
-                                        {currentLocale === 'en' ? '✓ ' : ''}English
-                                    </DropdownMenuItem>
-                                </I18nLink>
-                                <I18nLink href={pathname} locale="es" onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}>
-                                    <DropdownMenuItem>
-                                        {currentLocale === 'es' ? '✓ ' : ''}Español
-                                    </DropdownMenuItem>
-                                </I18nLink>
-                                <I18nLink href={pathname} locale="it" onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}>
-                                    <DropdownMenuItem>
-                                        {currentLocale === 'it' ? '✓ ' : ''}Italiano
-                                    </DropdownMenuItem>
-                                </I18nLink>
+                                {Object.entries(LOCALE_CONFIG).map(([key, { label }]) => (
+                                    <I18nLink
+                                        key={key}
+                                        href={pathname}
+                                        locale={key}
+                                        onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}
+                                    >
+                                        <DropdownMenuItem>
+                                            {currentLocale === key ? '✓ ' : ''}{label}
+                                        </DropdownMenuItem>
+                                    </I18nLink>
+                                ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
                         <Notifications />

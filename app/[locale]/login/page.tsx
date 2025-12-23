@@ -3,6 +3,7 @@
 import { login, signup, signInWithGoogle } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
@@ -42,6 +43,18 @@ export default function LoginPage() {
                         <div className="space-y-2">
                             <Label htmlFor="password">{t("login.password")}</Label>
                             <Input id="password" name="password" type="password" required />
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox id="terms" name="terms" required />
+                            <label
+                                htmlFor="terms"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                {t.rich('login.agreeToTerms', {
+                                    terms: (chunks) => <a href="/terms" className="underline hover:text-orange-600">{chunks}</a>,
+                                    privacy: (chunks) => <a href="/privacy" className="underline hover:text-orange-600">{chunks}</a>
+                                })}
+                            </label>
                         </div>
                         <div className="flex flex-col gap-2">
                             <Button formAction={login} className="w-full bg-orange-600 hover:bg-orange-700">{t("login.signIn")}</Button>

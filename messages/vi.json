@@ -1,0 +1,271 @@
+{
+    "nav": {
+        "browse": "Browse",
+        "offerServices": "Offer Services",
+        "login": "Log in",
+        "postNeed": "Post a Need"
+    },
+    "footer": {
+        "platform": "Platform",
+        "howItWorks": "How it works",
+        "becomeUmarel": "Become an Umarel",
+        "findWork": "Find Work",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "copyright": "© 2025 Umarel. All rights reserved. Made with 🧡 and espresso."
+    },
+    "home": {
+        "heroTitle": "Don't stress.",
+        "heroTitleLine2Pre": "Let an ",
+        "heroTitleHighlight": "Umarel",
+        "heroTitleLine2Post": " help.",
+        "heroSubtitle": "Post your project. Our community of wise experts will break it down into manageable slices. You only pay for what gets done.",
+        "postNeed": "Post your need",
+        "howItWorks": "How it works",
+        "howItWorksTitle": "How Umarel Works",
+        "howItWorksSubtitle": "We bring the wisdom of the construction site to your daily tasks.",
+        "step1Title": "1. Post a Request",
+        "step1Desc": "Describe what you need done. \"Fix my kitchen\" or \"Build a website\". No need for technical details yet.",
+        "step2Title": "2. Umarels Split It",
+        "step2Desc": "Our community of wise Umarels breaks your request into small, precise \"Service Slices\".",
+        "step3Title": "3. Pay Per Slice",
+        "step3Desc": "Providers quote on individual slices. You accept and pay only when each slice is completed.",
+        "trustedTitle": "Trusted by the best Umarels"
+    },
+    "landing": {
+        "hero": {
+            "title": "Build trust, share wisdom, earn Aura.",
+            "subtitle1": "Join a community of experts helping neighbors get things done right —",
+            "subtitle2": "build your reputation, one slice at a time.",
+            "cta": "Join the Community"
+        },
+        "howItWorks": "How Umarel Works",
+        "clients": {
+            "title": "For Clients",
+            "description": "Get clear scopes and fair prices through community-verified wisdom.",
+            "badge": "Wisdom Driven"
+        },
+        "providers": {
+            "title": "For Providers",
+            "description": "Focus on your craft. We handle the scope and client clarity.",
+            "badge": "Verified Quality"
+        },
+        "umarels": {
+            "title": "For Umarels",
+            "description": "Share your expertise, help neighbors avoid mistakes, and earn community recognition.",
+            "badge": "Aura & Respect"
+        },
+        "stats": {
+            "foundations": "Ready",
+            "foundationsLabel": "To Build",
+            "savings": "Smart",
+            "savingsLabel": "Slicing",
+            "free": "100%",
+            "freeLabel": "Transparent",
+            "daily": "Trust",
+            "dailyLabel": "Verified Pros"
+        },
+        "cta": {
+            "title": "Start saving (and earning) today",
+            "subtitle": "0 cost to post · 0 cost to quote · We only earn when you approve the finished work",
+            "postButton": "Post a Need – 100% Free",
+            "browseButton": "Browse Services",
+            "joinText": "Join thousands of people turning knowledge into income"
+        },
+        "italianQuotes": {
+            "q1": "Umarel: the one who watches the worksite with hands behind his back",
+            "q2": "The umarel always knows how to do it better",
+            "q3": "If it weren't for the umarel, the job would never get done",
+            "q4": "Every umarel has the solution nobody asked for",
+            "q5": "The umarel: the expert you don't need... but always need"
+        },
+        "roles": {
+            "client": {
+                "title": "The Client",
+                "description": "You have the vision. Use our blueprints to define exactly what you need built, ensuring no details are missed."
+            },
+            "builder": {
+                "title": "The Builder",
+                "description": "Skilled tradespeople who execute the plan. Verified reviews and safety badges ensure top-quality craftsmanship."
+            },
+            "umarel": {
+                "title": "The Umarel",
+                "description": "The community inspector. Watching from the sidelines (digitally), offering wisdom, and ensuring everything is up to code."
+            }
+        },
+        "safetyTips": {
+            "title": "Daily Site Safety Tip",
+            "tips": [
+                "Measure twice, cut once.",
+                "Always wear your PPE (Personal Protective Equipment).",
+                "A clean site is a safe site.",
+                "Check the blueprints before digging.",
+                "If you see something unsafe, say something.",
+                "Trust, but verify with an Umarel.",
+                "Quality is not an act, it is a habit."
+            ]
+        }
+    },
+    "login": {
+        "title": "Sign in to Umarel",
+        "subtitle": "Enter your email below to login to your account",
+        "googleButton": "Sign in with Google",
+        "or": "OR",
+        "email": "Email",
+        "password": "Password",
+        "signIn": "Sign In",
+        "signUp": "Sign Up"
+    },
+    "createRequest": {
+        "title": "Post a New Request",
+        "subtitle": "Describe what you need done. Our Umarels will help you break it down.",
+        "form": {
+            "title": "Title",
+            "titlePlaceholder": "e.g. Fix my kitchen sink and paint the wall",
+            "description": "Description",
+            "descPlaceholder": "Provide more details about the task...",
+            "location": "Location",
+            "locationPlaceholder": "City or Address",
+            "photos": "Photos (Optional)",
+            "uploadText": "Click to upload or drag and drop",
+            "submit": "Post Request"
+        }
+    },
+    "requestDetail": {
+        "openForSlicing": "Open for Slicing",
+        "postedBy": "Posted by",
+        "splittingZone": "Umarel Splitting Zone",
+        "splittingZoneDesc": "Help break this request down into payable slices. Earn Aura points!",
+        "suggestedBy": "Suggested by",
+        "est": "Est.",
+        "discuss": "Discuss",
+        "noSlices": "No slices yet. Be the first Umarel to help!"
+    },
+    "dashboard": {
+        "provider": {
+            "title": "Provider Dashboard",
+            "subtitle": "Find work near you and submit quotes.",
+            "updateProfile": "Update Profile",
+            "project": "Project:",
+            "viewDetails": "View Details & Quote"
+        },
+        "customer": {
+            "title": "My Requests",
+            "subtitle": "Manage your projects and payments.",
+            "postNew": "Post New Request",
+            "slicesDefined": "Slices defined",
+            "quotesReceived": "Quotes received",
+            "viewDetails": "View Details",
+            "postedOn": "Posted on"
+        }
+    },
+    "profile": {
+        "memberSince": "Member since",
+        "auraPoints": "Aura Points",
+        "yourJourney": "Your Journey",
+        "keepContributing": "Keep contributing to reach the next rank!",
+        "currentRank": "Current Rank:",
+        "nextRank": "Next Rank:",
+        "pointsToGo": "points to go",
+        "slicesCreated": "Slices Created",
+        "upvotesReceived": "Upvotes Received",
+        "slicesCompleted": "Slices Completed",
+        "topUmarels": "Top Umarels"
+    },
+    "quotes": [
+        "Non si fa così... (That's not how you do it...)",
+        "Ai miei tempi qui era tutta campagna. (In my times this was all countryside.)",
+        "Ma chi ha fatto questo lavoro? (Who did this job?)",
+        "Guarda, guarda... storto! (Look, look... crooked!)",
+        "Ci vuole pazienza. (You need patience.)",
+        "Ottimo lavoro! (Great job!)",
+        "Manca il tocco finale. (Missing the final touch.)"
+    ],
+    "NotFound": {
+        "title": "Page Not Found",
+        "description": "The page you are looking for does not exist."
+    },
+    "browse": {
+        "title": "Browse Services",
+        "subtitle": "Find service requests and providers in your area",
+        "searchPlaceholder": "Search services...",
+        "postRequest": "Post Request",
+        "offerServices": "Offer Services",
+        "showing": "Showing",
+        "results": "results",
+        "in": "in",
+        "noResults": "No results found in",
+        "tryAdjusting": "Try adjusting your filters or selecting a different location",
+        "clearFilters": "Clear Filters",
+        "beFirstToOffer": "Be the First to Offer Services"
+    },
+    "filters": {
+        "show": "Show",
+        "allListings": "All Listings",
+        "requestsOnly": "Service Requests Only",
+        "offeringsOnly": "Service Offerings Only",
+        "category": "Category",
+        "allCategories": "All Categories",
+        "location": "Location",
+        "includeVirtual": "Include Virtual Services",
+        "hourlyRate": "Hourly Rate",
+        "activeFilters": "Active Filters",
+        "localOnly": "Local only",
+        "categories": {
+            "plumbing": "Plumbing",
+            "electrical": "Electrical",
+            "carpentry": "Carpentry",
+            "painting": "Painting",
+            "cleaning": "Cleaning",
+            "gardening": "Gardening",
+            "moving": "Moving",
+            "other": "Other"
+        }
+    },
+    "sliceCard": {
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "locationLabel": "Location",
+        "finalPriceLabel": "Final Price",
+        "requiredSkillsLabel": "Required Skills",
+        "estimatedTimeLabel": "Estimated Time",
+        "dependenciesLabel": "Dependencies",
+        "acceptanceCriteriaLabel": "Acceptance Criteria",
+        "saveChanges": "Save Changes",
+        "version": "Slice Card v{version}"
+    },
+    "createOffering": {
+        "pageTitle": "Offer Your Services",
+        "pageSubtitle": "Create a professional listing to showcase your skills and get discovered by people in your area.",
+        "cardTitle": "Service Details",
+        "cardDescription": "Provide comprehensive information about the service you wish to offer.",
+        "form": {
+            "titleLabel": "Service Title",
+            "titlePlaceholder": "e.g., Experienced Plumber for Residential Repairs",
+            "titleDesc": "A clear, professional title for your service.",
+            "categoryLabel": "Category",
+            "categoryPlaceholder": "Select a category",
+            "descriptionLabel": "Description",
+            "descriptionPlaceholder": "Describe your experience, services offered, and what makes you unique...",
+            "virtualLabel": "Virtual Service",
+            "virtualDesc": "Check this if your service can be performed remotely (e.g., consulting, design).",
+            "locationLabel": "Location",
+            "locationPlaceholder": "e.g., Milano, Italy",
+            "locationDesc": "The primary area where you offer your services.",
+            "hourlyRateLabel": "Hourly Rate ($) (Optional)",
+            "availabilityLabel": "Availability",
+            "availabilityPlaceholder": "e.g., Weekends, Evenings, Mon-Fri 9-5",
+            "skillsLabel": "Skills",
+            "skillsPlaceholder": "e.g., Pipe fitting, Leak repair, Water heater installation",
+            "skillsDesc": "Comma-separated list of specific skills.",
+            "portfolioLabel": "Portfolio Images",
+            "addImage": "Add Image",
+            "portfolioDesc": "Add photos of your past work to build trust.",
+            "submitButton": "Publish Service Offering",
+            "submittingButton": "Creating Offering...",
+            "successMessage": "Service offering created successfully!",
+            "errorMessage": "Failed to create service offering. Please try again."
+        }
+    }
+}

@@ -17,40 +17,67 @@
     },
     "landing": {
         "hero": {
-            "title": "Trasformiamo la conoscenza inattiva di milioni in lavoro reale e denaro reale",
-            "subtitle1": "Ogni giorno, migliaia di persone sanno esattamente come fare qualcosa in modo più economico, veloce o migliore…",
-            "subtitle2": "Umarel dà loro una fetta del lavoro e una fetta del denaro."
+            "title": "Costruisci fiducia, condividi saggezza, guadagna Aura.",
+            "subtitle1": "Unisciti a una comunità di esperti che aiutano i vicini a fare le cose per bene —",
+            "subtitle2": "costruisci la tua reputazione, un pezzo alla volta.",
+            "cta": "Unisciti alla Comunità"
         },
         "howItWorks": "Come Funziona Umarel",
         "clients": {
             "title": "Per Clienti",
-            "description": "Paga il 30–60% in meno rispetto ai preventivi tradizionali grazie all'intelligenza collettiva",
-            "badge": "Risparmi Massicci"
+            "description": "Ottieni scopi chiari e prezzi onesti grazie alla saggezza verificata dalla comunità.",
+            "badge": "Guidato dalla Saggezza"
         },
         "providers": {
             "title": "Per Fornitori",
-            "description": "Ottieni lavori senza chiamate a freddo – paghi solo quando lavori davvero",
-            "badge": "Costo Iniziale Zero"
+            "description": "Concentrati sul tuo mestiere. Noi gestiamo lo scopo e la chiarezza con il cliente.",
+            "badge": "Qualità Verificata"
         },
         "umarels": {
             "title": "Per Umarels",
-            "description": "Guadagna ogni giorno condividendo la tua conoscenza – nessun CV necessario",
-            "badge": "Pagamenti Giornalieri"
+            "description": "Condividi la tua esperienza, aiuta i vicini a evitare errori e guadagna rispetto dalla comunità.",
+            "badge": "Aura e Rispetto"
         },
         "stats": {
-            "savings": "30-60%",
-            "savingsLabel": "Risparmio Medio",
+            "foundations": "Pronto",
+            "foundationsLabel": "Da Costruire",
+            "savings": "Intelligente",
+            "savingsLabel": "Divisione",
             "free": "100%",
-            "freeLabel": "Gratis per Iniziare",
-            "daily": "Giornaliero",
-            "dailyLabel": "Pagamenti alla Comunità"
+            "freeLabel": "Trasparente",
+            "daily": "Fiducia",
+            "dailyLabel": "Pro Verificati"
         },
         "cta": {
             "title": "Inizia a risparmiare (e guadagnare) oggi",
-            "subtitle": "0 costi per pubblicare · 0 costi per preventivare · Guadagniamo solo quando approvi il lavoro finito",
-            "postButton": "Pubblica un Bisogno – 100% Gratis",
-            "browseButton": "Esplora Servizi",
-            "joinText": "Unisciti a migliaia di persone che trasformano la conoscenza in reddito"
+            "postButton": "Pubblica un Bisogno",
+            "browseButton": "Esplora Servizi"
+        },
+        "roles": {
+            "client": {
+                "title": "Il Cliente",
+                "description": "Hai la visione. Usa i nostri progetti per definire esattamente cosa serve costruire."
+            },
+            "builder": {
+                "title": "Il Costruttore",
+                "description": "Professionisti qualificati che eseguono il piano. Recensioni verificate garantiscono qualità."
+            },
+            "umarel": {
+                "title": "L'Umarel",
+                "description": "L'ispettore della comunità. Osserva dai bordi (digitalmente), offrendo saggezza."
+            }
+        },
+        "safetyTips": {
+            "title": "Consiglio di Sicurezza Giornaliero",
+            "tips": [
+                "Misura due volte, taglia una.",
+                "Indossa sempre i tuoi DPI.",
+                "Un cantiere pulito è un cantiere sicuro.",
+                "Controlla i progetti prima di scavare.",
+                "Se vedi qualcosa di non sicuro, dillo.",
+                "Fidati, ma verifica con un Umarel.",
+                "La qualità non è un atto, è un'abitudine."
+            ]
         }
     }
 }

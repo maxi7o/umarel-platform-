@@ -252,26 +252,40 @@ export function CommentThread({
                 )}
             </div>
 
-            <div className="border rounded-lg p-3 bg-background focus-within:ring-1 ring-ring">
-                <Textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder={
-                        isPromptMode
-                            ? "Ask to split tasks ('Split into 2 slices')..."
-                            : mode === 'private_insight'
-                                ? "Share an insight privately... (e.g. 'This needs a vapor barrier')"
-                                : "Write a comment..."
-                    }
-                    className="min-h-[80px] border-0 focus-visible:ring-0 p-0 resize-none shadow-none"
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSubmit();
+
+
+            {/* Umarel Notebook Input */}
+            <div className="relative border-2 border-stone-300 dark:border-stone-700 bg-[#fffdf5] dark:bg-[#1c1917] rounded-xl shadow-sm overflow-hidden p-1 group focus-within:ring-2 ring-orange-400/50 transition-all">
+                {/* Notebook Header Line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-red-400/20 w-full z-0"></div>
+                <div className="absolute top-0 left-6 bottom-0 w-[1px] bg-red-400/20 z-0 h-full"></div>
+
+                <div className="relative z-10 p-3 pb-1 pl-10">
+                    {newComment.length === 0 && !isPromptMode && (
+                        <div className="absolute top-4 left-10 text-stone-400 italic pointer-events-none text-sm font-serif">
+                            Start writing... (Hands behind your back, eyes on the details)
+                        </div>
+                    )}
+                    <Textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder={
+                            isPromptMode
+                                ? "Ask to split tasks ('Split into 2 slices')..."
+                                : mode === 'private_insight'
+                                    ? "Share an insight privately... (e.g. 'This needs a vapor barrier')"
+                                    : "Write a comment..."
                         }
-                    }}
-                />
-                <div className="flex items-center justify-between mt-2 pt-2 border-t">
+                        className="min-h-[100px] border-0 bg-transparent focus-visible:ring-0 p-0 resize-none shadow-none text-base text-stone-800 dark:text-stone-200 font-medium placeholder:text-transparent"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSubmit();
+                            }
+                        }}
+                    />
+                </div>
+                <div className="flex items-center justify-between px-3 py-2 bg-stone-100/50 dark:bg-stone-900/50 border-t border-stone-200 dark:border-stone-800 relative z-20">
                     <Button
                         variant="ghost"
                         size="sm"
@@ -298,6 +312,6 @@ export function CommentThread({
                     </Button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

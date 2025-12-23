@@ -10,22 +10,32 @@ import { Badge } from '@/components/ui/badge';
 import { Globe } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { LocationInput } from '@/components/forms/location-input';
+
 interface BrowseFiltersProps {
     selectedType: 'all' | 'requests' | 'offerings';
     selectedCategory?: string;
     includeVirtual: boolean;
+    locationData?: { address: string; lat: number; lng: number } | null;
+    radius?: number;
     onTypeChange: (type: 'all' | 'requests' | 'offerings') => void;
     onCategoryChange: (category: string | undefined) => void;
     onVirtualToggle: (include: boolean) => void;
+    onLocationChange: (data: any) => void;
+    onRadiusChange: (radius: number) => void;
 }
 
 export function BrowseFilters({
     selectedType,
     selectedCategory,
     includeVirtual,
+    locationData,
+    radius = 50,
     onTypeChange,
     onCategoryChange,
     onVirtualToggle,
+    onLocationChange,
+    onRadiusChange,
 }: BrowseFiltersProps) {
     const t = useTranslations('filters');
 
@@ -42,6 +52,46 @@ export function BrowseFilters({
 
     return (
         <div className="space-y-6">
+            {/* Location Filter */}
+            <Card>
+                <CardHeader>
+                    <CardTitle className="text-base">{t('location')}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <LocationInput
+                        placeholder="City, neighborhood..."
+                        value={locationData?.address}
+                        onChange={(val, data) => onLocationChange(data)}
+                    />
+
+                    {locationData && (
+                        <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                                <Label>Radius: {radius}km</Label>
+                            </div>
+                            <Slider
+                                value={[radius]}
+                                max={100}
+                                step={5}
+                                onValueChange={(vals) => onRadiusChange(vals[0])}
+                            />
+                        </div>
+                    )}
+
+                    <div className="flex items-center space-x-2 pt-2">
+                        <Checkbox
+                            id="virtual"
+                            checked={includeVirtual}
+                            onCheckedChange={(checked) => onVirtualToggle(checked as boolean)}
+                        />
+                        <Label htmlFor="virtual" className="cursor-pointer flex items-center gap-2 text-sm">
+                            <Globe className="h-4 w-4 text-blue-500" />
+                            {t('includeVirtual')}
+                        </Label>
+                    </div>
+                </CardContent>
+            </Card>
+
             {/* Type Filter */}
             <Card>
                 <CardHeader>
@@ -102,51 +152,30 @@ export function BrowseFilters({
                 </CardContent>
             </Card>
 
-            {/* Virtual Services Toggle */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-base">{t('location')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox
-                            id="virtual"
-                            checked={includeVirtual}
-                            onCheckedChange={(checked) => onVirtualToggle(checked as boolean)}
-                        />
-                        <Label htmlFor="virtual" className="cursor-pointer flex items-center gap-2">
-                            <Globe className="h-4 w-4 text-blue-500" />
-                            {t('includeVirtual')}
-                        </Label>
-                    </div>
-                </CardContent>
-            </Card>
-
-
             {/* Active Filters Summary */}
-            {(selectedCategory || !includeVirtual) && (
+            {(selectedCategory || locationData) && (
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-base">{t('activeFilters')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex flex-wrap gap-2">
-                            {selectedCategory && (
+                            {locationData && (
                                 <Badge variant="secondary" className="gap-1">
-                                    {CATEGORIES.find(c => c.id === selectedCategory)?.label}
+                                    {locationData.address.split(',')[0]} ({radius}km)
                                     <button
-                                        onClick={() => onCategoryChange(undefined)}
+                                        onClick={() => onLocationChange(null)}
                                         className="ml-1 hover:text-destructive"
                                     >
                                         ×
                                     </button>
                                 </Badge>
                             )}
-                            {!includeVirtual && (
+                            {selectedCategory && (
                                 <Badge variant="secondary" className="gap-1">
-                                    {t('localOnly')}
+                                    {CATEGORIES.find(c => c.id === selectedCategory)?.label}
                                     <button
-                                        onClick={() => onVirtualToggle(true)}
+                                        onClick={() => onCategoryChange(undefined)}
                                         className="ml-1 hover:text-destructive"
                                     >
                                         ×

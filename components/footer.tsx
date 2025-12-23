@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 const TAGLINES: Record<string, string> = {
     'en': 'Connecting wisdom with needs.',
@@ -24,15 +25,31 @@ export function Footer() {
     const locale = pathname.split('/')[1] || 'en';
     const tagline = TAGLINES[locale] || TAGLINES['en'];
 
+    // Select a random quote from the localization on mount (client-side only for hydration safety)
+    const [quote, setQuote] = useState<string>('');
+    const quotes = t.raw('quotes') as unknown as string[]; // Access raw array
+
+    useEffect(() => {
+        if (Array.isArray(quotes) && quotes.length > 0) {
+            setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+        }
+    }, []);
+
     return (
         <footer className="bg-gray-900 text-gray-300 py-12">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <h3 className="text-white font-bold text-lg mb-4">Umarel</h3>
-                        <p className="text-sm italic">
+                        <p className="text-sm italic text-stone-400 mb-4">
                             {tagline}
                         </p>
+                        {quote && (
+                            <div className="bg-stone-800/50 p-3 rounded-lg border-l-2 border-orange-500">
+                                <p className="text-xs text-orange-200 font-mono">Daily Wisdom:</p>
+                                <p className="text-sm italic text-stone-300">"{quote}"</p>
+                            </div>
+                        )}
                     </div>
                     <div>
                         <h4 className="text-white font-semibold mb-4">Platform</h4>

@@ -12,6 +12,7 @@ export async function POST(request: Request) {
             description,
             category,
             location,
+            locationDetails,
             isVirtual = false,
             hourlyRate,
             fixedRate,
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
             description,
             category,
             location: isVirtual ? null : location,
+            locationDetails: isVirtual ? null : locationDetails,
             isVirtual,
             hourlyRate,
             fixedRate,
@@ -129,13 +131,13 @@ export async function GET(request: Request) {
                         auraPoints: provider.auraPoints,
                     },
                     metrics: metrics ? {
-                        completionRate: metrics.totalSlicesCompleted > 0
-                            ? Math.round((metrics.totalSlicesCompleted / (metrics.totalSlicesCompleted + 1)) * 100)
+                        completionRate: (metrics.totalSlicesCompleted ?? 0) > 0
+                            ? Math.round(((metrics.totalSlicesCompleted ?? 0) / ((metrics.totalSlicesCompleted ?? 0) + 1)) * 100)
                             : 0,
-                        onTimeRate: metrics.totalSlicesCompleted > 0
-                            ? Math.round((metrics.totalSlicesOnTime / metrics.totalSlicesCompleted) * 100)
+                        onTimeRate: (metrics.totalSlicesCompleted ?? 0) > 0
+                            ? Math.round(((metrics.totalSlicesOnTime ?? 0) / (metrics.totalSlicesCompleted ?? 0)) * 100)
                             : 0,
-                        rating: metrics.rating,
+                        rating: metrics.rating ?? 0,
                     } : null
                 };
             })

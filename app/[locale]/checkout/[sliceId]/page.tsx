@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { CreditCard, Wallet, Shield, CheckCircle2 } from 'lucide-react';
 import { formatARS } from '@/lib/payments/calculations';
 import Link from 'next/link';
+import { UnifiedCheckoutButton } from '@/components/checkout/unified-checkout-button';
 
 export default async function CheckoutPage({ params }: { params: { sliceId: string } }) {
     const slice = await db.query.slices.findFirst({
@@ -117,46 +118,20 @@ export default async function CheckoutPage({ params }: { params: { sliceId: stri
                             <CardTitle>Choose Payment Method</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            {/* Stripe */}
-                            <Button
-                                className="w-full h-auto py-4 justify-start"
-                                variant="outline"
-                                asChild
-                            >
-                                <a href={`/api/payments/stripe/checkout?escrowId=${escrow.id}`}>
-                                    <div className="flex items-center gap-3 w-full">
-                                        <CreditCard className="h-6 w-6 text-blue-600" />
-                                        <div className="text-left flex-1">
-                                            <p className="font-semibold">Pay with Stripe</p>
-                                            <p className="text-xs text-muted-foreground">
-                                                International cards, secure payment
-                                            </p>
-                                        </div>
-                                        <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
-                                    </div>
-                                </a>
-                            </Button>
+                            <div className="p-4 bg-muted/30 rounded-lg mb-4">
+                                <p className="text-sm font-medium mb-2">Simulated Location</p>
+                                <div className="flex gap-2">
+                                    {/* Mock Toggle for Verification */}
+                                    <UnifiedCheckoutButton sliceId={slice.id} userCountry="US" />
+                                    <UnifiedCheckoutButton sliceId={slice.id} userCountry="AR" />
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-2 text-center">
+                                    (Click left for Stripe/US, right for Mercado Pago/AR)
+                                </p>
+                            </div>
 
-                            {/* Mercado Pago */}
-                            <form action="/api/payments/mercadopago/checkout" method="GET">
-                                <input type="hidden" name="escrowId" value={escrow.id} />
-                                <Button
-                                    type="submit"
-                                    className="w-full h-auto py-4 justify-start"
-                                    variant="outline"
-                                >
-                                    <div className="flex items-center gap-3 w-full">
-                                        <Wallet className="h-6 w-6 text-blue-400" />
-                                        <div className="text-left flex-1">
-                                            <p className="font-semibold">Pay with Mercado Pago</p>
-                                            <p className="text-xs text-muted-foreground">
-                                                Argentina - Tarjetas, efectivo, transferencia
-                                            </p>
-                                        </div>
-                                        <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
-                                    </div>
-                                </Button>
-                            </form>
+                            {/* Unified Button Usage (We would detect country automatically normally) */}
+                            {/* <UnifiedCheckoutButton sliceId={slice.id} userCountry="AR" /> */}
                         </CardContent>
                     </Card>
 

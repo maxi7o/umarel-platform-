@@ -35,34 +35,36 @@
     },
     "landing": {
         "hero": {
-            "title": "Earn real money every day just by sharing what you know",
-            "subtitle1": "Yesterday the top 50 umarels earned $1.2 M combined —",
-            "subtitle2": "no CV, no interviews, no boss.",
-            "cta": "Start earning as an umarel – 100 % free"
+            "title": "Build trust, share wisdom, earn Aura.",
+            "subtitle1": "Join a community of experts helping neighbors get things done right —",
+            "subtitle2": "build your reputation, one slice at a time.",
+            "cta": "Join the Community"
         },
         "howItWorks": "How Umarel Works",
         "clients": {
             "title": "For Clients",
-            "description": "Pay 30–60% less than traditional quotes thanks to collective intelligence",
-            "badge": "Massive Savings"
+            "description": "Get clear scopes and fair prices through community-verified wisdom.",
+            "badge": "Wisdom Driven"
         },
         "providers": {
             "title": "For Providers",
-            "description": "Win jobs without cold-calling – only pay when you actually work",
-            "badge": "Zero Upfront Cost"
+            "description": "Focus on your craft. We handle the scope and client clarity.",
+            "badge": "Verified Quality"
         },
         "umarels": {
             "title": "For Umarels",
-            "description": "Earn money every day just by sharing your knowledge – no CV needed",
-            "badge": "Daily Payouts"
+            "description": "Share your expertise, help neighbors avoid mistakes, and earn community recognition.",
+            "badge": "Aura & Respect"
         },
         "stats": {
-            "savings": "30-60%",
-            "savingsLabel": "Average Savings",
+            "foundations": "Ready",
+            "foundationsLabel": "To Build",
+            "savings": "Smart",
+            "savingsLabel": "Slicing",
             "free": "100%",
-            "freeLabel": "Free to Start",
-            "daily": "Daily",
-            "dailyLabel": "Community Payouts"
+            "freeLabel": "Transparent",
+            "daily": "Trust",
+            "dailyLabel": "Verified Pros"
         },
         "cta": {
             "title": "Start saving (and earning) today",
@@ -77,6 +79,40 @@
             "q3": "If it weren't for the umarel, the job would never get done",
             "q4": "Every umarel has the solution nobody asked for",
             "q5": "The umarel: the expert you don't need... but always need"
+        },
+        "trustHero": {
+            "tagline": "Your dad watching the construction site, but professional.",
+            "title": "Peace of mind for your renovation.",
+            "subtitle": "Expert eyes preventing costly mistakes before they happen.",
+            "ctaPrimary": "Audit my Quote",
+            "ctaSecondary": "See Example Savings",
+            "ticker": "Juan in Palermo just saved $50,000 on a roof estimate... Maria avoided a plumbing scam..."
+        },
+        "roles": {
+            "client": {
+                "title": "The Client",
+                "description": "You have the vision. Use our blueprints to define exactly what you need built, ensuring no details are missed."
+            },
+            "builder": {
+                "title": "The Builder",
+                "description": "Skilled tradespeople who execute the plan. Verified reviews and safety badges ensure top-quality craftsmanship."
+            },
+            "umarel": {
+                "title": "The Umarel",
+                "description": "The community inspector. Watching from the sidelines (digitally), offering wisdom, and ensuring everything is up to code."
+            }
+        },
+        "safetyTips": {
+            "title": "Daily Site Safety Tip",
+            "tips": [
+                "Measure twice, cut once.",
+                "Always wear your PPE (Personal Protective Equipment).",
+                "A clean site is a safe site.",
+                "Check the blueprints before digging.",
+                "If you see something unsafe, say something.",
+                "Trust, but verify with an Umarel.",
+                "Quality is not an act, it is a habit."
+            ]
         }
     },
     "login": {
@@ -87,7 +123,10 @@
         "email": "Email",
         "password": "Password",
         "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signUp": "Sign Up",
+        "agreeToTerms": "I agree to the {terms} and {privacy}",
+        "termsLink": "Terms of Service",
+        "privacyLink": "Privacy Policy"
     },
     "createRequest": {
         "title": "Post a New Request",
@@ -152,7 +191,10 @@
         "Guarda, guarda... storto! (Look, look... crooked!)",
         "Ci vuole pazienza. (You need patience.)",
         "Ottimo lavoro! (Great job!)",
-        "Manca il tocco finale. (Missing the final touch.)"
+        "Manca il tocco finale. (Missing the final touch.)",
+        "Hands behind your back, eyes on the details.",
+        "A bad foundation ruins the whole house.",
+        "Measure twice, cut once... then measure again because you probably did it wrong."
     ],
     "NotFound": {
         "title": "Page Not Found",
@@ -239,5 +281,10 @@
             "successMessage": "Service offering created successfully!",
             "errorMessage": "Failed to create service offering. Please try again."
         }
+    },
+    "terms": {
+        "title": "Terms of Service",
+        "intro": "Welcome to Umarel...",
+        "privacyTitle": "Privacy Policy"
     }
 }

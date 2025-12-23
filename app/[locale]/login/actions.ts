@@ -34,6 +34,11 @@ export async function signup(formData: FormData) {
         password,
         options: {
             emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+            data: {
+                full_name: email.split('@')[0],
+                last_tos_accepted_at: new Date().toISOString(),
+                tos_version: 1
+            }
         },
     })
 

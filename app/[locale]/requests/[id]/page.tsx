@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { requests, slices, comments, quotes, users, questions, answers, changeProposals } from '@/lib/db/schema'
-import { eq, desc } from 'drizzle-orm'
+import { requests, slices, comments, quotes, users, questions, answers, changeProposals, escrowPayments } from '@/lib/db/schema'
+import { eq, desc, inArray } from 'drizzle-orm'
 import { RequestInteractionLayout } from '@/components/interaction/request-interaction-layout'
 import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
 
@@ -61,11 +61,21 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
         request = result[0];
 
         if (request) {
-            import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
-
-            // ... inside component ...
             // Fetch Slices
             requestSlices = await getOpenSlicesForProvider(id);
+
+            // Fetch Escrow Payments for these slices
+            const sliceIds = requestSlices.map(s => s.id);
+            let escrows: any[] = [];
+            if (sliceIds.length > 0) {
+                escrows = await db.select().from(escrowPayments).where(inArray(escrowPayments.sliceId, sliceIds));
+            }
+
+            // Attach escrow to slices
+            requestSlices = requestSlices.map(slice => ({
+                ...slice,
+                escrow: escrows.find(e => e.sliceId === slice.id)
+            }));
 
             // Fetch Comments
             requestComments = await db

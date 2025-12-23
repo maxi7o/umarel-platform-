@@ -41,6 +41,7 @@ const formSchema = z.object({
     }),
     availability: z.string().min(5, 'Please describe your availability'),
     skills: z.string().min(3, 'Please list at least one skill'),
+    locationDetails: z.any().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -103,6 +104,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     description: values.description,
                     category: values.category,
                     location: values.location,
+                    locationDetails: values.locationDetails,
                     isVirtual: values.isVirtual,
                     hourlyRate: values.hourlyRate ? Math.round(Number(values.hourlyRate) * 100) : null, // Convert to cents or null
                     availability: values.availability,
@@ -235,7 +237,12 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                                 placeholder={t('form.locationPlaceholder')}
                                                 required={!isVirtual}
                                                 value={field.value}
-                                                onChange={field.onChange}
+                                                onChange={(val, data) => {
+                                                    field.onChange(val);
+                                                    if (data) {
+                                                        form.setValue('locationDetails', data);
+                                                    }
+                                                }}
                                             />
                                         </FormControl>
                                         <FormDescription>

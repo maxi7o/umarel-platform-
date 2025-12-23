@@ -1,68 +1,61 @@
-import { TrattoriaHero } from '@/components/landing/trattoria-hero';
-import { RotatingQuotes } from '@/components/landing/rotating-quotes';
+
+import { TrustHero } from '@/components/landing/trust-hero';
+import { SiteSafetyTips } from '@/components/landing/site-safety-tips';
 import { useTranslations } from 'next-intl';
 
 export default function LandingPage() {
   const t = useTranslations('landing');
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground font-sans">
 
-      {/* 1. Trattoria Hero (Dinner Table Vibe) */}
-      <TrattoriaHero />
+      {/* 1. Hero Section (Construction Site Vibe) */}
+      <TrustHero />
 
-      {/* 2. Engaging Italian Phrases */}
-      <section className="py-20 border-y-4 border-double border-red-100 bg-orange-50/50">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="text-2xl font-hand font-bold text-stone-500 mb-8 -rotate-1">
-            Words of Wisdom from Nonno
-          </h3>
-          <RotatingQuotes />
+      {/* 2. Safety / Wisdom Section */}
+      <section className="py-16 bg-muted/50 border-y border-border">
+        <div className="container mx-auto px-6">
+          <SiteSafetyTips />
         </div>
       </section>
 
-      {/* 3. The Pillars (Menu Cards) */}
-      <section className="py-32 container mx-auto px-6 relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[url('/pizza-slice-bg.svg')] opacity-5 pointer-events-none" />
+      {/* 3. The Crew (Roles) */}
+      <section className="py-24 container mx-auto px-6 relative overflow-hidden">
+        {/* Decorative Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-8 relative z-10">
 
-          {/* Pillar 1 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-stone-100 hover:shadow-2xl transition-all transform hover:-rotate-1">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-4xl mb-6 mx-auto">
+          {/* Role 1: The Client */}
+          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+            <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               👷
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-stone-800 text-center">
-              The Client
-            </h3>
-            <p className="text-stone-600 text-center font-hand text-xl">
-              Sit down, relax. Tell us what you need built, and we serve you the best slices.
+            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.client.title')}</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {t('roles.client.description')}
             </p>
           </div>
 
-          {/* Pillar 2 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-stone-100 hover:shadow-2xl transition-all transform hover:rotate-1 mt-8 md:mt-0">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-4xl mb-6 mx-auto">
+          {/* Role 2: The Maker */}
+          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-accent/50 transition-all duration-300">
+            <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               🔨
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-stone-800 text-center">
-              The Maker
-            </h3>
-            <p className="text-stone-600 text-center font-hand text-xl">
-              Our chefs (providers) are masters of their craft. Quality ingredients only.
+            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.builder.title')}</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {t('roles.builder.description')}
             </p>
           </div>
 
-          {/* Pillar 3 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-stone-100 hover:shadow-2xl transition-all transform hover:-rotate-1 mt-8 md:mt-0">
-            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-4xl mb-6 mx-auto">
+          {/* Role 3: The Umarel */}
+          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-r-4 hover:border-r-primary transition-all duration-300">
+            <div className="w-14 h-14 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               👴
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-stone-800 text-center">
-              The Umarel
-            </h3>
-            <p className="text-stone-600 text-center font-hand text-xl">
-              Watching over the shoulder to ensure your lasagna (project) is perfect.
+            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.umarel.title')}</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {t('roles.umarel.description')}
             </p>
           </div>
 
@@ -72,3 +65,4 @@ export default function LandingPage() {
     </div>
   );
 }
+

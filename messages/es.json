@@ -35,34 +35,36 @@
     },
     "landing": {
         "hero": {
-            "title": "Gana dinero real todos los días solo compartiendo lo que sabes",
-            "subtitle1": "Ayer los top 50 umarels ganaron $1.2 M combinados —",
-            "subtitle2": "sin CV, sin entrevistas, sin jefe.",
-            "cta": "Empieza a ganar como umarel – 100% gratis"
+            "title": "Construí confianza, compartí sabiduría, ganá Aura.",
+            "subtitle1": "Sumate a una comunidad de expertos ayudando a vecinos a hacer las cosas bien —",
+            "subtitle2": "construí tu reputación, parte por parte.",
+            "cta": "Sumate a la Comunidad"
         },
         "howItWorks": "Cómo Funciona Umarel",
         "clients": {
             "title": "Para Clientes",
-            "description": "Paga 30–60% menos que las cotizaciones tradicionales gracias a la inteligencia colectiva",
-            "badge": "Ahorros Masivos"
+            "description": "Obtené alcances claros y precios justos con sabiduría verificada por la comunidad.",
+            "badge": "Impulsado por Sabiduría"
         },
         "providers": {
             "title": "Para Proveedores",
-            "description": "Gana trabajos sin llamadas en frío – solo pagas cuando realmente trabajas",
-            "badge": "Costo Inicial Cero"
+            "description": "Enfocate en tu oficio. Nosotros nos encargamos del alcance y la claridad con el cliente.",
+            "badge": "Calidad Verificada"
         },
         "umarels": {
             "title": "Para Umarels",
-            "description": "Gana dinero todos los días solo compartiendo tu conocimiento – sin CV necesario",
-            "badge": "Pagos Diarios"
+            "description": "Compartí tu experiencia, ayudá a evitar errores y ganá reconocimiento de la comunidad.",
+            "badge": "Aura y Respeto"
         },
         "stats": {
-            "savings": "30-60%",
-            "savingsLabel": "Ahorro Promedio",
+            "foundations": "Listo",
+            "foundationsLabel": "Para Construir",
+            "savings": "Inteligente",
+            "savingsLabel": "División",
             "free": "100%",
-            "freeLabel": "Gratis para Empezar",
-            "daily": "Diario",
-            "dailyLabel": "Pagos a la Comunidad"
+            "freeLabel": "Transparente",
+            "daily": "Confianza",
+            "dailyLabel": "Pros Verificados"
         },
         "cta": {
             "title": "Empieza a ahorrar (y ganar) hoy",
@@ -79,12 +81,46 @@
             "browseMenu": "Mirar el Menú 🍕",
             "wip": "En Obra 🚧"
         },
+        "trustHero": {
+            "tagline": "Tu viejo mirando la obra, pero profesional.",
+            "title": "Tranquilidad total para tu reforma.",
+            "subtitle": "Ojos expertos previniendo errores costosos antes de que pasen.",
+            "ctaPrimary": "Auditar mi Presupuesto",
+            "ctaSecondary": "Ver Ahorros Reales",
+            "ticker": "Juan en Palermo acaba de ahorrar $50.000 en un presupuesto de techo... María evitó una estafa de plomería..."
+        },
         "italianQuotes": {
             "q1": "Umarel: el que mira la obra con las manos atrás",
             "q2": "El umarel siempre sabe cómo hacerlo mejor",
             "q3": "Si no fuera por el umarel, el trabajo nunca terminaría",
             "q4": "Cada umarel tiene la solución que nadie pidió",
             "q5": "El umarel: el experto que no necesitas... pero siempre necesitas"
+        },
+        "roles": {
+            "client": {
+                "title": "El Cliente",
+                "description": "Vos tenés la visión. Usá nuestros planos para definir exactamente qué necesitás construir, asegurando que no se escape ningún detalle."
+            },
+            "builder": {
+                "title": "El Constructor",
+                "description": "Profesionales calificados que ejecutan el plan. Las reseñas verificadas y las insignias de seguridad garantizan una artesanía de primera."
+            },
+            "umarel": {
+                "title": "El Umarel",
+                "description": "El inspector de la comunidad. Mirando desde afuera (digitalmente), ofreciendo sabiduría y asegurando que todo esté en regla."
+            }
+        },
+        "safetyTips": {
+            "title": "Consejo de Seguridad Diario",
+            "tips": [
+                "Medí dos veces, cortá una.",
+                "Usá siempre tu EPP (Equipo de Protección Personal).",
+                "Una obra limpia es una obra segura.",
+                "Revisá los planos antes de cavar.",
+                "Si ves algo inseguro, decilo.",
+                "Confiá, pero verificá con un Umarel.",
+                "La calidad no es un acto, es un hábito."
+            ]
         }
     },
     "login": {
