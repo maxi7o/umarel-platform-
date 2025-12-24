@@ -253,7 +253,9 @@ export const savedItems = pgTable('saved_items', {
 
 export const escrowPayments = pgTable('escrow_payments', {
     id: uuid('id').primaryKey().defaultRandom(),
-    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id), // Made optional for Experiences
+    experienceId: uuid('experience_id').references(() => experiences.id), // Added for Experiences
     clientId: uuid('client_id').references(() => users.id).notNull(),
     providerId: uuid('provider_id').references(() => users.id).notNull(),
     totalAmount: integer('total_amount').notNull(), // slice price + 15% fee (in cents)
@@ -479,5 +481,61 @@ export const withdrawalsRelations = relations(withdrawals, ({ one }) => ({
     user: one(users, {
         fields: [withdrawals.userId],
         references: [users.id],
+    }),
+}));
+
+// ============================================
+// EXPERIENCES & DYNAMIC PRICING TABLES
+// ============================================
+
+export const experienceStatusEnum = pgEnum('experience_status', ['scheduled', 'confirmed', 'cancelled', 'completed']);
+export const participantStatusEnum = pgEnum('participant_status', ['joined', 'refunded', 'attended']);
+
+export const experiences = pgTable('experiences', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    providerId: uuid('provider_id').references(() => users.id).notNull(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    location: text('location'),
+    date: timestamp('date').notNull(),
+    durationMinutes: integer('duration_minutes').notNull(),
+    minParticipants: integer('min_participants').default(1),
+    maxParticipants: integer('max_participants'),
+    pricingConfig: jsonb('pricing_config').notNull(), // { strategy: 'early_bird', tiers: [] }
+    weatherDependent: boolean('weather_dependent').default(false),
+    status: experienceStatusEnum('status').default('scheduled'),
+    createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const experienceParticipants = pgTable('experience_participants', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    experienceId: uuid('experience_id').references(() => experiences.id).notNull(),
+    userId: uuid('user_id').references(() => users.id).notNull(), // The client
+    pricePaid: integer('price_paid').notNull(), // in cents
+    status: participantStatusEnum('status').default('joined'),
+    escrowPaymentId: uuid('escrow_payment_id').references(() => escrowPayments.id), // Link to payment
+    joinedAt: timestamp('joined_at').defaultNow(),
+});
+
+export const experiencesRelations = relations(experiences, ({ one, many }) => ({
+    provider: one(users, {
+        fields: [experiences.providerId],
+        references: [users.id],
+    }),
+    participants: many(experienceParticipants),
+}));
+
+export const experienceParticipantsRelations = relations(experienceParticipants, ({ one }) => ({
+    experience: one(experiences, {
+        fields: [experienceParticipants.experienceId],
+        references: [experiences.id],
+    }),
+    user: one(users, {
+        fields: [experienceParticipants.userId],
+        references: [users.id],
+    }),
+    payment: one(escrowPayments, {
+        fields: [experienceParticipants.escrowPaymentId],
+        references: [escrowPayments.id],
     }),
 }));
