@@ -4,6 +4,8 @@ import { slices, escrowPayments } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { calculatePaymentBreakdown } from '@/lib/payments/calculations';
 
+import { createClient } from '@/lib/supabase/server';
+
 export async function POST(
     request: NextRequest,
     { params }: { params: { id: string } }
@@ -12,8 +14,14 @@ export async function POST(
         const { bidAmount, providerId } = await request.json();
         const sliceId = params.id;
 
-        // TODO: Get current user from session
-        const clientId = 'current-user-id'; // Replace with actual auth
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        const clientId = user.id;
 
         // Validate slice exists and is in correct status
         const slice = await db.query.slices.findFirst({

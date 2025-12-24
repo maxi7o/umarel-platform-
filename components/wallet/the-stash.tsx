@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Wallet, ArrowRight } from 'lucide-react';
+import { WithdrawButton } from './withdraw-button';
+import { MIN_WITHDRAWAL_AMOUNT } from '@/lib/payments/calculations';
 
 interface TheStashProps {
     balance: number; // in cents
@@ -42,9 +44,10 @@ export function TheStash({ balance, currency }: TheStashProps) {
                         </div>
                     </div>
 
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white" disabled={balance <= 0}>
-                        {t('withdraw')} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    <WithdrawButton
+                        balance={balance}
+                        canWithdraw={balance >= MIN_WITHDRAWAL_AMOUNT}
+                    />
                 </div>
             </CardContent>
         </Card>

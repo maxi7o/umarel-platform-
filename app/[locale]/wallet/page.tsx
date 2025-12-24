@@ -5,15 +5,21 @@ import { eq, desc } from 'drizzle-orm';
 import { GrandpaFeedback } from '@/components/wallet/grandpa-feedback';
 import { TheStash } from '@/components/wallet/the-stash';
 import { ImpactFeed } from '@/components/wallet/impact-feed';
-import { getUser } from '@/lib/auth/get-user'; // Assuming this exists or similar
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
 export default async function WalletPage() {
-    // 1. Get Current User
-    // For MVP, we hardcode the dev user if auth not ready, but we should use real ID
-    const userId = "00000000-0000-0000-0000-000000000001"; // Dev User
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect('/login');
+    }
+
+    const userId = user.id;
 
     // 2. Fetch User & Wallet
-    const [user] = await db.select().from(users).where(eq(users.id, userId));
+    const [dbUser] = await db.select().from(users).where(eq(users.id, userId));
     const [wallet] = await db.select().from(userWallets).where(eq(userWallets.userId, userId));
 
     // 3. Fetch History (Inefficient JSON filter for now)
@@ -83,8 +89,8 @@ export default async function WalletPage() {
             {/* Top Row: Feedback + Stash */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <GrandpaFeedback
-                    auraLevel={user?.auraLevel || 'bronze'}
-                    auraPoints={user?.auraPoints || 0}
+                    auraLevel={dbUser?.auraLevel || 'bronze'}
+                    auraPoints={dbUser?.auraPoints || 0}
                 />
                 <TheStash balance={balance} currency={currency} />
             </div>

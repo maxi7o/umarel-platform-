@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { preference } from '@/lib/mercadopago';
+import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
 import { escrowPayments, slices } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
@@ -34,6 +35,14 @@ export async function GET(request: NextRequest) {
             where: eq(slices.id, escrow.sliceId),
         });
 
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user || !user.email) {
+            // Fallback or error? For now error if not logged in
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         // Create Mercado Pago Preference
         const preferenceData = {
             items: [
@@ -47,7 +56,7 @@ export async function GET(request: NextRequest) {
                 },
             ],
             payer: {
-                email: 'client@example.com', // TODO: Get from user session
+                email: user.email,
             },
             back_urls: {
                 success: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success?escrowId=${escrowId}`,

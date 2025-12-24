@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { db } from '@/lib/db';
-import { escrowPayments, slices, communityRewards, comments, userWallets } from '@/lib/db/schema';
+import { escrowPayments, slices, communityRewards, comments, userWallets, users } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
-import { distributeRewards } from '@/lib/payments/calculations';
+import { distributeRewards, formatARS } from '@/lib/payments/calculations';
+
+import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
     request: NextRequest,
@@ -12,8 +14,14 @@ export async function POST(
     try {
         const sliceId = params.id;
 
-        // TODO: Get current user from session and verify they are the client
-        const clientId = 'current-user-id'; // Replace with actual auth
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        const clientId = user.id;
 
         // Get slice and escrow payment
         const slice = await db.query.slices.findFirst({
@@ -139,15 +147,20 @@ export async function POST(
                 '@/lib/notifications/email'
             );
 
-            // Notify provider of payment release
-            // TODO: Get provider email from user record
-            await sendEmail(
-                paymentReleasedEmail(
-                    'provider@example.com',
-                    slice.title,
-                    formatARS(escrow.sliceAmount)
-                )
-            );
+            // Fetch provider email
+            const provider = await db.query.users.findFirst({
+                where: eq(users.id, escrow.providerId),
+            });
+
+            if (provider?.email) {
+                await sendEmail(
+                    paymentReleasedEmail(
+                        provider.email,
+                        slice.title,
+                        formatARS(escrow.sliceAmount)
+                    )
+                );
+            }
 
             // Notify community members of rewards
             if (helpfulComments.length > 0) {
@@ -156,19 +169,24 @@ export async function POST(
                     helpfulComments.map((c) => ({
                         commentId: c.id,
                         userId: c.userId,
-                        hearts: c.heartsCount,
+                        hearts: c.heartsCount || 0,
                     }))
                 );
 
                 for (const reward of rewardsDistribution) {
-                    // TODO: Get helper email from user record
-                    await sendEmail(
-                        communityRewardEmail(
-                            'helper@example.com',
-                            formatARS(reward.amount),
-                            'Helpful optimization comment'
-                        )
-                    );
+                    const helper = await db.query.users.findFirst({
+                        where: eq(users.id, reward.userId),
+                    });
+
+                    if (helper?.email) {
+                        await sendEmail(
+                            communityRewardEmail(
+                                helper.email,
+                                formatARS(reward.amount),
+                                'Helpful optimization comment'
+                            )
+                        );
+                    }
                 }
             }
         } catch (emailError) {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { userWallets } from '@/lib/db/schema';
+import { userWallets, withdrawals } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { canWithdraw, MIN_WITHDRAWAL_AMOUNT } from '@/lib/payments/calculations';
 import { createClient } from '@/lib/supabase/server';
@@ -46,9 +46,14 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // TODO: Process Mercado Pago payout
-        // This requires Mercado Pago Money Out API
-        // For now, we'll just update the wallet
+        // Create manual payout request
+        await db.insert(withdrawals).values({
+            userId,
+            amount,
+            destination: mercadoPagoEmail || wallet.mercadoPagoEmail || user.email || 'unknown',
+            method: 'mercadopago',
+            status: 'pending'
+        });
 
         // Update wallet
         await db
@@ -61,8 +66,7 @@ export async function POST(request: NextRequest) {
             })
             .where(eq(userWallets.userId, userId));
 
-        // TODO: Create withdrawal record for tracking
-        // TODO: Send confirmation email
+        console.log(`[WITHDRAWAL] Manual payout needed for User ${userId} ($${amount / 100}) to ${mercadoPagoEmail || wallet.mercadoPagoEmail}`);
 
         return NextResponse.json({
             success: true,

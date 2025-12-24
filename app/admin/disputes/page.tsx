@@ -1,6 +1,7 @@
 
 import { getDisputes } from '../actions';
 import { redirect } from 'next/navigation';
+import { AIAnalysisButton } from '@/components/admin/ai-analysis-button';
 
 export default async function AdminDisputesPage() {
     const disputes = await getDisputes();
@@ -27,24 +28,20 @@ export default async function AdminDisputesPage() {
                                     <div className="text-sm text-gray-500">ID: {dispute.id.substring(0, 8)}...</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    ${(dispute.finalPrice || 0) / 100} ARS
+                                    ${(dispute.amount || 0) / 100} {dispute.currency}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {dispute.disputedAt ? new Date(dispute.disputedAt).toLocaleDateString() : 'N/A'}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                    <button className="text-green-600 hover:text-green-900">Resolve (Pay)</button>
-                                    <button className="text-red-600 hover:text-red-900">Refund Client</button>
+                                <td className="px-6 py-4 text-sm font-medium space-y-2">
+                                    <div className="flex space-x-2">
+                                        <button className="text-green-600 hover:text-green-900">Resolve (Pay)</button>
+                                        <button className="text-red-600 hover:text-red-900">Refund Client</button>
+                                    </div>
+                                    <AIAnalysisButton escrowId={dispute.id} analysis={dispute.aiAnalysis} />
                                 </td>
                             </tr>
                         ))}
-                        {disputes.length === 0 && (
-                            <tr>
-                                <td colSpan={4} className="px-6 py-10 text-center text-gray-500">
-                                    No active disputes. All quiet on the western front. 🕊️
-                                </td>
-                            </tr>
-                        )}
                     </tbody>
                 </table>
             </div>

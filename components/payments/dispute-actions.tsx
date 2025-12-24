@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertCircle, ShieldCheck, ShieldAlert } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 
 interface DisputeActionsProps {
     escrowId: string;
@@ -18,7 +18,7 @@ export function DisputeActions({ escrowId, currentStatus, isAdmin }: DisputeActi
     const [isOpen, setIsOpen] = useState(false);
     const [reason, setReason] = useState('');
     const [notes, setNotes] = useState('');
-    const { toast } = useToast();
+
 
     const handleRaiseDispute = async () => {
         try {
@@ -28,11 +28,11 @@ export function DisputeActions({ escrowId, currentStatus, isAdmin }: DisputeActi
             });
             if (!res.ok) throw new Error();
 
-            toast({ title: 'Dispute Raised', description: 'Admin will review shortly.' });
+            toast.success('Dispute Raised', { description: 'Admin will review shortly.' });
             setIsOpen(false);
             window.location.reload(); // Quick refresh
         } catch {
-            toast({ title: 'Error', variant: 'destructive' });
+            toast.error('Error raising dispute');
         }
     };
 
@@ -44,10 +44,10 @@ export function DisputeActions({ escrowId, currentStatus, isAdmin }: DisputeActi
             });
             if (!res.ok) throw new Error();
 
-            toast({ title: 'Resolved', description: `Outcome: ${resolution}` });
+            toast.success('Resolved', { description: `Outcome: ${resolution}` });
             window.location.reload();
         } catch {
-            toast({ title: 'Error', variant: 'destructive' });
+            toast.error('Error resolving dispute');
         }
     };
 
@@ -102,6 +102,51 @@ export function DisputeActions({ escrowId, currentStatus, isAdmin }: DisputeActi
                         <Button onClick={handleRaiseDispute} className="w-full" variant="destructive">
                             <ShieldCheck className="w-4 h-4 mr-2" />
                             Submit Dispute
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        );
+    }
+
+    const handleAppeal = async () => {
+        try {
+            const res = await fetch(`/api/escrow/${escrowId}/appeal`, {
+                method: 'POST',
+                body: JSON.stringify({ reason })
+            });
+            if (!res.ok) throw new Error();
+            toast.success('Appeal Submitted');
+            window.location.reload();
+        } catch {
+            toast.error('Failed to submit appeal');
+        }
+    };
+
+    if ((currentStatus === 'released' || currentStatus === 'refunded') && !isAdmin) {
+        return (
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-orange-500">
+                        <ShieldAlert className="w-4 h-4 mr-1" />
+                        Appeal Decision
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Appeal Decision</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                        <p className="text-sm text-muted-foreground">
+                            If you believe the decision was unfair, you can appeal. An Admin will review it again.
+                        </p>
+                        <Textarea
+                            placeholder="Why are you appealing?"
+                            value={reason}
+                            onChange={e => setReason(e.target.value)}
+                        />
+                        <Button onClick={handleAppeal} className="w-full" variant="default">
+                            Submit Appeal
                         </Button>
                     </div>
                 </DialogContent>

@@ -1,4 +1,5 @@
 import { pgTable, uuid, text, integer, timestamp, pgEnum, boolean, jsonb, decimal } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 export const requestStatusEnum = pgEnum('request_status', ['open', 'in_progress', 'completed']);
@@ -269,6 +270,14 @@ export const escrowPayments = pgTable('escrow_payments', {
     resolutionNotes: text('resolution_notes'),
     resolvedBy: uuid('resolved_by').references(() => users.id),
 
+    // Appeal fields
+    isAppealed: boolean('is_appealed').default(false),
+    appealReason: text('appeal_reason'),
+    appealedAt: timestamp('appealed_at'),
+
+    // AI Analysis
+    aiDisputeAnalysis: jsonb('ai_dispute_analysis'), // { recommendation: 'release'|'refund', confidence: 0-100, reasoning: string }
+
     createdAt: timestamp('created_at').defaultNow(),
     releasedAt: timestamp('released_at'),
     refundedAt: timestamp('refunded_at'),
@@ -429,3 +438,46 @@ export const changeProposals = pgTable('change_proposals', {
     createdAt: timestamp('created_at').defaultNow(),
     reviewedAt: timestamp('reviewed_at'),
 });
+
+export const withdrawalStatusEnum = pgEnum('withdrawal_status', ['pending', 'processed', 'rejected']);
+
+export const withdrawals = pgTable('withdrawals', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').references(() => users.id).notNull(),
+    amount: integer('amount').notNull(), // in cents
+    status: withdrawalStatusEnum('status').default('pending'),
+    method: text('method').default('mercadopago'),
+    destination: text('destination'), // email or cbu
+    requestedAt: timestamp('requested_at').defaultNow(),
+    processedAt: timestamp('processed_at'),
+    adminNotes: text('admin_notes'),
+});
+
+export const escrowPaymentsRelations = relations(escrowPayments, ({ one }) => ({
+    slice: one(slices, {
+        fields: [escrowPayments.sliceId],
+        references: [slices.id],
+    }),
+}));
+
+export const slicesRelations = relations(slices, ({ one, many }) => ({
+    request: one(requests, {
+        fields: [slices.requestId],
+        references: [requests.id],
+    }),
+    evidence: many(sliceEvidence),
+}));
+
+export const sliceEvidenceRelations = relations(sliceEvidence, ({ one }) => ({
+    slice: one(slices, {
+        fields: [sliceEvidence.sliceId],
+        references: [slices.id],
+    }),
+}));
+
+export const withdrawalsRelations = relations(withdrawals, ({ one }) => ({
+    user: one(users, {
+        fields: [withdrawals.userId],
+        references: [users.id],
+    }),
+}));
