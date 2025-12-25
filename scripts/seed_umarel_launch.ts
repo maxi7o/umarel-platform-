@@ -1,6 +1,6 @@
 
 import { db } from '@/lib/db';
-import { users, requests, slices, comments, communityRewards, escrowPayments, dailyPayouts, wizardMessages } from '@/lib/db/schema';
+import { users, requests, slices, comments, communityRewards, escrowPayments, dailyPayouts, wizardMessages, sliceCards } from '@/lib/db/schema';
 import { faker } from '@faker-js/faker'; // Assuming faker is available or I'll use simple random
 import { v4 as uuidv4 } from 'uuid';
 
@@ -63,8 +63,25 @@ async function seed() {
             status: 'open',
         }).returning();
 
-        // 40% have comments
+        // 40% have comments (wizard interactions)
         if (Math.random() < 0.4) {
+
+            // Create a Slice and SliceCard for the wizard conversation
+            const [slice] = await db.insert(slices).values({
+                requestId: request.id,
+                creatorId: client.id,
+                title: title,
+                description: `Proposed scope for ${title}`,
+                status: 'proposed',
+            }).returning();
+
+            const [sliceCard] = await db.insert(sliceCards).values({
+                sliceId: slice.id,
+                requestId: request.id,
+                title: slice.title,
+                description: slice.description,
+            }).returning();
+
             const numComments = getRandomInt(3, 8);
             for (let j = 0; j < numComments; j++) {
                 const umarel = getRandom(umarels);
@@ -73,8 +90,7 @@ async function seed() {
 
                 // Insert into Wizard Messages (the new core interaction)
                 await db.insert(wizardMessages).values({
-                    // sliceCardId: null, // Optional
-                    requestId: request.id,
+                    sliceCardId: sliceCard.id,
                     userId: umarel.id,
                     content: `Here is a tip: you can save money by buying materials yourself at Easy.`,
                     role: 'user',

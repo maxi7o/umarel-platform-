@@ -1,4 +1,28 @@
 {
+    "manifesto": {
+        "heading": {
+            "title": "La Filosofía Umarel",
+            "headlineLine1": "No solo miramos.",
+            "headlineLine2": "Maximizamos la verdad.",
+            "subheadline": "La construcción es caos. Las disputas ralentizan todo. Somos la {highlight} que convierte el \"me dijo, le dije\" en colaboración verificada.",
+            "highlight": "Fuente de Verdad"
+        },
+        "pillars": {
+            "bandwidth": {
+                "title": "Ancho de Banda Colaborativo",
+                "description": "Cada minuto discutiendo es un minuto perdido. Usamos IA y supervisión experta para eliminar el ruido y que te enfoques en construir."
+            },
+            "judge": {
+                "title": "El Juez Pragmático",
+                "description": "La justicia perfecta es lenta. Optimizamos el {bold}. Nuestro objetivo es destrabar la obra protegiendo la integridad del trato.",
+                "bold": "flujo justo"
+            },
+            "growth": {
+                "title": "Crecimiento Sostenible",
+                "description": "Un mercado basado en la verdad crece solo. Los buenos proveedores reciben la insignia \"Verdad Verificada\"; la comunidad filtra a los malos."
+            }
+        }
+    },
     "nav": {
         "browse": "Explorar",
         "offerServices": "Ofrecer Servicios",
@@ -10,10 +34,24 @@
         "howItWorks": "Cómo funciona",
         "becomeUmarel": "Conviértete en Umarel",
         "findWork": "Encontrar Trabajo",
+        "support": "Soporte",
+        "helpCenter": "Centro de Ayuda",
+        "guidelines": "Guías de la Comunidad",
+        "contact": "Contáctanos",
         "legal": "Legal",
         "terms": "Términos de Servicio",
         "privacy": "Política de Privacidad",
-        "copyright": "© 2025 Umarel. Todos los derechos reservados. Hecho con 🧡 y café."
+        "cookie": "Política de Cookies",
+        "copyright": "© 2026 Umarel. Todos los derechos reservados. Hecho con 🧡 y café.",
+        "quotes": [
+            "Así no se hace... (That's not how you do it...)",
+            "En mis tiempos aquí era todo campo. (In my times this was all countryside.)",
+            "¿Pero quién hizo este trabajo? (Who did this job?)",
+            "Mira, mira... ¡torcido! (Look, look... crooked!)",
+            "Se necesita paciencia. (You need patience.)",
+            "¡Excelente trabajo! (Great job!)",
+            "Falta el toque final. (Missing the final touch.)"
+        ]
     },
     "home": {
         "heroTitle": "No te estreses.",
@@ -87,7 +125,20 @@
             "subtitle": "Ojos expertos previniendo errores costosos antes de que pasen.",
             "ctaPrimary": "Auditar mi Presupuesto",
             "ctaSecondary": "Ver Ahorros Reales",
-            "ticker": "Juan en Palermo acaba de ahorrar $50.000 en un presupuesto de techo... María evitó una estafa de plomería..."
+            "ticker": "Juan en Palermo acaba de ahorrar $50.000 en un presupuesto de techo... María evitó una estafa de plomería...",
+            "demoCard": {
+                "header": "Presupuesto de Techo",
+                "meta": "Enviado hace 2h • Palermo",
+                "riskBadge": "RIESGO DETECTADO",
+                "item1": "Materiales (Membrana)",
+                "item2": "Mano de Obra",
+                "insightLabel": "Consejo de Umarel",
+                "insightText": "Che pibe, ese precio por membrana de 4mm es el doble del mercado. Además, no incluyeron la pintura asfáltica. Rechazalo.",
+                "fairPrice": "Nuevo Precio Justo",
+                "savedBadge": "Ahorrado",
+                "verifiedAudits": "Auditorías Verificadas",
+                "saved": "Ahorrado"
+            }
         },
         "italianQuotes": {
             "q1": "Umarel: el que mira la obra con las manos atrás",
@@ -189,15 +240,6 @@
         "slicesCompleted": "Partes Completadas",
         "topUmarels": "Mejores Umarels"
     },
-    "quotes": [
-        "Así no se hace... (That's not how you do it...)",
-        "En mis tiempos aquí era todo campo. (In my times this was all countryside.)",
-        "¿Pero quién hizo este trabajo? (Who did this job?)",
-        "Mira, mira... ¡torcido! (Look, look... crooked!)",
-        "Se necesita paciencia. (You need patience.)",
-        "¡Excelente trabajo! (Great job!)",
-        "Falta el toque final. (Missing the final touch.)"
-    ],
     "NotFound": {
         "title": "Página No Encontrada",
         "description": "La página que buscas no existe."

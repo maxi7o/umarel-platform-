@@ -1,6 +1,8 @@
 
 import { TrustHero } from '@/components/landing/trust-hero';
 import { SiteSafetyTips } from '@/components/landing/site-safety-tips';
+import { ItalianQuotes } from '@/components/landing/italian-quotes';
+import { Manifesto } from '@/components/landing/manifesto';
 import { useTranslations } from 'next-intl';
 
 export default function LandingPage() {
@@ -11,6 +13,9 @@ export default function LandingPage() {
 
       {/* 1. Hero Section (Construction Site Vibe) */}
       <TrustHero />
+
+      {/* 2. Italian Wisdom Ticker */}
+      <ItalianQuotes />
 
       {/* 2. Safety / Wisdom Section */}
       <section className="py-16 bg-muted/50 border-y border-border">
@@ -27,40 +32,49 @@ export default function LandingPage() {
         <div className="grid md:grid-cols-3 gap-8 relative z-10">
 
           {/* Role 1: The Client */}
-          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-            <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
+          <div className="group bg-white p-8 rounded-xl border border-stone-200 shadow-lg relative overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
+            {/* ID Badge Hole */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-stone-100 border border-stone-300 rounded-full" />
+            <div className="w-14 h-14 bg-blue-50 border-2 border-blue-100 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               👷
             </div>
-            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.client.title')}</h3>
-            <p className="text-muted-foreground leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 text-stone-900">{t('roles.client.title')}</h3>
+            <p className="text-stone-500 leading-relaxed">
               {t('roles.client.description')}
             </p>
           </div>
 
           {/* Role 2: The Maker */}
-          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-accent/50 transition-all duration-300">
-            <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
+          <div className="group bg-white p-8 rounded-xl border border-stone-200 shadow-lg relative overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
+            {/* ID Badge Hole */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-stone-100 border border-stone-300 rounded-full" />
+            <div className="w-14 h-14 bg-orange-50 border-2 border-orange-100 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               🔨
             </div>
-            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.builder.title')}</h3>
-            <p className="text-muted-foreground leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 text-stone-900">{t('roles.builder.title')}</h3>
+            <p className="text-stone-500 leading-relaxed">
               {t('roles.builder.description')}
             </p>
           </div>
 
           {/* Role 3: The Umarel */}
-          <div className="group bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-xl hover:border-r-4 hover:border-r-primary transition-all duration-300">
-            <div className="w-14 h-14 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
+          <div className="group bg-white p-8 rounded-xl border border-stone-200 shadow-lg relative overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
+            {/* ID Badge Hole */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-stone-100 border border-stone-300 rounded-full" />
+            <div className="w-14 h-14 bg-yellow-50 border-2 border-yellow-100 rounded-lg flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform">
               👴
             </div>
-            <h3 className="text-2xl font-bold mb-3 text-foreground">{t('roles.umarel.title')}</h3>
-            <p className="text-muted-foreground leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 text-stone-900">{t('roles.umarel.title')}</h3>
+            <p className="text-stone-500 leading-relaxed">
               {t('roles.umarel.description')}
             </p>
           </div>
 
         </div>
       </section>
+
+      {/* 4. Manifesto Section */}
+      <Manifesto />
 
     </div>
   );

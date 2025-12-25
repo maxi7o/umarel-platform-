@@ -253,7 +253,7 @@ export const savedItems = pgTable('saved_items', {
 
 export const escrowPayments = pgTable('escrow_payments', {
     id: uuid('id').primaryKey().defaultRandom(),
-    id: uuid('id').primaryKey().defaultRandom(),
+
     sliceId: uuid('slice_id').references(() => slices.id), // Made optional for Experiences
     experienceId: uuid('experience_id').references(() => experiences.id), // Added for Experiences
     clientId: uuid('client_id').references(() => users.id).notNull(),

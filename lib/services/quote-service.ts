@@ -11,6 +11,25 @@ interface SubmitQuoteParams {
     estimatedDeliveryDate?: Date;
 }
 
+export function calculateQuoteSplits(totalAmount: number) {
+    const platformFee = Math.round(totalAmount * 0.12);
+    const communityPool = Math.round(totalAmount * 0.03);
+    const providerNet = totalAmount - platformFee - communityPool;
+    return {
+        totalAmount,
+        platformFee,
+        communityPool,
+        providerNet
+    };
+}
+
+export function calculateTotalFromNet(netAmount: number) {
+    // If provider wants 85, total is 100.
+    // 85 / 0.85 = 100
+    const total = Math.round(netAmount / 0.85);
+    return calculateQuoteSplits(total);
+}
+
 export async function submitQuote(params: SubmitQuoteParams) {
     const { providerId, requestId, amount, message, sliceIds, estimatedDeliveryDate } = params;
 

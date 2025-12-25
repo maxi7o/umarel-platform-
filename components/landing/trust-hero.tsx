@@ -62,7 +62,7 @@ export function TrustHero() {
                         </div>
                         <div>
                             <span className="text-orange-600 font-bold block text-lg">1,204</span>
-                            Verified Audits
+                            {t('demoCard.verifiedAudits')}
                         </div>
                     </div>
                 </div>
@@ -76,45 +76,49 @@ export function TrustHero() {
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-2xl">👷‍♂️</div>
                                 <div>
-                                    <h3 className="font-bold text-stone-900">Roof Repair Quote</h3>
-                                    <p className="text-xs text-stone-500">Submitted 2h ago • Palermo</p>
+                                    <h3 className="font-bold text-stone-900">{t('demoCard.header')}</h3>
+                                    <p className="text-xs text-stone-500">{t('demoCard.meta')}</p>
                                 </div>
                             </div>
-                            <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded">RISK DETECTED</span>
+                            <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded">{t('demoCard.riskBadge')}</span>
                         </div>
 
                         {/* Body */}
                         <div className="space-y-4 font-mono text-sm">
                             <div className="flex justify-between items-center opacity-50">
-                                <span>Materials (Membrane)</span>
+                                <span>{t('demoCard.item1')}</span>
                                 <span className="line-through">$450.000</span>
                             </div>
                             <div className="flex justify-between items-center text-stone-400">
-                                <span>Labor</span>
+                                <span>{t('demoCard.item2')}</span>
                                 <span className="line-through">$300.000</span>
                             </div>
 
-                            {/* Umarel Intervention */}
-                            <div className="relative bg-orange-50 -mx-6 px-6 py-4 border-l-4 border-orange-500 my-4 shadow-inner">
-                                <div className="flex gap-3">
-                                    <Image src="/hero-grandpa.png" width={48} height={48} className="rounded-full bg-stone-200 object-cover border-2 border-white shadow-sm" alt="Umarel" />
+                            {/* Umarel Intervention - Handwritten Sticker Style */}
+                            <div className="relative bg-[#fefce8] -mx-8 px-8 py-5 my-6 shadow-md border border-yellow-200 transform -rotate-1">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-yellow-200/50 rotate-[-2deg] blur-[1px]" /> {/* Tape effect */}
+                                <div className="flex gap-4 items-start">
+                                    <Image src="/hero-grandpa.png" width={56} height={56} className="rounded-full bg-stone-100 object-cover border-2 border-white shadow-sm shrink-0" alt="Umarel" />
                                     <div>
-                                        <p className="text-xs font-bold text-orange-800 uppercase tracking-wider mb-1">Umarel Insight</p>
-                                        <p className="text-stone-800 italic">"Che pibe, that price for 4mm membrane is double the market rate. Also, they didn't include the primer paint. Reject."</p>
+                                        <p className="text-sm font-bold text-orange-800 uppercase tracking-wider mb-1 font-sans">{t('demoCard.insightLabel')}</p>
+                                        <p className="text-stone-800 text-xl font-hand leading-tight transform rotate-[0.5deg]">
+                                            "{t('demoCard.insightText')}"
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="flex justify-between items-center text-lg font-bold text-green-600 pt-2 border-t border-stone-100">
-                                <span>New Fair Price</span>
-                                <span>$420.000 <span className="text-xs font-normal text-stone-400 line-through ml-2">$750.000</span></span>
+                                <span>{t('demoCard.fairPrice')}</span>
+                                <span>{t('demoCard.fairPrice')}</span>
+                                <span className="font-hand text-2xl">$420.000 <span className="font-sans text-xs font-normal text-stone-400 line-through ml-2">$750.000</span></span>
                             </div>
                         </div>
 
                         {/* Floating Badge */}
                         <div className="absolute -top-6 -right-6 bg-green-500 text-white w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-lg animate-bounce-slow">
                             <span className="text-2xl">-45%</span>
-                            <span className="text-xs uppercase">Saved</span>
+                            <span className="text-xs uppercase">{t('demoCard.savedBadge')}</span>
                         </div>
                     </div>
 

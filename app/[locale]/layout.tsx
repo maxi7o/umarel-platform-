@@ -52,7 +52,6 @@ export default async function LocaleLayout({
                 suppressHydrationWarning
                 className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${caveat.variable} font-sans antialiased min-h-screen flex flex-col`}
             >
-                <InteractiveTable />
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
                         <Navbar />

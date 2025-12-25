@@ -52,32 +52,32 @@ export function Footer() {
                         )}
                     </div>
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Platform</h4>
+                        <h4 className="text-white font-semibold mb-4">{t('platform')}</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><Link href="/browse" className="hover:text-white">Browse Services</Link></li>
-                            <li><Link href="/requests/create" className="hover:text-white">Post a Request</Link></li>
-                            <li><Link href="/create-offering" className="hover:text-white">Offer Services</Link></li>
+                            <li><Link href="/browse" className="hover:text-white">{t('findWork')}</Link></li>
+                            <li><Link href="/requests/create" className="hover:text-white">{t('howItWorks')}</Link></li>
+                            <li><Link href="/create-offering" className="hover:text-white">{t('becomeUmarel')}</Link></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Support</h4>
+                        <h4 className="text-white font-semibold mb-4">{t('support')}</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><Link href="/help" className="hover:text-white">Help Center</Link></li>
-                            <li><Link href="/guidelines" className="hover:text-white">Community Guidelines</Link></li>
-                            <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
+                            <li><Link href="/help" className="hover:text-white">{t('helpCenter')}</Link></li>
+                            <li><Link href="/guidelines" className="hover:text-white">{t('guidelines')}</Link></li>
+                            <li><Link href="/contact" className="hover:text-white">{t('contact')}</Link></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 className="text-white font-semibold mb-4">Legal</h4>
+                        <h4 className="text-white font-semibold mb-4">{t('legal')}</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
-                            <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-                            <li><Link href="/cookie" className="hover:text-white">Cookie Policy</Link></li>
+                            <li><Link href="/terms" className="hover:text-white">{t('terms')}</Link></li>
+                            <li><Link href="/privacy" className="hover:text-white">{t('privacy')}</Link></li>
+                            <li><Link href="/cookie" className="hover:text-white">{t('cookie')}</Link></li>
                         </ul>
                     </div>
                 </div>
                 <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-                    <p>&copy; {new Date().getFullYear()} Umarel. All rights reserved.</p>
+                    <p>{t('copyright')}</p>
                 </div>
             </div>
         </footer>

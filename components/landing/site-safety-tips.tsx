@@ -29,18 +29,27 @@ export function SiteSafetyTips() {
 
     return (
         <div className="w-full max-w-2xl mx-auto">
-            <div className="relative bg-yellow-100 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-sm">
-                <div className="absolute -top-3 -left-3 bg-yellow-500 rounded-full p-2 text-white shadow-md">
-                    <AlertTriangle className="w-5 h-5" />
-                </div>
+            <div className="relative bg-yellow-400 border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform rotate-1">
+                {/* Screws */}
+                <div className="absolute top-2 left-2 w-3 h-3 bg-stone-800 rounded-full flex items-center justify-center text-[8px] text-stone-400">x</div>
+                <div className="absolute top-2 right-2 w-3 h-3 bg-stone-800 rounded-full flex items-center justify-center text-[8px] text-stone-400">x</div>
+                <div className="absolute bottom-2 left-2 w-3 h-3 bg-stone-800 rounded-full flex items-center justify-center text-[8px] text-stone-400">x</div>
+                <div className="absolute bottom-2 right-2 w-3 h-3 bg-stone-800 rounded-full flex items-center justify-center text-[8px] text-stone-400">x</div>
 
-                <div className="flex flex-col items-center text-center">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-yellow-700 dark:text-yellow-400 mb-2">
+                <div className="flex flex-col items-center text-center space-y-4">
+                    <div className="bg-black text-yellow-400 px-4 py-1 text-2xl font-black uppercase tracking-widest border-2 border-yellow-400">
                         {t('title')}
-                    </h4>
-                    <p className="text-xl md:text-2xl font-medium text-yellow-900 dark:text-yellow-100 transition-all duration-500 ease-in-out font-hand">
-                        "{tips[index]}"
-                    </p>
+                    </div>
+
+                    <div className="bg-white/90 p-4 w-full rotate-[-1deg] shadow-sm">
+                        <p className="text-2xl md:text-3xl text-stone-900 font-hand leading-relaxed">
+                            "{tips[index]}"
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black/60">
+                        <AlertTriangle className="w-4 h-4" /> Safety First • Seguridad Primero
+                    </div>
                 </div>
             </div>
         </div>

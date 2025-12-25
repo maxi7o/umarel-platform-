@@ -1,4 +1,28 @@
 {
+    "manifesto": {
+        "heading": {
+            "title": "The Umarel Philosophy",
+            "headlineLine1": "We don't just watch.",
+            "headlineLine2": "We maximize truth.",
+            "subheadline": "Construction is chaos. Disputes are bandwidth killers. We provide the {highlight} that turns \"he said, she said\" into verified collaboration.",
+            "highlight": "Source of Truth"
+        },
+        "pillars": {
+            "bandwidth": {
+                "title": "Collaboration Bandwidth",
+                "description": "Every minute spent arguing is a minute not building. We use AI and expert oversight to clear the noise so you can focus on the craft."
+            },
+            "judge": {
+                "title": "The Pragmatic Judge",
+                "description": "Perfect justice is slow. We optimize for {bold}. Our goal is to keep the project moving while protecting the integrity of the deal.",
+                "bold": "fair flow"
+            },
+            "growth": {
+                "title": "Sustainable Growth",
+                "description": "A marketplace built on truth grows organically. Good providers get the \"Verified Truthful\" badge; bad actors get filtered out by the swarm."
+            }
+        }
+    },
     "nav": {
         "browse": "Browse",
         "offerServices": "Offer Services",
@@ -10,10 +34,27 @@
         "howItWorks": "How it works",
         "becomeUmarel": "Become an Umarel",
         "findWork": "Find Work",
+        "support": "Support",
+        "helpCenter": "Help Center",
+        "guidelines": "Community Guidelines",
+        "contact": "Contact Us",
         "legal": "Legal",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
-        "copyright": "© 2025 Umarel. All rights reserved. Made with 🧡 and espresso."
+        "cookie": "Cookie Policy",
+        "copyright": "© 2026 Umarel. All rights reserved. Made with 🧡 and espresso.",
+        "quotes": [
+            "Non si fa così... (That's not how you do it...)",
+            "Ai miei tempi qui era tutta campagna. (In my times this was all countryside.)",
+            "Ma chi ha fatto questo lavoro? (Who did this job?)",
+            "Guarda, guarda... storto! (Look, look... crooked!)",
+            "Ci vuole pazienza. (You need patience.)",
+            "Ottimo lavoro! (Great job!)",
+            "Manca il tocco finale. (Missing the final touch.)",
+            "Hands behind your back, eyes on the details.",
+            "A bad foundation ruins the whole house.",
+            "Measure twice, cut once... then measure again because you probably did it wrong."
+        ]
     },
     "home": {
         "heroTitle": "Don't stress.",
@@ -86,7 +127,20 @@
             "subtitle": "Expert eyes preventing costly mistakes before they happen.",
             "ctaPrimary": "Audit my Quote",
             "ctaSecondary": "See Example Savings",
-            "ticker": "Juan in Palermo just saved $50,000 on a roof estimate... Maria avoided a plumbing scam..."
+            "ticker": "Juan in Palermo just saved $50,000 on a roof estimate... Maria avoided a plumbing scam...",
+            "demoCard": {
+                "header": "Roof Repair Quote",
+                "meta": "Submitted 2h ago • Palermo",
+                "riskBadge": "RISK DETECTED",
+                "item1": "Materials (Membrane)",
+                "item2": "Labor",
+                "insightLabel": "Umarel Insight",
+                "insightText": "Che pibe, that price for 4mm membrane is double the market rate. Also, they didn't include the primer paint. Reject.",
+                "fairPrice": "New Fair Price",
+                "savedBadge": "Saved",
+                "verifiedAudits": "Verified Audits",
+                "saved": "Saved"
+            }
         },
         "roles": {
             "client": {
@@ -184,18 +238,6 @@
         "slicesCompleted": "Slices Completed",
         "topUmarels": "Top Umarels"
     },
-    "quotes": [
-        "Non si fa così... (That's not how you do it...)",
-        "Ai miei tempi qui era tutta campagna. (In my times this was all countryside.)",
-        "Ma chi ha fatto questo lavoro? (Who did this job?)",
-        "Guarda, guarda... storto! (Look, look... crooked!)",
-        "Ci vuole pazienza. (You need patience.)",
-        "Ottimo lavoro! (Great job!)",
-        "Manca il tocco finale. (Missing the final touch.)",
-        "Hands behind your back, eyes on the details.",
-        "A bad foundation ruins the whole house.",
-        "Measure twice, cut once... then measure again because you probably did it wrong."
-    ],
     "NotFound": {
         "title": "Page Not Found",
         "description": "The page you are looking for does not exist."
