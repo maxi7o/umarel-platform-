@@ -61,7 +61,7 @@ export function TrustHero() {
                             ))}
                         </div>
                         <div>
-                            <span className="text-orange-600 font-bold block text-lg">1,204</span>
+                            <span className="text-orange-600 font-bold block text-lg">100%</span>
                             {t('demoCard.verifiedAudits')}
                         </div>
                     </div>

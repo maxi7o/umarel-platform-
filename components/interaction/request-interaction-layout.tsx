@@ -22,6 +22,8 @@ interface RequestInteractionLayoutProps {
     currentUser?: any; // In real app, use hook
 }
 
+import { useTranslations } from 'next-intl';
+
 export function RequestInteractionLayout({
     request,
     initialSlices,
@@ -31,6 +33,7 @@ export function RequestInteractionLayout({
     initialProposals = [],
     currentUser
 }: RequestInteractionLayoutProps) {
+    const t = useTranslations('requestInteraction');
     const [activeTab, setActiveTab] = useState('overview');
     const [slices, setSlices] = useState(initialSlices);
     const [comments, setComments] = useState(initialComments);
@@ -68,21 +71,21 @@ export function RequestInteractionLayout({
                 <TabsList className="grid w-full grid-cols-5 lg:w-[750px]">
                     <TabsTrigger value="overview" className="gap-2">
                         <MessageSquare size={16} />
-                        <span className="hidden sm:inline">Overview</span>
+                        <span className="hidden sm:inline">{t('tabs.overview')}</span>
                     </TabsTrigger>
                     <TabsTrigger value="slices" className="gap-2">
                         <KanbanSquare size={16} />
-                        <span className="hidden sm:inline">Slices</span>
+                        <span className="hidden sm:inline">{t('tabs.slices')}</span>
                         <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{slices.length}</Badge>
                     </TabsTrigger>
                     <TabsTrigger value="quotes" className="gap-2">
                         <FileText size={16} />
-                        <span className="hidden sm:inline">Quotes</span>
+                        <span className="hidden sm:inline">{t('tabs.quotes')}</span>
                         <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{quotes.length}</Badge>
                     </TabsTrigger>
                     <TabsTrigger value="activity" className="gap-2">
                         <Activity size={16} />
-                        <span className="hidden sm:inline">Activity</span>
+                        <span className="hidden sm:inline">{t('tabs.activity')}</span>
                     </TabsTrigger>
                 </TabsList>
 
@@ -93,7 +96,7 @@ export function RequestInteractionLayout({
                         <div className="space-y-4">
                             <h3 className="text-lg font-semibold flex items-center gap-2">
                                 <Activity className="text-orange-600" size={20} />
-                                Pending Change Proposals
+                                {t('pendingProposals')}
                             </h3>
                             <div className="grid gap-4 md:grid-cols-2">
                                 {proposals
@@ -136,7 +139,7 @@ export function RequestInteractionLayout({
                         <div className="md:col-span-2 space-y-6">
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Description</CardTitle>
+                                    <CardTitle>{t('description')}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
@@ -147,7 +150,7 @@ export function RequestInteractionLayout({
 
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Private Insights & Suggestions</CardTitle>
+                                    <CardTitle>{t('privateInsights')}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <CommentThread
@@ -165,19 +168,19 @@ export function RequestInteractionLayout({
                         <div className="space-y-6">
                             <Card>
                                 <CardHeader>
-                                    <CardTitle className="text-sm font-medium">Details</CardTitle>
+                                    <CardTitle className="text-sm font-medium">{t('details')}</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4 text-sm">
                                     <div>
-                                        <span className="text-muted-foreground">Location:</span>
+                                        <span className="text-muted-foreground">{t('location')}:</span>
                                         <div className="font-medium">{request.location || 'Remote'}</div>
                                     </div>
                                     <div>
-                                        <span className="text-muted-foreground">Posted by:</span>
+                                        <span className="text-muted-foreground">{t('postedBy')}:</span>
                                         <div className="font-medium">{request.user?.fullName || 'Unknown'}</div>
                                     </div>
                                     <div>
-                                        <span className="text-muted-foreground">Created:</span>
+                                        <span className="text-muted-foreground">{t('created')}:</span>
                                         <div className="font-medium">{new Date(request.createdAt).toLocaleDateString()}</div>
                                     </div>
                                 </CardContent>
@@ -200,11 +203,11 @@ export function RequestInteractionLayout({
                 <TabsContent value="quotes" className="mt-6 space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-4">
-                            <h3 className="text-lg font-semibold">Submitted Quotes</h3>
+                            <h3 className="text-lg font-semibold">{t('submittedQuotes')}</h3>
                             {quotes.length === 0 ? (
                                 <Card className="bg-muted/50 border-dashed">
                                     <CardContent className="py-8 text-center text-muted-foreground">
-                                        No quotes received yet.
+                                        {t('noQuotes')}
                                     </CardContent>
                                 </Card>
                             ) : (
@@ -213,7 +216,7 @@ export function RequestInteractionLayout({
                                         <CardHeader className="pb-2">
                                             <div className="flex justify-between items-start">
                                                 <CardTitle className="text-base">
-                                                    Quote from {quote.provider?.fullName || 'Provider'}
+                                                    {t('quoteFrom')} {quote.provider?.fullName || 'Provider'}
                                                 </CardTitle>
                                                 <Badge>{quote.status}</Badge>
                                             </div>
@@ -227,7 +230,7 @@ export function RequestInteractionLayout({
                                             {/* Optimization Thread for this Quote */}
                                             <div className="mt-4 pt-4 border-t">
                                                 <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">
-                                                    Optimization & Discussion
+                                                    {t('optimizationDiscussion')}
                                                 </h4>
                                                 <CommentThread
                                                     requestId={request.id}
@@ -269,7 +272,7 @@ export function RequestInteractionLayout({
                 <TabsContent value="activity" className="mt-6">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Full Activity Log</CardTitle>
+                            <CardTitle>{t('fullActivityLog')}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <CommentThread
@@ -285,3 +288,4 @@ export function RequestInteractionLayout({
         </div>
     );
 }
+

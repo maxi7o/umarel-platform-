@@ -59,7 +59,7 @@ export function BrowseFilters({
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <LocationInput
-                        placeholder="City, neighborhood..."
+                        placeholder={t('locationPlaceholder')}
                         value={locationData?.address}
                         onChange={(val, data) => onLocationChange(data)}
                     />

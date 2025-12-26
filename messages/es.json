@@ -1,4 +1,30 @@
 {
+    "card": {
+        "lookingForService": "Busco Servicio",
+        "offeringService": "Ofrezco Servicio",
+        "savedToFavorites": "Guardado en favoritos",
+        "removedFromFavorites": "Eliminado de favoritos",
+        "failedToUpdateFavorites": "Error al actualizar favoritos",
+        "viewDetails": "Ver Detalles",
+        "postedBy": "Publicado por",
+        "featured": "Destacado",
+        "virtual": "Virtual"
+    },
+    "execution": {
+        "backToDashboard": "Volver al Panel",
+        "status": "Estado",
+        "inProgress": "En Progreso",
+        "progress": "Progreso",
+        "steps": "Pasos",
+        "umarelWisdom": "Sabiduría Umarel",
+        "umarelCriticalAlert": "Alerta Crítica Umarel",
+        "proofRequired": "Prueba de Verdad Requerida",
+        "verified": "Verificado",
+        "pendingUpload": "Pendiente de Subida",
+        "tapCapture": "Tocar para Capturar",
+        "completeStep": "Completar Paso",
+        "summonUmarel": "Invocar Umarel"
+    },
     "manifesto": {
         "heading": {
             "title": "La Filosofía Umarel",
@@ -69,7 +95,7 @@
         "step2Desc": "Nuestra comunidad de sabios Umarels divide tu solicitud en pequeñas \"Porciones de Servicio\" precisas.",
         "step3Title": "3. Paga por Porción",
         "step3Desc": "Los proveedores cotizan porciones individuales. Aceptas y pagas solo cuando se completa cada porción.",
-        "trustedTitle": "Confiado por los mejores Umarels"
+        "trustedTitle": "Construido para los mejores Umarels"
     },
     "landing": {
         "hero": {
@@ -125,7 +151,7 @@
             "subtitle": "Ojos expertos previniendo errores costosos antes de que pasen.",
             "ctaPrimary": "Auditar mi Presupuesto",
             "ctaSecondary": "Ver Ahorros Reales",
-            "ticker": "Juan en Palermo acaba de ahorrar $50.000 en un presupuesto de techo... María evitó una estafa de plomería...",
+            "ticker": "Los Umarels expertos detectan errores antes de poner el ladrillo... Presupuestos verificados significan precios justos...",
             "demoCard": {
                 "header": "Presupuesto de Techo",
                 "meta": "Enviado hace 2h • Palermo",
@@ -136,7 +162,7 @@
                 "insightText": "Che pibe, ese precio por membrana de 4mm es el doble del mercado. Además, no incluyeron la pintura asfáltica. Rechazalo.",
                 "fairPrice": "Nuevo Precio Justo",
                 "savedBadge": "Ahorrado",
-                "verifiedAudits": "Auditorías Verificadas",
+                "verifiedAudits": "Verificación Humana",
                 "saved": "Ahorrado"
             }
         },
@@ -279,6 +305,61 @@
             "gardening": "Jardinería",
             "moving": "Mudanzas",
             "other": "Otro"
+        },
+        "locationPlaceholder": "Ciudad, barrio..."
+    },
+    "locationInput": {
+        "placeholder": "Buscar dirección...",
+        "noResults": "No se encontraron resultados.",
+        "searching": "Buscando..."
+    },
+    "requestInteraction": {
+        "description": "Alcance del Proyecto",
+        "details": "Detalles de Obra",
+        "location": "Ubicación",
+        "postedBy": "Responsable",
+        "created": "Inicio de Obra",
+        "privateInsights": "La Libreta del Umarel",
+        "noInsights": "Todo demasiado tranquilo... ¿Seguro no se te escapa nada? Ponte las manos en la espalda y observa bien.",
+        "noComments": "Sin novedades en el frente. Empieza a supervisar.",
+        "placeholder": "Aquí no venimos a charlar. Señala riesgos, sugiere mejoras o marca el error...",
+        "placeholderInsight": "Susúrrale una observación técnica al cliente (Privado)...",
+        "placeholderComment": "Añadir entrada a la bitácora...",
+        "placeholderPrompt": "Pídeme desglosar esto en fases o analizar costos...",
+        "aiMode": "Capataz IA",
+        "aiModeActive": "Capataz IA Activo",
+        "send": "Registrar",
+        "sending": "Registrando...",
+        "tabs": {
+            "overview": "Planos",
+            "slices": "Planilla",
+            "quotes": "Ofertas",
+            "activity": "Bitácora"
+        },
+        "pendingProposals": "Órdenes de Cambio Pendientes",
+        "submittedQuotes": "Ofertas Recibidas",
+        "noQuotes": "Aún no hay ofertas sobre la mesa.",
+        "quoteFrom": "Oferta de",
+        "optimizationDiscussion": "Ingeniería de Valor",
+        "fullActivityLog": "Bitácora Completa"
+    },
+    "kanban": {
+        "columns": {
+            "proposed": "Propuesto",
+            "accepted": "Aceptado",
+            "completed": "Terminado"
+        },
+        "actions": {
+            "accept": "Aprobar",
+            "complete": "Finalizar"
+        },
+        "labels": {
+            "ai": "IA",
+            "noSlices": "Sin items en esta fase."
+        },
+        "errors": {
+            "updateFailed": "Error al actualizar estado",
+            "movedTo": "Movido a {status}"
         }
     },
     "sliceCard": {

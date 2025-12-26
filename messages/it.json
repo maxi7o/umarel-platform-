@@ -78,6 +78,74 @@
                 "Fidati, ma verifica con un Umarel.",
                 "La qualità non è un atto, è un'abitudine."
             ]
+        },
+        "trustHero": {
+            "ticker": "Expert Umarels spot mistakes before they happen... Verified quotes mean fair prices... Don't build alone...",
+            "demoCard": {
+                "header": "Roof Repair Quote",
+                "meta": "Submitted 2h ago • Palermo",
+                "riskBadge": "RISK DETECTED",
+                "item1": "Materials (Membrane)",
+                "item2": "Labor",
+                "insightLabel": "Umarel Insight",
+                "insightText": "Che pibe, that price for 4mm membrane is double the market rate. Also, they didn't include the primer paint. Reject.",
+                "fairPrice": "New Fair Price",
+                "savedBadge": "Saved",
+                "verifiedAudits": "Human Verified",
+                "saved": "Saved"
+            }
         }
+    },
+    "kanban": {
+        "columns": {
+            "proposed": "Proposed",
+            "accepted": "Accepted",
+            "completed": "Completed"
+        },
+        "actions": {
+            "accept": "Accept",
+            "complete": "Complete"
+        },
+        "labels": {
+            "ai": "AI",
+            "noSlices": "No slices in this stage."
+        },
+        "errors": {
+            "updateFailed": "Failed to update status",
+            "movedTo": "Moved to {status}"
+        }
+    },
+    "requestInteraction": {
+        "description": "Project Scope",
+        "details": "Site Details",
+        "location": "Location",
+        "postedBy": "Site Manager",
+        "created": "Established",
+        "privateInsights": "The Umarel's Notebook",
+        "noInsights": "All quiet on the construction site... Put your hands behind your back and look closer.",
+        "noComments": "No activity recorded. Start supervising.",
+        "placeholder": "Don't just chat. Point out risks, suggest optimizations, or spot the errors...",
+        "placeholderInsight": "Whisper a technical observation to the client (Private)...",
+        "placeholderComment": "Add an entry to the site log...",
+        "placeholderPrompt": "Tell me to split this into phases or analyze the costs...",
+        "aiMode": "Foreman AI",
+        "aiModeActive": "Foreman AI Active",
+        "send": "Log Entry",
+        "sending": "Logging...",
+        "tabs": {
+            "overview": "Blueprint",
+            "slices": "Worksheet",
+            "quotes": "Bids",
+            "activity": "Site Log"
+        },
+        "pendingProposals": "Pending Change Orders",
+        "submittedQuotes": "Received Bids",
+        "noQuotes": "No bids on the table yet.",
+        "quoteFrom": "Bid from",
+        "optimizationDiscussion": "Value Engineering",
+        "fullActivityLog": "Complete Site Log"
+    },
+    "home": {
+        "trustedTitle": "Built for the best Umarels"
     }
 }

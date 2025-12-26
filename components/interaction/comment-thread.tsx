@@ -32,6 +32,8 @@ interface CommentThreadProps {
     mode?: 'public' | 'private_insight';
 }
 
+import { useTranslations } from 'next-intl';
+
 export function CommentThread({
     requestId,
     quoteId,
@@ -42,6 +44,7 @@ export function CommentThread({
     currentUser,
     mode = 'public'
 }: CommentThreadProps) {
+    const t = useTranslations('requestInteraction');
     // Use parent-controlled state if provided, otherwise use local state
     const [localComments, setLocalComments] = useState<Comment[]>(initialComments);
     const comments = parentComments !== undefined ? parentComments : localComments;
@@ -246,8 +249,8 @@ export function CommentThread({
                 {comments.length === 0 && (
                     <div className="text-center text-muted-foreground py-8 text-sm">
                         {mode === 'private_insight'
-                            ? "No insights submitted yet. Share your expertise!"
-                            : "No comments yet. Start the conversation!"}
+                            ? t('noInsights')
+                            : t('noComments')}
                     </div>
                 )}
             </div>
@@ -263,7 +266,7 @@ export function CommentThread({
                 <div className="relative z-10 p-3 pb-1 pl-10">
                     {newComment.length === 0 && !isPromptMode && (
                         <div className="absolute top-4 left-10 text-stone-400 italic pointer-events-none text-sm font-serif">
-                            Start writing... (Hands behind your back, eyes on the details)
+                            {t('placeholder')}
                         </div>
                     )}
                     <Textarea
@@ -271,10 +274,10 @@ export function CommentThread({
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder={
                             isPromptMode
-                                ? "Ask to split tasks ('Split into 2 slices')..."
+                                ? t('placeholderPrompt')
                                 : mode === 'private_insight'
-                                    ? "Share an insight privately... (e.g. 'This needs a vapor barrier')"
-                                    : "Write a comment..."
+                                    ? t('placeholderInsight')
+                                    : t('placeholderComment')
                         }
                         className="min-h-[100px] border-0 bg-transparent focus-visible:ring-0 p-0 resize-none shadow-none text-base text-stone-800 dark:text-stone-200 font-medium placeholder:text-transparent"
                         onKeyDown={(e) => {
@@ -296,7 +299,7 @@ export function CommentThread({
                         )}
                     >
                         <Sparkles size={16} />
-                        {isPromptMode ? "AI Mode Active" : "AI Mode"}
+                        {isPromptMode ? t('aiModeActive') : t('aiMode')}
                     </Button>
                     <Button
                         size="sm"
@@ -304,9 +307,9 @@ export function CommentThread({
                         disabled={isLoading || !newComment.trim()}
                         className={cn(isPromptMode && "bg-purple-600 hover:bg-purple-700")}
                     >
-                        {isLoading ? "Sending..." : (
+                        {isLoading ? t('sending') : (
                             <>
-                                Send <Send size={14} className="ml-2" />
+                                {t('send')} <Send size={14} className="ml-2" />
                             </>
                         )}
                     </Button>
