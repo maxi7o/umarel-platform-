@@ -42,11 +42,11 @@ export function Navbar({ user }: NavbarProps) {
     }
 
     return (
-        <nav className="sticky top-0 z-50 border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <nav className="sticky top-0 z-50 border-b-2 border-[#E8D5C4] bg-[#FFF8F0]/95 backdrop-blur supports-[backdrop-filter]:bg-[#FFF8F0]/80 shadow-sm">
             <div className="container mx-auto flex h-16 items-center justify-between px-6">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-orange-100 dark:border-orange-900">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#D62828]">
                         <Image
                             src="/hero-grandpa.png"
                             alt="Umarel Logo"
@@ -55,7 +55,7 @@ export function Navbar({ user }: NavbarProps) {
                             sizes="40px"
                         />
                     </div>
-                    <span className="bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-[#D62828] to-[#E76F51] bg-clip-text text-transparent">
                         Umarel
                     </span>
                 </Link>
@@ -104,7 +104,7 @@ export function Navbar({ user }: NavbarProps) {
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" className="rounded-full">
-                                        <div className="bg-orange-100 text-orange-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">
+                                        <div className="bg-[#FFF0E0] text-[#D62828] w-8 h-8 rounded-full flex items-center justify-center font-bold border-2 border-[#E8D5C4]">
                                             {user.email?.charAt(0).toUpperCase() || 'U'}
                                         </div>
                                     </Button>
@@ -132,7 +132,7 @@ export function Navbar({ user }: NavbarProps) {
                         )}
 
                         <Link href="/requests/create">
-                            <Button className="bg-orange-600 hover:bg-orange-700">{t('postNeed')}</Button>
+                            <Button className="bg-[#D62828] hover:bg-[#B91C1C] text-white shadow-md hover:shadow-lg transition-all">{t('postNeed')}</Button>
                         </Link>
                     </div>
                 </div>

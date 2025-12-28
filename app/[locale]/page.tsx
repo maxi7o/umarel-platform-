@@ -1,74 +1,52 @@
-
-import { TrustHero } from '@/components/landing/trust-hero';
-import { ValueProposition } from '@/components/landing/value-proposition';
+import { TrattoriaHero } from '@/components/landing/trattoria-hero';
+import { TrattoriaBenefits } from '@/components/landing/trattoria-benefits';
+import { TrattoriaHowItWorks } from '@/components/landing/trattoria-how-it-works';
+import { TrattoriaRoles } from '@/components/landing/trattoria-roles';
 import { ItalianQuotes } from '@/components/landing/italian-quotes';
-import { Manifesto } from '@/components/landing/manifesto';
-import { useTranslations } from 'next-intl';
 
 export default function LandingPage() {
-  const t = useTranslations('landing');
-
   return (
-    <div className="min-h-screen bg-white text-stone-900 font-sans selection:bg-orange-100 selection:text-orange-900">
+    <div className="min-h-screen bg-[#FFF8F0] text-[#3D2817] font-sans selection:bg-[#D62828]/20 selection:text-[#D62828]">
 
-      {/* 1. Hero Section (New Brand) */}
-      <TrustHero />
+      {/* 1. Hero Section - Warm Welcome */}
+      <TrattoriaHero />
 
       {/* 2. Italian Wisdom Ticker */}
       <ItalianQuotes />
 
-      {/* 3. The Economic Engine (Values) */}
-      <ValueProposition />
+      {/* 3. Benefits - What's on the Table */}
+      <TrattoriaBenefits />
 
-      {/* 4. Roles Section (Updated Visuals) */}
-      <section className="py-24 container mx-auto px-6 relative overflow-hidden">
+      {/* 4. How It Works - The Recipe */}
+      <TrattoriaHowItWorks />
 
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-heading font-bold mb-4">Who makes this ecosystem work?</h2>
-        </div>
+      {/* 5. Roles - Everyone at the Table */}
+      <TrattoriaRoles />
 
-        <div className="grid md:grid-cols-3 gap-8 relative z-10">
+      {/* 6. Final CTA - Join the Family */}
+      <section className="py-20 bg-gradient-to-b from-[#FFF8F0] to-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-checkered opacity-20" />
 
-          {/* Role 1: The Client */}
-          <div className="group bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-3xl shadow-sm">
-              🔭
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-stone-900">{t('roles.client.title')}</h3>
-            <p className="text-stone-500 leading-relaxed text-sm">
-              {t('roles.client.description')}
+        <div className="container relative z-10 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-6xl mb-6">🍷</div>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3D2817] mb-6">
+              Pull Up a Chair
+            </h2>
+            <p className="text-xl text-[#6C5B4D] mb-8 leading-relaxed">
+              Join thousands of people building, creating, and sharing wisdom.
+              At Umarel, everyone has a place at the table.
             </p>
-          </div>
 
-          {/* Role 2: The Maker */}
-          <div className="group bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-3xl shadow-sm">
-              🎨
+            <div className="inline-block bg-white/90 backdrop-blur-sm px-8 py-6 rounded-2xl border-2 border-[#D62828] shadow-2xl">
+              <p className="text-[#3D2817] text-lg italic">
+                "Non si fa così... we do it <span className="font-bold text-[#D62828]">together</span>."
+              </p>
             </div>
-            <h3 className="text-xl font-bold mb-3 text-stone-900">{t('roles.builder.title')}</h3>
-            <p className="text-stone-500 leading-relaxed text-sm">
-              {t('roles.builder.description')}
-            </p>
           </div>
-
-          {/* Role 3: The Umarel */}
-          <div className="group bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 text-3xl shadow-sm">
-              🦉
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-stone-900">{t('roles.umarel.title')}</h3>
-            <p className="text-stone-500 leading-relaxed text-sm">
-              {t('roles.umarel.description')}
-            </p>
-          </div>
-
         </div>
       </section>
-
-      {/* 5. Manifesto Section */}
-      <Manifesto />
 
     </div>
   );
 }
-

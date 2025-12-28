@@ -43,75 +43,86 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* Trattoria Theme - Warm Italian Family Dining */
 :root {
-  --radius: 0.625rem;
-  --background: #FFFFFF; /* White */
-  --foreground: #2C3E50; /* Blueprint Blue (Dark) */
+  --radius: 0.75rem;
+  
+  /* Trattoria Color Palette */
+  --tomato-red: #D62828;
+  --olive-green: #52B788;
+  --terracotta: #E76F51;
+  --cream: #F8F9FA;
+  --warm-brown: #8B4513;
+  --pasta-yellow: #F4A261;
+  
+  /* Theme Variables */
+  --background: #FFF8F0; /* Warm cream background */
+  --foreground: #3D2817; /* Rich brown text */
   --card: #FFFFFF;
-  --card-foreground: #2C3E50;
+  --card-foreground: #3D2817;
   --popover: #FFFFFF;
-  --popover-foreground: #2C3E50;
-  --primary: #F4D03F; /* Safety Yellow */
-  --primary-foreground: #2C3E50;
-  --secondary: #95A5A6; /* Concrete Grey */
+  --popover-foreground: #3D2817;
+  --primary: #D62828; /* Tomato Red */
+  --primary-foreground: #FFFFFF;
+  --secondary: #52B788; /* Olive Green */
   --secondary-foreground: #FFFFFF;
-  --muted: #F8F9F9; /* Light Grey */
-  --muted-foreground: #7F8C8D;
-  --accent: #E67E22; /* Construction Orange */
+  --muted: #F8F9FA; /* Cream */
+  --muted-foreground: #6C5B4D;
+  --accent: #E76F51; /* Terracotta */
   --accent-foreground: #FFFFFF;
-  --destructive: #E74C3C; /* Safety Red */
+  --destructive: #C1121F;
   --destructive-foreground: #FFFFFF;
-  --border: #BDC3C7;
-  --input: #ECF0F1;
-  --ring: #F4D03F;
-  --chart-1: #E67E22;
-  --chart-2: #2C3E50;
-  --chart-3: #F4D03F;
-  --chart-4: #95A5A6;
-  --chart-5: #E74C3C;
-  --sidebar: #F8F9F9;
-  --sidebar-foreground: #2C3E50;
-  --sidebar-primary: #F4D03F;
-  --sidebar-primary-foreground: #2C3E50;
-  --sidebar-accent: #ECF0F1;
-  --sidebar-accent-foreground: #2C3E50;
-  --sidebar-border: #BDC3C7;
-  --sidebar-ring: #F4D03F;
+  --border: #E8D5C4;
+  --input: #FFF8F0;
+  --ring: #D62828;
+  --chart-1: #D62828;
+  --chart-2: #52B788;
+  --chart-3: #E76F51;
+  --chart-4: #F4A261;
+  --chart-5: #8B4513;
+  --sidebar: #FFF8F0;
+  --sidebar-foreground: #3D2817;
+  --sidebar-primary: #D62828;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F8F9FA;
+  --sidebar-accent-foreground: #3D2817;
+  --sidebar-border: #E8D5C4;
+  --sidebar-ring: #D62828;
 }
 
 .dark {
-  --background: #2C3E50; /* Blueprint Blue */
-  --foreground: #ECF0F1; /* White-ish */
-  --card: #34495E; /* Darker Blue */
-  --card-foreground: #ECF0F1;
-  --popover: #34495E;
-  --popover-foreground: #ECF0F1;
-  --primary: #F4D03F; /* Safety Yellow (Pop) */
-  --primary-foreground: #2C3E50;
-  --secondary: #7F8C8D;
-  --secondary-foreground: #ECF0F1;
-  --muted: #34495E;
-  --muted-foreground: #BDC3C7;
-  --accent: #E67E22;
+  --background: #2C1810;
+  --foreground: #F8F9FA;
+  --card: #3D2817;
+  --card-foreground: #F8F9FA;
+  --popover: #3D2817;
+  --popover-foreground: #F8F9FA;
+  --primary: #E76F51;
+  --primary-foreground: #FFFFFF;
+  --secondary: #52B788;
+  --secondary-foreground: #FFFFFF;
+  --muted: #3D2817;
+  --muted-foreground: #C4B5A0;
+  --accent: #D62828;
   --accent-foreground: #FFFFFF;
-  --destructive: #E74C3C;
+  --destructive: #C1121F;
   --destructive-foreground: #FFFFFF;
-  --border: #7F8C8D;
-  --input: #34495E;
-  --ring: #F4D03F;
-  --chart-1: #E67E22;
-  --chart-2: #F4D03F;
-  --chart-3: #95A5A6;
-  --chart-4: #BDC3C7;
-  --chart-5: #E74C3C;
-  --sidebar: #34495E;
-  --sidebar-foreground: #ECF0F1;
-  --sidebar-primary: #F4D03F;
-  --sidebar-primary-foreground: #2C3E50;
-  --sidebar-accent: #2C3E50;
-  --sidebar-accent-foreground: #ECF0F1;
-  --sidebar-border: #7F8C8D;
-  --sidebar-ring: #F4D03F;
+  --border: #6C5B4D;
+  --input: #3D2817;
+  --ring: #E76F51;
+  --chart-1: #E76F51;
+  --chart-2: #52B788;
+  --chart-3: #D62828;
+  --chart-4: #F4A261;
+  --chart-5: #8B4513;
+  --sidebar: #3D2817;
+  --sidebar-foreground: #F8F9FA;
+  --sidebar-primary: #E76F51;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #2C1810;
+  --sidebar-accent-foreground: #F8F9FA;
+  --sidebar-border: #6C5B4D;
+  --sidebar-ring: #E76F51;
 }
 
 @layer base {
@@ -124,11 +135,36 @@
   }
 }
 
-.bg-blueprint {
-  background-color: var(--background);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
+/* Trattoria-specific patterns */
+.bg-checkered {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(214, 40, 40, 0.03) 10px,
+      rgba(214, 40, 40, 0.03) 20px
+    );
+}
+
+.bg-wood-texture {
+  background-color: #8B4513;
+  background-image: 
+    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 100px 20px, 20px 100px;
+}
+
+.text-handwritten {
+  font-family: 'Caveat', cursive;
+}
+
+/* Warm glow effect for cards */
+.card-glow {
+  box-shadow: 
+    0 4px 6px -1px rgba(214, 40, 40, 0.1),
+    0 2px 4px -1px rgba(214, 40, 40, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
 }
 
 .container {
@@ -152,4 +188,29 @@
     padding-left: 3rem;
     padding-right: 3rem;
   }
+}
+
+/* Hand-drawn border effect */
+.border-sketch {
+  position: relative;
+}
+
+.border-sketch::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.3;
+  transform: rotate(-0.5deg);
+}
+
+.border-sketch::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 2px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.2;
+  transform: rotate(0.5deg);
 }

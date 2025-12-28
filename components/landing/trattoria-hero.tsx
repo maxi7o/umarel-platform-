@@ -1,113 +1,109 @@
-"use client"
+'use client';
 
-import Link from 'next/link';
-import Image from 'next/image'; // Import Image
-import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { ArrowRight, Users, Shield, Sparkles, Heart, Clock, CheckCircle2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function TrattoriaHero() {
-    const t = useTranslations('landing.trattoria');
+    const t = useTranslations('home');
 
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-            {/* Soft Overlay to make text readable (lighter than before) */}
-            <div className="absolute inset-0 bg-white/60 z-0" />
+        <div className="relative overflow-hidden bg-gradient-to-b from-[#FFF8F0] via-[#FFF0E0] to-[#FFF8F0]">
 
+            {/* Decorative checkered pattern overlay */}
+            <div className="absolute inset-0 bg-checkered opacity-40" />
 
-            {/* Content Container */}
-            <div className="container relative z-10 px-6 max-w-6xl mx-auto flex flex-col items-center text-center">
+            {/* Warm glow circles */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#D62828] rounded-full blur-3xl opacity-10" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#52B788] rounded-full blur-3xl opacity-10" />
 
-                {/* The "Menu Header" */}
-                <div className="mb-6 rotate-[-2deg]">
-                    <span className="font-hand text-4xl md:text-5xl text-trattoria-red font-bold tracking-wider">
-                        {t('welcome')}
-                    </span>
-                    <h1 className="text-6xl md:text-8xl font-black font-sans text-stone-900 leading-[0.9] mt-2 tracking-tighter shadow-sm">
-                        UMAREL<span className="text-orange-600">.ORG</span>
-                    </h1>
-                </div>
+            <div className="container relative z-10 py-20 md:py-32">
 
-                {/* The Scene: Old Man + Construction (INVERTED/MIRRORED) */}
-                <div className="relative w-full max-w-2xl h-[400px] mb-12 group perspective-1000">
-                    {/* The "Polaroid" */}
-                    <div className="relative w-full h-full bg-white p-4 shadow-2xl rotate-2 transform transition-transform duration-500 hover:rotate-0 hover:scale-[1.02] border border-stone-200">
-                        <div className="absolute -top-6 -right-6 z-20"> {/* Inverted sticker position */}
-                            {/* Tape / Sticker */}
-                            <div className="bg-yellow-200/80 w-32 h-10 rotate-[15deg] shadow-sm flex items-center justify-center font-hand text-stone-700 font-bold">
-                                {t('wip')}
-                            </div>
-                        </div>
-
-                        {/* Content wrapper with Horizontal Flip to "Invert" the scene */}
-                        <div className="w-full h-full bg-stone-100 overflow-hidden relative rounded-sm border border-stone-100 transform scale-x-[-1]">
-                            <div className="absolute inset-0 bg-gradient-to-b from-sky-200 to-stone-200 flex items-end justify-center">
-                                {/* Construction Site Background (Abstract) */}
-                                <div className="w-full h-1/2 bg-stone-300 relative">
-                                    <div className="absolute bottom-0 left-10 w-20 h-40 bg-orange-400/20" /> {/* Crane base */}
-                                    <div className="absolute bottom-10 right-20 w-32 h-32 bg-stone-400/20 rotate-45" /> {/* Debris */}
-                                </div>
-                            </div>
-
-                            {/* The Real Umarel Cartoon (Replaces Emoji) */}
-                            {/* Note: The parent is already flipped scale-x-[-1], so this image will face the 'other' way dynamically */}
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 drop-shadow-2xl">
-                                <Image
-                                    src="/hero-grandpa.png"
-                                    alt="Umarel Cartoon"
-                                    width={300}
-                                    height={300}
-                                    className="object-contain" // Keep aspect ratio
-                                />
-                            </div>
-
-                            <div className="absolute bottom-8 right-10 text-6xl animate-bounce delay-700">
-                                🍝
-                            </div>
-                        </div>
-
-                        {/* Wine Stain */}
-                        <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full border-[12px] border-red-900/10 blur-sm pointer-events-none mix-blend-multiply" />
+                {/* Welcome Banner */}
+                <div className="text-center mb-8">
+                    <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-[#E76F51] shadow-lg">
+                        <p className="text-[#D62828] font-semibold text-sm md:text-base flex items-center gap-2">
+                            <span className="text-2xl">🍝</span>
+                            Benvenuti alla Tavola Umarel
+                            <span className="text-2xl">🍷</span>
+                        </p>
                     </div>
                 </div>
 
-                {/* Engaging Quote */}
-                <p className="font-hand text-3xl md:text-4xl text-stone-600 mb-10 max-w-2xl leading-relaxed rotate-1">
-                    "{t('slogan')}
-                    <br />
-                    <span className="text-orange-600 font-bold">{t('capisci')}</span>"
-                </p>
+                {/* Main Hero Content */}
+                <div className="text-center max-w-4xl mx-auto mb-16">
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#3D2817] leading-tight">
+                        {t('heroTitle')}{' '}
+                        <span className="relative inline-block">
+                            <span className="text-[#D62828]">{t('heroTitleHighlight')}</span>
+                            <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none">
+                                <path d="M2 10C50 5 150 5 198 10" stroke="#E76F51" strokeWidth="3" strokeLinecap="round" />
+                            </svg>
+                        </span>{' '}
+                        {t('heroTitleLine2Post')}
+                    </h1>
 
-                {/* CTAs - Menu Style */}
-                <div className="flex flex-col sm:flex-row gap-6 items-center">
-                    <Link href="/requests/create">
-                        <Button size="lg" className="h-16 px-10 text-xl font-bold bg-orange-600 hover:bg-orange-700 text-white shadow-xl hover:shadow-2xl border-4 border-white transform transition hover:-translate-y-1">
-                            {t('orderProject')}
-                        </Button>
-                    </Link>
-                    <Link href="/browse">
-                        <Button size="lg" variant="outline" className="h-16 px-10 text-xl font-hand font-bold text-stone-600 hover:text-orange-600 border-2 border-dashed border-stone-300 hover:border-orange-300 bg-white/50">
-                            {t('browseMenu')}
+                    <p className="text-xl md:text-2xl text-[#6C5B4D] mb-12 leading-relaxed max-w-3xl mx-auto">
+                        {t('heroSubtitle')}
+                    </p>
+
+                    {/* Primary CTAs - Large and accessible */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                        <Link href="/en/requests/create">
+                            <Button
+                                size="lg"
+                                className="bg-[#D62828] hover:bg-[#B91C1C] text-white text-lg px-8 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group w-full sm:w-auto"
+                            >
+                                <span className="text-2xl mr-2">🔍</span>
+                                {t('postNeed')}
+                                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                        </Link>
+
+                        <Link href="/en/offerings/create">
+                            <Button
+                                size="lg"
+                                className="bg-[#52B788] hover:bg-[#40916C] text-white text-lg px-8 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group w-full sm:w-auto"
+                            >
+                                <span className="text-2xl mr-2">🛠️</span>
+                                Offer Services
+                                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                        </Link>
+                    </div>
+
+                    {/* Secondary CTA */}
+                    <Link href="/en/browse">
+                        <Button
+                            variant="outline"
+                            size="lg"
+                            className="border-2 border-[#E76F51] text-[#E76F51] hover:bg-[#E76F51] hover:text-white text-lg px-8 py-6 rounded-2xl transition-all duration-300 hover:scale-105"
+                        >
+                            <span className="text-2xl mr-2">🌍</span>
+                            Explore Community
                         </Button>
                     </Link>
                 </div>
 
+                {/* Trust Indicators - Like ingredients on the table */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    {[
+                        { icon: '🔒', label: 'Secure Escrow', color: 'bg-[#D62828]' },
+                        { icon: '⭐', label: 'Verified Experts', color: 'bg-[#52B788]' },
+                        { icon: '💰', label: 'Fair Pricing', color: 'bg-[#E76F51]' },
+                        { icon: '🤝', label: 'Community Trust', color: 'bg-[#F4A261]' },
+                    ].map((item, i) => (
+                        <div
+                            key={i}
+                            className="bg-white/90 backdrop-blur-sm p-4 rounded-xl border-2 border-[#E8D5C4] text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                        >
+                            <div className="text-4xl mb-2">{item.icon}</div>
+                            <p className="text-sm font-semibold text-[#3D2817]">{item.label}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
-
-            {/* Side Banners (Italian Food) */}
-            {/* Left Banner: Pizza */}
-            <div className="absolute left-0 top-1/4 transform -translate-x-1/2 rotate-12 opacity-80 pointer-events-none grayscale-[0.2] hover:grayscale-0 transition duration-700">
-                <div className="text-[200px]">🍕</div>
-            </div>
-            {/* Right Banner: Spaghetti */}
-            <div className="absolute right-0 bottom-1/4 transform translate-x-[30%] -rotate-12 opacity-80 pointer-events-none grayscale-[0.2] hover:grayscale-0 transition duration-700">
-                <div className="text-[250px]">🍝</div>
-            </div>
-
-            {/* Grease Stains Decoration */}
-            <div className="absolute top-20 left-10 w-40 h-40 bg-yellow-500/5 rounded-full blur-3xl pointer-events-none mix-blend-multiply" />
-            <div className="absolute bottom-40 right-10 w-60 h-60 bg-red-600/5 rounded-full blur-3xl pointer-events-none mix-blend-multiply" />
-
-        </section>
+        </div>
     );
 }
