@@ -1,6 +1,7 @@
 
-import { db } from '@/lib/db';
-import { requests, slices, sliceCards } from '@/lib/db/schema';
+import { db, sql } from '@/lib/db';
+// keeping db import if used elsewhere, or just sql
+import { requests, slices } from '@/lib/db/schema'; // Keep purely for types if needed
 
 interface CreateRequestParams {
     userId: string;
@@ -27,38 +28,48 @@ export async function createRequest(params: CreateRequestParams) {
 export async function initializeRequest(params: CreateRequestParams) {
     const { userId, title, description, category, location } = params;
 
-    return await db.transaction(async (tx) => {
+    return await sql.begin(async (sql) => {
         // 1. Create Request
-        const [newRequest] = await tx.insert(requests).values({
-            userId,
-            title,
-            description,
-            category,
-            location,
-            status: 'open',
-        }).returning();
+        const [newRequest] = await sql`
+            INSERT INTO requests (user_id, title, description, category, location, status)
+            VALUES (${userId}, ${title}, ${description}, ${category ?? null}, ${location ?? null}, 'open')
+            RETURNING *
+        `;
 
-        // 2. Create Initial Slice (for Wizard context)
-        const [initialSlice] = await tx.insert(slices).values({
-            requestId: newRequest.id,
-            creatorId: userId,
-            title,
-            description,
-            status: 'proposed',
-        }).returning();
+        // 2. Create Initial Slice (Manual Insert to bypass Drizzle weirdness with refund_status default)
+        // Note: We don't explicitly set refund_status here, we let the DB default ('none') handle it.
+        // It seems Drizzle fails when it tries to handle it.
+        const [initialSlice] = await sql`
+            INSERT INTO slices (
+                request_id, creator_id, title, description, status
+            ) VALUES (
+                ${newRequest.id}, ${userId}, ${title}, ${description}, 'proposed'
+            )
+            RETURNING *
+        `;
 
         // 3. Create Initial Slice Card
-        await tx.insert(sliceCards).values({
-            sliceId: initialSlice.id,
-            requestId: newRequest.id,
-            title,
-            description,
-            version: 1,
-            currency: 'ARS', // Default for now, TODO: dynamic
-        });
+        await sql`
+            INSERT INTO slice_cards (
+                slice_id, request_id, title, description, version, currency
+            ) VALUES (
+                ${initialSlice.id}, ${newRequest.id}, ${title}, ${description}, 1, 'ARS'
+            )
+        `;
+
+        // Map back to camelCase manually for compatibility if needed, using schema types helps but
+        // for now we return what the caller expects. 
+        // Drizzle return types were camelCase (e.g. userId), but raw returns snake_case (user_id).
+        // Since the caller just needs IDs usually, let's verify what `newRequest` structure is needed effectively.
+        // The return type of this function is inferred. 
+        // Let's coerce simple objects to look somewhat correct or just return IDs.
 
         return {
-            request: newRequest,
+            request: {
+                ...newRequest,
+                id: newRequest.id,
+                userId: newRequest.user_id, // Map snake to camel
+            },
             initialSliceId: initialSlice.id
         };
     });

@@ -3,29 +3,34 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { initializeRequest } from '@/lib/services/request-service';
 
 // Hoist mocks
-const { mockDb, mockTx, mockInsert } = vi.hoisted(() => {
-    const mockInsert = {
-        values: vi.fn().mockReturnThis(),
-        returning: vi.fn()
-            .mockResolvedValueOnce([{ id: 'req-1' }]) // Request
-            .mockResolvedValueOnce([{ id: 'slice-1' }]) // Slice
-            .mockResolvedValueOnce([{ id: 'card-1' }]) // Card
-    };
+const { mockDb, mockSql } = vi.hoisted(() => {
+    // Mock the sql helper function (template literal tag)
+    const sqlMock: any = vi.fn();
 
-    const mockTx = {
-        insert: vi.fn().mockReturnValue(mockInsert),
-    };
+    // Add transaction support
+    sqlMock.begin = vi.fn(async (cb) => {
+        return cb(sqlMock);
+    });
 
-    const mockDb = {
-        transaction: vi.fn(async (cb) => cb(mockTx)),
-        insert: vi.fn().mockReturnValue(mockInsert),
-    };
+    // Mock individual query responses based on call order or logic
+    // For initializeRequest, it calls:
+    // 1. INSERT requests
+    // 2. INSERT slices
+    // 3. INSERT slice_cards
 
-    return { mockDb, mockTx, mockInsert };
+    sqlMock
+        .mockResolvedValueOnce([{ id: 'req-1', user_id: 'user-1' }]) // 1. Create Request
+        .mockResolvedValueOnce([{ id: 'slice-1' }]) // 2. Create Initial Slice
+        .mockResolvedValueOnce([]); // 3. Create Slice Card (no return)
+
+    const mockDb = {}; // Not used anymore for this logic but kept if existing imports break
+
+    return { mockDb, mockSql: sqlMock };
 });
 
 vi.mock('@/lib/db', () => ({
     db: mockDb,
+    sql: mockSql,
 }));
 
 vi.mock('@/lib/db/schema', () => ({
@@ -37,12 +42,14 @@ vi.mock('@/lib/db/schema', () => ({
 describe('Request Service', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        mockInsert.values.mockReturnThis();
-        // Reset mock implementations sequence
-        mockInsert.returning
-            .mockResolvedValueOnce([{ id: 'req-1' }])
+        // Reset responses
+        mockSql.begin = vi.fn(async (cb) => cb(mockSql));
+
+        // Re-queue return values
+        mockSql
+            .mockResolvedValueOnce([{ id: 'req-1', user_id: 'user-1' }])
             .mockResolvedValueOnce([{ id: 'slice-1' }])
-            .mockResolvedValueOnce([{ id: 'card-1' }]);
+            .mockResolvedValueOnce([]);
     });
 
     describe('initializeRequest', () => {
@@ -55,14 +62,15 @@ describe('Request Service', () => {
             });
 
             // 1. Transaction started
-            expect(mockDb.transaction).toHaveBeenCalled();
+            expect(mockSql.begin).toHaveBeenCalled();
 
-            // 2. Three inserts occurred in transaction
-            expect(mockTx.insert).toHaveBeenCalledTimes(3);
+            // 2. Three queries executed (Request, Slice, Card)
+            // Note: sql`...` calls the function 3 times inside the transaction
+            expect(mockSql).toHaveBeenCalledTimes(3);
 
             // 3. Result contains needed IDs
             expect(result).toEqual({
-                request: { id: 'req-1' },
+                request: { id: 'req-1', userId: 'user-1', user_id: 'user-1' },
                 initialSliceId: 'slice-1'
             });
         });

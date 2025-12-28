@@ -66,12 +66,12 @@ export const slices = pgTable('slices', {
     dependencies: jsonb('dependencies'), // Array of slice IDs
 
     // Refund Logic
-    // Refund Logic - Temporarily disabled in schema to unblock insert
-    // refundStatus: refundStatusEnum('refund_status').default('none'),
-    // refundReason: text('refund_reason'),
-    // disputeEvidence: jsonb('dispute_evidence'), // Array of URLs
-    // refundRequestedAt: timestamp('refund_requested_at'),
-    // refundDecidedAt: timestamp('refund_decided_at'),
+    // Refund Logic
+    refundStatus: refundStatusEnum('refund_status').default('none'),
+    refundReason: text('refund_reason'),
+    disputeEvidence: jsonb('dispute_evidence'), // Array of URLs
+    refundRequestedAt: timestamp('refund_requested_at'),
+    refundDecidedAt: timestamp('refund_decided_at'),
 
     skillsRequired: jsonb('skills_required'), // Array of required skills
     escrowPaymentId: text('escrow_payment_id'), // Reference to escrow payment

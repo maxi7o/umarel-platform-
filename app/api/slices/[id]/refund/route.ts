@@ -1,8 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { slices, requests, escrowPayments, users, notifications } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { sql } from '@/lib/db';
 import { createClient } from '@/lib/supabase/server';
 import { MercadoPagoAdapter } from '@/lib/payments/mercadopago-adapter';
 
@@ -22,61 +20,46 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         const body = await request.json();
         const { reason } = body;
 
-        // 1. Fetch Slice and Request to verify ownership
-        const [slice] = await db
-            .select({
-                id: slices.id,
-                status: slices.status,
-                requestId: slices.requestId,
-                assignedProviderId: slices.assignedProviderId,
-                title: slices.title,
-                createdAt: slices.createdAt, // Should check 'completedAt' or evidence upload time if available, but for now we assume status check is enough
-            })
-            .from(slices)
-            .where(eq(slices.id, sliceId));
+        // 1. Fetch Slice and Request (Raw SQL)
+        const [slice] = await sql`
+            SELECT id, status, request_id as "requestId", assigned_provider_id as "assignedProviderId", title
+            FROM slices WHERE id = ${sliceId}
+        `;
 
         if (!slice) {
             return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
         }
 
-        const [reqData] = await db
-            .select({ userId: requests.userId })
-            .from(requests)
-            .where(eq(requests.id, slice.requestId));
+        const [reqData] = await sql`
+            SELECT user_id as "userId" FROM requests WHERE id = ${slice.requestId}
+        `;
 
-        // 2. Verify Requester (Client) is the one asking
+        // 2. Verify Requester (Client)
         if (reqData.userId !== user.id) {
             return NextResponse.json({ error: 'Only the client can request a refund' }, { status: 403 });
         }
 
-        // 3. Verify Status (Must be 'completed' - waiting for approval/release)
-        // If it's already approved_by_client or paid, money might be gone (Phase 2)
+        // 3. Verify Status
         if (slice.status !== 'completed') {
             return NextResponse.json({ error: 'Refund can only be requested for completed slices waiting for approval' }, { status: 400 });
         }
 
-        // 4. Update Refund Status
-        /* TEMPORARILY DISABLED FOR DEMO
-        await db.update(slices)
-            .set({
-                refundStatus: 'requested',
-                refundReason: reason,
-                refundRequestedAt: new Date(),
-            })
-            .where(eq(slices.id, sliceId));
-        */
+        // 4. Update Refund Status (Raw SQL - Bypass Schema Issues)
+        await sql`
+            UPDATE slices SET
+                refund_status = 'requested',
+                refund_reason = ${reason},
+                refund_requested_at = NOW()
+            WHERE id = ${sliceId}
+        `;
 
         // 5. Notify Provider
-        /*
         if (slice.assignedProviderId) {
-            await db.insert(notifications).values({
-                userId: slice.assignedProviderId,
-                title: 'Refund Requested',
-                message: `Client has requested a refund for slice "${slice.title}": ${reason}`,
-                link: `/wallet`, // Or deep link to slice
-            });
+            await sql`
+                INSERT INTO notifications (user_id, title, message, link)
+                VALUES (${slice.assignedProviderId}, 'Refund Requested', ${`Client has requested a refund for slice "${slice.title}": ${reason}`}, '/wallet')
+            `;
         }
-        */
 
         return NextResponse.json({ success: true });
 
@@ -97,83 +80,83 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
 
         const body = await request.json();
-        const { action, evidence } = body; // action: 'accept' | 'reject'
+        const { action, evidence } = body;
 
-        // 1. Fetch Slice
-        const [slice] = await db
-            .select()
-            .from(slices)
-            .where(eq(slices.id, sliceId));
+        // 1. Fetch Slice (Raw SQL)
+        const [slice] = await sql`
+            SELECT id, status, refund_status as "refundStatus", request_id as "requestId", 
+                   assigned_provider_id as "assignedProviderId", escrow_payment_id as "escrowPaymentId", title
+            FROM slices WHERE id = ${sliceId}
+        `;
 
         if (!slice) return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
 
-        // 2. Verify Provider is the one responding
+        // 2. Verify Provider
         if (slice.assignedProviderId !== user.id) {
             return NextResponse.json({ error: 'Only the provider can respond to refund request' }, { status: 403 });
         }
 
-        // 3. Verify Refund is actually requested
-        /*
+        // 3. Verify active request
         if (slice.refundStatus !== 'requested') {
             return NextResponse.json({ error: 'No active refund request' }, { status: 400 });
         }
-        */
 
         if (action === 'accept') {
-            // PROVIDER ACCEPTS REFUND logic
+            if (!slice.escrowPaymentId) {
+                return NextResponse.json({ error: 'No escrow payment found for this slice' }, { status: 400 });
+            }
 
-            // a. Find Escrow Payment
-            // if (!slice.escrowPaymentId) { ... }
+            // We assume full refund for now
+            await paymentAdapter.refund(slice.escrowPaymentId);
 
-            // b. Call MercadoPago Refund
-            // await paymentAdapter.refund(slice.escrowPaymentId);
+            // Update Slice Status
+            await sql`
+                UPDATE slices SET
+                    refund_status = 'approved',
+                    refund_decided_at = NOW()
+                WHERE id = ${sliceId}
+            `;
 
-            // c. Update Slice Status
-            /*
-            await db.update(slices)
-                .set({
-                    refundStatus: 'approved',
-                    refundDecidedAt: new Date(),
-                })
-                .where(eq(slices.id, sliceId));
-            */
+            // Update Payment Status
+            await sql`UPDATE escrow_payments SET status = 'refunded', refunded_at = NOW() WHERE mercado_pago_payment_id = ${slice.escrowPaymentId}`;
+
+            // Notify Client
+            const [reqData] = await sql`SELECT user_id as "userId" FROM requests WHERE id = ${slice.requestId}`;
+
+            await sql`
+                INSERT INTO notifications (user_id, title, message, link)
+                VALUES (${reqData.userId}, 'Refund Approved', ${`Provider accepted your refund request for slice "${slice.title}". Funds are returning.`}, '/wallet')
+            `;
 
             return NextResponse.json({ success: true, status: 'approved' });
 
         } else if (action === 'reject') {
-            // PROVIDER REJECTS REFUND -> DISPUTE
+            // Dispute
+            await sql`
+                UPDATE slices SET
+                    refund_status = 'disputed',
+                    status = 'disputed',
+                    dispute_evidence = ${evidence ? JSON.stringify([evidence]) : '[]'},
+                    refund_decided_at = NOW(),
+                    disputed_at = NOW()
+                WHERE id = ${sliceId}
+            `;
 
-            /*
-            await db.update(slices)
-                .set({
-                    refundStatus: 'disputed',
-                    status: 'disputed', // Critical: Mark slice as disputed to block everything
-                    disputeEvidence: evidence ? [evidence] : [], // Simplification
-                    refundDecidedAt: new Date(), // Decision to reject
-                    disputedAt: new Date(),
-                })
-                .where(eq(slices.id, sliceId));
-            */
+            // Notify Client
+            const [reqData] = await sql`SELECT user_id as "userId" FROM requests WHERE id = ${slice.requestId}`;
+
+            await sql`
+                INSERT INTO notifications (user_id, title, message, link)
+                VALUES (${reqData.userId}, 'Refund Rejected - Dispute Started', 'Provider rejected your refund request. Umarel Admin will review within 24h.', '/wallet')
+             `;
+
             return NextResponse.json({ success: true, status: 'disputed' });
         }
 
-        // Notify Admin (You)
-        // For now just notify Client that it went to dispute
-        const [reqData] = await db.select({ userId: requests.userId }).from(requests).where(eq(requests.id, slice.requestId));
-        await db.insert(notifications).values({
-            userId: reqData.userId,
-            title: 'Refund Rejected - Dispute Started',
-            message: `Provider rejected your refund request. Umarel Admin will review within 24h.`,
-            link: `/wallet`,
-        });
-
-        return NextResponse.json({ success: true, status: 'disputed' });
-    }
-
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 
-} catch (error) {
-    console.error('Refund Response Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-}
+    } catch (error) {
+        console.error('Refund Response Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }
