@@ -98,7 +98,7 @@ export class PayrollService {
 
     async executePayout() {
         const preview = await this.generatePayoutPreview();
-        if (preview.payouts.length === 0) return { success: false, message: 'No payouts to process' };
+        if (preview.payouts.length === 0) return { success: false, message: 'No payouts to process', count: 0, totalDistributed: 0 };
 
         return await db.transaction(async (tx) => {
             const payoutDate = new Date();
@@ -129,7 +129,7 @@ export class PayrollService {
                  `);
             }
 
-            return { success: true, count: preview.payouts.length, totalDistributed: preview.totalPool };
+            return { success: true, count: preview.payouts.length, totalDistributed: preview.totalPool, message: 'Payout executed successfully' };
         });
     }
 }

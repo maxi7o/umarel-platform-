@@ -9,10 +9,10 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const sliceId = params.id;
+        const { id: sliceId } = await params;
 
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
@@ -82,7 +82,7 @@ export async function POST(
                 helpfulComments.map(c => ({
                     commentId: c.id,
                     userId: c.userId,
-                    hearts: c.heartsCount,
+                    hearts: c.heartsCount || 0,
                 }))
             );
 
@@ -107,8 +107,8 @@ export async function POST(
                     await db
                         .update(userWallets)
                         .set({
-                            balance: wallet.balance + reward.amount,
-                            totalEarned: wallet.totalEarned + reward.amount,
+                            balance: (wallet.balance || 0) + reward.amount,
+                            totalEarned: (wallet.totalEarned || 0) + reward.amount,
                             updatedAt: new Date(),
                         })
                         .where(eq(userWallets.userId, reward.userId));

@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
             await db.update(escrowPayments)
                 .set({
                     status: 'in_escrow',
-                    paymentMethod: 'mercadopago', // Or 'mock' if we want to be explicit, but schemas usually strict
+                    paymentMethod: 'mercado_pago', // Or 'mock' if we want to be explicit, but schemas usually strict
                     mercadoPagoPaymentId: txId,
                     createdAt: new Date() // Reset timestamp to now
                 })

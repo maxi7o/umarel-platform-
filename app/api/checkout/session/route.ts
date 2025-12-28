@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
                     quantity: quantity,
                 },
             ],
-            payment_method_types: ['card', 'link'], // removed pix/boleto manual list to rely on dashboard or explicit need
+            // payment_method_types: ['card', 'link'], // removed to use automatic_payment_methods
             // 'pix', 'boleto' etc are better managed via 'automatic_payment_methods' generally, 
             // but user asked for specific ones. 
             // Requirement 2 said "Brazil -> Pix + Boleto + Card".
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             // I will prioritize automatic_payment_methods = true for "Best in class" behavior.
             automatic_payment_methods: { enabled: true },
             // payment_method_types: ... removed in favor of automatic
-        });
+        } as any);
 
         return NextResponse.json({ clientSecret: session.client_secret });
     } catch (err: any) {

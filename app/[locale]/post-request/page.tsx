@@ -15,31 +15,26 @@ export default async function PostRequestPage({ params }: { params: Promise<{ lo
         userId = dbUser.id;
     }
 
-    // 2. Create a draft request
-    const requestId = uuidv4();
-
-    await db.insert(requests).values({
-        id: requestId,
+    // 2. Create a draft request (using 'open' as draft isn't in enum yet)
+    const [newRequest] = await db.insert(requests).values({
         userId: userId,
         title: 'New Project',
         description: '',
-        status: 'draft',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    });
+        status: 'open',
+    }).returning();
+
+    const requestId = newRequest.id;
 
     // 3. Create the initial "Root" slice
-    const sliceId = uuidv4();
-    await db.insert(slices).values({
-        id: sliceId,
+    const [newSlice] = await db.insert(slices).values({
         requestId: requestId,
         creatorId: userId,
         title: 'Initial Request',
         description: 'Root slice for the project',
-        status: 'open',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    });
+        status: 'proposed',
+    }).returning();
+
+    const sliceId = newSlice.id;
 
     // 4. Redirect to the Wizard for this slice
     redirect(`/${locale}/wizard/${sliceId}`);

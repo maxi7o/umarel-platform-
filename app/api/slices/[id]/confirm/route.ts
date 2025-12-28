@@ -76,9 +76,9 @@ async function updateProviderMetrics(providerId: string, amount: number, onTime:
         await db
             .update(providerMetrics)
             .set({
-                totalSlicesCompleted: existing.totalSlicesCompleted + 1,
-                totalSlicesOnTime: existing.totalSlicesOnTime + (onTime ? 1 : 0),
-                totalEarnings: existing.totalEarnings + amount,
+                totalSlicesCompleted: (existing.totalSlicesCompleted || 0) + 1,
+                totalSlicesOnTime: (existing.totalSlicesOnTime || 0) + (onTime ? 1 : 0),
+                totalEarnings: (existing.totalEarnings || 0) + amount,
                 updatedAt: new Date(),
             })
             .where(eq(providerMetrics.providerId, providerId));

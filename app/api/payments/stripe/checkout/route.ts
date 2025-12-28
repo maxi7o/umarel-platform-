@@ -29,7 +29,11 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        // Get slice details for metadata and display
+        if (!escrow.sliceId) {
+            return NextResponse.json({ error: 'Slice ID missing in escrow' }, { status: 400 });
+        }
+
+        // Get slice details for description
         const slice = await db.query.slices.findFirst({
             where: eq(slices.id, escrow.sliceId),
         });

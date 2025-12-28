@@ -57,8 +57,8 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
                     null
                 ) : null}
 
-                {/* Correct Logic: Show actions if status is 'completed' or 'verification_pending' */}
-                {(slice.status === 'completed' || slice.status === 'verification_pending') && (
+                {/* Correct Logic: Show actions if status is 'completed' (which implies waiting for verification) */}
+                {slice.status === 'completed' && (
                     <ApprovalActions
                         sliceId={slice.id}
                         amount={amount}

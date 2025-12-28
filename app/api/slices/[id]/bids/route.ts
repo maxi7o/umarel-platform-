@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { sliceBids, slices, users } from '@/lib/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and } from 'drizzle-orm';
 import { validateSliceEffort } from '@/lib/validators/slice-validator';
 
 export async function POST(
@@ -46,9 +46,11 @@ export async function POST(
         const existingBids = await db
             .select()
             .from(sliceBids)
-            .where(eq(sliceBids.sliceId, sliceId))
-            .where(eq(sliceBids.providerId, providerId))
-            .where(eq(sliceBids.status, 'pending'));
+            .where(and(
+                eq(sliceBids.sliceId, sliceId),
+                eq(sliceBids.providerId, providerId),
+                eq(sliceBids.status, 'pending')
+            ));
 
         if (existingBids.length > 0) {
             return NextResponse.json(

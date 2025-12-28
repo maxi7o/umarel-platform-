@@ -136,9 +136,12 @@ export async function POST(
                 if (currentUser?.email) {
                     // Try to get slice title from actions
                     const firstAction = actions[0];
-                    const sliceTitle = (firstAction.type === 'CREATE_CARD' || firstAction.type === 'UPDATE_CARD')
-                        ? firstAction.data?.title || 'Project Update'
-                        : 'Project Update';
+                    let sliceTitle = 'Project Update';
+                    if (firstAction.type === 'CREATE_CARD') {
+                        sliceTitle = firstAction.data.title;
+                    } else if (firstAction.type === 'UPDATE_CARD') {
+                        sliceTitle = firstAction.updates?.title || 'Project Update';
+                    }
 
                     // Using fire-and-forget for speed, but ideally imported from service
                     // Lazy import to avoid circular dep issues in some setups, but here import at top is better.

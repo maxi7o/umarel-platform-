@@ -18,7 +18,6 @@ export default async function FeedPage() {
             id: slices.id,
             title: slices.title,
             description: slices.description,
-            imageUrl: slices.imageUrl,
             status: slices.status,
             createdAt: slices.createdAt,
             authorId: users.id,
@@ -26,7 +25,7 @@ export default async function FeedPage() {
             authorAvatar: users.avatarUrl,
         })
         .from(slices)
-        .leftJoin(users, eq(users.id, slices.requestorId)) // showing requestor as "author" of the slice need
+        .leftJoin(users, eq(users.id, slices.creatorId)) // showing creator as "author" of the slice need
         .orderBy(desc(slices.createdAt))
         .limit(20);
 
@@ -46,6 +45,8 @@ export default async function FeedPage() {
                             key={item.id}
                             item={{
                                 ...item,
+                                status: item.status || 'open',
+                                createdAt: item.createdAt || new Date(),
                                 author: {
                                     id: item.authorId || 'unknown',
                                     fullName: item.authorName || 'Anonymous',

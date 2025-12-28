@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 import { slices, users, requests, escrowPayments } from '@/lib/db/schema';
 import { PayoutService } from '@/lib/services/payout-service';
 import { eq } from 'drizzle-orm';
-import { PaymentFactory } from '@/lib/payments/payment-factory';
+// import { PaymentFactory } from '@/lib/payments/factory';
 
 async function main() {
     console.log('🧪 Verifying Auto-Release Logic...');

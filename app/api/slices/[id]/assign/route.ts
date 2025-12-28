@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { slices, sliceBids } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 
 export async function POST(
     request: Request,
@@ -44,8 +44,7 @@ export async function POST(
             await db
                 .update(sliceBids)
                 .set({ status: 'rejected' })
-                .where(eq(sliceBids.sliceId, sliceId))
-                .where(eq(sliceBids.status, 'pending'));
+                .where(and(eq(sliceBids.sliceId, sliceId), eq(sliceBids.status, 'pending')));
         }
 
         // Assign slice to provider

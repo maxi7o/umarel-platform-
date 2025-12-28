@@ -5,7 +5,7 @@ import Stripe from 'stripe'
 import { createClient } from '@/lib/supabase/server'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_mock', {
-    apiVersion: '2025-11-17.clover', // Use version matching installed types
+    apiVersion: '2025-12-15.clover', // Use version matching installed types
 })
 
 export async function createCheckoutSession(quoteId: string, amount: number, title: string) {

@@ -66,7 +66,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
                 status: 'released',
                 releasedAt: new Date()
             })
-            .where(eq(escrowPayments.transactionId, slice.escrowPaymentId)) // NOTE: This assumes transactionId matches. Check logic if ID vs TransactionID
+            .where(eq(escrowPayments.id, slice.escrowPaymentId))
             // Actually, in main code we use .where(eq(escrowPayments.transactionId, slice.escrowPaymentId))
             // But we fetched escrowPaymentId from slice.
             // Let's ensure this is correct. In schema: escrowPaymentId is text (transaction ID from provider) or UUID?

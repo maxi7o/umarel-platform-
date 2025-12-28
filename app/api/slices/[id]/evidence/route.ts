@@ -39,8 +39,7 @@ export async function POST(
         // Next status is 'approved_by_client'.
         await db.update(slices)
             .set({
-                status: 'completed',
-                updatedAt: new Date() // if we had updatedAt column
+                status: 'completed'
             })
             .where(eq(slices.id, id));
 

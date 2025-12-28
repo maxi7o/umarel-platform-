@@ -40,9 +40,11 @@ export default async function AdminLaunchPage() {
         .orderBy(desc(sql`sum(${comments.savingsGenerated})`))
         .limit(10);
 
+    const todayStr = today.toISOString().split('T')[0];
+
     // 3. Check if Payout Run
     const payoutRecord = await db.query.dailyPayouts.findFirst({
-        where: sql`DATE(${dailyPayouts.date}) = DATE(${today})`,
+        where: sql`DATE(${dailyPayouts.date}) = ${todayStr}`,
     });
 
     async function triggerPayout() {

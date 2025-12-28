@@ -14,6 +14,10 @@ export async function getDisputes() {
         where: eq(escrowPayments.status, 'disputed'),
         with: {
             slice: {
+                columns: {
+                    title: true,
+                    requestId: true // needed for nested relation
+                },
                 with: {
                     request: true
                 }
@@ -24,7 +28,7 @@ export async function getDisputes() {
     return disputes.map(d => ({
         id: d.id, // Escrow ID
         sliceId: d.sliceId,
-        title: d.slice.title,
+        title: d.slice?.title || 'Unknown Slice',
         amount: d.totalAmount,
         currency: 'ARS', // Default or fetch from somewhere
         disputedAt: d.createdAt,
@@ -46,7 +50,7 @@ export async function analyzeDisputeAction(escrowId: string) {
             }
         });
 
-        if (!payment || !payment.slice) throw new Error("Payment/Slice not found");
+        if (!payment || !payment.slice || !payment.sliceId) throw new Error("Payment/Slice not found");
 
         const evidence = await db.query.sliceEvidence.findMany({
             where: eq(sliceEvidence.sliceId, payment.sliceId)

@@ -35,7 +35,7 @@ export async function GET(
             : 0;
 
         const onTimeRate = metrics?.totalSlicesCompleted && metrics.totalSlicesCompleted > 0
-            ? Math.round((metrics.totalSlicesOnTime / metrics.totalSlicesCompleted) * 100)
+            ? Math.round(((metrics.totalSlicesOnTime || 0) / metrics.totalSlicesCompleted) * 100)
             : 0;
 
         return NextResponse.json({

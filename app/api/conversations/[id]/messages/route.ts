@@ -8,10 +8,10 @@ const MOCK_USER_ID = '00000000-0000-0000-0000-000000000001';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const conversationId = params.id;
+        const { id: conversationId } = await params;
 
         const conversationMessages = await db.select()
             .from(messages)
@@ -27,10 +27,10 @@ export async function GET(
 
 export async function POST(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const conversationId = params.id;
+        const { id: conversationId } = await params;
         const body = await request.json();
         const { content } = body;
 

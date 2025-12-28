@@ -45,12 +45,12 @@ export async function GET(
                 auraPoints: provider.auraPoints,
             },
             metrics: metrics ? {
-                totalSlicesCompleted: metrics.totalSlicesCompleted,
-                completionRate: metrics.totalSlicesCompleted > 0
-                    ? Math.round((metrics.totalSlicesCompleted / (metrics.totalSlicesCompleted + 1)) * 100)
+                totalSlicesCompleted: metrics.totalSlicesCompleted || 0,
+                completionRate: (metrics.totalSlicesCompleted || 0) > 0
+                    ? Math.round(((metrics.totalSlicesCompleted || 0) / ((metrics.totalSlicesCompleted || 0) + 1)) * 100)
                     : 0,
-                onTimeRate: metrics.totalSlicesCompleted > 0
-                    ? Math.round((metrics.totalSlicesOnTime / metrics.totalSlicesCompleted) * 100)
+                onTimeRate: (metrics.totalSlicesCompleted || 0) > 0
+                    ? Math.round(((metrics.totalSlicesOnTime || 0) / (metrics.totalSlicesCompleted || 1)) * 100)
                     : 0,
                 rating: metrics.rating,
                 totalEarnings: metrics.totalEarnings,
