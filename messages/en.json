@@ -149,6 +149,65 @@
             "browseButton": "Discover Experiences",
             "joinText": "Be part of a marketplace owned by its reputation."
         },
+        "trattoria": {
+            "welcome": "Benvenuti alla Tavola Umarel",
+            "offerServices": "Offer Services",
+            "exploreCommunity": "Explore Community",
+            "secureEscrow": "Secure Escrow",
+            "verifiedExperts": "Verified Experts",
+            "fairPricing": "Fair Pricing",
+            "communityTrust": "Community Trust",
+            "benefitsTitle": "What's on the Table?",
+            "benefitsSubtitle": "Every feature is crafted with care, like a family recipe passed down through generations.",
+            "escrowProtection": {
+                "title": "Escrow Protection",
+                "description": "Your money is safe until the work is done. Like nonna holding the recipe - it's released only when perfect."
+            },
+            "dailyDividends": {
+                "title": "Daily Dividends",
+                "description": "Help the community, earn rewards. Every helpful comment adds to your plate."
+            },
+            "aiWizard": {
+                "title": "AI Wizard",
+                "description": "Our AI breaks down complex projects into bite-sized tasks. Like slicing a perfect lasagna."
+            },
+            "communityWisdom": {
+                "title": "Community Wisdom",
+                "description": "Experienced Umarels review every project. Multiple eyes catch what one might miss."
+            },
+            "auraReputation": {
+                "title": "Aura Reputation",
+                "description": "Build your reputation with every job. Quality work earns respect that lasts."
+            },
+            "proofOfArrival": {
+                "title": "Proof of Arrival",
+                "description": "Photo evidence for every milestone. Truth is documented, disputes are rare."
+            },
+            "fairPricingBenefit": {
+                "title": "Fair Pricing",
+                "description": "Community-verified rates. No surprises, no hidden fees. Just honest work for honest pay."
+            },
+            "milestonePayments": {
+                "title": "Milestone Payments",
+                "description": "Pay as you go. Each completed slice releases its payment. Progress you can see and trust."
+            },
+            "quote": "Non si fa così... we do it together, with wisdom.",
+            "quoteAuthor": "Every Umarel, everywhere",
+            "rolesTitle": "Everyone Has a Seat at the Table",
+            "rolesSubtitle": "Whether you need help, offer help, or watch over quality - there's a place for you in our family.",
+            "rolesCta": {
+                "seeker": "Post a Request",
+                "creator": "Offer Services",
+                "umarel": "Become an Umarel"
+            },
+            "rolesQuote": "At our table, everyone contributes. The one who needs, the one who builds, and the wise one who watches - together we create something beautiful.",
+            "rolesQuoteTag": "The Umarel Way",
+            "finalCta": {
+                "title": "Pull Up a Chair",
+                "subtitle": "Join thousands of people building, creating, and sharing wisdom. At Umarel, everyone has a place at the table.",
+                "quote": "Non si fa così... we do it together."
+            }
+        },
         "italianQuotes": {
             "q1": "Truth is the foundation of all value.",
             "q2": "Measure twice, cut once, live fully.",

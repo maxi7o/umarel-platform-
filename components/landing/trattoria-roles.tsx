@@ -1,12 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 export function TrattoriaRoles() {
     const t = useTranslations('landing');
+    const tTrattoria = useTranslations('landing.trattoria');
 
     const roles = [
         {
@@ -16,8 +17,8 @@ export function TrattoriaRoles() {
             color: 'from-[#D62828] to-[#B91C1C]',
             bgColor: 'bg-red-50',
             illustration: '🏠',
-            cta: 'Post a Request',
-            link: '/en/requests/create',
+            cta: tTrattoria('rolesCta.seeker'),
+            link: '/requests/create',
         },
         {
             emoji: '🛠️',
@@ -26,8 +27,8 @@ export function TrattoriaRoles() {
             color: 'from-[#52B788] to-[#40916C]',
             bgColor: 'bg-green-50',
             illustration: '⚒️',
-            cta: 'Offer Services',
-            link: '/en/offerings/create',
+            cta: tTrattoria('rolesCta.creator'),
+            link: '/offerings/create',
         },
         {
             emoji: '👴',
@@ -36,8 +37,8 @@ export function TrattoriaRoles() {
             color: 'from-[#E76F51] to-[#D65A3F]',
             bgColor: 'bg-orange-50',
             illustration: '🦉',
-            cta: 'Become an Umarel',
-            link: '/en/browse',
+            cta: tTrattoria('rolesCta.umarel'),
+            link: '/browse',
         },
     ];
 
@@ -56,10 +57,10 @@ export function TrattoriaRoles() {
                         <span className="text-6xl">👨‍👩‍👧‍👦</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-bold text-[#3D2817] mb-4">
-                        Everyone Has a Seat at the Table
+                        {tTrattoria('rolesTitle')}
                     </h2>
                     <p className="text-xl text-[#6C5B4D] max-w-2xl mx-auto">
-                        Whether you need help, offer help, or watch over quality - there's a place for you in our family.
+                        {tTrattoria('rolesSubtitle')}
                     </p>
                 </div>
 
@@ -111,11 +112,11 @@ export function TrattoriaRoles() {
                 <div className="text-center">
                     <div className="inline-block bg-white/90 backdrop-blur-sm px-10 py-6 rounded-2xl border-2 border-[#E76F51] shadow-xl max-w-3xl">
                         <p className="text-[#3D2817] text-xl italic mb-3">
-                            "At our table, everyone contributes. The one who needs, the one who builds, and the wise one who watches - together we create something beautiful."
+                            "{tTrattoria('rolesQuote')}"
                         </p>
                         <div className="flex items-center justify-center gap-3 text-[#6C5B4D]">
                             <span className="text-2xl">🍝</span>
-                            <span className="font-semibold">The Umarel Way</span>
+                            <span className="font-semibold">{tTrattoria('rolesQuoteTag')}</span>
                             <span className="text-2xl">🍝</span>
                         </div>
                     </div>

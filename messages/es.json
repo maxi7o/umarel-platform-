@@ -53,7 +53,7 @@
         "browse": "Explorar",
         "offerServices": "Ofrecer Servicios",
         "login": "Iniciar sesión",
-        "postNeed": "Publicar Necesidad",
+        "postNeed": "Publicar Proyecto",
         "dashboard": "Panel",
         "logout": "Cerrar sesión"
     },
@@ -73,191 +73,245 @@
         "copyright": "© 2026 Umarel. Todos los derechos reservados. Hecho con 🧡 y café.",
         "dailyWisdom": "Sabiduría Diaria:",
         "quotes": [
-            "Así no se hace... (That's not how you do it...)",
-            "En mis tiempos aquí era todo campo. (In my times this was all countryside.)",
-            "¿Pero quién hizo este trabajo? (Who did this job?)",
-            "Mira, mira... ¡torcido! (Look, look... crooked!)",
-            "Se necesita paciencia. (You need patience.)",
-            "¡Excelente trabajo! (Great job!)",
-            "Falta el toque final. (Missing the final touch.)"
+            "Non si fa così... (Así no se hace...)",
+            "Ai miei tempi qui era tutta campagna. (En mis tiempos esto era todo campo.)",
+            "Ma chi ha fatto questo lavoro? (¿Quién hizo este trabajo?)",
+            "Guarda, guarda... storto! (Mirá, mirá... ¡torcido!)",
+            "Ci vuole pazienza. (Se necesita paciencia.)",
+            "Ottimo lavoro! (¡Excelente trabajo!)",
+            "Manca il tocco finale. (Falta el toque final.)"
         ]
     },
     "home": {
-        "heroTitle": "No te estreses.",
-        "heroTitleLine2Pre": "Deja que un ",
-        "heroTitleHighlight": "Umarel",
-        "heroTitleLine2Post": " te ayude.",
-        "heroSubtitle": "Publica tu proyecto. Nuestra comunidad de expertos sabios lo dividirá en partes manejables. Solo pagas por lo que se completa.",
-        "postNeed": "Publica tu necesidad",
+        "heroTitle": "Tranquilo.",
+        "heroTitleLine2Pre": "Acá te ",
+        "heroTitleHighlight": "cuidamos",
+        "heroTitleLine2Post": ".",
+        "heroSubtitle": "Publicá tu proyecto. Nuestra comunidad de expertos lo divide en etapas claras. Pagás solo por lo que se completa, cuando se completa.",
+        "postNeed": "Publicar Proyecto",
         "howItWorks": "Cómo funciona",
         "howItWorksTitle": "Cómo Funciona Umarel",
-        "howItWorksSubtitle": "Traemos la sabiduría del sitio de construcción a tus tareas diarias.",
-        "step1Title": "1. Publica una Solicitud",
-        "step1Desc": "Describe lo que necesitas. \"Arreglar mi cocina\" o \"Construir un sitio web\". No necesitas detalles técnicos todavía.",
-        "step2Title": "2. Los Umarels lo Dividen",
-        "step2Desc": "Nuestra comunidad de sabios Umarels divide tu solicitud en pequeñas \"Fichas de Ejecución\" precisas.",
-        "step3Title": "3. Paga por Ficha",
-        "step3Desc": "Los proveedores cotizan fichas individuales. Aceptas y pagas solo cuando se completa cada ficha.",
-        "trustedTitle": "Construido para los mejores Umarels"
+        "howItWorksSubtitle": "La sabiduría de la obra, aplicada a tus proyectos del día a día.",
+        "step1Title": "1. Contanos qué necesitás",
+        "step1Desc": "\"Arreglar la cocina\" o \"Hacer un sitio web\". Sin tecnicismos. Con tus palabras.",
+        "step2Title": "2. Lo dividimos juntos",
+        "step2Desc": "Nuestra comunidad de expertos divide tu proyecto en etapas claras y manejables. Como cortar una lasagna perfecta.",
+        "step3Title": "3. Pagás por etapa",
+        "step3Desc": "Los profesionales cotizan cada etapa. Vos aceptás y pagás solo cuando se completa. Simple y seguro.",
+        "trustedTitle": "Construido para los mejores profesionales"
     },
     "landing": {
         "concept": {
-            "title": "Espera... ¿qué es un Umarel?",
+            "title": "¿Qué es un Umarel?",
             "subtitle": "La leyenda detrás del nombre",
-            "description": "Originario de Bolonia, Italia, el **Umarell** (plural: Umarells o Umarels) es el jubilado que se para en las obras en construcción con las manos detrás de la espalda, ofreciendo consejos no solicitados y supervisando el trabajo.",
-            "digital": "Convertimos este ícono cultural en un rol digital. En nuestra plataforma, **los Umarels son revisores expertos** que aseguran que tu proyecto esté bien definido, los precios sean justos y el trabajo se haga bien. Son tu fuente independiente de verdad."
+            "description": "Originario de Bolonia, Italia, el **Umarell** es el jubilado que se para en las obras con las manos atrás, observando y ofreciendo consejos. Un guardián de la calidad.",
+            "digital": "Convertimos esta figura en un rol digital. En nuestra plataforma, **los Umarels son expertos verificados** que aseguran que tu proyecto esté bien definido, los precios sean justos y el trabajo impecable."
         },
         "hero": {
-            "title": "Construí confianza, compartí sabiduría, ganá Aura.",
-            "subtitle1": "Sumate a una comunidad de expertos ayudando a vecinos a hacer las cosas bien —",
-            "subtitle2": "construí tu reputación, parte por parte.",
-            "cta": "Sumate a la Comunidad"
+            "title": "Construí confianza, compartí sabiduría, ganá reputación.",
+            "subtitle1": "Unite a una comunidad de expertos ayudando a vecinos a hacer las cosas bien —",
+            "subtitle2": "construí tu reputación, proyecto por proyecto.",
+            "cta": "Unirme a la Comunidad"
         },
-        "howItWorks": "Cómo Funciona Umarel",
+        "howItWorks": "Cómo Funciona",
         "clients": {
             "title": "Para Clientes",
-            "description": "Obtené alcances claros y precios justos con sabiduría verificada por la comunidad.",
-            "badge": "Impulsado por Sabiduría"
+            "description": "Proyectos claros y precios justos, verificados por la comunidad.",
+            "badge": "Verificado"
         },
         "providers": {
-            "title": "Para Proveedores",
-            "description": "Enfocate en tu oficio. Nosotros nos encargamos del alcance y la claridad con el cliente.",
-            "badge": "Calidad Verificada"
+            "title": "Para Profesionales",
+            "description": "Enfocate en tu oficio. Nosotros nos encargamos de la claridad y el alcance.",
+            "badge": "Calidad Garantizada"
         },
         "umarels": {
             "title": "Para Umarels",
-            "description": "Compartí tu experiencia, ayudá a evitar errores y ganá reconocimiento de la comunidad.",
+            "description": "Compartí tu experiencia, ayudá a evitar errores y ganá reconocimiento.",
             "badge": "Aura y Respeto"
         },
         "stats": {
-            "foundations": "Listo",
-            "foundationsLabel": "Para Construir",
-            "savings": "Inteligente",
-            "savingsLabel": "División",
+            "foundations": "Activo",
+            "foundationsLabel": "Proyectos",
+            "savings": "Justo",
+            "savingsLabel": "Precios",
             "free": "100%",
             "freeLabel": "Transparente",
-            "daily": "Confianza",
-            "dailyLabel": "Pros Verificados"
+            "daily": "Real",
+            "dailyLabel": "Conexión Humana"
         },
         "cta": {
-            "title": "Empieza a ahorrar (y ganar) hoy",
-            "subtitle": "0 costo para publicar · 0 costo para cotizar · Solo ganamos cuando apruebas el trabajo terminado",
-            "postButton": "Publicar una Necesidad – 100% Gratis",
+            "title": "Unite a la mesa",
+            "subtitle": "Precios justos · Recompensas comunitarias · 100% Verificado",
+            "postButton": "Publicar Proyecto",
             "browseButton": "Explorar Servicios",
-            "joinText": "Únete a miles de personas convirtiendo conocimiento en ingresos"
+            "joinText": "Formá parte de un mercado construido sobre la confianza."
         },
         "trattoria": {
-            "welcome": "Benvegnuti a",
-            "slogan": "Ayudándote a construir mejor, un plato de pasta a la vez.",
-            "capisci": "¿Capisci?",
-            "orderProject": "Publicar Proyecto 🏗️",
-            "browseMenu": "Ver el Menú 🍕",
-            "wip": "En Obra 🚧"
+            "welcome": "Bienvenidos a la Mesa Umarel",
+            "offerServices": "Ofrecer Servicios",
+            "exploreCommunity": "Explorar Comunidad",
+            "secureEscrow": "Pago Seguro",
+            "verifiedExperts": "Expertos Verificados",
+            "fairPricing": "Precios Justos",
+            "communityTrust": "Confianza Comunitaria",
+            "benefitsTitle": "¿Qué hay en la Mesa?",
+            "benefitsSubtitle": "Cada función está hecha con cariño, como una receta familiar que pasa de generación en generación.",
+            "escrowProtection": {
+                "title": "Protección de Pago",
+                "description": "Tu plata está segura hasta que el trabajo esté listo. Como la nonna que guarda la receta - solo se libera cuando está perfecto."
+            },
+            "dailyDividends": {
+                "title": "Dividendos Diarios",
+                "description": "Ayudá a la comunidad, ganá recompensas. Cada comentario útil suma a tu plato."
+            },
+            "aiWizard": {
+                "title": "Asistente IA",
+                "description": "Nuestra IA divide proyectos complejos en tareas manejables. Como cortar una lasagna perfecta."
+            },
+            "communityWisdom": {
+                "title": "Sabiduría Comunitaria",
+                "description": "Umarels experimentados revisan cada proyecto. Varios ojos ven lo que uno solo no."
+            },
+            "auraReputation": {
+                "title": "Reputación Aura",
+                "description": "Construí tu reputación con cada trabajo. La calidad genera respeto que perdura."
+            },
+            "proofOfArrival": {
+                "title": "Prueba de Llegada",
+                "description": "Evidencia fotográfica en cada hito. La verdad queda documentada, las disputas son raras."
+            },
+            "fairPricingBenefit": {
+                "title": "Precios Justos",
+                "description": "Tarifas verificadas por la comunidad. Sin sorpresas, sin costos ocultos. Solo trabajo honesto por pago honesto."
+            },
+            "milestonePayments": {
+                "title": "Pagos por Etapa",
+                "description": "Pagás a medida que avanzás. Cada etapa completada libera su pago. Progreso que podés ver y confiar."
+            },
+            "quote": "Non si fa così... lo hacemos juntos, con sabiduría.",
+            "quoteAuthor": "Cada Umarel, en todas partes",
+            "rolesTitle": "Todos Tienen un Lugar en la Mesa",
+            "rolesSubtitle": "Ya sea que necesites ayuda, ofrezcas ayuda, o cuides la calidad - hay un lugar para vos en nuestra familia.",
+            "rolesCta": {
+                "seeker": "Publicar Proyecto",
+                "creator": "Ofrecer Servicios",
+                "umarel": "Convertirme en Umarel"
+            },
+            "rolesQuote": "En nuestra mesa, todos contribuyen. El que necesita, el que construye, y el sabio que observa - juntos creamos algo hermoso.",
+            "rolesQuoteTag": "El Camino Umarel",
+            "finalCta": {
+                "title": "Acercá una Silla",
+                "subtitle": "Unite a miles de personas construyendo, creando y compartiendo sabiduría. En Umarel, todos tienen un lugar en la mesa.",
+                "quote": "Non si fa così... lo hacemos juntos."
+            }
         },
         "trustHero": {
-            "tagline": "Tu viejo mirando la obra, pero profesional.",
-            "title": "Tranquilidad total para tu reforma.",
-            "subtitle": "Ojos expertos previniendo errores costosos antes de que pasen.",
-            "ctaPrimary": "Auditar mi Presupuesto",
-            "ctaSecondary": "Ver Ahorros Reales",
-            "ticker": "Los Umarels expertos detectan errores antes de poner el ladrillo... Presupuestos verificados significan precios justos...",
+            "tagline": "Sabiduría comunitaria para cada proyecto",
+            "title": "Expertos en los que podés confiar. Proyectos que podés verificar.",
+            "subtitle": "Desde reformas complejas hasta experiencias únicas. Usamos IA y sabiduría comunitaria para asegurar precios justos y ejecución perfecta.",
+            "ctaPrimary": "Empezar un Proyecto",
+            "ctaSecondary": "Explorar Servicios",
+            "ticker": "La transparencia es nuestra moneda... Recompensas comunitarias para miembros activos... Solo reseñas verificadas...",
             "demoCard": {
                 "header": "Trekking & Yoga Patagonia",
-                "meta": "Enviado hace 2h • Bariloche",
+                "meta": "Proveedor: Sarah • 5.0 Aura",
                 "riskBadge": "VERIFICADO",
-                "item1": "Guía Certificado",
-                "item2": "Seguro Incluido",
-                "insightLabel": "Verificado por Umarel",
-                "insightText": "Precio justo confirmado. El proveedor tiene 15 viajes exitosos verificados. Plan de contingencia climática incluido.",
-                "fairPrice": "Calidad Garantizada",
-                "savedBadge": "Seguro",
-                "verifiedAudits": "Auditoría Humana",
+                "item1": "Guía y Transporte",
+                "item2": "Alquiler de Equipo",
+                "insightLabel": "Verificación Umarel",
+                "insightText": "Precio justo confirmado. La proveedora tiene 15 viajes exitosos verificados. Contingencia climática incluida.",
+                "fairPrice": "Puntaje Comunitario",
+                "savedBadge": "CONFIABLE",
+                "verifiedAudits": "Verificado por Humanos",
                 "saved": "Seguro"
             }
         },
         "italianQuotes": {
-            "q1": "Umarel: el que mira la obra con las manos atrás",
-            "q2": "El umarel siempre sabe cómo hacerlo mejor",
-            "q3": "Si no fuera por el umarel, el trabajo nunca terminaría",
-            "q4": "Cada umarel tiene la solución que nadie pidió",
-            "q5": "El umarel: el experto que no necesitas... pero siempre necesitas"
+            "q1": "La verdad es el fundamento de todo valor.",
+            "q2": "Medí dos veces, cortá una vez, viví plenamente.",
+            "q3": "La calidad no es un acto, es un hábito.",
+            "q4": "La comunidad ve lo que el individuo no.",
+            "q5": "La justicia es el único modelo de negocio sostenible."
         },
         "roles": {
             "client": {
-                "title": "El Cliente",
-                "description": "Vos tenés la visión. Usá nuestros planos para definir exactamente qué necesitás construir, asegurando que no se escape ningún detalle."
+                "title": "El que Busca",
+                "description": "Tenés un proyecto — una reparación, una experiencia. Definilo acá y dejá que la comunidad te guíe."
             },
             "builder": {
-                "title": "El Constructor",
-                "description": "Profesionales calificados que ejecutan el plan. Las reseñas verificadas y las insignias de seguridad garantizan una artesanía de primera."
+                "title": "El Creador",
+                "description": "Artesanos, guías y expertos. Vos entregás valor. Nosotros aseguramos que cobres precios justos por tu trabajo verificado."
             },
             "umarel": {
                 "title": "El Umarel",
-                "description": "El inspector de la comunidad. Mirando desde afuera (digitalmente), ofreciendo sabiduría y asegurando que todo esté en regla."
+                "description": "El observador sabio. Revisás alcances, resolvés disputas y ganás parte del éxito de la plataforma."
             }
         },
         "safetyTips": {
-            "title": "Consejo de Seguridad Diario",
+            "title": "Valores de la Comunidad",
             "tips": [
-                "Medí dos veces, cortá una.",
-                "Usá siempre tu EPP (Equipo de Protección Personal).",
-                "Una obra limpia es una obra segura.",
-                "Revisá los planos antes de cavar.",
-                "Si ves algo inseguro, decilo.",
-                "Confiá, pero verificá con un Umarel.",
-                "La calidad no es un acto, es un hábito."
+                "La verdad ante todo.",
+                "Respetá el oficio.",
+                "Pago justo por trabajo justo.",
+                "Las disputas son oportunidades de claridad.",
+                "Compartimos el valor que creamos.",
+                "La confianza se construye, no se compra.",
+                "Dejalo mejor de lo que lo encontraste."
             ]
         }
     },
     "login": {
         "title": "Iniciar sesión en Umarel",
-        "subtitle": "Ingresa tu correo electrónico para acceder a tu cuenta",
-        "googleButton": "Iniciar sesión con Google",
+        "subtitle": "Ingresá tu email para acceder a tu cuenta",
+        "googleButton": "Continuar con Google",
         "or": "O",
-        "email": "Correo electrónico",
+        "email": "Email",
         "password": "Contraseña",
         "signIn": "Iniciar Sesión",
-        "signUp": "Registrarse"
+        "signUp": "Registrarse",
+        "agreeToTerms": "Acepto los {terms} y la {privacy}",
+        "termsLink": "Términos de Servicio",
+        "privacyLink": "Política de Privacidad"
     },
     "createRequest": {
-        "title": "Publicar Nueva Solicitud",
-        "subtitle": "Describí lo que necesitás. Nuestros Umarels te ayudarán a dividirlo.",
+        "title": "Publicar un Proyecto",
+        "subtitle": "Contanos qué necesitás. Nuestra comunidad te ayuda a dividirlo en etapas claras.",
         "form": {
             "title": "Título",
-            "titlePlaceholder": "ej. Arreglar mi bacha y pintar la pared",
+            "titlePlaceholder": "ej. Arreglar la cocina y pintar la pared",
             "description": "Descripción",
-            "descPlaceholder": "Proporcioná más detalles sobre la tarea...",
+            "descPlaceholder": "Contanos más detalles sobre el proyecto...",
             "location": "Ubicación",
             "locationPlaceholder": "Ciudad o Dirección",
             "photos": "Fotos (Opcional)",
-            "uploadText": "Hacé clic para subir o arrastrá y soltá",
-            "submit": "Publicar Solicitud"
+            "uploadText": "Hacé clic para subir o arrastrá las fotos acá",
+            "submit": "Publicar Proyecto"
         }
     },
     "requestDetail": {
         "openForSlicing": "Abierto para División",
         "postedBy": "Publicado por",
         "splittingZone": "Zona de División Umarel",
-        "splittingZoneDesc": "Ayuda a dividir esta solicitud en porciones pagables. ¡Gana puntos de Aura!",
+        "splittingZoneDesc": "Ayudá a dividir este proyecto en etapas pagables. ¡Ganá puntos de Aura!",
         "suggestedBy": "Sugerido por",
         "est": "Est.",
         "discuss": "Discutir",
-        "noSlices": "Aún no hay porciones. ¡Sé el primer Umarel en ayudar!"
+        "noSlices": "Todavía no hay etapas. ¡Sé el primer Umarel en ayudar!"
     },
     "dashboard": {
         "provider": {
-            "title": "Panel de Proveedor",
-            "subtitle": "Encuentra trabajo cerca de ti y envía cotizaciones.",
+            "title": "Panel de Profesional",
+            "subtitle": "Encontrá trabajo cerca tuyo y enviá presupuestos.",
             "updateProfile": "Actualizar Perfil",
             "project": "Proyecto:",
             "viewDetails": "Ver Detalles y Cotizar"
         },
         "customer": {
-            "title": "Mis Solicitudes",
-            "subtitle": "Gestiona tus proyectos y pagos.",
-            "postNew": "Publicar Nueva Solicitud",
-            "slicesDefined": "Partes definidas",
-            "quotesReceived": "Cotizaciones recibidas",
+            "title": "Mis Proyectos",
+            "subtitle": "Gestioná tus proyectos y pagos.",
+            "postNew": "Publicar Nuevo Proyecto",
+            "slicesDefined": "Etapas definidas",
+            "quotesReceived": "Presupuestos recibidos",
             "viewDetails": "Ver Detalles",
             "postedOn": "Publicado el"
         }
@@ -265,39 +319,39 @@
     "profile": {
         "memberSince": "Miembro desde",
         "auraPoints": "Puntos de Aura",
-        "yourJourney": "Tu Viaje",
-        "keepContributing": "¡Sigue contribuyendo para alcanzar el siguiente rango!",
-        "currentRank": "Rango Actual:",
-        "nextRank": "Siguiente Rango:",
+        "yourJourney": "Tu Trayectoria",
+        "keepContributing": "¡Seguí contribuyendo para alcanzar el siguiente nivel!",
+        "currentRank": "Nivel Actual:",
+        "nextRank": "Próximo Nivel:",
         "pointsToGo": "puntos para llegar",
-        "slicesCreated": "Partes Creadas",
+        "slicesCreated": "Etapas Creadas",
         "upvotesReceived": "Votos Recibidos",
-        "slicesCompleted": "Partes Completadas",
+        "slicesCompleted": "Etapas Completadas",
         "topUmarels": "Mejores Umarels"
     },
     "NotFound": {
         "title": "Página No Encontrada",
-        "description": "La página que buscas no existe."
+        "description": "La página que buscás no existe."
     },
     "browse": {
         "title": "Explorar Servicios",
-        "subtitle": "Encuentra solicitudes de servicio y proveedores en tu área",
+        "subtitle": "Encontrá proyectos y profesionales en tu zona",
         "searchPlaceholder": "Buscar servicios...",
-        "postRequest": "Publicar Solicitud",
+        "postRequest": "Publicar Proyecto",
         "offerServices": "Ofrecer Servicios",
         "showing": "Mostrando",
         "results": "resultados",
         "in": "en",
         "noResults": "No se encontraron resultados en",
-        "tryAdjusting": "Intenta ajustar tus filtros o seleccionar una ubicación diferente",
+        "tryAdjusting": "Probá ajustar los filtros o seleccionar otra ubicación",
         "clearFilters": "Limpiar Filtros",
         "beFirstToOffer": "Sé el Primero en Ofrecer Servicios"
     },
     "filters": {
         "show": "Mostrar",
-        "allListings": "Todos los Listados",
-        "requestsOnly": "Solo Solicitudes de Servicio",
-        "offeringsOnly": "Solo Ofertas de Servicio",
+        "allListings": "Todo",
+        "requestsOnly": "Solo Proyectos",
+        "offeringsOnly": "Solo Servicios",
         "category": "Categoría",
         "allCategories": "Todas las Categorías",
         "location": "Ubicación",
@@ -329,9 +383,9 @@
         "postedBy": "Responsable",
         "created": "Inicio de Obra",
         "privateInsights": "La Libreta del Umarel",
-        "noInsights": "👋 ¡Bienvenido a tu Libreta de Obra!\n\nAquí es donde definimos el éxito. Describe tu proyecto con tus palabras y yo (tu Capataz IA) te haré preguntas breves para dividirlo en **Fichas de Ejecución** claras.\n\nEsto asegura que obtengas cotizaciones exactas y sin sorpresas.",
-        "noComments": "Aún no hay actividad. Empieza a describir tu proyecto para generar Fichas de Ejecución.",
-        "placeholder": "Aquí no venimos a charlar. Señala riesgos, sugiere mejoras o marca el error...",
+        "noInsights": "👋 ¡Bienvenido a tu Libreta de Obra!\n\nAcá definimos el éxito. Describí tu proyecto con tus palabras y yo (tu Capataz IA) te haré preguntas breves para dividirlo en **Fichas de Ejecución** claras.\n\nAsí obtenés presupuestos exactos y sin sorpresas.",
+        "noComments": "Todavía no hay actividad. Empezá a describir tu proyecto para generar Fichas de Ejecución.",
+        "placeholder": "Acá no venimos a charlar. Señalá riesgos, sugerí mejoras o marcá el error...",
         "aiMode": "Capataz IA",
         "aiModeActive": "Capataz IA Activo",
         "phase": {
@@ -348,12 +402,12 @@
         "pendingProposals": "Órdenes de Cambio Pendientes",
         "tips": {
             "label": "Consejo Pro",
-            "text": "Usa la libreta para preguntar a la IA cosas como",
-            "example1": "¿Es justa esta cotización?",
-            "example2": "¿Qué riesgos debo buscar?"
+            "text": "Usá la libreta para preguntarle a la IA cosas como",
+            "example1": "¿Es justo este presupuesto?",
+            "example2": "¿Qué riesgos debería buscar?"
         },
         "submittedQuotes": "Ofertas Recibidas",
-        "noQuotes": "Aún no hay ofertas sobre la mesa.",
+        "noQuotes": "Todavía no hay ofertas sobre la mesa.",
         "quoteFrom": "Oferta de",
         "optimizationDiscussion": "Ingeniería de Valor",
         "fullActivityLog": "Bitácora Completa"
@@ -387,7 +441,7 @@
         "dependenciesLabel": "Dependencias",
         "acceptanceCriteriaLabel": "Criterios de Aceptación",
         "saveChanges": "Guardar Cambios",
-        "version": "Parte de Proyecto v{version}"
+        "version": "Etapa v{version}"
     },
     "wallet": {
         "title": "El Diario del Umarel",
@@ -407,40 +461,45 @@
             "clarity": "Clarito como el agua",
             "quality": "Calidad pura"
         },
-        "emptyStash": "Aún no hay guita en el canuto. ¡Empezá a comentar!",
+        "emptyStash": "Todavía no hay guita en el canuto. ¡Empezá a comentar!",
         "withdraw": "Retirar Ganancias"
     },
     "createOffering": {
-        "pageTitle": "Ofrece tus Servicios",
-        "pageSubtitle": "Crea un listado profesional para mostrar tus habilidades y ser descubierto por personas en tu área.",
+        "pageTitle": "Ofrecer Servicios",
+        "pageSubtitle": "Creá un perfil profesional para mostrar tus habilidades y que te descubran en tu zona.",
         "cardTitle": "Detalles del Servicio",
-        "cardDescription": "Proporciona información completa sobre el servicio que deseas ofrecer.",
+        "cardDescription": "Contanos sobre el servicio que querés ofrecer.",
         "form": {
             "titleLabel": "Título del Servicio",
             "titlePlaceholder": "ej. Plomero con experiencia para reparaciones residenciales",
             "titleDesc": "Un título claro y profesional para tu servicio.",
             "categoryLabel": "Categoría",
-            "categoryPlaceholder": "Selecciona una categoría",
+            "categoryPlaceholder": "Seleccioná una categoría",
             "descriptionLabel": "Descripción",
-            "descriptionPlaceholder": "Describe tu experiencia, servicios ofrecidos y lo que te hace único...",
+            "descriptionPlaceholder": "Describí tu experiencia, servicios ofrecidos y qué te hace único...",
             "virtualLabel": "Servicio Virtual",
-            "virtualDesc": "Marca esto si tu servicio se puede realizar de forma remota (ej. consultoría, diseño).",
+            "virtualDesc": "Marcá esto si tu servicio se puede hacer de forma remota (ej. consultoría, diseño).",
             "locationLabel": "Ubicación",
-            "locationPlaceholder": "ej. Milán, Italia",
-            "locationDesc": "El área principal donde ofreces tus servicios.",
+            "locationPlaceholder": "ej. Buenos Aires, Argentina",
+            "locationDesc": "La zona principal donde ofrecés tus servicios.",
             "hourlyRateLabel": "Tarifa por Hora ($) (Opcional)",
             "availabilityLabel": "Disponibilidad",
-            "availabilityPlaceholder": "ej. Fines de semana, tardes, Lun-Vie 9-5",
+            "availabilityPlaceholder": "ej. Fines de semana, Tardes, Lun-Vie 9-17",
             "skillsLabel": "Habilidades",
-            "skillsPlaceholder": "ej. Instalación de tuberías, reparación de fugas",
+            "skillsPlaceholder": "ej. Instalación de tuberías, Reparación de fugas",
             "skillsDesc": "Lista separada por comas de habilidades específicas.",
-            "portfolioLabel": "Imágenes del Portafolio",
+            "portfolioLabel": "Imágenes del Portfolio",
             "addImage": "Agregar Imagen",
-            "portfolioDesc": "Agrega fotos de tu trabajo anterior para generar confianza.",
-            "submitButton": "Publicar Oferta de Servicio",
-            "submittingButton": "Creando Oferta...",
-            "successMessage": "¡Oferta de servicio creada con éxito!",
-            "errorMessage": "Error al crear la oferta de servicio. Por favor inténtalo de nuevo."
+            "portfolioDesc": "Agregá fotos de tu trabajo anterior para generar confianza.",
+            "submitButton": "Publicar Servicio",
+            "submittingButton": "Creando Servicio...",
+            "successMessage": "¡Servicio creado con éxito!",
+            "errorMessage": "Error al crear el servicio. Por favor intentá de nuevo."
         }
+    },
+    "terms": {
+        "title": "Términos de Servicio",
+        "intro": "Bienvenido a Umarel...",
+        "privacyTitle": "Política de Privacidad"
     }
 }

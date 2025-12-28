@@ -1,12 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
-import { ArrowRight, Users, Shield, Sparkles, Heart, Clock, CheckCircle2 } from 'lucide-react';
+import { Link } from '@/i18n/routing';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function TrattoriaHero() {
     const t = useTranslations('home');
+    const tTrattoria = useTranslations('landing.trattoria');
 
     return (
         <div className="relative overflow-hidden bg-gradient-to-b from-[#FFF8F0] via-[#FFF0E0] to-[#FFF8F0]">
@@ -25,7 +26,7 @@ export function TrattoriaHero() {
                     <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-[#E76F51] shadow-lg">
                         <p className="text-[#D62828] font-semibold text-sm md:text-base flex items-center gap-2">
                             <span className="text-2xl">🍝</span>
-                            Benvenuti alla Tavola Umarel
+                            {tTrattoria('welcome')}
                             <span className="text-2xl">🍷</span>
                         </p>
                     </div>
@@ -35,12 +36,13 @@ export function TrattoriaHero() {
                 <div className="text-center max-w-4xl mx-auto mb-16">
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#3D2817] leading-tight">
                         {t('heroTitle')}{' '}
+                        {t('heroTitleLine2Pre')}
                         <span className="relative inline-block">
                             <span className="text-[#D62828]">{t('heroTitleHighlight')}</span>
                             <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none">
                                 <path d="M2 10C50 5 150 5 198 10" stroke="#E76F51" strokeWidth="3" strokeLinecap="round" />
                             </svg>
-                        </span>{' '}
+                        </span>
                         {t('heroTitleLine2Post')}
                     </h1>
 
@@ -50,7 +52,7 @@ export function TrattoriaHero() {
 
                     {/* Primary CTAs - Large and accessible */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                        <Link href="/en/requests/create">
+                        <Link href="/requests/create">
                             <Button
                                 size="lg"
                                 className="bg-[#D62828] hover:bg-[#B91C1C] text-white text-lg px-8 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group w-full sm:w-auto"
@@ -61,27 +63,27 @@ export function TrattoriaHero() {
                             </Button>
                         </Link>
 
-                        <Link href="/en/offerings/create">
+                        <Link href="/offerings/create">
                             <Button
                                 size="lg"
                                 className="bg-[#52B788] hover:bg-[#40916C] text-white text-lg px-8 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group w-full sm:w-auto"
                             >
                                 <span className="text-2xl mr-2">🛠️</span>
-                                Offer Services
+                                {tTrattoria('offerServices')}
                                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
                     </div>
 
                     {/* Secondary CTA */}
-                    <Link href="/en/browse">
+                    <Link href="/browse">
                         <Button
                             variant="outline"
                             size="lg"
                             className="border-2 border-[#E76F51] text-[#E76F51] hover:bg-[#E76F51] hover:text-white text-lg px-8 py-6 rounded-2xl transition-all duration-300 hover:scale-105"
                         >
                             <span className="text-2xl mr-2">🌍</span>
-                            Explore Community
+                            {tTrattoria('exploreCommunity')}
                         </Button>
                     </Link>
                 </div>
@@ -89,10 +91,10 @@ export function TrattoriaHero() {
                 {/* Trust Indicators - Like ingredients on the table */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     {[
-                        { icon: '🔒', label: 'Secure Escrow', color: 'bg-[#D62828]' },
-                        { icon: '⭐', label: 'Verified Experts', color: 'bg-[#52B788]' },
-                        { icon: '💰', label: 'Fair Pricing', color: 'bg-[#E76F51]' },
-                        { icon: '🤝', label: 'Community Trust', color: 'bg-[#F4A261]' },
+                        { icon: '🔒', label: tTrattoria('secureEscrow'), color: 'bg-[#D62828]' },
+                        { icon: '⭐', label: tTrattoria('verifiedExperts'), color: 'bg-[#52B788]' },
+                        { icon: '💰', label: tTrattoria('fairPricing'), color: 'bg-[#E76F51]' },
+                        { icon: '🤝', label: tTrattoria('communityTrust'), color: 'bg-[#F4A261]' },
                     ].map((item, i) => (
                         <div
                             key={i}

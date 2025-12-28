@@ -1,70 +1,73 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Shield, Heart, Sparkles, Users, Clock, TrendingUp, Award, CheckCircle2 } from 'lucide-react';
 
 export function TrattoriaBenefits() {
+    const t = useTranslations('landing.trattoria');
+
     const benefits = [
         {
             icon: Shield,
             emoji: '🔒',
-            title: 'Escrow Protection',
-            description: 'Your money is safe until the work is done. Like nonna holding the recipe - it\'s released only when perfect.',
+            title: t('escrowProtection.title'),
+            description: t('escrowProtection.description'),
             color: 'from-[#D62828] to-[#B91C1C]',
             bgColor: 'bg-red-50',
         },
         {
             icon: Heart,
             emoji: '💝',
-            title: 'Daily Dividends',
-            description: 'Help the community, earn rewards. Every helpful comment adds to your plate.',
+            title: t('dailyDividends.title'),
+            description: t('dailyDividends.description'),
             color: 'from-[#52B788] to-[#40916C]',
             bgColor: 'bg-green-50',
         },
         {
             icon: Sparkles,
             emoji: '✨',
-            title: 'AI Wizard',
-            description: 'Our AI breaks down complex projects into bite-sized tasks. Like slicing a perfect lasagna.',
+            title: t('aiWizard.title'),
+            description: t('aiWizard.description'),
             color: 'from-[#E76F51] to-[#D65A3F]',
             bgColor: 'bg-orange-50',
         },
         {
             icon: Users,
             emoji: '👥',
-            title: 'Community Wisdom',
-            description: 'Experienced Umarels review every project. Multiple eyes catch what one might miss.',
+            title: t('communityWisdom.title'),
+            description: t('communityWisdom.description'),
             color: 'from-[#F4A261] to-[#E89350]',
             bgColor: 'bg-amber-50',
         },
         {
             icon: Award,
             emoji: '🏆',
-            title: 'Aura Reputation',
-            description: 'Build your reputation with every job. Quality work earns respect that lasts.',
+            title: t('auraReputation.title'),
+            description: t('auraReputation.description'),
             color: 'from-[#8B4513] to-[#6B3410]',
             bgColor: 'bg-amber-50',
         },
         {
             icon: CheckCircle2,
             emoji: '✅',
-            title: 'Proof of Arrival',
-            description: 'Photo evidence for every milestone. Truth is documented, disputes are rare.',
+            title: t('proofOfArrival.title'),
+            description: t('proofOfArrival.description'),
             color: 'from-[#52B788] to-[#2D6A4F]',
             bgColor: 'bg-emerald-50',
         },
         {
             icon: TrendingUp,
             emoji: '📈',
-            title: 'Fair Pricing',
-            description: 'Community-verified rates. No surprises, no hidden fees. Just honest work for honest pay.',
+            title: t('fairPricingBenefit.title'),
+            description: t('fairPricingBenefit.description'),
             color: 'from-[#D62828] to-[#9D0208]',
             bgColor: 'bg-red-50',
         },
         {
             icon: Clock,
             emoji: '⏰',
-            title: 'Milestone Payments',
-            description: 'Pay as you go. Each completed slice releases its payment. Progress you can see and trust.',
+            title: t('milestonePayments.title'),
+            description: t('milestonePayments.description'),
             color: 'from-[#E76F51] to-[#C85A3E]',
             bgColor: 'bg-orange-50',
         },
@@ -85,10 +88,10 @@ export function TrattoriaBenefits() {
                         <span className="text-6xl">🍽️</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-bold text-[#3D2817] mb-4">
-                        What's on the Table?
+                        {t('benefitsTitle')}
                     </h2>
                     <p className="text-xl text-[#6C5B4D] max-w-2xl mx-auto">
-                        Every feature is crafted with care, like a family recipe passed down through generations.
+                        {t('benefitsSubtitle')}
                     </p>
                 </div>
 
@@ -122,9 +125,9 @@ export function TrattoriaBenefits() {
                 <div className="text-center mt-16">
                     <div className="inline-block bg-white/80 backdrop-blur-sm px-8 py-4 rounded-2xl border-2 border-[#E76F51] shadow-lg">
                         <p className="text-[#3D2817] italic text-lg">
-                            "Non si fa così... we do it <span className="font-bold text-[#D62828]">together</span>, with <span className="font-bold text-[#52B788]">wisdom</span>."
+                            "{t('quote')}"
                         </p>
-                        <p className="text-[#6C5B4D] text-sm mt-2">— Every Umarel, everywhere</p>
+                        <p className="text-[#6C5B4D] text-sm mt-2">— {t('quoteAuthor')}</p>
                     </div>
                 </div>
             </div>
