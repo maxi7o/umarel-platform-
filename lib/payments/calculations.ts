@@ -3,11 +3,14 @@
  * Handles all pricing calculations for the 15% fee model
  */
 
-export const PLATFORM_FEE_PERCENTAGE = 0.15; // 15% Total Commission
-export const COMMUNITY_REWARD_PERCENTAGE = 0.03; // 3% of Project Value (Agreed "Solid" Rate)
-export const SHAREHOLDER_PERCENTAGE = 0.12; // 12% of Project Value (15% - 3%)
+export const PLATFORM_FEE_PERCENTAGE = 0.12; // 12% Total Commission
+export const COMMUNITY_REWARD_PERCENTAGE = 0.03; // 3% of Project Value (Remains 3%)
+export const SHAREHOLDER_PERCENTAGE = 0.09; // 9% of Project Value (12% - 3%)
 // Taxes are estimated but NOT deducted from the defined split in this model (User Requirement)
 export const TAXES_AND_FEES_PERCENTAGE = 0.055;
+
+// 8.5% Buffer for MercadoPago (approx 7% + VAT)
+export const PAYMENT_PROCESSING_PERCENTAGE = 0.085;
 
 /**
  * Calculate total payment breakdown for a slice
@@ -16,22 +19,28 @@ export const TAXES_AND_FEES_PERCENTAGE = 0.055;
  */
 export function calculatePaymentBreakdown(slicePrice: number) {
     const platformFee = Math.round(slicePrice * PLATFORM_FEE_PERCENTAGE);
+    const subtotal = slicePrice + platformFee;
 
-    // Split the Fee 70/30
+    // Calculate Total Amount such that after MP takes its %, we are left with the Subtotal
+    // Formula: Total = Subtotal / (1 - ProcessingRate)
+    const totalAmount = Math.ceil(subtotal / (1 - PAYMENT_PROCESSING_PERCENTAGE));
+    const processingFee = totalAmount - subtotal;
+
+    // Split the Platform Fee 75/25 (approx, based on 3% of BASE price)
+    // Note: Community Reward is calculated on the BASE Slice Price as promised
     const communityRewardPool = Math.round(slicePrice * COMMUNITY_REWARD_PERCENTAGE);
     const platformRevenue = Math.round(slicePrice * SHAREHOLDER_PERCENTAGE);
 
     // Taxes are calculated for reference but don't eat into the split logic requested
     const taxesAndFees = Math.round(slicePrice * TAXES_AND_FEES_PERCENTAGE);
 
-    const totalAmount = slicePrice + platformFee;
-
     return {
         slicePrice, // Amount provider receives
-        platformFee, // Total 15% fee
+        platformFee, // Total 12% fee
         communityRewardPool, // 3% for community
-        taxesAndFees, // Estimated taxes (not part of fee split equation here)
-        platformRevenue, // 12% for shareholders
+        taxesAndFees,
+        platformRevenue, // 9% for shareholders
+        processingFee, // ~8.5% Buffer for Gateway
         totalAmount, // What client pays
     };
 }

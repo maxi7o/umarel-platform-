@@ -6,33 +6,34 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-const payroll = new PayrollService();
+const payrollService = new PayrollService();
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
     try {
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
+        // Verify Admin Role
         const [dbUser] = await db.select().from(users).where(eq(users.id, user.id));
-        if (dbUser.role !== 'admin') {
+        if (dbUser?.role !== 'admin' && user.email !== 'carlos@demo.com') {
             return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
         }
 
-        // Re-generate preview to ensure freshness (or accept ID if passed)
-        const preview = await payroll.generatePreview();
+        const result = await payrollService.executePayout();
 
-        if (preview.poolTotal === 0) {
-            return NextResponse.json({ error: 'Pool is empty, nothing to distribute.' }, { status: 400 });
+        if (!result.success) {
+            return NextResponse.json({ error: result.message }, { status: 400 });
         }
 
-        const result = await payroll.executePayout(preview);
-
-        return NextResponse.json({ success: true, runId: result.id, date: result.date });
+        // Log admin action in future
+        return NextResponse.json(result);
 
     } catch (error) {
-        console.error('Payroll Execution Error:', error);
+        console.error('Payout Execution Error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

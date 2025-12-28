@@ -17,25 +17,31 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [reason, setReason] = useState('');
+    const [description, setDescription] = useState('');
+    const [evidence, setEvidence] = useState('');
 
-    const handleRequestRefund = async () => {
+    const handleSubmitDispute = async () => {
         try {
-            const res = await fetch(`/api/slices/${sliceId}/refund`, {
+            const res = await fetch(`/api/slices/${sliceId}/dispute`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ reason })
+                body: JSON.stringify({
+                    reason,
+                    description,
+                    evidenceDescription: evidence
+                })
             });
 
             if (!res.ok) {
                 const err = await res.json();
-                throw new Error(err.error || 'Failed');
+                throw new Error(err.error || 'Failed to submit dispute');
             }
 
-            toast.success('Refund Requested', { description: 'Provider notified.' });
+            toast.success('Dispute Submitted', { description: 'Auto-release stopped. AI Judge reviewing.' });
             setIsOpen(false);
             window.location.reload();
         } catch (e: any) {
-            toast.error(e.message || 'Error requesting refund');
+            toast.error(e.message || 'Error submitting dispute');
         }
     };
 
@@ -65,25 +71,50 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
                     <DialogTrigger asChild>
                         <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
                             <AlertCircle className="w-4 h-4 mr-1" />
-                            Request Refund
+                            Stop Release (Dispute)
                         </Button>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Request Refund</DialogTitle>
+                            <DialogTitle>Stop Release & Open Dispute</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4">
-                            <p className="text-sm text-muted-foreground">
-                                Only request this if the work was not done according to the agreement.
-                                Funds will be held.
+                            <p className="text-sm text-stone-600">
+                                This will <strong>immediately pause</strong> the auto-release timer.
+                                "The Judge" (AI) will review your claim.
                             </p>
-                            <Textarea
-                                placeholder="Why are you requesting a refund?"
-                                value={reason}
-                                onChange={e => setReason(e.target.value)}
-                            />
-                            <Button onClick={handleRequestRefund} className="w-full" variant="destructive">
-                                Submit Request
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold">Reason</label>
+                                <Textarea
+                                    placeholder="Brief summary (e.g. Wrong color, Incomplete work)"
+                                    value={reason}
+                                    onChange={e => setReason(e.target.value)}
+                                    className="h-10"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold">Detailed Description</label>
+                                <Textarea
+                                    placeholder="Describe exactly what went wrong..."
+                                    value={description}
+                                    onChange={e => setDescription(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold">Evidence (Links or Description)</label>
+                                <Textarea
+                                    placeholder="Paste links to photos/videos or describe where to find evidence..."
+                                    value={evidence}
+                                    onChange={e => setEvidence(e.target.value)}
+                                />
+                            </div>
+
+                            <Button onClick={handleSubmitDispute} className="w-full bg-red-600 hover:bg-red-700">
+                                <ShieldAlert className="w-4 h-4 mr-2" />
+                                Submit Claim
                             </Button>
                         </div>
                     </DialogContent>
@@ -138,7 +169,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
     if (refundStatus === 'approved') {
         return <span className="text-green-600 text-xs font-bold flex items-center gap-1"><ShieldCheck size={12} /> Refunded</span>;
     }
-    if (refundStatus === 'disputed') {
+    if (refundStatus === 'disputed' || refundStatus === 'open' || sliceStatus === 'disputed') {
         return <span className="text-red-600 text-xs font-bold flex items-center gap-1"><ShieldAlert size={12} /> Disputed</span>;
     }
 

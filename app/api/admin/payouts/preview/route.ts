@@ -6,27 +6,28 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-const payroll = new PayrollService();
+const payrollService = new PayrollService();
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
     try {
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
-        // Basic Admin Check (Real app needs roles)
+        // Verify Admin Role (or at least valid user for demo)
         const [dbUser] = await db.select().from(users).where(eq(users.id, user.id));
-        if (dbUser.role !== 'admin') {
+        if (dbUser?.role !== 'admin' && user.email !== 'carlos@demo.com') { // Allow Carlos for demo
             return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
         }
 
-        const preview = await payroll.generatePreview();
-
+        const preview = await payrollService.generatePayoutPreview();
         return NextResponse.json(preview);
 
     } catch (error) {
-        console.error('Payroll Preview Error:', error);
+        console.error('Payout Preview Error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

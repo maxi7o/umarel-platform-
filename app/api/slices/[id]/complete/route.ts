@@ -60,11 +60,16 @@ export async function POST(
             );
         }
 
-        // Update slice status to completed
+        // Update slice status to completed and set Auto-Release Window (72 hours)
+        // 48h (Client Review) + 24h (Platform Processing)
+        const autoReleaseDate = new Date();
+        autoReleaseDate.setHours(autoReleaseDate.getHours() + 72);
+
         await db
             .update(slices)
             .set({
                 status: 'completed',
+                autoReleaseAt: autoReleaseDate
             })
             .where(eq(slices.id, sliceId));
 

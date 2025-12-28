@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
 import { slices, escrowPayments, requests } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
-import { PaymentFactory } from '@/lib/payments/payment-factory';
+import { getPaymentStrategy } from '@/lib/payments/factory';
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
         // 2. Call Adapter to Verify/Release
         // For MP Split Payment, this confirms payment is 'approved' 
-        const strategy = PaymentFactory.getStrategy('mercadopago'); // Defaulting to MP for MVP
+        const strategy = getPaymentStrategy({ provider: 'mercadopago' }); // Defaulting to MP for MVP
         const releaseResult = await strategy.releaseFunds(slice.escrowPaymentId);
 
         if (!releaseResult.success) {
