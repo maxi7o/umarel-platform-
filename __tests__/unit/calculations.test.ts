@@ -14,14 +14,15 @@ describe('Payment Calculations', () => {
     it('calculates correct payment breakdown', () => {
         const breakdown = calculatePaymentBreakdown(1000000); // 10,000 ARS in cents
 
-        // Platform Fee is 15%
-        expect(breakdown.platformFee).toBe(150000);
+        // Platform Fee is 12%
+        expect(breakdown.platformFee).toBe(120000);
         // Community Reward is 3%
         expect(breakdown.communityRewardPool).toBe(30000);
-        // Platform Revenue is 12%
-        expect(breakdown.platformRevenue).toBe(120000);
-        // Total Amount = Slice + Fee
-        expect(breakdown.totalAmount).toBe(1150000);
+        // Revenue is 9%
+        expect(breakdown.platformRevenue).toBe(90000);
+
+        // Total Amount: (1M + 120k) / (1 - 0.085) = 1,224,044
+        expect(breakdown.totalAmount).toBe(1224044);
     });
 
     // Test Case 2: Reward Distribution
@@ -72,7 +73,7 @@ describe('Payment Calculations', () => {
 
     // Test Case 9: Payment Validation
     it('validates payment amounts correctly', () => {
-        expect(validatePaymentAmount(1000000, 1150000)).toBe(true);
+        expect(validatePaymentAmount(1000000, 1224044)).toBe(true);
         expect(validatePaymentAmount(1000000, 1000000)).toBe(false); // Too low (missing fee)
     });
 });

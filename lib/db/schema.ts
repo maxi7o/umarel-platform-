@@ -75,6 +75,11 @@ export const slices = pgTable('slices', {
 
     skillsRequired: jsonb('skills_required'), // Array of required skills
     escrowPaymentId: text('escrow_payment_id'), // Reference to escrow payment
+
+    // Auto-Release Logic
+    autoReleaseAt: timestamp('auto_release_at'), // When funds unlock automatically
+    disputeStatus: text('dispute_status'), // 'none', 'open', 'resolved'
+
     approvedByClientAt: timestamp('approved_by_client_at'),
     paidAt: timestamp('paid_at'),
     disputedAt: timestamp('disputed_at'),
@@ -471,6 +476,17 @@ export const withdrawals = pgTable('withdrawals', {
     requestedAt: timestamp('requested_at').defaultNow(),
     processedAt: timestamp('processed_at'),
     adminNotes: text('admin_notes'),
+});
+
+export const productInsights = pgTable('product_insights', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    source: text('source').notNull(), // 'dispute', 'feedback', 'wizard'
+    sourceId: text('source_id'), // ID of the related record (e.g. dispute ID or slice ID)
+    insight: text('insight').notNull(), // The core "Adapt/Persevere" signal
+    featureArea: text('feature_area'), // e.g. 'auto-assign', 'payments', 'chat'
+    sentiment: text('sentiment'), // 'negative', 'neutral', 'positive'
+    confidence: integer('confidence').default(0), // 0-100
+    createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const escrowPaymentsRelations = relations(escrowPayments, ({ one }) => ({

@@ -6,7 +6,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DisputeActions } from '@/components/payments/dispute-actions';
-import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal } from 'lucide-react';
+import { StartJobDialog } from '@/components/interaction/start-job-dialog';
+import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -15,11 +16,13 @@ interface Slice {
     title: string;
     description: string;
     estimatedEffort: string;
-    status: 'proposed' | 'accepted' | 'completed';
+    status: 'proposed' | 'accepted' | 'in_progress' | 'completed';
     isAiGenerated: boolean;
     requiredSkills?: string[];
     escrow?: any;
     price?: number;
+    assignedProviderId?: string;
+    creatorId?: string;
 }
 
 interface SliceKanbanProps {
@@ -73,7 +76,10 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
             {COLUMNS.map(col => {
-                const colSlices = slices.filter(s => s.status === col.id);
+                const colSlices = slices.filter(s => {
+                    if (col.id === 'accepted') return s.status === 'accepted' || s.status === 'in_progress';
+                    return s.status === col.id;
+                });
                 const Icon = col.icon;
 
                 return (
@@ -155,14 +161,35 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                     </Button>
                                                 )}
                                                 {col.id === 'accepted' && (
-                                                    <Button
-                                                        size="sm"
-                                                        variant="outline"
-                                                        className="h-6 text-xs w-full"
-                                                        onClick={() => handleMove(slice.id, 'completed')}
-                                                    >
-                                                        {t('actions.complete')}
-                                                    </Button>
+                                                    <>
+                                                        {slice.status === 'in_progress' ? (
+                                                            <div className="w-full">
+                                                                <div className="bg-blue-50 text-blue-700 text-xs py-1 px-2 rounded mb-2 flex items-center justify-center gap-1 border border-blue-200">
+                                                                    <Hammer className="w-3 h-3 animate-bounce" />
+                                                                    Work In Progress
+                                                                </div>
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    className="h-6 text-xs w-full"
+                                                                    onClick={() => handleMove(slice.id, 'completed')}
+                                                                >
+                                                                    {t('actions.complete')}
+                                                                </Button>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="w-full space-y-2">
+                                                                {/* Only Provider can Start */}
+                                                                {currentUserId === slice.assignedProviderId && (
+                                                                    <StartJobDialog
+                                                                        sliceId={slice.id}
+                                                                        onStarted={() => { }} // Reload handles update
+                                                                    />
+                                                                )}
+                                                                {/* Fallback or if owner wants to force move? Usually owner shouldn't move accepted->completed without work */}
+                                                            </div>
+                                                        )}
+                                                    </>
                                                 )}
                                                 {/* Fund Release Button */}
                                                 {col.id === 'completed' && isOwner && (slice.escrow?.status !== 'released') && (

@@ -1,6 +1,12 @@
 {
-    "framework": "nextjs",
-    "buildCommand": "npm run build",
-    "installCommand": "npm install",
-    "outputDirectory": ".next"
+    "crons": [
+        {
+            "path": "/api/cron/daily-payout",
+            "schedule": "0 0 * * *"
+        },
+        {
+            "path": "/api/cron/auto-release",
+            "schedule": "0 * * * *"
+        }
+    ]
 }

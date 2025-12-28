@@ -1,122 +1,131 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Loader2, DollarSign, Users, Trophy } from 'lucide-react';
-import { CurrencyDisplay } from '@/components/currency-display';
+import { Loader2, DollarSign, Users, TrendingUp, AlertTriangle } from 'lucide-react';
+import { useFormatter } from 'next-intl';
+import { getDailyPayoutPreview, triggerDailyPayout } from '@/app/actions/cron-actions';
 
-export default function AdminPayoutDashboard() {
-    const [preview, setPreview] = useState<any>(null);
-    const [loading, setLoading] = useState(false);
-    const [processing, setProcessing] = useState(false);
+interface PayoutPreview {
+    userId: string;
+    userName: string;
+    score: number;
+    amount: number;
+    percentage: string;
+}
+
+interface DashboardData {
+    totalPool: number;
+    totalScore: number;
+    payouts: PayoutPreview[];
+}
+
+export default function AdminDashboard() {
+    const format = useFormatter();
+    const [data, setData] = useState<DashboardData | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [executing, setExecuting] = useState(false);
 
     const fetchPreview = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/admin/payouts/preview');
-            if (!res.ok) {
-                if (res.status === 403) throw new Error('Unauthorized');
-                throw new Error('Failed to fetch preview');
+            const result = await getDailyPayoutPreview();
+            if (result.success && result.data) {
+                setData(result.data);
+            } else {
+                toast.error(result.error || 'Could not load payout preview');
             }
-            const data = await res.json();
-            setPreview(data);
-        } catch (error: any) {
-            toast.error(error.message);
+        } catch (error) {
+            toast.error('Could not load payout preview');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleExecute = async () => {
-        if (!confirm('Are you sure you want to distribute these funds? This cannot be undone.')) return;
-
-        setProcessing(true);
-        try {
-            const res = await fetch('/api/admin/payouts/execute', { method: 'POST' });
-            if (!res.ok) throw new Error('Payout failed');
-
-            const data = await res.json();
-            toast.success(`Payout Executed! Run ID: ${data.runId}`);
-            setPreview(null); // Clear preview to force refresh or show empty state
-        } catch (error) {
-            toast.error('Failed to execute payout');
-        } finally {
-            setProcessing(false);
-        }
-    };
-
     useEffect(() => {
-        // Initial fetch
         fetchPreview();
     }, []);
 
+    const handleExecute = async () => {
+        if (!confirm('Are you sure you want to distribute these funds? This action cannot be undone.')) return;
+
+        setExecuting(true);
+        try {
+            const result = await triggerDailyPayout();
+
+            if (result.success) {
+                // Cast result to any to access success properties
+                const successResult = result as any;
+                toast.success(`Successfully distributed ${format.number((successResult.totalDistributed || 0) / 100, { style: 'currency', currency: 'ARS' })} to ${successResult.recipientCount} users! 💸`);
+                fetchPreview(); // Refresh
+            } else {
+                // Cast result to any to access error properties
+                const errorResult = result as any;
+                toast.error(errorResult.message || errorResult.error || 'Payout failed');
+            }
+        } catch (error) {
+            toast.error('Payout failed');
+        } finally {
+            setExecuting(false);
+        }
+    };
+
     if (loading) {
-        return <div className="p-8 flex justify-center"><Loader2 className="animate-spin text-stone-400" /></div>;
+        return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin h-8 w-8 text-orange-500" /></div>;
     }
 
-    if (!preview) {
-        return (
-            <div className="p-8 text-center bg-stone-50 rounded-lg">
-                <h2 className="text-xl font-bold text-stone-700">Access Denied or Error</h2>
-                <p className="text-stone-500">You must be an Admin to view this page.</p>
-            </div>
-        )
-    }
+    if (!data) return <div>Error loading dashboard</div>;
 
     return (
-        <div className="container mx-auto p-8 max-w-5xl space-y-8">
+        <div className="container mx-auto py-10 space-y-8">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold font-heading text-stone-900">Weekly Dividend Engine</h1>
-                    <p className="text-stone-500">Review and distribute the 3% Community Share.</p>
+                    <h1 className="text-3xl font-bold font-heading">Admin Dashboard 🦉</h1>
+                    <p className="text-muted-foreground">Manage the Umarel Ecosystem & Dividends</p>
                 </div>
-                <Button onClick={fetchPreview} variant="outline" className="gap-2">
-                    Refresh Preview 🔄
-                </Button>
+                <div className="flex gap-2">
+                    <Button variant="outline" onClick={fetchPreview}>Refresh</Button>
+                </div>
             </div>
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-green-800 uppercase tracking-widest">Total Pool</CardTitle>
+                <Card className="bg-gradient-to-br from-orange-50 to-white border-orange-200">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium text-orange-800">Yesterday's Pool (3%)</CardTitle>
+                        <DollarSign className="h-4 w-4 text-orange-600" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-4xl font-bold text-green-700 font-mono flex items-center gap-2">
-                            <DollarSign className="w-8 h-8 opacity-50" />
-                            <CurrencyDisplay amount={preview.poolTotal} currency="ARS" />
+                        <div className="text-3xl font-bold text-orange-900">
+                            {format.number(data.totalPool / 100, { style: 'currency', currency: 'ARS' })}
                         </div>
-                        <p className="text-xs text-green-600 mt-2">Aggregated from completed slices (last 7 days)</p>
+                        <p className="text-xs text-orange-600/80 mt-1">Ready for distribution</p>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-stone-500 uppercase tracking-widest">Contributors</CardTitle>
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Active Contributors</CardTitle>
+                        <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-4xl font-bold text-stone-700 font-mono flex items-center gap-2">
-                            <Users className="w-8 h-8 opacity-20" />
-                            {preview.payouts?.length || 0}
-                        </div>
-                        <p className="text-xs text-stone-400 mt-2">Users with positive impact score</p>
+                        <div className="text-3xl font-bold">{data.payouts.length}</div>
+                        <p className="text-xs text-muted-foreground mt-1">Users with helpful comments (24h)</p>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium text-stone-500 uppercase tracking-widest">Total Impact Score</CardTitle>
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Total Savings Impact</CardTitle>
+                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-4xl font-bold text-orange-600 font-mono flex items-center gap-2">
-                            <Trophy className="w-8 h-8 opacity-20" />
-                            {preview.totalScore}
-                        </div>
-                        <p className="text-xs text-stone-400 mt-2">Sum of helpful comments & answers</p>
+                        <div className="text-3xl font-bold">{data.totalScore}</div>
+                        <p className="text-xs text-muted-foreground mt-1">Aggregate value created in 24h</p>
                     </CardContent>
                 </Card>
             </div>
@@ -124,58 +133,78 @@ export default function AdminPayoutDashboard() {
             {/* Payout Table */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Payout Distribution Preview</CardTitle>
-                    <CardDescription>
-                        Calculated based on: <strong>(User Score / Total Score) * Pool</strong>
-                    </CardDescription>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <CardTitle>Daily Payout Preview</CardTitle>
+                            <CardDescription>Review distribution before executing</CardDescription>
+                        </div>
+                        {data.totalPool > 0 ? (
+                            <Button
+                                onClick={handleExecute}
+                                disabled={executing}
+                                className="bg-green-600 hover:bg-green-700 text-white font-bold"
+                            >
+                                {executing ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : '💸'}
+                                Run Daily Payout
+                            </Button>
+                        ) : (
+                            <Button disabled variant="secondary">
+                                No Funds to Distribute
+                            </Button>
+                        )}
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    {preview.payouts?.length === 0 ? (
-                        <div className="text-center py-12 text-stone-400">
-                            No eligible contributors found for this period.
-                        </div>
-                    ) : (
-                        <div className="space-y-2">
-                            {preview.payouts.map((p: any) => (
-                                <div key={p.userId} className="flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-bold text-xs border border-orange-200">
-                                            {p.score}
-                                        </div>
-                                        <div>
-                                            <div className="font-semibold text-stone-900">{p.fullName}</div>
-                                            <div className="text-xs text-stone-500">{p.email}</div>
-                                        </div>
-                                    </div>
-                                    <div className="font-mono font-bold text-green-600">
-                                        <CurrencyDisplay amount={p.amount} currency="ARS" />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>User</TableHead>
+                                <TableHead className="text-right">Impact Score</TableHead>
+                                <TableHead className="text-right">Share %</TableHead>
+                                <TableHead className="text-right">Amount</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {data.payouts.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
+                                        No active contributors found for this period.
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                data.payouts.map((payout) => (
+                                    <TableRow key={payout.userId}>
+                                        <TableCell className="font-medium">{payout.userName}</TableCell>
+                                        <TableCell className="text-right">
+                                            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                                                {payout.score} pts
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="text-right text-muted-foreground">{payout.percentage}</TableCell>
+                                        <TableCell className="text-right font-bold text-green-600">
+                                            {format.number(payout.amount / 100, { style: 'currency', currency: 'ARS' })}
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
                 </CardContent>
             </Card>
 
-            {/* Execute Button - The "Big Red Button" */}
-            <div className="flex justify-end pt-4 pb-12">
-                <Button
-                    onClick={handleExecute}
-                    disabled={processing || preview.payouts?.length === 0}
-                    className="bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-6 h-auto shadow-xl shadow-green-200"
-                >
-                    {processing ? (
-                        <>
-                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                            Processing Payout...
-                        </>
-                    ) : (
-                        <>
-                            <DollarSign className="w-6 h-6 mr-2" />
-                            Execute Weekly Payout 💸
-                        </>
-                    )}
-                </Button>
+            {/* Warning / Notes */}
+            <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg flex items-start gap-4">
+                <AlertTriangle className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+                <div>
+                    <h4 className="font-bold text-yellow-800 text-sm">How this works</h4>
+                    <p className="text-yellow-700 text-sm mt-1">
+                        The "Total Pool" comes from the 3% community fee on all <strong>released</strong> slices in the last 24 hours.
+                        <br />
+                        When you click "Run Daily Payout", this amount is distributed to the top 50 contributors above as <strong>Wallet Credit</strong>.
+                        <br />
+                        Note: This cron job usually runs automatically at 00:00 UTC. This button allows manual triggering.
+                    </p>
+                </div>
             </div>
         </div>
     );
