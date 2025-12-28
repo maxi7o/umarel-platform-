@@ -19,6 +19,37 @@ import { LocationInput } from "@/components/forms/location-input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 
+// Helper to clean up verbose city names
+const simplifyCityName = (name: string): string => {
+    if (!name) return 'Unknown';
+
+    let simplified = name;
+
+    // Remove common verbose prefixes
+    const prefixesToRemove = [
+        'Ciudad del Libertador ', // Specific to San Martin case
+        'Ciudad de ',
+        'Ciudad del ',
+        'Municipalidad de ',
+        'Partido de ',
+        'Town of ',
+        'City of '
+    ];
+
+    for (const prefix of prefixesToRemove) {
+        if (simplified.startsWith(prefix) || simplified.startsWith(prefix.replace('Ciudad', 'ciudad'))) {
+            simplified = simplified.replace(new RegExp(`^${prefix}`, 'i'), '');
+        }
+    }
+
+    // Truncate if still too long (heuristic)
+    if (simplified.length > 25) {
+        simplified = simplified.split(',')[0];
+    }
+
+    return simplified;
+};
+
 export function useLocationDetection() {
     const [location, setLocation] = useState<DetectedLocation | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +60,10 @@ export function useLocationDetection() {
         const savedLocation = localStorage.getItem('umarel_user_location');
         if (savedLocation) {
             try {
-                setLocation(JSON.parse(savedLocation));
+                const parsed = JSON.parse(savedLocation);
+                // Apply simplification to cached data too
+                parsed.city = simplifyCityName(parsed.city);
+                setLocation(parsed);
                 setIsLoading(false);
                 return;
             } catch (e) {
@@ -52,6 +86,8 @@ export function useLocationDetection() {
     }, [location, marketId, setMarket]);
 
     const setManualLocation = (newLocation: DetectedLocation) => {
+        // Ensure manual entries are also simplified if they came from raw input
+        newLocation.city = simplifyCityName(newLocation.city);
         setLocation(newLocation);
         localStorage.setItem('umarel_user_location', JSON.stringify(newLocation));
 
@@ -92,15 +128,28 @@ export function useLocationDetection() {
             );
             const data = await response.json();
 
-            setLocation({
-                city: data.address.city || data.address.town || data.address.village || 'Unknown',
+            // Nominatim structure varies. Prefer city -> town -> village -> suburb -> county
+            const rawName = data.address.city ||
+                data.address.town ||
+                data.address.village ||
+                data.address.municipality ||
+                'Unknown';
+
+            const newLocation = {
+                city: simplifyCityName(rawName),
                 country: data.address.country || 'Unknown',
                 countryCode: data.address.country_code?.toUpperCase() || 'XX',
                 flag: getFlag(data.address.country_code),
                 lat,
                 lon
-            });
+            };
+
+            setLocation(newLocation);
+            // Update cache with simplified version
+            localStorage.setItem('umarel_user_location', JSON.stringify(newLocation));
+
         } catch (error) {
+            console.warn('Reverse geocoding failed', error);
             detectByIP();
         } finally {
             setIsLoading(false);
@@ -112,14 +161,17 @@ export function useLocationDetection() {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
 
-            setLocation({
-                city: data.city || 'Unknown',
+            const newLocation = {
+                city: simplifyCityName(data.city || 'Unknown'),
                 country: data.country_name || 'Unknown',
                 countryCode: data.country_code || 'XX',
                 flag: getFlag(data.country_code?.toLowerCase()),
                 lat: data.latitude,
                 lon: data.longitude
-            });
+            };
+
+            setLocation(newLocation);
+            localStorage.setItem('umarel_user_location', JSON.stringify(newLocation));
         } catch (error) {
             setDefaultLocation();
         } finally {
@@ -183,7 +235,7 @@ export function LocationBadge() {
         }
 
         const newLoc: DetectedLocation = {
-            city: city,
+            city: simplifyCityName(city), // Simplify manual entry too
             country: country,
             countryCode: countryCode,
             flag: isLoading ? '🌍' : (raw?.address?.country_code ? getFlag(raw.address.country_code) : '🌍'), // Helper duplicate or need export
@@ -259,4 +311,9 @@ export function LocationBadge() {
             </PopoverContent>
         </Popover>
     );
+}
+
+export function LocationInitializer() {
+    useLocationDetection();
+    return null;
 }

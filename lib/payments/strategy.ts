@@ -13,6 +13,7 @@ export interface PaymentStrategy {
 
     /**
      * Refunds the payer.
+     * @param amount Optional amount to refund. If not provided, refunds the full amount.
      */
-    refund(transactionId: string): Promise<{ success: boolean, refundedAt: Date }>;
+    refund(transactionId: string, amount?: number): Promise<{ success: boolean, refundedAt: Date }>;
 }

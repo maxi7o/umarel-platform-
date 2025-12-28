@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CommentThread } from './comment-thread';
 import { SliceKanban } from './slice-kanban';
 import { QuoteBuilder } from './quote-builder';
 import { ChangeProposalCard } from './change-proposal-card';
-import { MessageSquare, KanbanSquare, FileText, Activity } from 'lucide-react';
+import { MessageSquare, KanbanSquare, Activity } from 'lucide-react';
 import { toast } from 'sonner';
 import { CurrencyDisplay } from '@/components/currency-display';
+import { useTranslations } from 'next-intl';
 
 interface RequestInteractionLayoutProps {
     request: any;
@@ -18,11 +18,9 @@ interface RequestInteractionLayoutProps {
     initialComments: any[];
     initialQuotes?: any[];
     initialQuestions?: any[];
-    initialProposals?: any[]; // Added
-    currentUser?: any; // In real app, use hook
+    initialProposals?: any[];
+    currentUser?: any;
 }
-
-import { useTranslations } from 'next-intl';
 
 export function RequestInteractionLayout({
     request,
@@ -34,7 +32,6 @@ export function RequestInteractionLayout({
     currentUser
 }: RequestInteractionLayoutProps) {
     const t = useTranslations('requestInteraction');
-    const [activeTab, setActiveTab] = useState('overview');
     const [slices, setSlices] = useState(initialSlices);
     const [comments, setComments] = useState(initialComments);
     const [quotes, setQuotes] = useState(initialQuotes);
@@ -46,7 +43,6 @@ export function RequestInteractionLayout({
     }, [request]);
 
     const handleCommentAdded = (newComment: any) => {
-        // If it's the demo page, ensure we update the local state which is passed to CommentThread
         setComments(prev => [...prev.filter(c => c.id !== newComment.id), newComment]);
     };
 
@@ -62,39 +58,59 @@ export function RequestInteractionLayout({
         setQuotes(prev => [...prev, newQuote]);
     };
 
-
     const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
 
     return (
-        <div className="space-y-6">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-5 lg:w-[750px]">
-                    <TabsTrigger value="overview" className="gap-2">
-                        <MessageSquare size={16} />
-                        <span className="hidden sm:inline">{t('tabs.overview')}</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="slices" className="gap-2">
-                        <KanbanSquare size={16} />
-                        <span className="hidden sm:inline">{t('tabs.slices')}</span>
-                        <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{slices.length}</Badge>
-                    </TabsTrigger>
-                    <TabsTrigger value="quotes" className="gap-2">
-                        <FileText size={16} />
-                        <span className="hidden sm:inline">{t('tabs.quotes')}</span>
-                        <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">{quotes.length}</Badge>
-                    </TabsTrigger>
-                    <TabsTrigger value="activity" className="gap-2">
-                        <Activity size={16} />
-                        <span className="hidden sm:inline">{t('tabs.activity')}</span>
-                    </TabsTrigger>
-                </TabsList>
+        <div className="space-y-8 animate-in fade-in duration-500">
+            {/* 1. UNIFIED FOLDER HEADER (Replaces 'Detalles de Obra') */}
+            <div className="border-b border-stone-200 pb-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div className="flex items-center gap-2 text-sm text-stone-500 mb-2 font-medium">
+                            <span className="flex items-center gap-1 bg-stone-100 px-2 py-0.5 rounded-full">
+                                <Activity size={12} className="text-orange-500" />
+                                {new Date(request.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                            </span>
+                            <span>•</span>
+                            <span className="flex items-center gap-1">
+                                📍 {request.location || 'Remote'}
+                            </span>
+                            <span>•</span>
+                            <span className="flex items-center gap-1">
+                                👤 {request.user?.fullName || 'Unknown Client'}
+                            </span>
+                        </div>
+                        <h2 className="text-3xl font-bold font-outfit text-stone-900 tracking-tight">
+                            {request.title}
+                        </h2>
+                    </div>
 
-                {/* Overview Tab: Description + Main Comment Thread */}
-                <TabsContent value="overview" className="space-y-6 mt-6">
+                    {/* Status / Phase Indicator */}
+                    <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="px-3 py-1 text-sm bg-white border-stone-200 text-stone-600 shadow-sm">
+                            {t('phase.label')}: <strong className="ml-1 text-stone-900">{slices.length === 0 ? t('phase.defining') : t('phase.bidding')}</strong>
+                        </Badge>
+                    </div>
+                </div>
+            </div>
+
+            {/* 2. THE STAGE (Unified Workspace) */}
+            <div className="grid lg:grid-cols-[1fr_360px] gap-8">
+
+                {/* LEFT: The Work Area (Focus Mode) */}
+                <div className="space-y-10">
+
+                    {/* Description Card (Context) */}
+                    <div className="prose prose-stone max-w-none">
+                        <p className="whitespace-pre-wrap text-lg text-stone-700 leading-relaxed">
+                            {request.description}
+                        </p>
+                    </div>
+
                     {/* Pending Proposals Section */}
                     {proposals.length > 0 && proposals.some((p: any) => p.status === 'pending') && (
-                        <div className="space-y-4">
-                            <h3 className="text-lg font-semibold flex items-center gap-2">
+                        <div className="space-y-4 bg-orange-50 p-6 rounded-xl border border-orange-100">
+                            <h3 className="text-lg font-bold flex items-center gap-2 text-orange-800">
                                 <Activity className="text-orange-600" size={20} />
                                 {t('pendingProposals')}
                             </h3>
@@ -107,25 +123,15 @@ export function RequestInteractionLayout({
                                             proposal={proposal}
                                             onRespond={async (id, status) => {
                                                 const userId = currentUser?.id;
-                                                // Call API
                                                 const res = await fetch(`/api/proposals/${id}/respond`, {
                                                     method: 'POST',
                                                     headers: { 'Content-Type': 'application/json' },
                                                     body: JSON.stringify({ status, userId })
                                                 });
-
                                                 if (!res.ok) throw new Error('Failed');
-
-                                                // Update local state
-                                                setProposals(prev => prev.map((p: any) =>
-                                                    p.id === id ? { ...p, status } : p
-                                                ));
-
+                                                setProposals(prev => prev.map((p: any) => p.id === id ? { ...p, status } : p));
                                                 if (status === 'accepted') {
-                                                    // Refresh data or simpler: wait for user reload. 
-                                                    // Ideally we get the new slices back from the API, but for MVP we might just prompt reload or trigger parent refresh.
-                                                    // We can optimistically apply if we knew exactly what happened, but it's complex.
-                                                    toast.success('Changes applied! Refreshing data...');
+                                                    toast.success('Changes applied!');
                                                     window.location.reload();
                                                 }
                                             }}
@@ -135,157 +141,125 @@ export function RequestInteractionLayout({
                         </div>
                     )}
 
-                    <div className="grid gap-6 md:grid-cols-3">
-                        <div className="md:col-span-2 space-y-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>{t('description')}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
-                                        {request.description}
-                                    </p>
-                                </CardContent>
-                            </Card>
-
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>{t('privateInsights')}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <CommentThread
-                                        requestId={request.id}
-                                        comments={comments}
-                                        onCommentAdded={handleCommentAdded}
-                                        onSlicesCreated={handleSlicesCreated}
-                                        currentUser={currentUser}
-                                        mode="private_insight"
-                                    />
-                                </CardContent>
-                            </Card>
+                    {/* THE SLICES (Main Actor) */}
+                    <div>
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-xl font-bold font-outfit text-stone-900 flex items-center gap-2">
+                                <KanbanSquare className="text-orange-600" size={24} />
+                                {t('tabs.slices')}
+                            </h3>
                         </div>
 
-                        <div className="space-y-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-sm font-medium">{t('details')}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="space-y-4 text-sm">
-                                    <div>
-                                        <span className="text-muted-foreground">{t('location')}:</span>
-                                        <div className="font-medium">{request.location || 'Remote'}</div>
+                        <SliceKanban
+                            slices={slices}
+                            requestId={request.id}
+                            isOwner={isOwner}
+                            currentUserId={currentUser?.id}
+                            onSliceUpdated={handleSliceUpdated}
+                        />
+                    </div>
+
+                    {/* QUOTES SECTION (Shown if there are slices) */}
+                    {slices.length > 0 && (
+                        <div className="pt-10 border-t border-stone-200">
+                            <h3 className="text-xl font-bold font-outfit text-stone-900 mb-6">{t('tabs.quotes')}</h3>
+
+                            <div className="grid gap-6">
+                                {quotes.length === 0 ? (
+                                    <div className="text-center py-12 bg-stone-50 rounded-xl border border-dashed border-stone-200">
+                                        <p className="text-stone-500 mb-2">{t('noQuotes')}</p>
+                                        <p className="text-sm text-stone-400">Waiting for providers to bid on your Execution Cards.</p>
                                     </div>
-                                    <div>
-                                        <span className="text-muted-foreground">{t('postedBy')}:</span>
-                                        <div className="font-medium">{request.user?.fullName || 'Unknown'}</div>
+                                ) : (
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        {quotes.map((quote: any) => (
+                                            <Card key={quote.id} className="hover:shadow-md transition-shadow">
+                                                <CardHeader className="pb-2">
+                                                    <div className="flex justify-between items-start">
+                                                        <CardTitle className="text-base">
+                                                            {t('quoteFrom')} {quote.provider?.fullName || 'Provider'}
+                                                        </CardTitle>
+                                                        <Badge variant={quote.status === 'accepted' ? 'default' : 'secondary'}>
+                                                            {quote.status}
+                                                        </Badge>
+                                                    </div>
+                                                    <div className="text-2xl font-bold text-orange-600">
+                                                        <CurrencyDisplay amount={quote.amount} currency={quote.currency || 'ARS'} />
+                                                    </div>
+                                                </CardHeader>
+                                                <CardContent>
+                                                    <p className="text-sm text-stone-600 mb-4 line-clamp-3">{quote.message}</p>
+                                                    <div className="mt-4 pt-4 border-t border-stone-100">
+                                                        <h4 className="text-xs font-semibold uppercase text-stone-400 mb-2">
+                                                            {t('optimizationDiscussion')}
+                                                        </h4>
+                                                        <CommentThread
+                                                            requestId={request.id}
+                                                            quoteId={quote.id}
+                                                            comments={comments.filter((c: any) => c.quoteId === quote.id)}
+                                                            onCommentAdded={handleCommentAdded}
+                                                            currentUser={currentUser}
+                                                        />
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        ))}
                                     </div>
-                                    <div>
-                                        <span className="text-muted-foreground">{t('created')}:</span>
-                                        <div className="font-medium">{new Date(request.createdAt).toLocaleDateString()}</div>
+                                )}
+
+                                {/* Quote Builder (For Providers) */}
+                                {!isOwner && (
+                                    <div className="mt-8">
+                                        <QuoteBuilder
+                                            requestId={request.id}
+                                            requestTitle={request.title}
+                                            slices={slices.filter((s: any) => s.status === 'accepted' || s.status === 'proposed')}
+                                            onQuoteCreated={handleQuoteCreated}
+                                            userId={currentUser?.id}
+                                        />
                                     </div>
-                                </CardContent>
-                            </Card>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                </div>
+
+                {/* RIGHT: The Umarel Sidebar (AI & Context) */}
+                <div className="space-y-6">
+                    {/* The Notebook (AI Chat) - Sticky Sidebar */}
+                    <div className="sticky top-6">
+                        <div className="bg-[#fffdf5] rounded-xl border-2 border-dashed border-stone-300 shadow-sm overflow-hidden flex flex-col h-[600px]">
+                            <div className="border-b border-stone-200 bg-[#fffbf0] px-4 py-3 flex items-center justify-between">
+                                <h4 className="text-sm font-bold text-stone-700 uppercase tracking-wider flex items-center gap-2">
+                                    <MessageSquare size={16} className="text-stone-500" />
+                                    {t('privateInsights')}
+                                </h4>
+                                <Badge variant="outline" className="bg-white text-[10px] uppercase">
+                                    {t('aiMode')}
+                                </Badge>
+                            </div>
+                            <div className="flex-1 overflow-hidden flex flex-col p-0">
+                                <CommentThread
+                                    requestId={request.id}
+                                    comments={comments}
+                                    onCommentAdded={handleCommentAdded}
+                                    onSlicesCreated={handleSlicesCreated}
+                                    currentUser={currentUser}
+                                    mode="private_insight"
+                                    fitParent={true}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Helper Tip */}
+                        <div className="mt-4 p-4 bg-stone-100 rounded-lg text-xs text-stone-500 leading-relaxed">
+                            💡 <strong>{t('tips.label')}:</strong> {t('tips.text')} "{t('tips.example1')}" {t('or')} "{t('tips.example2')}"
                         </div>
                     </div>
-                </TabsContent>
+                </div>
 
-                {/* Slices Tab: Kanban Board */}
-                <TabsContent value="slices" className="mt-6">
-                    <SliceKanban
-                        slices={slices}
-                        requestId={request.id}
-                        isOwner={isOwner}
-                        onSliceUpdated={handleSliceUpdated}
-                    />
-                </TabsContent>
-
-                {/* Quotes Tab: List + Builder */}
-                <TabsContent value="quotes" className="mt-6 space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-4">
-                            <h3 className="text-lg font-semibold">{t('submittedQuotes')}</h3>
-                            {quotes.length === 0 ? (
-                                <Card className="bg-muted/50 border-dashed">
-                                    <CardContent className="py-8 text-center text-muted-foreground">
-                                        {t('noQuotes')}
-                                    </CardContent>
-                                </Card>
-                            ) : (
-                                quotes.map((quote: any) => (
-                                    <Card key={quote.id}>
-                                        <CardHeader className="pb-2">
-                                            <div className="flex justify-between items-start">
-                                                <CardTitle className="text-base">
-                                                    {t('quoteFrom')} {quote.provider?.fullName || 'Provider'}
-                                                </CardTitle>
-                                                <Badge>{quote.status}</Badge>
-                                            </div>
-                                            <div className="text-2xl font-bold text-orange-600">
-                                                <CurrencyDisplay amount={quote.amount} currency={quote.currency || 'ARS'} />
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <p className="text-sm text-gray-600 mb-4">{quote.message}</p>
-
-                                            {/* Optimization Thread for this Quote */}
-                                            <div className="mt-4 pt-4 border-t">
-                                                <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">
-                                                    {t('optimizationDiscussion')}
-                                                </h4>
-                                                <CommentThread
-                                                    requestId={request.id}
-                                                    quoteId={quote.id}
-                                                    // Note: We might need a separate comment list for quote threads if we want to manage them centrally too,
-                                                    // but for now let's assume the main list filters or we fetch separately.
-                                                    // For simplicity in this refactor, let's keep quote threads fetching their own data or 
-                                                    // pass a filtered list if we had all comments.
-                                                    // Given the current structure, let's let them fetch or pass a filtered subset if available.
-                                                    // But `comments` state above is likely just for the main thread.
-                                                    // Let's stick to the pattern:
-                                                    comments={comments.filter((c: any) => c.quoteId === quote.id)}
-                                                    onCommentAdded={handleCommentAdded}
-                                                    currentUser={currentUser}
-                                                />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))
-                            )}
-                        </div>
-
-                        <div>
-                            <QuoteBuilder
-                                requestId={request.id}
-                                requestTitle={request.title}
-                                slices={slices.filter((s: any) => s.status === 'accepted' || s.status === 'proposed')}
-                                onQuoteCreated={handleQuoteCreated}
-                                userId={currentUser?.id}
-                            />
-                        </div>
-                    </div>
-                </TabsContent>
-
-                {/* Questions Tab: Q&A for Service Providers */}
-
-
-                {/* Activity Tab: Just a full view of comments for now */}
-                <TabsContent value="activity" className="mt-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{t('fullActivityLog')}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <CommentThread
-                                requestId={request.id}
-                                comments={comments}
-                                onCommentAdded={handleCommentAdded}
-                                currentUser={currentUser}
-                            />
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-            </Tabs>
+            </div>
         </div>
     );
 }
-

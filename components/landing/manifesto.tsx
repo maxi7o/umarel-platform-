@@ -22,9 +22,7 @@ export function Manifesto() {
                         <span className="text-orange-500">{t('heading.headlineLine2')}</span>
                     </h2>
                     <p className="text-xl text-stone-400 font-light leading-relaxed">
-                        {t.rich('heading.subheadline', {
-                            highlight: (chunks) => <strong className="text-stone-100">{chunks}</strong>
-                        })}
+                        {t('heading.subheadline')}
                     </p>
                 </div>
 
@@ -47,9 +45,7 @@ export function Manifesto() {
                         </div>
                         <h3 className="text-xl font-bold mb-3 text-stone-100">{t('pillars.judge.title')}</h3>
                         <p className="text-stone-400 leading-relaxed">
-                            {t.rich('pillars.judge.description', {
-                                bold: (chunks) => <strong className="text-stone-100">{chunks}</strong>
-                            })}
+                            {t('pillars.judge.description')}
                         </p>
                     </div>
 

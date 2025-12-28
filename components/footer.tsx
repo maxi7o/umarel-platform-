@@ -46,7 +46,7 @@ export function Footer() {
                         </p>
                         {quote && (
                             <div className="bg-stone-800/50 p-3 rounded-lg border-l-2 border-orange-500">
-                                <p className="text-xs text-orange-200 font-mono">Daily Wisdom:</p>
+                                <p className="text-xs text-orange-200 font-mono">{t('dailyWisdom')}</p>
                                 <p className="text-sm italic text-stone-300">"{quote}"</p>
                             </div>
                         )}

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
             if (escrowId) {
                 if (paymentData.status === 'approved') {
-                    await escrowService.updateStatusByEscrowId(escrowId, 'in_escrow');
+                    await escrowService.updateStatusByEscrowId(escrowId, 'in_escrow', paymentId ? String(paymentId) : undefined);
                 } else if (paymentData.status === 'rejected' || paymentData.status === 'cancelled') {
                     await escrowService.updateStatusByEscrowId(escrowId, 'failed');
                 }

@@ -28,23 +28,25 @@ export async function processWizardMessage(
 
     // Define language instruction
     const languageInstruction = locale === 'es'
-        ? "CRITICAL: You MUST respond in SPANISH (Español). Do NOT use English."
-        : "Respond in English.";
+        ? "CRITICAL: You MUST respond in SPANISH (Español). Do NOT use English. Use the term 'Fichas de Ejecución' instead of 'Slice Cards' or 'Porciones'."
+        : "Respond in English. Use the term 'Execution Cards' instead of 'Slices'.";
 
     const systemPrompt = `You are an expert Project Manager AI for "Umarel", a home services marketplace.
-Your goal is to help the user define their project clearly so providers can quote accurately.
+Your goal is to help the user define their project clearly so providers can give accurate quotes.
+
+Explain to the user that you are helping them break their big idea into SPECIFIC "Execution Cards" (Fichas de Ejecución) that providers can bid on.
+This ensures they get the best price and accountability.
 
 Capabilities:
 1. ASK clarifying questions only if CRITICAL information is missing (Price Drivers).
-2. UPDATE the current slice card with new details (price, skills, etc.).
-3. SPLIT the project into multiple "Slices" (Cards) AGGRESSIVELY if it involves distinct skills, tools, or trades. 
+2. UPDATE the current card with new details (price, skills, etc.).
+3. SPLIT the project into multiple "Cards" AGGRESSIVELY if it involves distinct skills, tools, or trades.
 
 Context: "Umarel" relies on breaking work into small, specialized units.
-- "Cleaning a rug" (Cleaning skill) and "Repairing/Shaving a rug" (Repair skill) are TWO different slices.
-- "Demolition" and "Tiling" are TWO different slices.
-- "Painting walls" and "Moving furniture" are TWO different slices.
+- "Cleaning a rug" and "Repairing a rug" are TWO different cards.
+- "Demolition" and "Tiling" are TWO different cards.
 
-Current Slice Cards Context:
+Current Cards Context:
 ${JSON.stringify(currentSliceCards, null, 2)}
 
 Instructions:
@@ -96,8 +98,8 @@ Ensure "updates" only contains fields that changed.
                 role: 'user',
                 content: userMessage === 'INITIAL_ANALYSIS_TRIGGER'
                     ? (locale === 'es'
-                        ? "Por favor analiza las partes del proyecto actual y hazme la primera pregunta aclaratoria más importante para ayudar a definir el alcance."
-                        : "Please analyze the current project slices and ask me the first most important clarifying question to help define the scope.")
+                        ? "Hola. Por favor explícame brevemente que tu objetivo es ayudarme a dividir esto en 'Fichas de Ejecución' para que los proveedores puedan cotizar mejor. Luego analiza el proyecto actual y dime qué falta."
+                        : "Hi. Please explain briefly that your goal is to help me break this into 'Execution Cards' so providers can quote accurately. Then analyze the current project and tell me what is missing.")
                     : userMessage
             },
         ],

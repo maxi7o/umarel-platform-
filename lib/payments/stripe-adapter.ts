@@ -25,8 +25,10 @@ export class StripePaymentAdapter implements PaymentStrategy {
         };
     }
 
-    async refund(transactionId: string) {
-        // await stripe.refunds.create({ payment_intent: transactionId });
+    async refund(transactionId: string, amount?: number) {
+        // const params: any = { payment_intent: transactionId };
+        // if (amount) params.amount = amount;
+        // await stripe.refunds.create(params);
         return {
             success: true,
             refundedAt: new Date()

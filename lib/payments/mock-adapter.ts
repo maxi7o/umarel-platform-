@@ -18,8 +18,8 @@ export class MockPaymentAdapter implements PaymentStrategy {
         };
     }
 
-    async refund(transactionId: string) {
-        console.log(`[MockPayment] Refunding TX: ${transactionId}`);
+    async refund(transactionId: string, amount?: number) {
+        console.log(`[MockPayment] Refunding TX: ${transactionId}, Amount: ${amount || 'Full'}`);
         return {
             success: true,
             refundedAt: new Date()

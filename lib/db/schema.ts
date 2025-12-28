@@ -47,6 +47,8 @@ export const requests = pgTable('requests', {
     createdAt: timestamp('created_at').defaultNow(),
 });
 
+export const refundStatusEnum = pgEnum('refund_status', ['none', 'requested', 'approved', 'disputed', 'resolved']);
+
 export const slices = pgTable('slices', {
     id: uuid('id').primaryKey().defaultRandom(),
     requestId: uuid('request_id').references(() => requests.id).notNull(),
@@ -62,6 +64,14 @@ export const slices = pgTable('slices', {
     status: sliceStatusEnum('status').default('proposed'),
     isAiGenerated: boolean('is_ai_generated').default(false),
     dependencies: jsonb('dependencies'), // Array of slice IDs
+
+    // Refund Logic
+    refundStatus: refundStatusEnum('refund_status').default('none'),
+    refundReason: text('refund_reason'),
+    disputeEvidence: jsonb('dispute_evidence'), // Array of URLs
+    refundRequestedAt: timestamp('refund_requested_at'),
+    refundDecidedAt: timestamp('refund_decided_at'),
+
     skillsRequired: jsonb('skills_required'), // Array of required skills
     escrowPaymentId: text('escrow_payment_id'), // Reference to escrow payment
     approvedByClientAt: timestamp('approved_by_client_at'),
@@ -265,6 +275,7 @@ export const escrowPayments = pgTable('escrow_payments', {
     paymentMethod: paymentMethodEnum('payment_method').notNull(),
     stripePaymentIntentId: text('stripe_payment_intent_id'),
     mercadoPagoPreapprovalId: text('mercado_pago_preapproval_id'),
+    mercadoPagoPaymentId: text('mercado_pago_payment_id'), // Added for One-Time Payments Refund
     status: paymentStatusEnum('status').default('pending_escrow'),
 
     // Dispute fields
@@ -303,7 +314,13 @@ export const userWallets = pgTable('user_wallets', {
     balance: integer('balance').default(0), // in cents
     totalEarned: integer('total_earned').default(0), // in cents
     totalWithdrawn: integer('total_withdrawn').default(0), // in cents
+    merchantOrderCount: integer('merchant_order_count').default(0),
     mercadoPagoEmail: text('mercado_pago_email'),
+    mercadoPagoUserId: text('mercado_pago_user_id'),
+    mercadoPagoAccessToken: text('mercado_pago_access_token'),
+    mercadoPagoRefreshToken: text('mercado_pago_refresh_token'),
+    mercadoPagoTokenExpiresAt: timestamp('mercado_pago_token_expires_at'),
+    mercadoPagoPublicKey: text('mercado_pago_public_key'),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),
 });

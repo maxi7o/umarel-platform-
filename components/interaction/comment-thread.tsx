@@ -8,6 +8,7 @@ import { Sparkles, Send, User, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { SliceProposal } from './slice-proposal';
+import { useTranslations } from 'next-intl';
 
 interface Comment {
     id: string;
@@ -17,22 +18,21 @@ interface Comment {
     userId: string;
     createdAt: string;
     quoteId?: string;
-    user?: { fullName: string; avatarUrl: string }; // In real app, joined
-    slices?: any[]; // Array of propose/created slices from AI response
+    user?: { fullName: string; avatarUrl: string };
+    slices?: any[];
 }
 
 interface CommentThreadProps {
     requestId: string;
     quoteId?: string;
-    comments?: Comment[]; // Now controlled by parent
-    initialComments?: Comment[]; // Fallback if not controlled
+    comments?: Comment[];
+    initialComments?: Comment[];
     onCommentAdded?: (comment: Comment) => void;
     onSlicesCreated?: (slices: any[]) => void;
     currentUser?: any;
     mode?: 'public' | 'private_insight';
+    fitParent?: boolean;
 }
-
-import { useTranslations } from 'next-intl';
 
 export function CommentThread({
     requestId,
@@ -42,7 +42,8 @@ export function CommentThread({
     onCommentAdded,
     onSlicesCreated,
     currentUser,
-    mode = 'public'
+    mode = 'public',
+    fitParent = false
 }: CommentThreadProps) {
     const t = useTranslations('requestInteraction');
     // Use parent-controlled state if provided, otherwise use local state
@@ -56,7 +57,7 @@ export function CommentThread({
 
     // Only poll for new comments if not controlled by parent
     useEffect(() => {
-        if (isControlled) return; // Parent manages state, no polling needed
+        if (isControlled) return;
 
         const interval = setInterval(async () => {
             try {
@@ -106,7 +107,7 @@ export function CommentThread({
             if (!res.ok) throw new Error('Failed to post comment');
             const savedComment = await res.json();
 
-            // Optimistically add user details if not returned by API (API might just return raw DB row)
+            // Optimistically add user details
             if (!savedComment.user && currentUser) {
                 savedComment.user = {
                     fullName: currentUser.fullName,
@@ -114,7 +115,7 @@ export function CommentThread({
                 };
             }
 
-            // Update state via callback or local state
+            // Update state
             if (onCommentAdded) {
                 onCommentAdded(savedComment);
             } else {
@@ -128,8 +129,6 @@ export function CommentThread({
             if (isPromptMode) {
                 toast.info("AI Agent is analyzing...");
 
-                // Use Wizard API for Request Slicing flow
-                // For quotes, valid endpoint is different, but for this demo let's focus on Wizard flow
                 const aiEndpoint = quoteId
                     ? `/api/quotes/${quoteId}/optimize`
                     : `/api/wizard/message`;
@@ -139,17 +138,13 @@ export function CommentThread({
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         content: promptContent,
-                        sliceId: "primary", // TODO: Pass actual context/primary slice ID properly
+                        sliceId: "primary",
                         userId: currentUser.id
-                        // The Wizard API expects 'sliceId' and 'content'
                     })
                 });
 
                 if (aiRes.ok) {
                     const aiData = await aiRes.json();
-
-                    // The Wizard API returns { message: string, sliceCards: [], userMessage: ... }
-                    // We need to adapt it to a "Comment" structure for this thread
 
                     if (aiData.message) {
                         const aiComment: Comment = {
@@ -160,10 +155,9 @@ export function CommentThread({
                             userId: 'ai-agent',
                             createdAt: new Date().toISOString(),
                             user: { fullName: 'AI Agent', avatarUrl: '' },
-                            // Identify newly created slices from the wizard response
                             slices: aiData.sliceCards?.filter((sc: any) =>
-                                !comments.some(c => c.slices?.some(s => s.id === sc.id)) && // Dedupe if needed
-                                sc.title !== "Primary Request" // Filter out the main card if it returns it
+                                !comments.some(c => c.slices?.some(s => s.id === sc.id)) &&
+                                sc.title !== "Primary Request"
                             )
                         };
 
@@ -174,7 +168,6 @@ export function CommentThread({
                         }
                     }
 
-                    // Handle slices if generated (Global Handler)
                     if (aiData.sliceCards && onSlicesCreated) {
                         onSlicesCreated(aiData.sliceCards);
                         toast.success(`AI updated project structure!`);
@@ -194,9 +187,14 @@ export function CommentThread({
         }
     };
 
+    const containerClasses = fitParent ? "flex flex-col h-full space-y-0" : "space-y-6";
+    const listClasses = fitParent
+        ? "flex-1 overflow-y-auto min-h-0 space-y-4 pr-2 mb-4 scrollbar-thin scrollbar-thumb-stone-200"
+        : "space-y-4 max-h-[600px] overflow-y-auto pr-2";
+
     return (
-        <div className="space-y-6">
-            <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+        <div className={containerClasses}>
+            <div className={listClasses}>
                 {comments.map((comment) => (
                     <div
                         key={comment.id}
@@ -224,7 +222,6 @@ export function CommentThread({
                             </div>
                             <div className="text-sm whitespace-pre-wrap">{comment.content}</div>
 
-                            {/* Render Slice Proposals if Any */}
                             {comment.slices && comment.slices.length > 0 && (
                                 <div className="mt-3 grid gap-2">
                                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -234,9 +231,6 @@ export function CommentThread({
                                         <SliceProposal
                                             key={slice.id}
                                             slice={slice}
-                                            // onAccept handled globally implicitly for now via creating them directly
-                                            // In a clearer flow, we would create them as "drafts" and let user accept here.
-                                            // For now, since Wizard creates them directly, we just show them "interactive-like"
                                             isAccepted={true}
                                             onAccept={() => toast.success("Opening slice details...")}
                                         />
@@ -247,18 +241,18 @@ export function CommentThread({
                     </div>
                 ))}
                 {comments.length === 0 && (
-                    <div className="text-center text-muted-foreground py-8 text-sm">
-                        {mode === 'private_insight'
-                            ? t('noInsights')
-                            : t('noComments')}
+                    <div className="text-center py-8 px-4 rounded-lg border border-dashed border-stone-300 bg-stone-50/50">
+                        <div className="text-stone-600 whitespace-pre-wrap leading-relaxed">
+                            {mode === 'private_insight'
+                                ? t('noInsights')
+                                : t('noComments')}
+                        </div>
                     </div>
                 )}
             </div>
 
-
-
             {/* Umarel Notebook Input */}
-            <div className="relative border-2 border-stone-300 dark:border-stone-700 bg-[#fffdf5] dark:bg-[#1c1917] rounded-xl shadow-sm overflow-hidden p-1 group focus-within:ring-2 ring-orange-400/50 transition-all">
+            <div className="relative border-2 border-stone-300 dark:border-stone-700 bg-[#fffdf5] dark:bg-[#1c1917] rounded-xl shadow-sm overflow-hidden p-1 group focus-within:ring-2 ring-orange-400/50 transition-all shrink-0">
                 {/* Notebook Header Line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-red-400/20 w-full z-0"></div>
                 <div className="absolute top-0 left-6 bottom-0 w-[1px] bg-red-400/20 z-0 h-full"></div>

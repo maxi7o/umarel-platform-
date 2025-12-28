@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2, CreditCard, Wallet, CheckCircle2 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 
 interface UnifiedCheckoutButtonProps {
     sliceId: string;
@@ -14,7 +14,6 @@ interface UnifiedCheckoutButtonProps {
 
 export function UnifiedCheckoutButton({ sliceId, userCountry }: UnifiedCheckoutButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
-    const { toast } = useToast();
 
     const handlePayment = async () => {
         setIsLoading(true);
@@ -37,8 +36,7 @@ export function UnifiedCheckoutButton({ sliceId, userCountry }: UnifiedCheckoutB
                 window.location.href = data.redirectUrl;
             } else if (data.transactionId) {
                 // Mock or Stripe (if handled via redirects)
-                toast({
-                    title: "Payment Initiated",
+                toast.success("Payment Initiated", {
                     description: `Transaction ID: ${data.transactionId}`,
                 });
                 // In a real Stripe Elements flow, we'd mount the Element here using data.clientSecret
@@ -46,10 +44,8 @@ export function UnifiedCheckoutButton({ sliceId, userCountry }: UnifiedCheckoutB
 
         } catch (error) {
             console.error('Payment Error:', error);
-            toast({
-                title: "Error",
+            toast.error("Error", {
                 description: "Failed to start payment. Please try again.",
-                variant: "destructive",
             });
         } finally {
             setIsLoading(false);

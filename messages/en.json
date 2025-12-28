@@ -30,7 +30,7 @@
             "title": "The Umarel Philosophy",
             "headlineLine1": "We don't just watch.",
             "headlineLine2": "We maximize truth.",
-            "subheadline": "Construction is chaos. Disputes are bandwidth killers. We provide the {highlight} that turns \"he said, she said\" into verified collaboration.",
+            "subheadline": "Construction is chaos. Disputes are bandwidth killers. We provide the Source of Truth that turns \"he said, she said\" into verified collaboration.",
             "highlight": "Source of Truth"
         },
         "pillars": {
@@ -40,7 +40,7 @@
             },
             "judge": {
                 "title": "The Pragmatic Judge",
-                "description": "Perfect justice is slow. We optimize for {bold}. Our goal is to keep the project moving while protecting the integrity of the deal.",
+                "description": "Perfect justice is slow. We optimize for fair flow. Our goal is to keep the project moving while protecting the integrity of the deal.",
                 "bold": "fair flow"
             },
             "growth": {
@@ -52,8 +52,10 @@
     "nav": {
         "browse": "Browse",
         "offerServices": "Offer Services",
-        "login": "Log in",
-        "postNeed": "Post a Need"
+        "login": "Log In",
+        "postNeed": "Post a Need",
+        "dashboard": "Dashboard",
+        "logout": "Log out"
     },
     "footer": {
         "platform": "Platform",
@@ -69,6 +71,7 @@
         "privacy": "Privacy Policy",
         "cookie": "Cookie Policy",
         "copyright": "© 2026 Umarel. All rights reserved. Made with 🧡 and espresso.",
+        "dailyWisdom": "Daily Wisdom:",
         "quotes": [
             "Non si fa così... (That's not how you do it...)",
             "Ai miei tempi qui era tutta campagna. (In my times this was all countryside.)",
@@ -95,103 +98,109 @@
         "step1Title": "1. Post a Request",
         "step1Desc": "Describe what you need done. \"Fix my kitchen\" or \"Build a website\". No need for technical details yet.",
         "step2Title": "2. Umarels Split It",
-        "step2Desc": "Our community of wise Umarels breaks your request into small, precise \"Service Slices\".",
-        "step3Title": "3. Pay Per Slice",
-        "step3Desc": "Providers quote on individual slices. You accept and pay only when each slice is completed.",
+        "step2Desc": "Our community of wise Umarels breaks your request into small, precise \"Execution Cards\".",
+        "step3Title": "3. Pay Per Card",
+        "step3Desc": "Providers quote on individual cards. You accept and pay only when each card is completed.",
         "trustedTitle": "Built for the best Umarels"
     },
     "landing": {
-        "hero": {
-            "title": "Build trust, share wisdom, earn Aura.",
-            "subtitle1": "Join a community of experts helping neighbors get things done right —",
-            "subtitle2": "build your reputation, one slice at a time.",
-            "cta": "Join the Community"
+        "concept": {
+            "title": "What is an Umarel?",
+            "subtitle": "Wisdom in Action",
+            "description": "Inspired by the Italian tradition of the observant elder, an **Umarel** is a guardian of quality. They don't just watch; they ensure truth.",
+            "digital": "We've evolved this role. On our platform, **Umarels are community experts** who verify specialized work—from home renovations to wellness experiences—ensuring you get exactly what was promised."
         },
-        "howItWorks": "How Umarel Works",
+        "hero": {
+            "title": "Turn Wisdom into Value.",
+            "subtitle1": "A transparent marketplace where",
+            "subtitle2": "every project builds reputation.",
+            "cta": "Explore the Community"
+        },
+        "howItWorks": "The Flow of Truth",
         "clients": {
-            "title": "For Clients",
-            "description": "Get clear scopes and fair prices through community-verified wisdom.",
-            "badge": "Wisdom Driven"
+            "title": "For Seekers",
+            "description": "Whether you need a renovation or a soul-retrieval journey, book with confidence knowing every detail is verified.",
+            "badge": "Verified Experiences"
         },
         "providers": {
-            "title": "For Providers",
-            "description": "Focus on your craft. We handle the scope and client clarity.",
-            "badge": "Verified Quality"
+            "title": "For Creators",
+            "description": "Focus on your craft. We handle the payments, the scope, and the trust.",
+            "badge": "Fair Value"
         },
         "umarels": {
             "title": "For Umarels",
-            "description": "Share your expertise, help neighbors avoid mistakes, and earn community recognition.",
-            "badge": "Aura & Respect"
+            "description": " Earn from your expertise. Review projects, offer insights, and share in the 3% Community Dividend.",
+            "badge": "Earn Dividends"
         },
         "stats": {
-            "foundations": "Ready",
-            "foundationsLabel": "To Build",
-            "savings": "Smart",
-            "savingsLabel": "Slicing",
+            "foundations": "Active",
+            "foundationsLabel": "Experiences",
+            "savings": "Fair",
+            "savingsLabel": "Pricing",
             "free": "100%",
             "freeLabel": "Transparent",
-            "daily": "Trust",
-            "dailyLabel": "Verified Pros"
+            "daily": "Real",
+            "dailyLabel": "Human Connection"
         },
         "cta": {
-            "title": "Start saving (and earning) today",
-            "subtitle": "0 cost to post · 0 cost to quote · We only earn when you approve the finished work",
-            "postButton": "Post a Need – 100% Free",
-            "browseButton": "Browse Services",
-            "joinText": "Join thousands of people turning knowledge into income"
+            "title": "Join the Transparent Economy",
+            "subtitle": "15% Platform Fee · 3% Returned to Community · 100% Verified Truth",
+            "postButton": "Post a Request",
+            "browseButton": "Discover Experiences",
+            "joinText": "Be part of a marketplace owned by its reputation."
         },
         "italianQuotes": {
-            "q1": "Umarel: the one who watches the worksite with hands behind his back",
-            "q2": "The umarel always knows how to do it better",
-            "q3": "If it weren't for the umarel, the job would never get done",
-            "q4": "Every umarel has the solution nobody asked for",
-            "q5": "The umarel: the expert you don't need... but always need"
+            "q1": "Truth is the foundation of all value.",
+            "q2": "Measure twice, cut once, live fully.",
+            "q3": "Quality is not an act, it is a habit.",
+            "q4": "The community sees what the individual misses.",
+            "q5": "Fairness is the only sustainable business model."
         },
         "trustHero": {
-            "tagline": "Your dad watching the construction site, but professional.",
-            "title": "Peace of mind for your renovation.",
-            "subtitle": "Expert eyes preventing costly mistakes before they happen.",
-            "ctaPrimary": "Audit my Quote",
-            "ctaSecondary": "See Example Savings",
-            "ticker": "Expert Umarels spot mistakes before they happen... Verified quotes mean fair prices... Don't build alone...",
+            "tagline": "Community Wisdom for Every Project",
+            "title": "Experts you can trust. Projects you can verify.",
+            "subtitle": "From complex renovations to heart-opening tours. We use AI and community wisdom to ensure fair prices and perfect execution.",
+            "ctaPrimary": "Start a Project",
+            "ctaSecondary": "Browse Experiences",
+            "ticker": "Transparency is our currency... 3% of all revenue goes back to helpful members... Verified reviews only...",
             "demoCard": {
-                "header": "Roof Repair Quote",
-                "meta": "Submitted 2h ago • Palermo",
-                "riskBadge": "RISK DETECTED",
-                "item1": "Materials (Membrane)",
-                "item2": "Labor",
+                "header": "Patagonia Trek & Yoga",
+                "meta": "Provider: Sarah • 5.0 Aura",
+                "riskBadge": "VERIFIED",
+                "item1": "Guide & Transport",
+                "item2": "Equipment Rental",
                 "insightLabel": "Umarel Insight",
-                "insightText": "Che pibe, that price for 4mm membrane is double the market rate. Also, they didn't include the primer paint. Reject.",
-                "fairPrice": "New Fair Price",
-                "savedBadge": "Saved",
+                "insightText": "Fair price confirmed. Provider has 15 successful verified trips. Weather contingency is included.",
+                "fairPrice": "Community Score",
+                "savedBadge": "TRUSTED",
                 "verifiedAudits": "Human Verified",
-                "saved": "Saved"
+                "saved": "Safe"
             }
         },
         "roles": {
             "client": {
-                "title": "The Client",
-                "description": "You have the vision. Use our blueprints to define exactly what you need built, ensuring no details are missed."
+                "title": "The Seeker",
+                "description": "You have a need—a repair to be made or an experience to be lived. Define it here, and let the community guide you."
             },
             "builder": {
-                "title": "The Builder",
-                "description": "Skilled tradespeople who execute the plan. Verified reviews and safety badges ensure top-quality craftsmanship."
+                "title": "The Creator",
+                "description": "Artisans, guides, and experts. You deliver value. We ensure you get paid fair rates for your verified skills."
             },
             "umarel": {
                 "title": "The Umarel",
-                "description": "The community inspector. Watching from the sidelines (digitally), offering wisdom, and ensuring everything is up to code."
+                "description": "The wise observer. You review scopes, settle disputes, and earn a share of the platform's success."
             }
         },
         "safetyTips": {
-            "title": "Daily Site Safety Tip",
+            "title": "Community Values",
             "tips": [
-                "Measure twice, cut once.",
-                "Always wear your PPE (Personal Protective Equipment).",
-                "A clean site is a safe site.",
-                "Check the blueprints before digging.",
-                "If you see something unsafe, say something.",
-                "Trust, but verify with an Umarel.",
-                "Quality is not an act, it is a habit."
+                "Truth above all.",
+                "Respect the craft.",
+                "Fair pay for fair work.",
+                "Disputes are opportunities for clarity.",
+                "We share the value we create.",
+                "Trust is built, not bought.",
+                "Leave it better than you found it."
             ]
         }
     },
@@ -318,23 +327,32 @@
         "postedBy": "Site Manager",
         "created": "Established",
         "privateInsights": "The Umarel's Notebook",
-        "noInsights": "All quiet on the construction site... Put your hands behind your back and look closer.",
-        "noComments": "No activity recorded. Start supervising.",
+        "noInsights": "👋 Welcome to your Service Notebook!\n\nThis is where we define success. Describe your project in your own words, and I (your AI Foreman) will ask brief questions to break it down into clear **Execution Cards**.\n\nThis ensures you get accurate quotes with no surprises.",
+        "noComments": "No activity yet. Start describing your project to generate Execution Cards.",
         "placeholder": "Don't just chat. Point out risks, suggest optimizations, or spot the errors...",
-        "placeholderInsight": "Whisper a technical observation to the client (Private)...",
-        "placeholderComment": "Add an entry to the site log...",
+        "placeholderInsight": "Describe your project here. AI will help you define Execution Cards...",
+        "placeholderComment": "Write a comment or update...",
         "placeholderPrompt": "Tell me to split this into phases or analyze the costs...",
         "aiMode": "Foreman AI",
         "aiModeActive": "Foreman AI Active",
-        "send": "Log Entry",
-        "sending": "Logging...",
-        "tabs": {
-            "overview": "Blueprint",
-            "slices": "Worksheet",
-            "quotes": "Bids",
-            "activity": "Site Log"
+        "phase": {
+            "label": "Current Phase",
+            "defining": "Defining Scope",
+            "bidding": "Open for Bids"
         },
+        "tabs": {
+            "slices": "Worksheet",
+            "quotes": "Bids"
+        },
+        "send": "Send",
+        "sending": "Sending...",
         "pendingProposals": "Pending Change Orders",
+        "tips": {
+            "label": "Pro Tip",
+            "text": "Use the notebook to ask the AI questions like",
+            "example1": "Is this quote fair?",
+            "example2": "What risks should I look for?"
+        },
         "submittedQuotes": "Received Bids",
         "noQuotes": "No bids on the table yet.",
         "quoteFrom": "Bid from",

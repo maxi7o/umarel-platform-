@@ -42,6 +42,13 @@ export async function POST(req: NextRequest) {
             slice.assignedProviderId || 'provider-id'
         );
 
+        // Save escrowPaymentId to Slice
+        if (result.transactionId) {
+            await db.update(slices)
+                .set({ escrowPaymentId: result.transactionId })
+                .where(eq(slices.id, sliceId));
+        }
+
         return NextResponse.json(result);
 
     } catch (error) {

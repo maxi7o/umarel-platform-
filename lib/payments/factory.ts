@@ -4,7 +4,11 @@ import { MockPaymentAdapter } from './mock-adapter';
 import { StripePaymentAdapter } from './stripe-adapter';
 import { MercadoPagoAdapter } from './mercadopago-adapter';
 
-export function getPaymentStrategy(context?: { countryCode?: string }): PaymentStrategy {
+export function getPaymentStrategy(context?: { countryCode?: string; provider?: 'stripe' | 'mercadopago' | 'mock' }): PaymentStrategy {
+    // Explicit provider selection
+    if (context?.provider === 'mercadopago') return new MercadoPagoAdapter();
+    if (context?.provider === 'stripe') return new StripePaymentAdapter();
+
     // Elastic switch based on Env or Context
     const useRealStripe = process.env.USE_REAL_PAYMENTS === 'true';
 

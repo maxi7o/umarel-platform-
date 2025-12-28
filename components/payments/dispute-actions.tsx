@@ -5,153 +5,141 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { AlertCircle, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { AlertCircle, ShieldCheck, ShieldAlert, CircleDashed } from 'lucide-react';
 import { toast } from 'sonner';
 
-interface DisputeActionsProps {
-    escrowId: string;
-    currentStatus: string;
-    isAdmin?: boolean;
-}
-
-export function DisputeActions({ escrowId, currentStatus, isAdmin }: DisputeActionsProps) {
+export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sliceStatus }: {
+    sliceId: string;
+    refundStatus: string;
+    isClient: boolean;
+    isProvider: boolean;
+    sliceStatus: string;
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [reason, setReason] = useState('');
-    const [notes, setNotes] = useState('');
 
-
-    const handleRaiseDispute = async () => {
+    const handleRequestRefund = async () => {
         try {
-            const res = await fetch(`/api/escrow/${escrowId}/dispute`, {
+            const res = await fetch(`/api/slices/${sliceId}/refund`, {
                 method: 'POST',
-                body: JSON.stringify({ reason, userId: 'current-user-id' }) // Mock user
-            });
-            if (!res.ok) throw new Error();
-
-            toast.success('Dispute Raised', { description: 'Admin will review shortly.' });
-            setIsOpen(false);
-            window.location.reload(); // Quick refresh
-        } catch {
-            toast.error('Error raising dispute');
-        }
-    };
-
-    const handleResolve = async (resolution: 'release' | 'refund') => {
-        try {
-            const res = await fetch(`/api/escrow/${escrowId}/resolve`, {
-                method: 'POST',
-                body: JSON.stringify({ resolution, notes, adminId: 'mock-admin-id' })
-            });
-            if (!res.ok) throw new Error();
-
-            toast.success('Resolved', { description: `Outcome: ${resolution}` });
-            window.location.reload();
-        } catch {
-            toast.error('Error resolving dispute');
-        }
-    };
-
-    if (currentStatus === 'disputed' && isAdmin) {
-        return (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg space-y-4">
-                <div className="flex items-center gap-2 text-red-700 font-bold">
-                    <ShieldAlert className="w-5 h-5" />
-                    <span>Dispute Active</span>
-                </div>
-                <p className="text-sm text-red-600">Review evidence and decide outcome.</p>
-                <Textarea
-                    placeholder="Resolution notes..."
-                    value={notes}
-                    onChange={e => setNotes(e.target.value)}
-                    className="bg-white"
-                />
-                <div className="flex gap-2">
-                    <Button onClick={() => handleResolve('release')} variant="outline" className="w-full border-green-500 text-green-700 hover:bg-green-50">
-                        Release to Provider
-                    </Button>
-                    <Button onClick={() => handleResolve('refund')} variant="destructive" className="w-full">
-                        Refund Client
-                    </Button>
-                </div>
-            </div>
-        );
-    }
-
-    if (currentStatus === 'in_escrow') {
-        return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-red-500">
-                        <AlertCircle className="w-4 h-4 mr-1" />
-                        Report a Problem
-                    </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Raise a Dispute</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                        <p className="text-sm text-muted-foreground">
-                            Funds will be frozen while an Umarel Admin reviews the case.
-                        </p>
-                        <Textarea
-                            placeholder="Describe the issue..."
-                            value={reason}
-                            onChange={e => setReason(e.target.value)}
-                        />
-                        <Button onClick={handleRaiseDispute} className="w-full" variant="destructive">
-                            <ShieldCheck className="w-4 h-4 mr-2" />
-                            Submit Dispute
-                        </Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        );
-    }
-
-    const handleAppeal = async () => {
-        try {
-            const res = await fetch(`/api/escrow/${escrowId}/appeal`, {
-                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ reason })
             });
-            if (!res.ok) throw new Error();
-            toast.success('Appeal Submitted');
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'Failed');
+            }
+
+            toast.success('Refund Requested', { description: 'Provider notified.' });
+            setIsOpen(false);
             window.location.reload();
-        } catch {
-            toast.error('Failed to submit appeal');
+        } catch (e: any) {
+            toast.error(e.message || 'Error requesting refund');
         }
     };
 
-    if ((currentStatus === 'released' || currentStatus === 'refunded') && !isAdmin) {
-        return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-orange-500">
-                        <ShieldAlert className="w-4 h-4 mr-1" />
-                        Appeal Decision
-                    </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Appeal Decision</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                        <p className="text-sm text-muted-foreground">
-                            If you believe the decision was unfair, you can appeal. An Admin will review it again.
-                        </p>
-                        <Textarea
-                            placeholder="Why are you appealing?"
-                            value={reason}
-                            onChange={e => setReason(e.target.value)}
-                        />
-                        <Button onClick={handleAppeal} className="w-full" variant="default">
-                            Submit Appeal
+    const handleRespond = async (action: 'accept' | 'reject') => {
+        try {
+            const res = await fetch(`/api/slices/${sliceId}/refund`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, evidence: reason }) // Start using reason as evidence link or text for now
+            });
+
+            if (!res.ok) throw new Error('Failed');
+
+            toast.success(action === 'accept' ? 'Refund Processed' : 'Dispute Started');
+            setIsOpen(false);
+            window.location.reload();
+        } catch {
+            toast.error('Error processing response');
+        }
+    }
+
+    // 1. Client Views
+    if (isClient) {
+        if (sliceStatus === 'completed' && (!refundStatus || refundStatus === 'none')) {
+            return (
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                    <DialogTrigger asChild>
+                        <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            Request Refund
                         </Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        );
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Request Refund</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                            <p className="text-sm text-muted-foreground">
+                                Only request this if the work was not done according to the agreement.
+                                Funds will be held.
+                            </p>
+                            <Textarea
+                                placeholder="Why are you requesting a refund?"
+                                value={reason}
+                                onChange={e => setReason(e.target.value)}
+                            />
+                            <Button onClick={handleRequestRefund} className="w-full" variant="destructive">
+                                Submit Request
+                            </Button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+            );
+        }
+
+        if (refundStatus === 'requested') {
+            return (
+                <div className="flex items-center gap-2 text-orange-600 text-sm font-medium">
+                    <CircleDashed className="w-4 h-4 animate-spin" />
+                    Refund Requested
+                </div>
+            );
+        }
+    }
+
+    // 2. Provider Views
+    if (isProvider) {
+        if (refundStatus === 'requested') {
+            return (
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                    <DialogTrigger asChild>
+                        <Button size="sm" variant="outline" className="border-orange-500 text-orange-600">
+                            Respond to Refund
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Respond to Refund Request</DialogTitle>
+                        </DialogHeader>
+                        <p className="text-sm text-stone-600">The client is requesting a refund.</p>
+
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <Button onClick={() => handleRespond('accept')} variant="outline" className="border-green-500 text-green-700 hover:bg-green-50">
+                                Accept (Refund)
+                            </Button>
+                            <div className="space-y-2">
+                                <Button onClick={() => handleRespond('reject')} variant="destructive" className="w-full">
+                                    Reject (Dispute)
+                                </Button>
+                                <p className="text-[10px] text-stone-400 text-center">Requires evidence upload</p>
+                            </div>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+            )
+        }
+    }
+
+    // Common Status Badges
+    if (refundStatus === 'approved') {
+        return <span className="text-green-600 text-xs font-bold flex items-center gap-1"><ShieldCheck size={12} /> Refunded</span>;
+    }
+    if (refundStatus === 'disputed') {
+        return <span className="text-red-600 text-xs font-bold flex items-center gap-1"><ShieldAlert size={12} /> Disputed</span>;
     }
 
     return null;

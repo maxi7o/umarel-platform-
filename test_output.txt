@@ -1,0 +1,260 @@
+
+> umarel.org@0.1.0 test
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.15 [39m[90m/Users/maxi/umarel.org[39m
+
+ [32m✓[39m __tests__/unit/utils.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m __tests__/unit/calculations.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m __tests__/unit/date-utils.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+[90mstdout[2m | __tests__/unit/webhooks.test.ts[2m > [22m[2mPayment Webhooks[2m > [22m[2mMercado Pago: Should update escrow to in_escrow on approved payment
+[22m[39m[MP Webhook] Received: { type: [32m'payment'[39m, data: { id: [32m'12345'[39m } }
+
+ [32m✓[39m __tests__/unit/webhooks.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+[90mstderr[2m | __tests__/unit/ai-usage.test.ts
+[22m[39mOPENAI_API_KEY is not set - Wizard AI features will not work
+
+[90mstdout[2m | __tests__/unit/ai-usage.test.ts[2m > [22m[2mAI Logic (Mocked)[2m > [22m[2mprocessExpertComment handles valid technical feedback
+[22m[39m🤖 Starting AI Analysis for comment: Make sure to ask about the size.
+Cards Context: [{"id":"123"}]
+
+ [32m✓[39m __tests__/unit/quote-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 8[2mms[22m[39m
+[90mstdout[2m | __tests__/unit/ai-usage.test.ts[2m > [22m[2mAI Logic (Mocked)[2m > [22m[2mprocessExpertComment skips AI call for short comments
+[22m[39mSkipping AI analysis for low-value comment: Ok
+
+ [32m✓[39m __tests__/unit/ai-usage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m __tests__/unit/wizard-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstderr[2m | __tests__/integration/dispute.test.ts
+[22m[39mMERCADOPAGO_ACCESS_TOKEN is not set - Mercado Pago will not work
+
+ [32m✓[39m __tests__/unit/payment-factory.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+[90mstderr[2m | __tests__/integration/feedback-loop.test.ts
+[22m[39mOPENAI_API_KEY is not set - Wizard AI features will not work
+
+ [31m❯[39m __tests__/integration/dispute.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 92[2mms[22m[39m
+[31m     [31m×[31m should allow raising a dispute[39m[32m 66[2mms[22m[39m
+[31m     [31m×[31m should allow admin to resolve dispute by refunding[39m[32m 21[2mms[22m[39m
+[31m     [31m×[31m should allow admin to resolve dispute by releasing funds[39m[32m 4[2mms[22m[39m
+ [31m❯[39m __tests__/integration/dispute-ai.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 70[2mms[22m[39m
+[31m     [31m×[31m should block completion without evidence[39m[32m 41[2mms[22m[39m
+[31m     [31m×[31m should allow completion WITH evidence[39m[32m 23[2mms[22m[39m
+[31m     [31m×[31m should analyze dispute using AI[39m[32m 4[2mms[22m[39m
+ [32m✓[39m __tests__/unit/rating-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 8[2mms[22m[39m
+[90mstdout[2m | __tests__/integration/feedback-loop.test.ts
+[22m[39m[dotenv@17.2.3] injecting env (3) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+
+ [32m✓[39m __tests__/unit/insight-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mrefund[2m > [22m[2mshould call refund with full amount when no amount is specified
+[22m[39m[MercadoPagoAdapter] Refunding payment: tx-123, Amount: Full
+
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mrefund[2m > [22m[2mshould call refund with specific amount when provided
+[22m[39m[MercadoPagoAdapter] Refunding payment: tx-123, Amount: 50.5
+
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mrefund[2m > [22m[2mshould throw error if refund status is not approved/refunded
+[22m[39m[MercadoPagoAdapter] Refunding payment: tx-123, Amount: Full
+
+[90mstderr[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mrefund[2m > [22m[2mshould throw error if refund status is not approved/refunded
+[22m[39m[MercadoPagoAdapter] Refund failed Error: Refund status: rejected
+    at MercadoPagoAdapter.refund [90m(/Users/maxi/umarel.org/[39mlib/payments/mercadopago-adapter.ts:118:23[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
+
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mreleaseFunds[2m > [22m[2mshould return success if payment is approved
+[22m[39m[MercadoPagoAdapter] Checking Release Status for: tx-123
+
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mreleaseFunds[2m > [22m[2mshould return success if payment is accredited
+[22m[39m[MercadoPagoAdapter] Checking Release Status for: tx-123
+
+[90mstdout[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mreleaseFunds[2m > [22m[2mshould return failure if payment is pending
+[22m[39m[MercadoPagoAdapter] Checking Release Status for: tx-123
+
+[90mstderr[2m | __tests__/unit/payment-adapters.test.ts[2m > [22m[2mMercadoPagoAdapter[2m > [22m[2mreleaseFunds[2m > [22m[2mshould return failure if payment is pending
+[22m[39m[MercadoPagoAdapter] Payment not ready for release. Status: pending
+
+ [32m✓[39m __tests__/unit/payment-adapters.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [31m❯[39m __tests__/integration/feedback-loop.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 59[2mms[22m[39m
+[31m     [31m×[31m should create a change proposal when expert comments[39m[32m 38[2mms[22m[39m
+[31m     [31m×[31m should apply changes and award aura when owner accepts proposal[39m[32m 20[2mms[22m[39m
+ [32m✓[39m __tests__/unit/pricing-engine.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m __tests__/unit/request-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m __tests__/unit/slice-service.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 8 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute-ai.test.ts[2m > [22mDispute & AI Integration[2m > [22mshould block completion without evidence
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"
+params: 6c745dc2-ca7d-47e7-80d8-d4242f8969b1,83c3e8d1-5c9f-4685-96cb-e1156dc8932e,2246cb5b-8882-4cbf-b495-2f6821f66c88,Roof Repair,Fix leak,10000,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[90m [2m❯[22m node_modules/drizzle-orm/postgres-js/session.js:[2m37:20[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute-ai.test.ts:[2m70:25[22m[39m
+    [90m 68| [39m        })[33m.[39m[34mreturning[39m()[33m;[39m
+    [90m 69| [39m
+    [90m 70| [39m        [35mconst[39m [slice] [33m=[39m [35mawait[39m db[33m.[39m[34minsert[39m(slices)[33m.[39m[34mvalues[39m({
+    [90m   | [39m                        [31m^[39m
+    [90m 71| [39m            requestId[33m:[39m req[33m.[39mid[33m,[39m
+    [90m 72| [39m            creatorId[33m:[39m client[33m.[39mid[33m,[39m
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"', parameters: [ '6c745dc2-ca7d-47e7-80d8-d4242f8969b1', '83c3e8d1-5c9f-4685-96cb-e1156dc8932e', '2246cb5b-8882-4cbf-b495-2f6821f66c88', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], args: [ '6c745dc2-ca7d-47e7-80d8-d4242f8969b1', '83c3e8d1-5c9f-4685-96cb-e1156dc8932e', '2246cb5b-8882-4cbf-b495-2f6821f66c88', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute-ai.test.ts[2m > [22mDispute & AI Integration[2m > [22mshould allow completion WITH evidence
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"
+params: c0ae60ee-9fe6-4da4-a5f8-0175e1fd7228,952c6871-4070-4bd3-a7ae-0fdbe300814c,b33c1aca-5dd5-49fe-9c0e-fc5608346b1f,Roof Repair,Fix leak,10000,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[90m [2m❯[22m node_modules/drizzle-orm/postgres-js/session.js:[2m37:20[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute-ai.test.ts:[2m70:25[22m[39m
+    [90m 68| [39m        })[33m.[39m[34mreturning[39m()[33m;[39m
+    [90m 69| [39m
+    [90m 70| [39m        [35mconst[39m [slice] [33m=[39m [35mawait[39m db[33m.[39m[34minsert[39m(slices)[33m.[39m[34mvalues[39m({
+    [90m   | [39m                        [31m^[39m
+    [90m 71| [39m            requestId[33m:[39m req[33m.[39mid[33m,[39m
+    [90m 72| [39m            creatorId[33m:[39m client[33m.[39mid[33m,[39m
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"', parameters: [ 'c0ae60ee-9fe6-4da4-a5f8-0175e1fd7228', '952c6871-4070-4bd3-a7ae-0fdbe300814c', 'b33c1aca-5dd5-49fe-9c0e-fc5608346b1f', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], args: [ 'c0ae60ee-9fe6-4da4-a5f8-0175e1fd7228', '952c6871-4070-4bd3-a7ae-0fdbe300814c', 'b33c1aca-5dd5-49fe-9c0e-fc5608346b1f', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute-ai.test.ts[2m > [22mDispute & AI Integration[2m > [22mshould analyze dispute using AI
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"
+params: 0cfb8ce7-b30d-4b9a-ab27-e7f3d790c676,837cee99-6829-4f10-9cdd-19acc4ef2e86,144f9ac3-a304-42c6-b9f2-ed1f5829006c,Roof Repair,Fix leak,10000,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[90m [2m❯[22m node_modules/drizzle-orm/postgres-js/session.js:[2m37:20[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute-ai.test.ts:[2m70:25[22m[39m
+    [90m 68| [39m        })[33m.[39m[34mreturning[39m()[33m;[39m
+    [90m 69| [39m
+    [90m 70| [39m        [35mconst[39m [slice] [33m=[39m [35mawait[39m db[33m.[39m[34minsert[39m(slices)[33m.[39m[34mvalues[39m({
+    [90m   | [39m                        [31m^[39m
+    [90m 71| [39m            requestId[33m:[39m req[33m.[39mid[33m,[39m
+    [90m 72| [39m            creatorId[33m:[39m client[33m.[39mid[33m,[39m
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, $3, $4, $5, default, default, default, default, $6, $7, default, default, default, default, default, default, default, default, default, default, default, default, default) returning "id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at"', parameters: [ '0cfb8ce7-b30d-4b9a-ab27-e7f3d790c676', '837cee99-6829-4f10-9cdd-19acc4ef2e86', '144f9ac3-a304-42c6-b9f2-ed1f5829006c', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], args: [ '0cfb8ce7-b30d-4b9a-ab27-e7f3d790c676', '837cee99-6829-4f10-9cdd-19acc4ef2e86', '144f9ac3-a304-42c6-b9f2-ed1f5829006c', 'Roof Repair', 'Fix leak', 10000, 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute.test.ts[2m > [22mDispute Resolution System[2m > [22mshould allow raising a dispute
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)
+params: ac0d4a7d-87cf-400d-ae07-2de064c3fc5d,f52dd58e-d20e-4b43-bd67-5369300f155b,c59e09dc-2274-4cb1-836f-5f0269dec095,Slice,Desc,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute.test.ts:[2m32:9[22m[39m
+    [90m 30| [39m
+    [90m 31| [39m        await db.insert(requests).values({ id: requestId, userId: clie…
+    [90m 32| [39m        await db.insert(slices).values({ id: sliceId, requestId, creat…
+    [90m   | [39m        [31m^[39m
+    [90m 33| [39m
+    [90m 34| [39m        [35mawait[39m db[33m.[39m[34minsert[39m(escrowPayments)[33m.[39m[34mvalues[39m({
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)', parameters: [ 'ac0d4a7d-87cf-400d-ae07-2de064c3fc5d', 'f52dd58e-d20e-4b43-bd67-5369300f155b', 'c59e09dc-2274-4cb1-836f-5f0269dec095', 'Slice', 'Desc', 'in_progress' ], args: [ 'ac0d4a7d-87cf-400d-ae07-2de064c3fc5d', 'f52dd58e-d20e-4b43-bd67-5369300f155b', 'c59e09dc-2274-4cb1-836f-5f0269dec095', 'Slice', 'Desc', 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute.test.ts[2m > [22mDispute Resolution System[2m > [22mshould allow admin to resolve dispute by refunding
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)
+params: 1e1fc816-391a-424c-ad4a-5fa71be56ed1,6d0df422-f01f-4a03-a676-be12dd82a232,8a560fad-b067-4ce9-b10e-bb1df4e7a201,Slice,Desc,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute.test.ts:[2m32:9[22m[39m
+    [90m 30| [39m
+    [90m 31| [39m        await db.insert(requests).values({ id: requestId, userId: clie…
+    [90m 32| [39m        await db.insert(slices).values({ id: sliceId, requestId, creat…
+    [90m   | [39m        [31m^[39m
+    [90m 33| [39m
+    [90m 34| [39m        [35mawait[39m db[33m.[39m[34minsert[39m(escrowPayments)[33m.[39m[34mvalues[39m({
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)', parameters: [ '1e1fc816-391a-424c-ad4a-5fa71be56ed1', '6d0df422-f01f-4a03-a676-be12dd82a232', '8a560fad-b067-4ce9-b10e-bb1df4e7a201', 'Slice', 'Desc', 'in_progress' ], args: [ '1e1fc816-391a-424c-ad4a-5fa71be56ed1', '6d0df422-f01f-4a03-a676-be12dd82a232', '8a560fad-b067-4ce9-b10e-bb1df4e7a201', 'Slice', 'Desc', 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/dispute.test.ts[2m > [22mDispute Resolution System[2m > [22mshould allow admin to resolve dispute by releasing funds
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)
+params: f5284c3f-2d0e-482f-8763-ec1dfff7622f,08ef261c-e1fe-4780-98ee-0f04714ea76d,fd902668-b764-4ad4-846f-62152fdbb9a5,Slice,Desc,in_progress[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[36m [2m❯[22m __tests__/integration/dispute.test.ts:[2m32:9[22m[39m
+    [90m 30| [39m
+    [90m 31| [39m        await db.insert(requests).values({ id: requestId, userId: clie…
+    [90m 32| [39m        await db.insert(slices).values({ id: sliceId, requestId, creat…
+    [90m   | [39m        [31m^[39m
+    [90m 33| [39m
+    [90m 34| [39m        [35mawait[39m db[33m.[39m[34minsert[39m(escrowPayments)[33m.[39m[34mvalues[39m({
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values ($1, $2, $3, default, $4, $5, default, default, default, default, default, $6, default, default, default, default, default, default, default, default, default, default, default, default, default)', parameters: [ 'f5284c3f-2d0e-482f-8763-ec1dfff7622f', '08ef261c-e1fe-4780-98ee-0f04714ea76d', 'fd902668-b764-4ad4-846f-62152fdbb9a5', 'Slice', 'Desc', 'in_progress' ], args: [ 'f5284c3f-2d0e-482f-8763-ec1dfff7622f', '08ef261c-e1fe-4780-98ee-0f04714ea76d', 'fd902668-b764-4ad4-846f-62152fdbb9a5', 'Slice', 'Desc', 'in_progress' ], types: [ +0, +0, +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/feedback-loop.test.ts[2m > [22mFeedback Loop Integration[2m > [22mshould create a change proposal when expert comments
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, default, $3, $4, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default)
+params: ed9d8922-675e-4bda-b913-d8cafb36cf50,9d161abe-a5e9-4aa2-89d4-4c005e157b4c,Initial Slice,Something[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[36m [2m❯[22m __tests__/integration/feedback-loop.test.ts:[2m80:9[22m[39m
+    [90m 78| [39m
+    [90m 79| [39m        [90m// 4. Create Initial Slice[39m
+    [90m 80| [39m        [35mawait[39m db[33m.[39m[34minsert[39m(slices)[33m.[39m[34mvalues[39m({
+    [90m   | [39m        [31m^[39m
+    [90m 81| [39m            requestId[33m:[39m requestId[33m,[39m
+    [90m 82| [39m            creatorId[33m:[39m ownerId[33m,[39m
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, default, $3, $4, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default)', parameters: [ 'ed9d8922-675e-4bda-b913-d8cafb36cf50', '9d161abe-a5e9-4aa2-89d4-4c005e157b4c', 'Initial Slice', 'Something' ], args: [ 'ed9d8922-675e-4bda-b913-d8cafb36cf50', '9d161abe-a5e9-4aa2-89d4-4c005e157b4c', 'Initial Slice', 'Something' ], types: [ +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m __tests__/integration/feedback-loop.test.ts[2m > [22mFeedback Loop Integration[2m > [22mshould apply changes and award aura when owner accepts proposal
+[31m[1mError[22m: Failed query: insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, default, $3, $4, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default)
+params: 87c82af0-f3ae-4627-961e-ad60d66a50ed,afa254df-9a15-4593-9f0e-8820af524980,Initial Slice,Something[39m
+[90m [2m❯[22m PostgresJsPreparedQuery.queryWithCache node_modules/drizzle-orm/pg-core/session.js:[2m41:15[22m[39m
+[36m [2m❯[22m __tests__/integration/feedback-loop.test.ts:[2m80:9[22m[39m
+    [90m 78| [39m
+    [90m 79| [39m        [90m// 4. Create Initial Slice[39m
+    [90m 80| [39m        [35mawait[39m db[33m.[39m[34minsert[39m(slices)[33m.[39m[34mvalues[39m({
+    [90m   | [39m        [31m^[39m
+    [90m 81| [39m            requestId[33m:[39m requestId[33m,[39m
+    [90m 82| [39m            creatorId[33m:[39m ownerId[33m,[39m
+
+[31m[1mCaused by: PostgresError[22m: column "refund_status" of relation "slices" does not exist[39m
+[90m [2m❯[22m ErrorResponse node_modules/postgres/src/connection.js:[2m794:26[22m[39m
+[90m [2m❯[22m handle node_modules/postgres/src/connection.js:[2m480:6[22m[39m
+[90m [2m❯[22m Socket.data node_modules/postgres/src/connection.js:[2m315:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ severity_local: 'ERROR', severity: 'ERROR', code: '42703', position: '244', file: 'parse_target.c', routine: 'checkInsertTargets', query: 'insert into "slices" ("id", "request_id", "creator_id", "assigned_provider_id", "title", "description", "estimated_effort", "estimated_hours", "market_price_min", "market_price_max", "final_price", "status", "is_ai_generated", "dependencies", "refund_status", "refund_reason", "dispute_evidence", "refund_requested_at", "refund_decided_at", "skills_required", "escrow_payment_id", "approved_by_client_at", "paid_at", "disputed_at", "created_at") values (default, $1, $2, default, $3, $4, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default)', parameters: [ '87c82af0-f3ae-4627-961e-ad60d66a50ed', 'afa254df-9a15-4593-9f0e-8820af524980', 'Initial Slice', 'Something' ], args: [ '87c82af0-f3ae-4627-961e-ad60d66a50ed', 'afa254df-9a15-4593-9f0e-8820af524980', 'Initial Slice', 'Something' ], types: [ +0, +0, +0, +0 ] }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m14 passed[39m[22m[90m (17)[39m
+[2m      Tests [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m38 passed[39m[22m[90m (46)[39m
+[2m   Start at [22m 01:40:48
+[2m   Duration [22m 1.20s[2m (transform 858ms, setup 0ms, import 4.91s, tests 361ms, environment 2ms)[22m
+

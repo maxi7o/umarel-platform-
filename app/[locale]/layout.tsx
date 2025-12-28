@@ -11,6 +11,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { MarketProvider } from '@/lib/market-context';
 import { LanguageSwitchPrompt } from '@/components/location/language-switch-prompt';
 import { InteractiveTable } from "@/components/layout/interactive-table";
+import { TranslationSentinel } from '@/components/debug/translation-sentinel';
+import { createClient } from '@/lib/supabase/server';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
@@ -45,6 +47,12 @@ export default async function LocaleLayout({
     // Providing all messages to the client
     // side is the easiest way to get started
     const messages = await getMessages();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+        // User is logged in
+    }
 
     return (
         <html lang={locale} suppressHydrationWarning>
@@ -54,9 +62,14 @@ export default async function LocaleLayout({
             >
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
-                        <Navbar />
-                        <main className="flex-1">{children}</main>
-                        <Footer />
+                        <TranslationSentinel />
+                        <div className="flex flex-col min-h-screen">
+                            <Navbar user={user} />
+                            <main className="flex-grow">
+                                {children}
+                            </main>
+                            <Footer />
+                        </div>
                         <Toaster />
                         <LanguageSwitchPrompt />
                     </MarketProvider>

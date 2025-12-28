@@ -26,12 +26,13 @@ interface SliceKanbanProps {
     slices: Slice[];
     requestId: string;
     isOwner: boolean;
+    currentUserId?: string;
     onSliceUpdated: (slice: Slice) => void;
 }
 
 import { useTranslations } from 'next-intl';
 
-export function SliceKanban({ slices, requestId, isOwner, onSliceUpdated }: SliceKanbanProps) {
+export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSliceUpdated }: SliceKanbanProps) {
     const t = useTranslations('kanban');
 
     const COLUMNS = [
@@ -130,17 +131,18 @@ export function SliceKanban({ slices, requestId, isOwner, onSliceUpdated }: Slic
                                             </div>
 
                                             {/* Dispute Actions for active escrows */}
-                                            {slice.escrow && (
+                                            {slice.status === 'completed' && (
                                                 <div className="w-full flex justify-end mt-3 border-t pt-2">
                                                     <DisputeActions
-                                                        escrowId={slice.escrow.id}
-                                                        currentStatus={slice.escrow.status}
-                                                        isAdmin={false} // Assume user for now
+                                                        sliceId={slice.id}
+                                                        refundStatus={(slice as any).refundStatus} // Type cast until Slice interface is fully updated
+                                                        sliceStatus={slice.status}
+                                                        isClient={isOwner} // Assuming isOwner means Request Owner (Client)
+                                                        isProvider={currentUserId === (slice as any).assignedProviderId || (slice as any).creatorId === currentUserId} // Check if current user is provider
                                                     />
                                                 </div>
                                             )}
 
-                                            {/* Simple controls to move items for demo */}
                                             <div className="flex justify-end gap-1 pt-2 border-t mt-2 flex-wrap">
                                                 {col.id === 'proposed' && isOwner && (
                                                     <Button
@@ -160,6 +162,26 @@ export function SliceKanban({ slices, requestId, isOwner, onSliceUpdated }: Slic
                                                         onClick={() => handleMove(slice.id, 'completed')}
                                                     >
                                                         {t('actions.complete')}
+                                                    </Button>
+                                                )}
+                                                {/* Fund Release Button */}
+                                                {col.id === 'completed' && isOwner && (slice.escrow?.status !== 'released') && (
+                                                    <Button
+                                                        size="sm"
+                                                        className="h-7 text-xs w-full bg-green-600 hover:bg-green-700 text-white"
+                                                        onClick={async () => {
+                                                            if (!confirm('Release funds to provider? This is final.')) return;
+                                                            try {
+                                                                const res = await fetch(`/api/slices/${slice.id}/release`, { method: 'POST' });
+                                                                if (!res.ok) throw new Error('Release failed');
+                                                                toast.success('Funds Released! 💸');
+                                                                window.location.reload();
+                                                            } catch (e) {
+                                                                toast.error('Error releasing funds');
+                                                            }
+                                                        }}
+                                                    >
+                                                        Release Funds 🤝
                                                     </Button>
                                                 )}
                                             </div>

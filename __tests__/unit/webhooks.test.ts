@@ -58,7 +58,7 @@ describe('Payment Webhooks', () => {
         await mpWebhookHandler(req);
 
         expect(payment.get).toHaveBeenCalledWith({ id: '12345' });
-        expect(escrowService.updateStatusByEscrowId).toHaveBeenCalledWith('escrow-uuid-123', 'in_escrow');
+        expect(escrowService.updateStatusByEscrowId).toHaveBeenCalledWith('escrow-uuid-123', 'in_escrow', '12345');
     });
 
     it('Stripe: Should update escrow to in_escrow on payment_intent.succeeded', async () => {

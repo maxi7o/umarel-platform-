@@ -1,5 +1,9 @@
 'use client'
 
+import { useState, Suspense } from 'react'
+import { Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+
 import { login, signup, signInWithGoogle } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,8 +13,13 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useTranslations } from 'next-intl'
 
-export default function LoginPage() {
+function LoginForm() {
     const t = useTranslations()
+    const [showPassword, setShowPassword] = useState(false)
+    const searchParams = useSearchParams()
+
+    const error = searchParams.get('error')
+    const message = searchParams.get('message')
 
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gray-50">
@@ -22,6 +31,20 @@ export default function LoginPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                    {/* Error / Success Messages */}
+                    {error && (
+                        <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md flex items-center gap-2">
+                            <AlertCircle className="h-4 w-4" />
+                            <p>{error}</p>
+                        </div>
+                    )}
+                    {message && (
+                        <div className="bg-emerald-500/15 text-emerald-600 text-sm p-3 rounded-md flex items-center gap-2">
+                            <CheckCircle2 className="h-4 w-4" />
+                            <p>{message}</p>
+                        </div>
+                    )}
+
                     <form action={signInWithGoogle}>
                         <Button variant="outline" className="w-full" type="submit">
                             <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
@@ -42,7 +65,31 @@ export default function LoginPage() {
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">{t("login.password")}</Label>
-                            <Input id="password" name="password" type="password" required />
+                            <div className="relative">
+                                <Input
+                                    id="password"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    required
+                                    className="pr-10"
+                                />
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="h-4 w-4 text-muted-foreground" />
+                                    ) : (
+                                        <Eye className="h-4 w-4 text-muted-foreground" />
+                                    )}
+                                    <span className="sr-only">
+                                        {showPassword ? "Hide password" : "Show password"}
+                                    </span>
+                                </Button>
+                            </div>
                         </div>
                         <div className="flex items-center space-x-2">
                             <Checkbox id="terms" name="terms" required />
@@ -64,5 +111,13 @@ export default function LoginPage() {
                 </CardContent>
             </Card>
         </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">Loading...</div>}>
+            <LoginForm />
+        </Suspense>
     )
 }

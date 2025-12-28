@@ -30,7 +30,7 @@
             "title": "La Filosofía Umarel",
             "headlineLine1": "No solo miramos.",
             "headlineLine2": "Maximizamos la verdad.",
-            "subheadline": "La construcción es caos. Las disputas ralentizan todo. Somos la {highlight} que convierte el \"me dijo, le dije\" en colaboración verificada.",
+            "subheadline": "La construcción es caos. Las disputas ralentizan todo. Somos la Fuente de Verdad que convierte el \"me dijo, le dije\" en colaboración verificada.",
             "highlight": "Fuente de Verdad"
         },
         "pillars": {
@@ -40,7 +40,7 @@
             },
             "judge": {
                 "title": "El Juez Pragmático",
-                "description": "La justicia perfecta es lenta. Optimizamos el {bold}. Nuestro objetivo es destrabar la obra protegiendo la integridad del trato.",
+                "description": "La justicia perfecta es lenta. Optimizamos el flujo justo. Nuestro objetivo es destrabar la obra protegiendo la integridad del trato.",
                 "bold": "flujo justo"
             },
             "growth": {
@@ -53,7 +53,9 @@
         "browse": "Explorar",
         "offerServices": "Ofrecer Servicios",
         "login": "Iniciar sesión",
-        "postNeed": "Publicar Necesidad"
+        "postNeed": "Publicar Necesidad",
+        "dashboard": "Panel",
+        "logout": "Cerrar sesión"
     },
     "footer": {
         "platform": "Plataforma",
@@ -69,6 +71,7 @@
         "privacy": "Política de Privacidad",
         "cookie": "Política de Cookies",
         "copyright": "© 2026 Umarel. Todos los derechos reservados. Hecho con 🧡 y café.",
+        "dailyWisdom": "Sabiduría Diaria:",
         "quotes": [
             "Así no se hace... (That's not how you do it...)",
             "En mis tiempos aquí era todo campo. (In my times this was all countryside.)",
@@ -92,12 +95,18 @@
         "step1Title": "1. Publica una Solicitud",
         "step1Desc": "Describe lo que necesitas. \"Arreglar mi cocina\" o \"Construir un sitio web\". No necesitas detalles técnicos todavía.",
         "step2Title": "2. Los Umarels lo Dividen",
-        "step2Desc": "Nuestra comunidad de sabios Umarels divide tu solicitud en pequeñas \"Porciones de Servicio\" precisas.",
-        "step3Title": "3. Paga por Porción",
-        "step3Desc": "Los proveedores cotizan porciones individuales. Aceptas y pagas solo cuando se completa cada porción.",
+        "step2Desc": "Nuestra comunidad de sabios Umarels divide tu solicitud en pequeñas \"Fichas de Ejecución\" precisas.",
+        "step3Title": "3. Paga por Ficha",
+        "step3Desc": "Los proveedores cotizan fichas individuales. Aceptas y pagas solo cuando se completa cada ficha.",
         "trustedTitle": "Construido para los mejores Umarels"
     },
     "landing": {
+        "concept": {
+            "title": "Espera... ¿qué es un Umarel?",
+            "subtitle": "La leyenda detrás del nombre",
+            "description": "Originario de Bolonia, Italia, el **Umarell** (plural: Umarells o Umarels) es el jubilado que se para en las obras en construcción con las manos detrás de la espalda, ofreciendo consejos no solicitados y supervisando el trabajo.",
+            "digital": "Convertimos este ícono cultural en un rol digital. En nuestra plataforma, **los Umarels son revisores expertos** que aseguran que tu proyecto esté bien definido, los precios sean justos y el trabajo se haga bien. Son tu fuente independiente de verdad."
+        },
         "hero": {
             "title": "Construí confianza, compartí sabiduría, ganá Aura.",
             "subtitle1": "Sumate a una comunidad de expertos ayudando a vecinos a hacer las cosas bien —",
@@ -141,8 +150,8 @@
             "welcome": "Benvegnuti a",
             "slogan": "Ayudándote a construir mejor, un plato de pasta a la vez.",
             "capisci": "¿Capisci?",
-            "orderProject": "Ordina un Projecto 🏗️",
-            "browseMenu": "Mirar el Menú 🍕",
+            "orderProject": "Publicar Proyecto 🏗️",
+            "browseMenu": "Ver el Menú 🍕",
             "wip": "En Obra 🚧"
         },
         "trustHero": {
@@ -212,16 +221,16 @@
     },
     "createRequest": {
         "title": "Publicar Nueva Solicitud",
-        "subtitle": "Describe lo que necesitas. Nuestros Umarels te ayudarán a dividirlo.",
+        "subtitle": "Describí lo que necesitás. Nuestros Umarels te ayudarán a dividirlo.",
         "form": {
             "title": "Título",
-            "titlePlaceholder": "ej. Arreglar mi fregadero y pintar la pared",
+            "titlePlaceholder": "ej. Arreglar mi bacha y pintar la pared",
             "description": "Descripción",
-            "descPlaceholder": "Proporciona más detalles sobre la tarea...",
+            "descPlaceholder": "Proporcioná más detalles sobre la tarea...",
             "location": "Ubicación",
             "locationPlaceholder": "Ciudad o Dirección",
             "photos": "Fotos (Opcional)",
-            "uploadText": "Haz clic para subir o arrastra y suelta",
+            "uploadText": "Hacé clic para subir o arrastrá y soltá",
             "submit": "Publicar Solicitud"
         }
     },
@@ -320,23 +329,29 @@
         "postedBy": "Responsable",
         "created": "Inicio de Obra",
         "privateInsights": "La Libreta del Umarel",
-        "noInsights": "Todo demasiado tranquilo... ¿Seguro no se te escapa nada? Ponte las manos en la espalda y observa bien.",
-        "noComments": "Sin novedades en el frente. Empieza a supervisar.",
+        "noInsights": "👋 ¡Bienvenido a tu Libreta de Obra!\n\nAquí es donde definimos el éxito. Describe tu proyecto con tus palabras y yo (tu Capataz IA) te haré preguntas breves para dividirlo en **Fichas de Ejecución** claras.\n\nEsto asegura que obtengas cotizaciones exactas y sin sorpresas.",
+        "noComments": "Aún no hay actividad. Empieza a describir tu proyecto para generar Fichas de Ejecución.",
         "placeholder": "Aquí no venimos a charlar. Señala riesgos, sugiere mejoras o marca el error...",
-        "placeholderInsight": "Susúrrale una observación técnica al cliente (Privado)...",
-        "placeholderComment": "Añadir entrada a la bitácora...",
-        "placeholderPrompt": "Pídeme desglosar esto en fases o analizar costos...",
         "aiMode": "Capataz IA",
         "aiModeActive": "Capataz IA Activo",
-        "send": "Registrar",
-        "sending": "Registrando...",
-        "tabs": {
-            "overview": "Planos",
-            "slices": "Planilla",
-            "quotes": "Ofertas",
-            "activity": "Bitácora"
+        "phase": {
+            "label": "Fase Actual",
+            "defining": "Definiendo Alcance",
+            "bidding": "Abierto a Ofertas"
         },
+        "tabs": {
+            "slices": "Planilla",
+            "quotes": "Ofertas"
+        },
+        "send": "Enviar",
+        "sending": "Enviando...",
         "pendingProposals": "Órdenes de Cambio Pendientes",
+        "tips": {
+            "label": "Consejo Pro",
+            "text": "Usa la libreta para preguntar a la IA cosas como",
+            "example1": "¿Es justa esta cotización?",
+            "example2": "¿Qué riesgos debo buscar?"
+        },
         "submittedQuotes": "Ofertas Recibidas",
         "noQuotes": "Aún no hay ofertas sobre la mesa.",
         "quoteFrom": "Oferta de",
