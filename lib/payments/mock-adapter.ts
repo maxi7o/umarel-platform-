@@ -4,9 +4,12 @@ import { PaymentStrategy } from './strategy';
 export class MockPaymentAdapter implements PaymentStrategy {
     async createEscrow(sliceId: string, amountCents: number, currency: string, payerId: string, payeeId: string) {
         console.log(`[MockPayment] Creating Escrow: ${amountCents} ${currency} for Slice ${sliceId}`);
+        // Return a mock transaction ID and a redirect to our mock success handler
+        const txId = `mock_tx_${Date.now()}`;
         return {
-            transactionId: `mock_tx_${Date.now()}`,
-            status: 'pending_escrow'
+            transactionId: txId,
+            status: 'pending_escrow',
+            redirectUrl: `/api/mock/payment-success?sliceId=${sliceId}&txId=${txId}`
         };
     }
 

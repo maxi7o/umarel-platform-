@@ -10,6 +10,10 @@ export function getPaymentStrategy(context?: { countryCode?: string; provider?: 
     if (context?.provider === 'stripe') return new StripePaymentAdapter();
 
     // Elastic switch based on Env or Context
+    if (process.env.USE_MOCK_PAYMENTS === 'true') {
+        return new MockPaymentAdapter();
+    }
+
     const useRealStripe = process.env.USE_REAL_PAYMENTS === 'true';
 
     // LATAM Countries check
