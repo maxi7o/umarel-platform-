@@ -154,6 +154,13 @@
             "browseMenu": "Ver el Menú 🍕",
             "wip": "En Obra 🚧"
         },
+        "valueProposition": {
+            "title": "¿A dónde va la plata?",
+            "subtitle": "No escondemos nuestras comisiones. Compartimos nuestro éxito.",
+            "platformFee": "12% Plataforma",
+            "communityDividend": "3% Dividendo",
+            "providerShare": "85% Proveedor"
+        },
         "trustHero": {
             "tagline": "Tu viejo mirando la obra, pero profesional.",
             "title": "Tranquilidad total para tu reforma.",
@@ -162,17 +169,17 @@
             "ctaSecondary": "Ver Ahorros Reales",
             "ticker": "Los Umarels expertos detectan errores antes de poner el ladrillo... Presupuestos verificados significan precios justos...",
             "demoCard": {
-                "header": "Presupuesto de Techo",
-                "meta": "Enviado hace 2h • Palermo",
-                "riskBadge": "RIESGO DETECTADO",
-                "item1": "Materiales (Membrana)",
-                "item2": "Mano de Obra",
-                "insightLabel": "Consejo de Umarel",
-                "insightText": "Che pibe, ese precio por membrana de 4mm es el doble del mercado. Además, no incluyeron la pintura asfáltica. Rechazalo.",
-                "fairPrice": "Nuevo Precio Justo",
-                "savedBadge": "Ahorrado",
-                "verifiedAudits": "Verificación Humana",
-                "saved": "Ahorrado"
+                "header": "Trekking & Yoga Patagonia",
+                "meta": "Enviado hace 2h • Bariloche",
+                "riskBadge": "VERIFICADO",
+                "item1": "Guía Certificado",
+                "item2": "Seguro Incluido",
+                "insightLabel": "Verificado por Umarel",
+                "insightText": "Precio justo confirmado. El proveedor tiene 15 viajes exitosos verificados. Plan de contingencia climática incluido.",
+                "fairPrice": "Calidad Garantizada",
+                "savedBadge": "Seguro",
+                "verifiedAudits": "Auditoría Humana",
+                "saved": "Seguro"
             }
         },
         "italianQuotes": {

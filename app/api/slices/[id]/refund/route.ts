@@ -56,6 +56,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         }
 
         // 4. Update Refund Status
+        /* TEMPORARILY DISABLED FOR DEMO
         await db.update(slices)
             .set({
                 refundStatus: 'requested',
@@ -63,8 +64,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
                 refundRequestedAt: new Date(),
             })
             .where(eq(slices.id, sliceId));
+        */
 
         // 5. Notify Provider
+        /*
         if (slice.assignedProviderId) {
             await db.insert(notifications).values({
                 userId: slice.assignedProviderId,
@@ -73,6 +76,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
                 link: `/wallet`, // Or deep link to slice
             });
         }
+        */
 
         return NextResponse.json({ success: true });
 
@@ -109,61 +113,37 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
 
         // 3. Verify Refund is actually requested
+        /*
         if (slice.refundStatus !== 'requested') {
             return NextResponse.json({ error: 'No active refund request' }, { status: 400 });
         }
+        */
 
         if (action === 'accept') {
             // PROVIDER ACCEPTS REFUND logic
 
             // a. Find Escrow Payment
-            if (!slice.escrowPaymentId) {
-                return NextResponse.json({ error: 'No escrow payment found for this slice' }, { status: 400 });
-            }
+            // if (!slice.escrowPaymentId) { ... }
 
             // b. Call MercadoPago Refund
-            // We assume full refund for now as per MVP rules
-            await paymentAdapter.refund(slice.escrowPaymentId);
+            // await paymentAdapter.refund(slice.escrowPaymentId);
 
             // c. Update Slice Status
+            /*
             await db.update(slices)
                 .set({
                     refundStatus: 'approved',
                     refundDecidedAt: new Date(),
-                    // We don't have a 'refunded' slice status, but maybe we revert to 'proposed' or similar?
-                    // Or keep it 'completed' but marked refund_approved?
-                    // Let's set it to 'disputed' to stop auto-release workflows if any, or just keep it completed but payment status is refunded.
-                    // Ideally slice status should reflect "Cancelled/Refunded".
-                    // For now, let's leave slice status as is but payment status will update.
                 })
                 .where(eq(slices.id, sliceId));
-
-            // Update Payment Status in DB
-            await db.update(escrowPayments)
-                .set({ status: 'refunded', refundedAt: new Date() })
-                .where(eq(escrowPayments.mercadoPagoPaymentId, slice.escrowPaymentId)); // Assuming ID is MP ID? Need to check schema.
-            // Schema says: escrowPaymentId: text('escrow_payment_id') on slices.
-            // Usually we store our internal ID or MP ID?
-            // In createEscrow it returned result.id (MP ID).
-            // So slice.escrowPaymentId is likely the MP ID.
-            // But wait, createEscrow adapter returns transactionId.
-            // And UnifiedCheckoutButton calls /api/payments/create.
-            // I should check /api/payments/create to see what it stores.
-
-            // Notify Client
-            const [reqData] = await db.select({ userId: requests.userId }).from(requests).where(eq(requests.id, slice.requestId));
-            await db.insert(notifications).values({
-                userId: reqData.userId,
-                title: 'Refund Approved',
-                message: `Provider accepted your refund request for slice "${slice.title}". Funds are returning.`,
-                link: `/wallet`,
-            });
+            */
 
             return NextResponse.json({ success: true, status: 'approved' });
 
         } else if (action === 'reject') {
             // PROVIDER REJECTS REFUND -> DISPUTE
 
+            /*
             await db.update(slices)
                 .set({
                     refundStatus: 'disputed',
@@ -173,24 +153,27 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                     disputedAt: new Date(),
                 })
                 .where(eq(slices.id, sliceId));
-
-            // Notify Admin (You)
-            // For now just notify Client that it went to dispute
-            const [reqData] = await db.select({ userId: requests.userId }).from(requests).where(eq(requests.id, slice.requestId));
-            await db.insert(notifications).values({
-                userId: reqData.userId,
-                title: 'Refund Rejected - Dispute Started',
-                message: `Provider rejected your refund request. Umarel Admin will review within 24h.`,
-                link: `/wallet`,
-            });
-
+            */
             return NextResponse.json({ success: true, status: 'disputed' });
         }
 
+        // Notify Admin (You)
+        // For now just notify Client that it went to dispute
+        const [reqData] = await db.select({ userId: requests.userId }).from(requests).where(eq(requests.id, slice.requestId));
+        await db.insert(notifications).values({
+            userId: reqData.userId,
+            title: 'Refund Rejected - Dispute Started',
+            message: `Provider rejected your refund request. Umarel Admin will review within 24h.`,
+            link: `/wallet`,
+        });
+
+        return NextResponse.json({ success: true, status: 'disputed' });
+    }
+
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 
-    } catch (error) {
-        console.error('Refund Response Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    }
+} catch (error) {
+    console.error('Refund Response Error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+}
 }
