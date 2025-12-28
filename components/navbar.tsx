@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Globe } from 'lucide-react'
-import { Notifications } from './notifications'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,13 +14,13 @@ import {
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { MarketBadge } from '@/components/location/market-badge';
 import { useTranslations } from 'next-intl'
-import { LocationBadge, LocationInitializer } from '@/components/landing/location-detection';
+import { LocationInitializer } from '@/components/landing/location-detection';
 import { usePathname } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
 import { LOCALE_CONFIG } from '@/i18n/config'
 
 import { User } from '@supabase/supabase-js'
-import { LogOut, User as UserIcon, LayoutDashboard } from 'lucide-react'
+import { LogOut, LayoutDashboard } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 
@@ -100,7 +99,6 @@ export function Navbar({ user }: NavbarProps) {
                                 ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Notifications />
 
                         {user ? (
                             <DropdownMenu>
