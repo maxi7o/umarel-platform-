@@ -1,12 +1,13 @@
-
 import { NextRequest, NextResponse } from 'next/server';
+import { db, sql } from '@/lib/db';
+import { slices, requests, escrowPayments } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
-import { db } from '@/lib/db';
-import { slices, escrowPayments, requests } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
-import { PaymentFactory } from '@/lib/payments/payment-factory';
+import { MercadoPagoAdapter } from '@/lib/payments/mercadopago-adapter';
 
-export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+const paymentAdapter = new MercadoPagoAdapter();
+
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { id: sliceId } = await params;
         const supabase = await createClient();
@@ -16,62 +17,78 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // 1. Fetch Slice & Request
-        const [slice] = await db
-            .select({
-                id: slices.id,
-                status: slices.status,
-                escrowPaymentId: slices.escrowPaymentId,
-                requestId: slices.requestId,
-                price: slices.price
-            })
-            .from(slices)
-            .where(eq(slices.id, sliceId));
+        // 1. Fetch Slice and Request (Raw SQL for reliability)
+        const [slice] = await sql`
+            SELECT id, status, request_id as "requestId", 
+                   assigned_provider_id as "assignedProviderId", 
+                   escrow_payment_id as "escrowPaymentId", 
+                   title
+            FROM slices WHERE id = ${sliceId}
+        `;
 
-        if (!slice) return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
+        if (!slice) {
+            return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
+        }
 
-        // Check ownership (Only client can release)
-        const [request] = await db
-            .select({ userId: requests.userId })
-            .from(requests)
-            .where(eq(requests.id, slice.requestId));
+        const [reqData] = await sql`
+            SELECT user_id as "userId" FROM requests WHERE id = ${slice.requestId}
+        `;
 
-        if (request.userId !== user.id) {
+        // 2. Verify Client is the one releasing
+        if (reqData.userId !== user.id) {
             return NextResponse.json({ error: 'Only the client can release funds' }, { status: 403 });
         }
 
+        // 3. Verify Status
         if (slice.status !== 'completed') {
-            return NextResponse.json({ error: 'Slice must be completed before releasing' }, { status: 400 });
+            return NextResponse.json({ error: 'Funds can only be released for completed slices' }, { status: 400 });
         }
 
         if (!slice.escrowPaymentId) {
-            return NextResponse.json({ error: 'No escrow payment found' }, { status: 400 });
+            return NextResponse.json({ error: 'No escrow payment associated with this slice' }, { status: 400 });
         }
 
-        // 2. Call Adapter to Verify/Release
-        // For MP Split Payment, this confirms payment is 'approved' 
-        const strategy = PaymentFactory.getStrategy('mercadopago'); // Defaulting to MP for MVP
-        const releaseResult = await strategy.releaseFunds(slice.escrowPaymentId);
+        // 4. Call Adapter to Release Funds (Verification mainly)
+        // In MP "Split Payment", the funds are technically already in the Seller's account but might be "unavailable".
+        // Or if using "Binary Mode" checks, we verify it's accredited.
+        // For MVP, this step confirms the money exists and is ready.
+        const releaseResult = await paymentAdapter.releaseFunds(slice.escrowPaymentId);
 
         if (!releaseResult.success) {
-            return NextResponse.json({ error: 'Payment provider could not verify release eligibility' }, { status: 400 });
+            return NextResponse.json({ error: 'Payment provider could not verify funds for release' }, { status: 402 });
         }
 
-        // 3. Update DB State
-        // Mark Escrow as Released
-        // This is THE trigger for the Dividend Engine
-        const [updatedEscrow] = await db.update(escrowPayments)
-            .set({
-                status: 'released',
-                releasedAt: new Date()
-            })
-            .where(eq(escrowPayments.transactionId, slice.escrowPaymentId))
-            .returning();
+        // 5. Update Database State (Transaction)
+        await sql.begin(async (tx) => {
+            // A. Update Slice Status -> 'paid'
+            await tx`
+                UPDATE slices SET 
+                    status = 'paid',
+                    paid_at = NOW()
+                WHERE id = ${sliceId}
+             `;
 
-        return NextResponse.json({ success: true, releasedAt: updatedEscrow.releasedAt });
+            // B. Update Escrow Payment -> 'released'
+            await tx`
+                UPDATE escrow_payments SET
+                    status = 'released',
+                    released_at = NOW()
+                WHERE mercado_pago_payment_id = ${slice.escrowPaymentId}
+             `;
+
+            // C. Notify Provider
+            if (slice.assignedProviderId) {
+                await tx`
+                    INSERT INTO notifications (user_id, title, message, link)
+                    VALUES (${slice.assignedProviderId}, 'Funds Released 💸', ${`Client released funds for slice "${slice.title}". It's payday!`}, '/wallet')
+                `;
+            }
+        });
+
+        return NextResponse.json({ success: true });
 
     } catch (error) {
-        console.error('Release Error:', error);
+        console.error('Release Funds Error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
