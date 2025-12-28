@@ -1,7 +1,7 @@
 
 import { db } from './db';
 import { eq } from 'drizzle-orm';
-import { users } from './db/schema';
+import { users, notifications } from './db/schema';
 
 type AlertType = 'DISPUTE_RAISED' | 'HIGH_VALUE_SLICE' | 'ERROR_500' | 'PAYMENT_FAILED';
 
@@ -65,5 +65,30 @@ function getColor(type: AlertType): number {
         case 'ERROR_500': return 0xFF0000; // Red
         case 'PAYMENT_FAILED': return 0x8B0000; // Dark Red
         default: return 0x3498DB; // Blue
+    }
+}
+
+
+export async function createNotification(userId: string, title: string, message: string, link?: string) {
+    try {
+        await db.insert(notifications).values({
+            userId,
+            title,
+            message,
+            link: link || null,
+            read: 0, // Unread
+        });
+    } catch (error) {
+        console.error('[Notifications] Failed to create notification:', error);
+    }
+}
+
+export async function markAsRead(notificationId: string) {
+    try {
+        await db.update(notifications)
+            .set({ read: 1 })
+            .where(eq(notifications.id, notificationId));
+    } catch (error) {
+        console.error('[Notifications] Failed to mark as read:', error);
     }
 }
