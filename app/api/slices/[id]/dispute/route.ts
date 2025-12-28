@@ -1,10 +1,11 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { slices, requests, productInsights, escrowPayments } from '@/lib/db/schema';
+import { slices, requests, productInsights, escrowPayments, users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
 import { analyzeDispute } from '@/lib/ai/judge';
+import { NotificationService } from '@/lib/services/notification-service';
 
 export async function POST(
     req: NextRequest,
@@ -97,6 +98,19 @@ export async function POST(
                     status: 'disputed',
                     aiDisputeAnalysis: analysis as any // Cast for JSONB
                 }).where(eq(escrowPayments.id, payment.id));
+            }
+        }
+
+        // NOTIFICATION: Dispute Opened
+        if (slice.assignedProviderId) {
+            const [provider] = await db.select().from(users).where(eq(users.id, slice.assignedProviderId));
+            if (provider?.email && user.email) {
+                await NotificationService.notifyDisputeOpened(
+                    user.email, // Client
+                    provider.email, // Provider
+                    slice.title,
+                    reason
+                );
             }
         }
 

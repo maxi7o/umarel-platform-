@@ -6,7 +6,10 @@ import { escrowPayments, users, slices, requests } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { v4 as uuidv4 } from 'uuid';
 
-describe('Dispute Resolution System', () => {
+// Conditionally run tests only if MP Token is present
+const runIfMpAvailable = process.env.MERCADOPAGO_ACCESS_TOKEN ? describe : describe.skip;
+
+runIfMpAvailable('Dispute Resolution System', () => {
     let testEscrowId: string;
     let clientId: string;
     let providerId: string;

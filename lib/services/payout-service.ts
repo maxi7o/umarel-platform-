@@ -2,6 +2,7 @@
 import { db } from '@/lib/db';
 import { dailyPayouts, users, userWallets, communityRewards, escrowPayments, wizardMessages, slices } from '@/lib/db/schema';
 import { sql, and, eq, gte, lt, desc } from 'drizzle-orm';
+import { NotificationService } from './notification-service';
 
 
 export class PayoutService {
@@ -249,6 +250,19 @@ export class PayoutService {
                             releasedAt: new Date()
                         })
                         .where(eq(escrowPayments.id, escrow.id));
+
+                    // NOTIFICATION: Funds Released (Auto)
+                    if (escrow.providerId) {
+                        const [provider] = await db.select().from(users).where(eq(users.id, escrow.providerId));
+                        if (provider?.email) {
+                            await NotificationService.notifyFundsReleased(
+                                provider.email,
+                                provider.fullName || 'Provider',
+                                `Slice #${slice.id.slice(0, 8)}`, // Fallback title
+                                escrow.sliceAmount
+                            );
+                        }
+                    }
 
                     results.processed++;
                     results.details.push({ sliceId: slice.id, status: 'released' });

@@ -44,7 +44,10 @@ const createMockRequest = (body: any) => {
     });
 };
 
-describe('Feedback Loop Integration', () => {
+// Conditionally run tests only if API Key is present
+const runIfAiAvailable = process.env.OPENAI_API_KEY ? describe : describe.skip;
+
+runIfAiAvailable('Feedback Loop Integration', () => {
     let ownerId: string;
     let expertId: string;
     let requestId: string;

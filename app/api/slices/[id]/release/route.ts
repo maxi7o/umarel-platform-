@@ -5,6 +5,8 @@ import { db } from '@/lib/db';
 import { slices, escrowPayments, requests } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { getPaymentStrategy } from '@/lib/payments/factory';
+import { NotificationService } from '@/lib/services/notification-service';
+import { users } from '@/lib/db/schema';
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -67,6 +69,19 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             })
             .where(eq(escrowPayments.transactionId, slice.escrowPaymentId))
             .returning();
+
+        // NOTIFICATION: Funds Released
+        if (updatedEscrow?.providerId) {
+            const [provider] = await db.select().from(users).where(eq(users.id, updatedEscrow.providerId));
+            if (provider?.email) {
+                await NotificationService.notifyFundsReleased(
+                    provider.email,
+                    provider.fullName || 'Provider',
+                    `Slice #${sliceId.slice(0, 8)}`, // Fallback title
+                    updatedEscrow.sliceAmount
+                );
+            }
+        }
 
         return NextResponse.json({ success: true, releasedAt: updatedEscrow.releasedAt });
 

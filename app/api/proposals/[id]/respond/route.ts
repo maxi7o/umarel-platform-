@@ -4,6 +4,7 @@ import { changeProposals, sliceCards, slices, users, contributionEvaluations, co
 import { eq, sql } from 'drizzle-orm';
 import { calculateAuraLevel } from '@/lib/aura/calculations';
 import { WizardAction } from '@/lib/ai/openai';
+import { NotificationService } from '@/lib/services/notification-service';
 
 export async function POST(
     request: Request,
@@ -130,6 +131,27 @@ export async function POST(
                     }],
                     totalScore: auraPoints
                 });
+
+                // NOTIFICATION: Notify the Expert that their proposal was accepted!
+                if (currentUser?.email) {
+                    // Try to get slice title from actions
+                    const firstAction = actions[0];
+                    const sliceTitle = (firstAction.type === 'CREATE_CARD' || firstAction.type === 'UPDATE_CARD')
+                        ? firstAction.data?.title || 'Project Update'
+                        : 'Project Update';
+
+                    // Using fire-and-forget for speed, but ideally imported from service
+                    // Lazy import to avoid circular dep issues in some setups, but here import at top is better.
+                    // I will add the import to the top of file in next step.
+                    // For now, I'll use the service class name assuming I will add the import.
+
+                    await NotificationService.notifyProposalAccepted(
+                        currentUser.email,
+                        currentUser.fullName || 'Expert',
+                        sliceTitle,
+                        proposal.sliceId || 'dashboard' // Link usage
+                    );
+                }
             }
         }
 
