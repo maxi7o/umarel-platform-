@@ -83,7 +83,7 @@
         ]
     },
     "home": {
-        "heroTitle": "Tranquilo.",
+        "heroTitle": "Sin estrés.",
         "heroTitleLine2Pre": "Acá te ",
         "heroTitleHighlight": "cuidamos",
         "heroTitleLine2Post": ".",
@@ -98,7 +98,13 @@
         "step2Desc": "Nuestra comunidad de expertos divide tu proyecto en etapas claras y manejables. Como cortar una lasagna perfecta.",
         "step3Title": "3. Pagás por etapa",
         "step3Desc": "Los profesionales cotizan cada etapa. Vos aceptás y pagás solo cuando se completa. Simple y seguro.",
-        "trustedTitle": "Construido para los mejores profesionales"
+        "trustedTitle": "Construido para los mejores profesionales",
+        "simpleMessage": "Simple como el almuerzo del domingo.",
+        "simpleSubtext": "Sin procesos complicados, solo trabajo honesto y bien hecho.",
+        "joinFamily": "Unite a la mesa familiar",
+        "finalCtaTitle": "Acercá una Silla",
+        "finalCtaSubtitle": "Unite a miles de personas construyendo, creando y compartiendo sabiduría. En Umarel, todos tienen un lugar en la mesa.",
+        "finalCtaQuote": "Non si fa così... lo hacemos juntos."
     },
     "landing": {
         "concept": {

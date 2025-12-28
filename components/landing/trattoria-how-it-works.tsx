@@ -104,11 +104,11 @@ export function TrattoriaHowItWorks() {
                 <div className="text-center mt-16">
                     <div className="inline-block bg-white/90 backdrop-blur-sm px-8 py-6 rounded-2xl border-2 border-[#D62828] shadow-xl">
                         <p className="text-[#3D2817] text-lg mb-4">
-                            <span className="font-bold text-[#D62828]">Simple as Sunday dinner.</span> No complicated processes, just good honest work.
+                            <span className="font-bold text-[#D62828]">{t('simpleMessage')}</span> {t('simpleSubtext')}
                         </p>
                         <div className="flex items-center justify-center gap-2 text-[#6C5B4D]">
                             <span className="text-2xl">🍷</span>
-                            <span>Join the family table</span>
+                            <span>{t('joinFamily')}</span>
                             <span className="text-2xl">🍷</span>
                         </div>
                     </div>

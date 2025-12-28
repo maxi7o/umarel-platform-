@@ -101,7 +101,13 @@
         "step2Desc": "Our community of wise Umarels breaks your request into small, precise \"Execution Cards\".",
         "step3Title": "3. Pay Per Card",
         "step3Desc": "Providers quote on individual cards. You accept and pay only when each card is completed.",
-        "trustedTitle": "Built for the best Umarels"
+        "trustedTitle": "Built for the best Umarels",
+        "simpleMessage": "Simple as Sunday dinner.",
+        "simpleSubtext": "No complicated processes, just good honest work.",
+        "joinFamily": "Join the family table",
+        "finalCtaTitle": "Pull Up a Chair",
+        "finalCtaSubtitle": "Join thousands of people building, creating, and sharing wisdom. At Umarel, everyone has a place at the table.",
+        "finalCtaQuote": "Non si fa così... we do it together."
     },
     "landing": {
         "concept": {
