@@ -1,48 +1,86 @@
-import { TrattoriaHero } from '@/components/landing/trattoria-hero';
-import { TrattoriaBenefits } from '@/components/landing/trattoria-benefits';
-import { TrattoriaHowItWorks } from '@/components/landing/trattoria-how-it-works';
-import { TrattoriaRoles } from '@/components/landing/trattoria-roles';
-import { ItalianQuotes } from '@/components/landing/italian-quotes';
-import { useTranslations } from 'next-intl';
 
-export default function LandingPage() {
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+
+export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = useTranslations('home');
 
   return (
-    <div className="min-h-screen bg-[#FFF8F0] text-[#3D2817] font-sans selection:bg-[#D62828]/20 selection:text-[#D62828]">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-900">
 
-      {/* 1. Hero Section - Warm Welcome */}
-      <TrattoriaHero />
+      {/* 1. Hero Section - Streamlined */}
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        <div className="container mx-auto px-6 text-center z-10 relative">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-gray-900">
+            Get things done <br className="hidden md:block" />
+            <span className="text-orange-600">with wisdom.</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+            The marketplace where experienced professionals help you break down complex tasks into manageable steps.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/requests/create">
+              <Button size="lg" className="h-14 px-8 text-lg bg-gray-900 hover:bg-black text-white rounded-full shadow-lg hover:shadow-xl transition-all">
+                Post a Request
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/browse">
+              <Button variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full border-gray-300 hover:bg-gray-50">
+                Browse Services
+              </Button>
+            </Link>
+          </div>
+        </div>
 
-      {/* 2. Italian Wisdom Ticker */}
-      <ItalianQuotes />
+        {/* Abstract Background Element */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-orange-100/50 to-blue-50/50 rounded-full blur-3xl -z-10 opacity-60" />
+      </section>
 
-      {/* 3. Benefits - What's on the Table */}
-      <TrattoriaBenefits />
+      {/* 2. Brand Definition - The "Umarel" (Requested Content) */}
+      <section className="py-24 bg-gray-50 border-y border-gray-100">
+        <div className="container mx-auto px-6 max-w-4xl text-center">
+          <span className="text-orange-600 font-bold tracking-widest uppercase text-sm mb-4 block">Origin Story</span>
+          <blockquote className="text-2xl md:text-3xl font-serif text-gray-800 leading-normal mb-8">
+            "Umarel (pronunciación en italiano: /umaˈrɛl/: [umaˈrɛl]; revisión italiana de la palabra umarèl del idioma boloñés) es un término que se refiere específicamente a los hombres en edad de jubilación quiénes pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos"
+          </blockquote>
+          <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
+            — Wikipedia / Popular Culture
+          </div>
+        </div>
+      </section>
 
-      {/* 4. How It Works - The Recipe */}
-      <TrattoriaHowItWorks />
-
-      {/* 5. Roles - Everyone at the Table */}
-      <TrattoriaRoles />
-
-      {/* 6. Final CTA - Join the Family */}
-      <section className="py-20 bg-gradient-to-b from-[#FFF8F0] to-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-checkered opacity-20" />
-
-        <div className="container relative z-10 text-center">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-6xl mb-6">🍷</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#3D2817] mb-6">
-              {t('finalCtaTitle')}
-            </h2>
-            <p className="text-xl text-[#6C5B4D] mb-8 leading-relaxed">
-              {t('finalCtaSubtitle')}
-            </p>
-
-            <div className="inline-block bg-white/90 backdrop-blur-sm px-8 py-6 rounded-2xl border-2 border-[#D62828] shadow-2xl">
-              <p className="text-[#3D2817] text-lg italic">
-                "{t('finalCtaQuote')}"
+      {/* 3. Value Props - Simple Grid */}
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+            <div className="space-y-4">
+              <div className="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold">Experienced Wisdom</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Connect with retired professionals and experts who have seen it all. They don't just work; they guide.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="h-12 w-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold">Smart Breakdown</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Our AI Wizard breaks your big projects into small, priceable "slices", saving you up to 30% on costs.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="h-12 w-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold">Secure Escrow</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Funds are held safely until the work is verified. Pay only for results, not for promises.
               </p>
             </div>
           </div>
