@@ -80,7 +80,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             </span>
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold font-outfit text-gray-900 mb-4">
-                            {offering.title}
+                            {offering.title as string}
                         </h1>
                         <div className="flex items-center gap-2 text-muted-foreground">
                             {offering.location && (
@@ -108,7 +108,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                     <div className="prose max-w-none">
                         <h3 className="text-xl font-semibold mb-3">{t('aboutService')}</h3>
                         <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">
-                            {offering.description}
+                            {offering.description as string}
                         </p>
                     </div>
 
@@ -135,20 +135,20 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             {offering.hourlyRate ? (
                                 <>
                                     <span className="text-3xl font-bold text-gray-900">
-                                        <CurrencyDisplay amount={offering.hourlyRate} />
+                                        <CurrencyDisplay amount={Number(offering.hourlyRate)} />
                                     </span>
                                     <span className="text-gray-500">/hr</span>
                                 </>
                             ) : (
                                 <span className="text-3xl font-bold text-gray-900">
-                                    <CurrencyDisplay amount={offering.fixedRate || 0} />
+                                    <CurrencyDisplay amount={Number(offering.fixedRate || 0)} />
                                 </span>
                             )}
                         </div>
 
                         {offering.availability && (
                             <div className="mb-6 p-3 bg-blue-50 text-blue-800 rounded-lg text-sm">
-                                <strong>{t('availability')}:</strong> {offering.availability}
+                                <strong>{t('availability')}:</strong> {offering.availability as string}
                             </div>
                         )}
 
