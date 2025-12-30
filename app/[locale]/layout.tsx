@@ -25,6 +25,14 @@ export const metadata: Metadata = {
     description: "The marketplace where experienced Umarels help you break down tasks.",
 };
 
+export const viewport = {
+    themeColor: '#ffffff',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false, // Often desired for PWA feeling
+};
+
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }

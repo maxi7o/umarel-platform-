@@ -98,7 +98,22 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
     // Load wizard state on mount
     useEffect(() => {
         loadWizardState();
+        fetchPlatformStats();
     }, [sliceId]);
+
+    const [platformEarnings, setPlatformEarnings] = useState<number | null>(null);
+
+    const fetchPlatformStats = async () => {
+        try {
+            const res = await fetch('/api/stats/platform');
+            if (res.ok) {
+                const data = await res.json();
+                setPlatformEarnings(data.totalEarnings);
+            }
+        } catch (e) {
+            console.error("Failed to fetch stats", e);
+        }
+    };
 
     // Auto-scroll to bottom
     useEffect(() => {
@@ -329,7 +344,11 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
             {/* Header */}
             <div className="border-b bg-white dark:bg-gray-900">
                 <div className="bg-gradient-to-r from-orange-100 to-yellow-100 dark:from-orange-900/20 dark:to-yellow-900/20 px-6 py-2 text-center text-sm font-medium text-orange-800 dark:text-orange-200 border-b border-orange-200 dark:border-orange-800">
-                    {t.earningsBanner('$1,250,000')}
+                    {t.earningsBanner(
+                        platformEarnings !== null
+                            ? `$${(platformEarnings / 100).toLocaleString(locale === 'es' ? 'es-AR' : 'en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
+                            : '$405,200' // Default fallback
+                    )}
                 </div>
 
                 <div className="px-6 py-4 flex items-center justify-between">

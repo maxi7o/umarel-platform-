@@ -4,6 +4,8 @@ import { slices, sliceCards, wizardMessages, users } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { processWizardMessage } from '@/lib/ai/openai';
 import { awardAura } from '@/lib/aura/actions';
+import { createNotification } from '@/lib/notifications';
+import { GUEST_USER_ID } from '@/lib/auth-constants';
 
 export interface WizardServiceResponse {
     userMessage: typeof wizardMessages.$inferSelect | undefined;
@@ -84,6 +86,22 @@ export async function handleWizardMessage(
         } else {
             await awardAura(userId, 'HELPFUL_CLARIFICATION');
         }
+    }
+
+    // 6c. Notification Logic (Consultant Advice)
+    if (
+        userId !== originalSlice.creatorId &&
+        originalSlice.creatorId !== GUEST_USER_ID &&
+        content !== 'INITIAL_ANALYSIS_TRIGGER'
+    ) {
+        await createNotification(
+            originalSlice.creatorId,
+            locale === 'es' ? 'Nuevo consejo recibido' : 'New advice received',
+            locale === 'es'
+                ? `Un consultor ha dejado un mensaje en "${originalSlice.title}"`
+                : `A consultant left a message on "${originalSlice.title}"`,
+            `/wizard/${sliceId}`
+        );
     }
 
     // 7. Execute Actions
