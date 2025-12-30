@@ -66,7 +66,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                     <div>
                         <div className="flex flex-wrap items-center gap-2 mb-4">
                             <Badge variant="secondary" className="text-sm border-gray-200">
-                                {String(offering.category || 'Service')}
+                                {(offering.category as string) || 'Service'}
                             </Badge>
                             {offering.isVirtual && (
                                 <Badge variant="outline" className="gap-1 border-gray-200">
@@ -86,7 +86,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             {offering.location && (
                                 <div className="flex items-center gap-1">
                                     <MapPin className="h-4 w-4" />
-                                    <span>{String(offering.location)}</span>
+                                    <span>{offering.location as string}</span>
                                 </div>
                             )}
                         </div>
