@@ -15,7 +15,8 @@ export async function handleWizardMessage(
     sliceId: string,
     userId: string,
     content: string,
-    locale: string = 'en'
+    locale: string = 'en',
+    sessionId?: string
 ): Promise<WizardServiceResponse> {
 
     // 1. Get the primary slice first to know the requestId
@@ -64,6 +65,7 @@ export async function handleWizardMessage(
             userId,
             content,
             role: 'user',
+            metadata: sessionId ? { sessionId } : undefined,
         }).returning();
     }
 
@@ -123,16 +125,8 @@ export async function handleWizardMessage(
     }
 
     // 8. Save AI Response
-    const AI_USER_ID = '00000000-0000-0000-0000-000000000000';
-
-    // Ensure AI user exists (Idempotent)
-    await db.insert(users).values({
-        id: AI_USER_ID,
-        email: 'ai@umarel.org',
-        fullName: 'Umarel AI',
-        role: 'admin',
-        auraPoints: 999999
-    }).onConflictDoNothing();
+    const { AI_USER_ID, ensureSpecialUsers } = await import('@/lib/services/special-users');
+    await ensureSpecialUsers(); // Ensure AI user exists
 
     const [aiResponse] = await db.insert(wizardMessages).values({
         sliceCardId: primaryCard.id,

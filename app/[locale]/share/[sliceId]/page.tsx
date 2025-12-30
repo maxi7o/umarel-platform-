@@ -7,26 +7,22 @@ import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-export default async function WizardPage({ params }: { params: Promise<{ sliceId: string; locale: string }> }) {
+export default async function SharePage({ params }: { params: Promise<{ sliceId: string; locale: string }> }) {
     const resolvedParams = await params;
     const cookieStore = await cookies();
     const supabase = await createClient();
 
-    // 1. Get Auth User
+    // 1. Get Auth User (Consultant)
     const { data: { user } } = await supabase.auth.getUser();
     let effectiveUserId = user?.id;
-    let userName = user?.user_metadata?.full_name || 'User';
+    let userName = user?.user_metadata?.full_name || 'Consultant';
     let auraLevel = 'bronze';
 
-    // 2. Fallback to Guest if needed
+    // 2. Identify Consultant
     if (!effectiveUserId) {
-        // Only treat as Guest if cookie exists or we decide to allow pure anonymous
-        // For continuity, we check if they are the valid Guest for this session? 
-        // For now, simpler: If no user, they are Guest.
         effectiveUserId = GUEST_USER_ID;
-        userName = 'Guest';
+        userName = 'Guest Consultant';
     } else {
-        // Fetch extended profile for Aura
         const [dbUser] = await db.select().from(users).where(eq(users.id, effectiveUserId));
         if (dbUser) {
             auraLevel = dbUser.auraLevel || 'bronze';
@@ -34,9 +30,20 @@ export default async function WizardPage({ params }: { params: Promise<{ sliceId
         }
     }
 
-    const sessionId = effectiveUserId !== GUEST_USER_ID
-        ? effectiveUserId
-        : cookieStore.get(GUEST_COOKIE_NAME)?.value || 'guest-session-unknown';
+    // Ensure session for guest consultant
+    let sessionId = effectiveUserId;
+    if (effectiveUserId === GUEST_USER_ID) {
+        if (!cookieStore.has(GUEST_COOKIE_NAME)) {
+            // We can't set cookies in Server Component output during render easily without Middleware 
+            // or Server Action. For now, generate a temporary one or rely on client side?
+            // BETTER: Use a read-only view if no cookie? 
+            // OR: Just read it. Content won't be saved properly without it.
+            // Let's assume Middleware sets it or we accept "transient".
+            sessionId = cookieStore.get(GUEST_COOKIE_NAME)?.value || crypto.randomUUID();
+        } else {
+            sessionId = cookieStore.get(GUEST_COOKIE_NAME)?.value!;
+        }
+    }
 
     const currentUser = {
         id: effectiveUserId,
@@ -48,9 +55,10 @@ export default async function WizardPage({ params }: { params: Promise<{ sliceId
     return (
         <WizardInterface
             sliceId={resolvedParams.sliceId}
-            requestId="request-id" // TODO: Get from slice or context if needed
+            requestId="request-id" // Placeholder, loaded by generic component
             currentUser={currentUser}
             locale={resolvedParams.locale}
+            mode="consultant"
         />
     );
 }

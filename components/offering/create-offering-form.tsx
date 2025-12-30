@@ -28,6 +28,8 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
+import { PricingGuidance } from './pricing-guidance';
+
 import { LocationInput } from '@/components/forms/location-input';
 
 const formSchema = z.object({
@@ -83,6 +85,8 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     });
 
     const isVirtual = form.watch('isVirtual');
+    const category = form.watch('category');
+    const hourlyRate = form.watch('hourlyRate');
 
     async function onSubmit(values: FormValues) {
         if (!isVirtual && !values.location) {
@@ -141,120 +145,122 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="space-y-4">
-                    <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }: { field: any }) => (
-                            <FormItem>
-                                <FormLabel>{t('form.titleLabel')}</FormLabel>
+                {/* ... Title, Category, Description fields ... */}
+
+                <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }: { field: any }) => (
+                        <FormItem>
+                            <FormLabel>{t('form.titleLabel')}</FormLabel>
+                            <FormControl>
+                                <Input placeholder={t('form.titlePlaceholder')} {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                {t('form.titleDesc')}
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="category"
+                    render={({ field }: { field: any }) => (
+                        <FormItem>
+                            <FormLabel>{t('form.categoryLabel')}</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                    <Input placeholder={t('form.titlePlaceholder')} {...field} />
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={t('form.categoryPlaceholder')} />
+                                    </SelectTrigger>
                                 </FormControl>
-                                <FormDescription>
-                                    {t('form.titleDesc')}
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                <SelectContent>
+                                    {CATEGORIES.map((cat) => (
+                                        <SelectItem key={cat.id} value={cat.id}>
+                                            {tFilter(`categories.${cat.id}`) || cat.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }: { field: any }) => (
+                        <FormItem>
+                            <FormLabel>{t('form.descriptionLabel')}</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder={t('form.descriptionPlaceholder')}
+                                    className="min-h-[150px]"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                         control={form.control}
-                        name="category"
+                        name="isVirtual"
                         render={({ field }: { field: any }) => (
-                            <FormItem>
-                                <FormLabel>{t('form.categoryLabel')}</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder={t('form.categoryPlaceholder')} />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {CATEGORIES.map((cat) => (
-                                            <SelectItem key={cat.id} value={cat.id}>
-                                                {tFilter(`categories.${cat.id}`) || cat.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }: { field: any }) => (
-                            <FormItem>
-                                <FormLabel>{t('form.descriptionLabel')}</FormLabel>
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                 <FormControl>
-                                    <Textarea
-                                        placeholder={t('form.descriptionPlaceholder')}
-                                        className="min-h-[150px]"
-                                        {...field}
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
                                     />
                                 </FormControl>
-                                <FormMessage />
+                                <div className="space-y-1 leading-none">
+                                    <FormLabel>{t('form.virtualLabel')}</FormLabel>
+                                    <FormDescription>
+                                        {t('form.virtualDesc')}
+                                    </FormDescription>
+                                </div>
                             </FormItem>
                         )}
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {!isVirtual && (
                         <FormField
                             control={form.control}
-                            name="isVirtual"
+                            name="location"
                             render={({ field }: { field: any }) => (
-                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                <FormItem>
+                                    <FormLabel>{t('form.locationLabel')}</FormLabel>
                                     <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
+                                        <LocationInput
+                                            name="location"
+                                            placeholder={t('form.locationPlaceholder')}
+                                            required={!isVirtual}
+                                            value={field.value}
+                                            onChange={(val, data) => {
+                                                field.onChange(val);
+                                                if (data) {
+                                                    form.setValue('locationDetails', data);
+                                                }
+                                            }}
                                         />
                                     </FormControl>
-                                    <div className="space-y-1 leading-none">
-                                        <FormLabel>{t('form.virtualLabel')}</FormLabel>
-                                        <FormDescription>
-                                            {t('form.virtualDesc')}
-                                        </FormDescription>
-                                    </div>
+                                    <FormDescription>
+                                        {t('form.locationDesc')}
+                                    </FormDescription>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
+                    )}
+                </div>
 
-                        {!isVirtual && (
-                            <FormField
-                                control={form.control}
-                                name="location"
-                                render={({ field }: { field: any }) => (
-                                    <FormItem>
-                                        <FormLabel>{t('form.locationLabel')}</FormLabel>
-                                        <FormControl>
-                                            <LocationInput
-                                                name="location"
-                                                placeholder={t('form.locationPlaceholder')}
-                                                required={!isVirtual}
-                                                value={field.value}
-                                                onChange={(val, data) => {
-                                                    field.onChange(val);
-                                                    if (data) {
-                                                        form.setValue('locationDetails', data);
-                                                    }
-                                                }}
-                                            />
-                                        </FormControl>
-                                        <FormDescription>
-                                            {t('form.locationDesc')}
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        )}
-                    </div>
-
+                <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <FormField
                             control={form.control}
@@ -285,51 +291,59 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         />
                     </div>
 
-                    <FormField
-                        control={form.control}
-                        name="skills"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>{t('form.skillsLabel')}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={t('form.skillsPlaceholder')} {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    {t('form.skillsDesc')}
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                    {/* Pricing Guidance Integration */}
+                    <PricingGuidance
+                        category={category}
+                        currentPrice={hourlyRate ? parseFloat(hourlyRate) : null}
                     />
+                </div>
 
-                    <div className="space-y-4">
-                        <FormLabel>{t('form.portfolioLabel')}</FormLabel>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {portfolioImages.map((url, index) => (
-                                <div key={index} className="relative aspect-video rounded-lg overflow-hidden border bg-muted">
-                                    <img src={url} alt={`Portfolio ${index + 1}`} className="object-cover w-full h-full" />
-                                    <button
-                                        type="button"
-                                        onClick={() => removeImage(index)}
-                                        className="absolute top-1 right-1 p-1 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
-                                    >
-                                        <X className="h-4 w-4" />
-                                    </button>
-                                </div>
-                            ))}
-                            <button
-                                type="button"
-                                onClick={handleImageUpload}
-                                className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed hover:border-primary hover:bg-accent/50 transition-colors"
-                            >
-                                <Upload className="h-6 w-6 mb-2 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">{t('form.addImage')}</span>
-                            </button>
-                        </div>
-                        <FormDescription>
-                            {t('form.portfolioDesc')}
-                        </FormDescription>
+
+                <FormField
+                    control={form.control}
+                    name="skills"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>{t('form.skillsLabel')}</FormLabel>
+                            <FormControl>
+                                <Input placeholder={t('form.skillsPlaceholder')} {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                {t('form.skillsDesc')}
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                {/* ... Portfolio ... */}
+                <div className="space-y-4">
+                    <FormLabel>{t('form.portfolioLabel')}</FormLabel>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {portfolioImages.map((url, index) => (
+                            <div key={index} className="relative aspect-video rounded-lg overflow-hidden border bg-muted">
+                                <img src={url} alt={`Portfolio ${index + 1}`} className="object-cover w-full h-full" />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImage(index)}
+                                    className="absolute top-1 right-1 p-1 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleImageUpload}
+                            className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed hover:border-primary hover:bg-accent/50 transition-colors"
+                        >
+                            <Upload className="h-6 w-6 mb-2 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{t('form.addImage')}</span>
+                        </button>
                     </div>
+                    <FormDescription>
+                        {t('form.portfolioDesc')}
+                    </FormDescription>
                 </div>
 
                 <Button type="submit" size="lg" className="w-full" disabled={isLoading}>

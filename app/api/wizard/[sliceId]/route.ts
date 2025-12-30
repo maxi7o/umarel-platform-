@@ -1,7 +1,10 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { sliceCards, wizardMessages, slices } from '@/lib/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { sliceCards, wizardMessages, slices, requests } from '@/lib/db/schema';
+import { eq, desc, and } from 'drizzle-orm';
+import { createClient } from '@/lib/supabase/server';
+import { getEffectiveUserId, GUEST_USER_ID } from '@/lib/services/special-users';
 
 export async function GET(
     request: NextRequest,
@@ -10,48 +13,84 @@ export async function GET(
     try {
         const { sliceId } = await params;
 
-        // 1. Get the primary slice to link to Request
-        // We first try to find a card 
+        // 0. Auth & Ownership Check
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        // Check slice existence and owner first
+        const originalSlice = await db.query.slices.findFirst({
+            where: eq(slices.id, sliceId),
+        });
+
+        if (!originalSlice) {
+            // MOCK FALLBACK for DEMO ID
+            if (sliceId === '00000000-0000-0000-0000-000000000001') {
+                // ... (Keep existing mock response logic or remove if valid cleanup)
+                // Keeping brief mock response logic as it was useful for dev
+                return NextResponse.json({
+                    sliceCards: [{
+                        id: 'mock-card-1',
+                        sliceId: sliceId,
+                        title: 'Renovar Baño Pequeño',
+                        description: 'Mock data...',
+                        finalPrice: 150000,
+                        currency: 'ARS',
+                        skills: ['plomería'],
+                        isLocked: false,
+                    }],
+                    messages: []
+                });
+            }
+            return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
+        }
+
+        const effectiveUserId = await getEffectiveUserId(user?.id);
+
+        // --- CLAIMING LOGIC ---
+        // If the slice is owned by Guest, but now we have a Real User, 
+        // we transfer ownership (Claiming the project).
+        if (originalSlice.creatorId === GUEST_USER_ID && effectiveUserId !== GUEST_USER_ID) {
+            console.log(`User ${effectiveUserId} claiming guest slice ${sliceId}`);
+
+            await db.transaction(async (tx) => {
+                // 1. Update Request Owner
+                await tx.update(requests)
+                    .set({ userId: effectiveUserId })
+                    .where(eq(requests.id, originalSlice.requestId));
+
+                // 2. Update Slice Owner (and siblings if any - assuming context is Request)
+                await tx.update(slices)
+                    .set({ creatorId: effectiveUserId })
+                    .where(eq(slices.requestId, originalSlice.requestId));
+
+                // 3. Update Message History Owner
+                // We need to find all cards for this request first
+                const relatedCards = await tx.query.sliceCards.findMany({
+                    where: eq(sliceCards.requestId, originalSlice.requestId)
+                });
+
+                for (const card of relatedCards) {
+                    await tx.update(wizardMessages)
+                        .set({ userId: effectiveUserId })
+                        .where(and(
+                            eq(wizardMessages.sliceCardId, card.id),
+                            eq(wizardMessages.userId, GUEST_USER_ID)
+                        ));
+                }
+            });
+        }
+        // --- END CLAIMING LOGIC ---
+
+
+        // 1. Get the primary slice card
         let primaryCard = await db.query.sliceCards.findFirst({
             where: eq(sliceCards.sliceId, sliceId),
         });
 
-        // 2. If no card exists, check the slice itself and create one
-        let requestId: string;
+        // 2. If no card exists, create (This part happens if wizard visited first time)
+        let requestId = originalSlice.requestId;
 
         if (!primaryCard) {
-            const originalSlice = await db.query.slices.findFirst({
-                where: eq(slices.id, sliceId),
-            });
-
-            if (!originalSlice) {
-                // MOCK FALLBACK for DEMO ID
-                if (sliceId === '00000000-0000-0000-0000-000000000001') {
-                    return NextResponse.json({
-                        sliceCards: [{
-                            id: 'mock-card-1',
-                            sliceId: sliceId,
-                            title: 'Renovar Baño Pequeño',
-                            description: 'Necesito renovar un baño de 2x2m. Incluye cambio de cerámicos y inodoro.',
-                            finalPrice: 150000,
-                            currency: 'ARS',
-                            skills: ['plomería', 'albañilería'],
-                            isLocked: false,
-                        }],
-                        messages: [{
-                            id: 'msg-1',
-                            role: 'assistant',
-                            content: 'Hola. Veo que quieres renovar el baño. ¿Podrías confirmarme si tambien necesitas cambiar la grifería de la ducha?',
-                            createdAt: new Date().toISOString()
-                        }]
-                    });
-                }
-
-                return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
-            }
-            requestId = originalSlice.requestId;
-
-            // Create initial card
             [primaryCard] = await db.insert(sliceCards).values({
                 sliceId: originalSlice.id,
                 requestId: originalSlice.requestId,
@@ -61,25 +100,24 @@ export async function GET(
                 currency: 'ARS',
                 skills: [],
             }).returning();
-
         } else {
             requestId = primaryCard.requestId;
         }
 
-        // 3. Fetch ALL cards for this Request (Smart Slicing support)
+        // 3. Fetch ALL cards for this Request
         const allCards = await db.query.sliceCards.findMany({
             where: eq(sliceCards.requestId, requestId),
             orderBy: [desc(sliceCards.createdAt)]
         });
 
-        // 4. Fetch messages (Thread attached to primary card)
+        // 4. Fetch messages
         const messages = await db.query.wizardMessages.findMany({
             where: eq(wizardMessages.sliceCardId, primaryCard.id),
             orderBy: (msgs, { asc }) => [asc(msgs.createdAt)],
         });
 
         return NextResponse.json({
-            sliceCards: allCards, // Return array
+            sliceCards: allCards,
             messages,
         });
 

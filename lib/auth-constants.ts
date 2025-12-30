@@ -1,0 +1,6 @@
+
+export const AI_USER_ID = '00000000-0000-0000-0000-000000000000';
+export const GUEST_USER_ID = '00000000-0000-0000-0000-000000000002'; // Similar pattern
+export const DEMO_USER_ID = '00000000-0000-0000-0000-000000000001';
+
+export const GUEST_COOKIE_NAME = 'umarel_guest_session';

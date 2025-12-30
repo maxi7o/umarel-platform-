@@ -17,12 +17,15 @@ interface Message {
     metadata?: any;
 }
 
+import { GUEST_USER_ID } from '@/lib/auth-constants';
+
 interface MessageThreadProps {
     messages: Message[];
     currentUserId: string;
+    sessionId?: string;
 }
 
-export function MessageThread({ messages, currentUserId }: MessageThreadProps) {
+export function MessageThread({ messages, currentUserId, sessionId }: MessageThreadProps) {
     const [heartedMessages, setHeartedMessages] = useState<Set<string>>(new Set());
 
     const handleHeart = async (messageId: string) => {
@@ -42,7 +45,12 @@ export function MessageThread({ messages, currentUserId }: MessageThreadProps) {
         <div className="space-y-6">
             {messages.map((message) => {
                 const isUser = message.role === 'user';
-                const isOwn = message.userId === currentUserId;
+                // Check if message is own, considering Guest sessions
+                const isOwn = message.userId === currentUserId && (
+                    message.userId !== GUEST_USER_ID ||
+                    !sessionId ||
+                    message.metadata?.sessionId === sessionId
+                );
                 const isAI = message.role === 'assistant';
 
                 return (

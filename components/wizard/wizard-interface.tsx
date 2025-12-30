@@ -1,9 +1,10 @@
+
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, Sparkles, Loader2, ChevronRight, ChevronLeft, Paperclip, Plus } from 'lucide-react';
+import { Send, Sparkles, Loader2, ChevronRight, ChevronLeft, Paperclip, Plus, Share2 } from 'lucide-react';
 import { SliceCard } from './slice-card';
 import { MessageThread } from './message-thread';
 import {
@@ -15,6 +16,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GUEST_USER_ID } from '@/lib/auth-constants';
 
 interface WizardInterfaceProps {
     sliceId: string;
@@ -22,12 +24,16 @@ interface WizardInterfaceProps {
     locale?: string;
     currentUser: {
         id: string;
+        sessionId?: string;
         name: string;
         auraLevel: string;
     };
+    mode?: 'owner' | 'consultant';
 }
 
-export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en' }: WizardInterfaceProps) {
+export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en', mode = 'owner' }: WizardInterfaceProps) {
+    const isGuest = currentUser.id === GUEST_USER_ID;
+    const isConsultant = mode === 'consultant';
     const [messages, setMessages] = useState<any[]>([]);
     const [sliceCards, setSliceCards] = useState<any[]>([]); // TODO: Import SliceCard type
     const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -39,6 +45,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [skippedQuestions, setSkippedQuestions] = useState<string[]>([]);
     const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
+    const [isCopied, setIsCopied] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,6 +62,10 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         nextQuestion: 'Siguiente pregunta',
         skip: 'Saltar',
         skipWizard: 'Saltar asistente y publicar',
+        share: 'Compartir para pedir consejo',
+        shareCopied: '¡Copiado!',
+        consultantPlaceholder: 'Deja un consejo útil para el dueño del proyecto...',
+        consultantSend: 'Enviar Consejo',
         attachFiles: 'Adjuntar archivos',
         filesAttached: (count: number) => `${count} archivo${count > 1 ? 's' : ''} adjunto${count > 1 ? 's' : ''}`,
         noQuestions: 'No hay preguntas pendientes',
@@ -72,6 +83,10 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         nextQuestion: 'Next question',
         skip: 'Skip',
         skipWizard: 'Skip assistant and publish',
+        share: 'Share for Advice',
+        shareCopied: 'Copied!',
+        consultantPlaceholder: 'Leave helpful advice for the project owner...',
+        consultantSend: 'Send Advice',
         attachFiles: 'Attach files',
         filesAttached: (count: number) => `${count} file${count > 1 ? 's' : ''} attached`,
         noQuestions: 'No pending questions',
@@ -194,6 +209,13 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         }
     };
 
+    const handleShare = () => {
+        const url = `${window.location.origin}/${locale}/share/${sliceId}`;
+        navigator.clipboard.writeText(url);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+    };
+
     const sendMessage = async () => {
         if ((!input.trim() && attachedFiles.length === 0) || isLoading) return;
 
@@ -204,6 +226,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
             userId: currentUser.id,
             createdAt: new Date(),
             attachments: attachedFiles.map(f => f.name),
+            metadata: { sessionId: currentUser.sessionId } // Optimistic update
         };
 
         setMessages(prev => [...prev, userMessage]);
@@ -221,6 +244,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                     currentSliceCards: sliceCards, // Send ALL cards
                     attachments: attachedFiles.map(f => f.name),
                     locale, // Send locale
+                    sessionId: currentUser.sessionId // Pass session ID
                 }),
             });
 
@@ -289,7 +313,13 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
     };
 
     const handleSkipWizard = () => setIsSkipDialogOpen(true);
-    const confirmSkip = () => window.location.href = `/${locale}/browse`;
+    const confirmSkip = () => {
+        if (isGuest) {
+            window.location.href = `/${locale}/login?callbackUrl=/${locale}/wizard/${sliceId}`;
+        } else {
+            window.location.href = `/${locale}/browse`;
+        }
+    };
 
     // Calculate active slices
     const activeSlice = sliceCards.find(c => c.id === activeCardId) || sliceCards[0];
@@ -307,9 +337,24 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                         <h1 className="text-2xl font-bold">{t.title}</h1>
                         <p className="text-sm text-muted-foreground">{t.subtitle}</p>
                     </div>
-                    <Button onClick={handleSkipWizard} variant="outline">
-                        {t.skipWizard} →
-                    </Button>
+                    <div className="flex items-center">
+                        {!isConsultant && (
+                            <Button onClick={handleSkipWizard} variant="outline">
+                                {t.skipWizard} →
+                            </Button>
+                        )}
+                        {!isConsultant && (
+                            <Button onClick={handleShare} variant="ghost" className="ml-2 gap-2 text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40">
+                                <Share2 className="w-4 h-4" />
+                                {isCopied ? t.shareCopied : t.share}
+                            </Button>
+                        )}
+                        {isConsultant && (
+                            <Button onClick={() => window.location.href = `/${locale}/browse`} variant="outline">
+                                {t.skip} →
+                            </Button>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -335,6 +380,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                     <MessageThread
                         messages={messages}
                         currentUserId={currentUser.id}
+                        sessionId={currentUser.sessionId}
                     />
                     <div ref={messagesEndRef} />
                 </div>
@@ -384,6 +430,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                                                         setSliceCards(cards => cards.map(c => c.id === updated.id ? updated : c));
                                                     }}
                                                     isLocked={card.isLocked}
+                                                    isGuest={isGuest}
                                                 />
                                             </TabsContent>
                                         ))}
@@ -396,6 +443,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                                                 setSliceCards(cards => cards.map(c => c.id === updated.id ? updated : c));
                                             }}
                                             isLocked={activeSlice.isLocked}
+                                            isGuest={isGuest}
                                         />
                                     )
                                 )}
@@ -409,7 +457,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
             <div className="border-t bg-white dark:bg-gray-900 p-6">
                 <div className="max-w-4xl mx-auto space-y-3">
                     {/* Question Carousel */}
-                    {questionQueue.length > 0 && (
+                    {questionQueue.length > 0 && !isConsultant && (
                         <div className="relative">
                             <div className="flex items-center gap-3">
                                 {/* Previous */}
@@ -468,7 +516,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyPress={handleKeyPress}
-                                placeholder={t.inputPlaceholder}
+                                placeholder={isConsultant ? t.consultantPlaceholder : t.inputPlaceholder}
                                 className="min-h-[60px] resize-none"
                                 disabled={isLoading}
                             />
@@ -516,7 +564,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                         accept="image/*,.pdf,.doc,.docx"
                     />
 
-                    {!input.trim() && (
+                    {!input.trim() && !isConsultant && (
                         <Button
                             onClick={askNext}
                             disabled={isAskingNext || sliceCards.length === 0}
@@ -543,12 +591,20 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            {locale === 'es' ? '¿Estás seguro de saltar?' : 'Are you sure you want to skip?'}
+                            {isGuest
+                                ? (locale === 'es' ? 'Guarda tu progreso' : 'Save your progress')
+                                : (locale === 'es' ? '¿Estás seguro de saltar?' : 'Are you sure you want to skip?')
+                            }
                         </DialogTitle>
                         <DialogDescription>
-                            {locale === 'es'
-                                ? 'El Asistente Umarel te ayuda a ahorrar hasta un 30% definiendo mejor tu pedido. Si saltas ahora, publicarás la solicitud tal como está.'
-                                : 'The Umarel Assistant helps you save up to 30% by better defining your request. If you skip now, you will publish the request as is.'}
+                            {isGuest
+                                ? (locale === 'es'
+                                    ? 'Crea una cuenta gratis ahora para guardar este proyecto y recibir presupuestos de expertos.'
+                                    : 'Create a free account now to save this project and receive quotes from experts.')
+                                : (locale === 'es'
+                                    ? 'El Asistente Umarel te ayuda a ahorrar hasta un 30% definiendo mejor tu pedido. Si saltas ahora, publicarás la solicitud tal como está.'
+                                    : 'The Umarel Assistant helps you save up to 30% by better defining your request. If you skip now, you will publish the request as is.')
+                            }
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="gap-2 sm:gap-0">
@@ -556,7 +612,10 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                             {locale === 'es' ? 'Volver al Asistente' : 'Back to Wizard'}
                         </Button>
                         <Button variant="destructive" onClick={confirmSkip}>
-                            {locale === 'es' ? 'Saltar y Publicar' : 'Skip and Publish'}
+                            {isGuest
+                                ? (locale === 'es' ? 'Registrarse y Publicar' : 'Sign Up & Publish')
+                                : (locale === 'es' ? 'Saltar y Publicar' : 'Skip and Publish')
+                            }
                         </Button>
                     </DialogFooter>
                 </DialogContent>

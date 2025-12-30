@@ -114,7 +114,8 @@ describe('Wizard Service (Full Logic)', () => {
 
         // Verify:
         // 1. User Message Saved
-        expect(mockDb.insert).toHaveBeenCalledTimes(5); // UserMsg, Slices, SliceCards, AI User, AI Msg (wait, 4 or 5?)
+        expect(mockDb.insert).toHaveBeenCalledTimes(6); // UserMsg, AI User, Guest User, Slice, SliceCard, AI Msg
+
         // Let's check specific insertions
 
         // 2. Aura Awarded (Quality Score 8)

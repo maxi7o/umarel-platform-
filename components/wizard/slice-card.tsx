@@ -32,7 +32,7 @@ import { useTranslations } from 'next-intl';
 // Actually, it's safer to just partial replace or be very careful.
 // Let's replace the whole function body content to be safe and clean.
 
-export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
+export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: SliceCardProps & { isGuest?: boolean }) {
     const t = useTranslations('sliceCard');
     const [isEditing, setIsEditing] = useState(false);
     const [editedCard, setEditedCard] = useState(sliceCard);
@@ -45,8 +45,6 @@ export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
 
     const formatCurrency = (amount: number | null, currency: string) => {
         if (!amount) return '-';
-        // Use user's locale ideally, but for now hardcoded es-AR based on context is risky if used elsewhere.
-        // Let's stick to standard formatting or what was there.
         return new Intl.NumberFormat('es-AR', {
             style: 'currency',
             currency: currency || 'ARS',
@@ -67,6 +65,7 @@ export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
                             size="sm"
                             onClick={() => setIsEditing(!isEditing)}
                             className="h-8 w-8 p-0"
+                            disabled={isGuest} // Disable editing for guests
                         >
                             <Edit2 className="h-4 w-4" />
                         </Button>
@@ -91,9 +90,19 @@ export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
                 </div>
 
                 {/* Price */}
-                <div className="flex items-center justify-between border-t pt-4">
+                <div className="flex items-center justify-between border-t pt-4 relative group">
                     <span className="text-sm font-medium text-muted-foreground">{t('finalPriceLabel')}:</span>
-                    {isEditing ? (
+
+                    {isGuest ? (
+                        <div className="relative">
+                            <span className="text-lg font-bold blur-sm select-none opacity-50">
+                                $XX,XXX
+                            </span>
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 dark:bg-black/80 text-[10px] font-bold uppercase tracking-wider text-center">
+                                Login to view
+                            </div>
+                        </div>
+                    ) : isEditing ? (
                         <Input
                             type="number"
                             value={editedCard.finalPrice ? editedCard.finalPrice / 100 : ''}
@@ -123,6 +132,12 @@ export function SliceCard({ sliceCard, onUpdate, isLocked }: SliceCardProps) {
                     <Button onClick={handleSave} className="w-full">
                         Save Changes
                     </Button>
+                )}
+
+                {isGuest && (
+                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs rounded-md text-center">
+                        Sign up to unlock prices & hiring
+                    </div>
                 )}
             </CardContent>
         </Card>
