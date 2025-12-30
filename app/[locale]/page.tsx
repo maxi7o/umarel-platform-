@@ -1,10 +1,12 @@
-
 import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
-export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = useTranslations('home');
 
   return (
