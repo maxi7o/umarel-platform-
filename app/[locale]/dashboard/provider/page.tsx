@@ -1,4 +1,9 @@
 import { ProviderDashboardClient } from './client-page'
+import { db } from '@/lib/db'
+import { serviceOfferings, requests, slices } from '@/lib/db/schema'
+import { eq, desc } from 'drizzle-orm'
+import { createClient } from '@/lib/supabase/server'
+import { getEffectiveUserId } from '@/lib/services/special-users'
 
 // Mock data for development
 const MOCK_OPPORTUNITIES = [
@@ -27,25 +32,54 @@ const MOCK_OPPORTUNITIES = [
 ]
 
 export default async function ProviderDashboard() {
+    // 1. Get Current User
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    // Default to a demo user if not logged in (for dev) or redirect? 
+    // Given the context, we likely want to show empty or redirect. 
+    // But for now, let's allow it to run even if not logged in (will show empty offerings)
+    const userId = await getEffectiveUserId(user?.id);
+
+    // 2. Fetch My Offerings
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let myOfferings: any[] = [];
+
+    if (userId) {
+        try {
+            myOfferings = await db
+                .select()
+                .from(serviceOfferings)
+                .where(eq(serviceOfferings.providerId, userId))
+                .orderBy(desc(serviceOfferings.createdAt));
+        } catch (e) {
+            console.error("Failed to fetch offerings", e);
+        }
+    }
+
+    // 3. Opportunities (Mock for now, but could be real if we implemented matching)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let opportunities: any[] = []
 
+    /* 
     try {
-        // In a real app, we would join slices with requests and filter by location/status
-        // const result = await db.select().from(slices)...
-    } catch (e) {
-        console.error("DB Error", e)
-    }
+        // Real implementation would find open slices in user's area
+    } catch (e) { ... } 
+    */
 
     if (opportunities.length === 0) {
         opportunities = MOCK_OPPORTUNITIES
     }
 
     const mockStats = {
-        totalEarnings: 1250000, // 12,500.00 in cents
+        totalEarnings: 1250000,
         pendingEarnings: 450000,
         auraScore: 94
     }
 
-    return <ProviderDashboardClient opportunities={opportunities} stats={mockStats} />
+    return <ProviderDashboardClient
+        opportunities={opportunities}
+        stats={mockStats}
+        offerings={myOfferings}
+    />
 }
