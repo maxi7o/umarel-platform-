@@ -492,5 +492,18 @@
         "title": "Terms of Service",
         "intro": "Welcome to Umarel...",
         "privacyTitle": "Privacy Policy"
+    },
+    "offeringDetail": {
+        "backToBrowse": "Back to Services",
+        "virtual": "Virtual Service",
+        "aboutService": "About this Service",
+        "skills": "Skills & Expertise",
+        "availability": "Typical Availability",
+        "editOffering": "Edit Offering",
+        "contactProvider": "Contact Provider",
+        "contactDisclaimer": "You will be able to discuss details before booking.",
+        "provider": "Service Provider",
+        "completion": "Order Completion",
+        "rating": "Community Rating"
     }
 }

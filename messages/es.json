@@ -507,5 +507,18 @@
         "title": "Términos de Servicio",
         "intro": "Bienvenido a Umarel...",
         "privacyTitle": "Política de Privacidad"
+    },
+    "offeringDetail": {
+        "backToBrowse": "Volver a Servicios",
+        "virtual": "Servicio Virtual",
+        "aboutService": "Sobre este Servicio",
+        "skills": "Habilidades y Experiencia",
+        "availability": "Disponibilidad Típica",
+        "editOffering": "Editar Servicio",
+        "contactProvider": "Contactar Proveedor",
+        "contactDisclaimer": "Vas a poder discutir los detalles antes de reservar.",
+        "provider": "Proveedor de Servicio",
+        "completion": "Finalización de Pedidos",
+        "rating": "Calificación Comunitaria"
     }
 }
