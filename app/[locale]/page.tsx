@@ -14,22 +14,22 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
       <section className="relative pt-20 pb-32 overflow-hidden">
         <div className="container mx-auto px-6 text-center z-10 relative">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-gray-900">
-            Get things done <br className="hidden md:block" />
-            <span className="text-orange-600">with wisdom.</span>
+            {t('heroTitle1')} <br className="hidden md:block" />
+            <span className="text-orange-600">{t('heroTitleHighlight')}</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            The marketplace where experienced professionals help you break down complex tasks into manageable steps.
+            {t('heroSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/requests/create">
               <Button size="lg" className="h-14 px-8 text-lg bg-gray-900 hover:bg-black text-white rounded-full shadow-lg hover:shadow-xl transition-all">
-                Post a Request
+                {t('postRequest')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/browse">
               <Button variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full border-gray-300 hover:bg-gray-50">
-                Browse Services
+                {t('browseServices')}
               </Button>
             </Link>
           </div>
@@ -42,12 +42,12 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
       {/* 2. Brand Definition - The "Umarel" (Requested Content) */}
       <section className="py-24 bg-gray-50 border-y border-gray-100">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <span className="text-orange-600 font-bold tracking-widest uppercase text-sm mb-4 block">Origin Story</span>
+          <span className="text-orange-600 font-bold tracking-widest uppercase text-sm mb-4 block">{t('originLabel')}</span>
           <blockquote className="text-2xl md:text-3xl font-serif text-gray-800 leading-normal mb-8">
-            "Umarel (pronunciación en italiano: /umaˈrɛl/: [umaˈrɛl]; revisión italiana de la palabra umarèl del idioma boloñés) es un término que se refiere específicamente a los hombres en edad de jubilación quiénes pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos"
+            {t('originQuote')}
           </blockquote>
           <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
-            — Wikipedia / Popular Culture
+            {t('originSource')}
           </div>
         </div>
       </section>
@@ -60,27 +60,27 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
               <div className="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold">Experienced Wisdom</h3>
+              <h3 className="text-xl font-bold">{t('prop1Title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Connect with retired professionals and experts who have seen it all. They don't just work; they guide.
+                {t('prop1Desc')}
               </p>
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold">Smart Breakdown</h3>
+              <h3 className="text-xl font-bold">{t('prop2Title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Our AI Wizard breaks your big projects into small, priceable "slices", saving you up to 30% on costs.
+                {t('prop2Desc')}
               </p>
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-bold">Secure Escrow</h3>
+              <h3 className="text-xl font-bold">{t('prop3Title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Funds are held safely until the work is verified. Pay only for results, not for promises.
+                {t('prop3Desc')}
               </p>
             </div>
           </div>
