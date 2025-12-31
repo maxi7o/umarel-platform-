@@ -68,7 +68,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             <Badge variant="secondary" className="text-sm border-gray-200">
                                 {(offering.category as string) || 'Service'}
                             </Badge>
-                            {offering.isVirtual && (
+                            {!!offering.isVirtual && (
                                 <Badge variant="outline" className="gap-1 border-gray-200">
                                     <Globe className="h-3 w-3" />
                                     {t('virtual')}
@@ -83,7 +83,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             {offering.title as string}
                         </h1>
                         <div className="flex items-center gap-2 text-muted-foreground">
-                            {offering.location && (
+                            {!!offering.location && (
                                 <div className="flex items-center gap-1">
                                     <MapPin className="h-4 w-4" />
                                     <span>{offering.location as string}</span>
@@ -93,7 +93,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                     </div>
 
                     {/* Portfolio Images */}
-                    {offering.portfolioImages && Array.isArray(offering.portfolioImages) && offering.portfolioImages.length > 0 && (
+                    {Array.isArray(offering.portfolioImages) && offering.portfolioImages.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {(offering.portfolioImages as string[]).map((img, idx) => (
                                 <div key={idx} className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 border">
@@ -113,7 +113,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                     </div>
 
                     {/* Skills */}
-                    {offering.skills && Array.isArray(offering.skills) && (offering.skills as string[]).length > 0 && (
+                    {Array.isArray(offering.skills) && (offering.skills as string[]).length > 0 && (
                         <div>
                             <h3 className="text-xl font-semibold mb-3">{t('skills')}</h3>
                             <div className="flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             )}
                         </div>
 
-                        {offering.availability && (
+                        {!!offering.availability && (
                             <div className="mb-6 p-3 bg-blue-50 text-blue-800 rounded-lg text-sm">
                                 <strong>{t('availability')}:</strong> {offering.availability as string}
                             </div>
