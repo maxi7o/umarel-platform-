@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -7,7 +6,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations('home');
+  const t = await getTranslations('home');
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-900">
