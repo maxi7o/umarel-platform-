@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DisputeActions } from '@/components/payments/dispute-actions';
 import { StartJobDialog } from '@/components/interaction/start-job-dialog';
+import { SubmitEvidenceDialog } from '@/components/interaction/submit-evidence-dialog';
 import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -168,14 +169,21 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                                     <Hammer className="w-3 h-3 animate-bounce" />
                                                                     Work In Progress
                                                                 </div>
-                                                                <Button
-                                                                    size="sm"
-                                                                    variant="outline"
-                                                                    className="h-6 text-xs w-full"
-                                                                    onClick={() => handleMove(slice.id, 'completed')}
+
+
+                                                                <SubmitEvidenceDialog
+                                                                    sliceId={slice.id}
+                                                                    sliceTitle={slice.title}
+                                                                    onSubmitted={() => handleMove(slice.id, 'completed')}
                                                                 >
-                                                                    {t('actions.complete')}
-                                                                </Button>
+                                                                    <Button
+                                                                        size="sm"
+                                                                        variant="outline"
+                                                                        className="h-6 text-xs w-full"
+                                                                    >
+                                                                        {t('actions.complete')}
+                                                                    </Button>
+                                                                </SubmitEvidenceDialog>
                                                             </div>
                                                         ) : (
                                                             <div className="w-full space-y-2">

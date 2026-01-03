@@ -12,7 +12,10 @@ import {
     Globe,
     CheckCircle2,
     Star,
-    Sparkles
+    Sparkles,
+    AlertCircle,
+    ShieldCheck,
+    Layers
 } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/currency-display';
 import Link from 'next/link';
@@ -35,6 +38,9 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
     const t = useTranslations('card');
     const isRequest = type === 'request';
     const [isSaved, setIsSaved] = useState(false); // In real app, init from props
+
+    // Default ambiguity if not present (mock fallback)
+    const ambiguityScore = item.ambiguityScore || 0;
 
     const toggleSave = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -74,7 +80,7 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                 <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
                                 <Badge variant={isRequest ? "default" : "secondary"} className="gap-1">
                                     {isRequest ? (
                                         <>
@@ -88,15 +94,25 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                                         </>
                                     )}
                                 </Badge>
+
+                                {/* Ambiguity Badges (V2 Logic) */}
+                                {isRequest && ambiguityScore > 50 && (
+                                    <Badge variant="destructive" className="gap-1 bg-orange-500 hover:bg-orange-600 animate-pulse">
+                                        <AlertCircle className="h-3 w-3" />
+                                        <span>Needs Umarel</span>
+                                    </Badge>
+                                )}
+                                {isRequest && ambiguityScore <= 20 && ambiguityScore > 0 && (
+                                    <Badge variant="outline" className="gap-1 text-green-600 border-green-200 bg-green-50">
+                                        <ShieldCheck className="h-3 w-3" />
+                                        <span>Clear Specs</span>
+                                    </Badge>
+                                )}
+
                                 {item.isVirtual && (
                                     <Badge variant="outline" className="gap-1">
                                         <Globe className="h-3 w-3" />
                                         {t('virtual')}
-                                    </Badge>
-                                )}
-                                {item.featured && (
-                                    <Badge variant="destructive" className="text-xs">
-                                        {t('featured')}
                                     </Badge>
                                 )}
                             </div>
@@ -116,6 +132,15 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                                         {item.location}
                                     </span>
                                 )}
+
+                                {/* Slice Count Indicator */}
+                                {item.sliceCount !== undefined && (
+                                    <span className="flex items-center gap-1" title="Number of Slices">
+                                        <Layers className="h-3 w-3" />
+                                        {item.sliceCount} Slices
+                                    </span>
+                                )}
+
                                 {item.category && (
                                     <Badge variant="outline" className="text-xs">
                                         {item.category}

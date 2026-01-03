@@ -227,13 +227,30 @@ export function RequestInteractionLayout({
 
                 {/* RIGHT: The Umarel Sidebar (AI & Context) */}
                 <div className="space-y-6">
+
+                    {/* Ambiguity Meter (For Umarels) */}
+                    {!isOwner && currentUser && (
+                        <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
+                            <h4 className="text-sm font-bold text-stone-900 mb-3 flex items-center justify-between">
+                                <span>Ambiguity Level</span>
+                                <span className="text-orange-600 font-mono">High (65%)</span>
+                            </h4>
+                            <div className="w-full bg-stone-100 rounded-full h-2.5 mb-2">
+                                <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '65%' }}></div>
+                            </div>
+                            <p className="text-xs text-stone-500 mt-2">
+                                This request is vague. Propose clearer Acceptance Criteria or Slices to reduce ambiguity and earn <strong>Umarel Rewards</strong>.
+                            </p>
+                        </div>
+                    )}
+
                     {/* The Notebook (AI Chat) - Sticky Sidebar */}
                     <div className="sticky top-6">
                         <div className="bg-[#fffdf5] rounded-xl border-2 border-dashed border-stone-300 shadow-sm overflow-hidden flex flex-col h-[600px]">
                             <div className="border-b border-stone-200 bg-[#fffbf0] px-4 py-3 flex items-center justify-between">
                                 <h4 className="text-sm font-bold text-stone-700 uppercase tracking-wider flex items-center gap-2">
                                     <MessageSquare size={16} className="text-stone-500" />
-                                    {t('privateInsights')}
+                                    {!isOwner && currentUser ? 'Optimization Console' : t('privateInsights')}
                                 </h4>
                                 <Badge variant="outline" className="bg-white text-[10px] uppercase">
                                     {t('aiMode')}
