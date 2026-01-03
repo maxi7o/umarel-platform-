@@ -57,9 +57,12 @@ export function Navbar({ user }: NavbarProps) {
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-6">
                     <Link href="/browse" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                         {t('browse')}
+                    </Link>
+                    <Link href="/requests/create" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        {t('postNeed')}
                     </Link>
                     <Link href="/create-offering" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                         {t('offerServices')}
@@ -121,9 +124,6 @@ export function Navbar({ user }: NavbarProps) {
                         <div className="hidden md:flex items-center gap-3">
                             <Link href="/login">
                                 <Button variant="ghost" className="text-gray-600">{t('login')}</Button>
-                            </Link>
-                            <Link href="/requests/create">
-                                <Button className="bg-gray-900 hover:bg-black text-white">{t('postNeed')}</Button>
                             </Link>
                         </div>
                     )}

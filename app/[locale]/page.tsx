@@ -89,24 +89,24 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </div>
             </div>
 
-            {/* The Umarel (Middleman/Verifier) - Featured */}
-            <div className="group relative bg-gray-900 text-white p-8 rounded-3xl shadow-2xl shadow-orange-900/20 transform lg:-translate-y-4 border border-gray-800">
+            {/* The Umarel (Middleman/Verifier) */}
+            <div className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-gray-200/80 transition-all duration-300 hover:-translate-y-1">
               <div className="absolute top-0 right-0 p-4">
-                <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{t('roleUmarelBadge')}</span>
+                <span className="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{t('roleUmarelBadge')}</span>
               </div>
-              <div className="h-14 w-14 bg-white/10 text-orange-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="h-14 w-14 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>
               </div>
-              <h3 className="text-2xl font-bold mb-3 font-serif text-white">{t('roleUmarelTitle')}</h3>
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-3 font-serif">{t('roleUmarelTitle')}</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 {t('roleUmarelDesc')}
               </p>
-              <ul className="space-y-3 text-sm text-gray-400 mb-8">
+              <ul className="space-y-3 text-sm text-gray-500 mb-8">
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-orange-500" /> {t('roleUmarelBenefit1')}</li>
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-orange-500" /> {t('roleUmarelBenefit2')}</li>
               </ul>
-              <div className="pt-6 border-t border-gray-800">
-                <span className="text-orange-400 font-semibold flex items-center group-hover:gap-2 transition-all cursor-not-allowed opacity-70">
+              <div className="pt-6 border-t border-gray-100">
+                <span className="text-orange-600 font-semibold flex items-center group-hover:gap-2 transition-all cursor-not-allowed opacity-70">
                   {t('roleUmarelAction')} <span className="text-xs ml-2 text-gray-500">({t('soon')})</span>
                 </span>
               </div>
