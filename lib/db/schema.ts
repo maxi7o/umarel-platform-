@@ -65,7 +65,13 @@ export const slices = pgTable('slices', {
     isAiGenerated: boolean('is_ai_generated').default(false),
     dependencies: jsonb('dependencies'), // Array of slice IDs
 
-    // Refund Logic
+    // V2: Strict Criteria & Evidence
+    acceptanceCriteria: jsonb('acceptance_criteria').$type<{ id: string, description: string, requiredEvidenceType: 'photo' | 'video' | 'file' }[]>(),
+    evidenceRequirements: jsonb('evidence_requirements'), // Detailed config (e.g. time window)
+    evidenceTimeWindowMinutes: integer('evidence_time_window_minutes'),
+    ambiguityScore: integer('ambiguity_score').default(0), // 0-100 (100 = very ambiguous)
+    isPublic: boolean('is_public').default(true),
+
     // Refund Logic
     refundStatus: refundStatusEnum('refund_status').default('none'),
     refundReason: text('refund_reason'),
@@ -93,6 +99,11 @@ export const quotes = pgTable('quotes', {
     amount: integer('amount').notNull(), // in cents
     currency: currencyEnum('currency').default('ARS'),
     message: text('message'),
+
+    // V2: Proposal of Criteria
+    proposedAcceptanceCriteria: jsonb('proposed_acceptance_criteria').$type<{ id: string, description: string }[]>(),
+    ambiguityReductionScore: integer('ambiguity_reduction_score').default(0),
+
     estimatedDeliveryDate: timestamp('estimated_delivery_date'),
     status: quoteStatusEnum('status').default('pending'),
     createdAt: timestamp('created_at').defaultNow(),
@@ -448,7 +459,26 @@ export const sliceEvidence = pgTable('slice_evidence', {
     fileType: text('file_type').default('image'),
     description: text('description'),
     metadata: jsonb('metadata'), // { lat, lng, altitude, accuracy, timestamp, deviceId }
+
+    // V2: Strict Validation
+    capturedAt: timestamp('captured_at'),
+    deviceSignature: text('device_signature'), // Hash to detect camera roll vs live
+    aiValidationStatus: text('ai_validation_status').default('pending'), // 'pending', 'approved', 'rejected'
+    aiValidationJson: jsonb('ai_validation_json'), // Full AI analysis report
+
     isVerified: boolean('is_verified').default(false), // Trusted source vs EXIF
+    createdAt: timestamp('created_at').defaultNow(),
+});
+
+// V2: Track Umarel Optimizations
+export const umarelContributions = pgTable('umarel_contributions', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    umarelId: uuid('umarel_id').references(() => users.id).notNull(),
+    contributionType: text('contribution_type').notNull(), // 'ambiguity_fix', 'pricing_insight', 'risk_flag'
+    description: text('description').notNull(),
+    impactScore: integer('impact_score').default(0), // 0-100
+    status: text('status').default('pending'), // 'accepted', 'rejected', 'pending'
     createdAt: timestamp('created_at').defaultNow(),
 });
 
