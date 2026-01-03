@@ -106,9 +106,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-orange-500" /> {t('roleUmarelBenefit2')}</li>
               </ul>
               <div className="pt-6 border-t border-gray-100">
-                <span className="text-orange-600 font-semibold flex items-center group-hover:gap-2 transition-all cursor-not-allowed opacity-70">
-                  {t('roleUmarelAction')} <span className="text-xs ml-2 text-gray-500">({t('soon')})</span>
-                </span>
+                <Link href="/browse">
+                  <span className="text-orange-600 font-semibold flex items-center group-hover:gap-2 transition-all">
+                    {t('roleUmarelAction')} <ArrowRight className="ml-1 h-4 w-4" />
+                  </span>
+                </Link>
               </div>
             </div>
 
