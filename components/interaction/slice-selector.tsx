@@ -14,6 +14,7 @@ interface Slice {
     skills: string[];
     status: string;
     estimatedTime?: string;
+    ambiguityScore?: number;
 }
 
 interface SliceSelectorProps {
@@ -47,14 +48,17 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
             <div className="grid gap-3">
                 {slices.map((slice) => {
                     const isSelected = selectedSliceIds.includes(slice.id);
+                    const isAmbiguous = (slice.ambiguityScore || 0) > 50;
+
                     return (
                         <div
                             key={slice.id}
                             className={cn(
-                                "flex items-start gap-3 p-4 rounded-lg border transition-all cursor-pointer hover:border-orange-200",
+                                "flex items-start gap-3 p-4 rounded-lg border transition-all cursor-pointer",
                                 isSelected
                                     ? "bg-orange-50/50 border-orange-300 dark:bg-orange-950/20 dark:border-orange-800"
-                                    : "bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800"
+                                    : "bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800",
+                                isAmbiguous && !isSelected && "border-orange-200 bg-orange-50/20"
                             )}
                             onClick={() => toggleSlice(slice.id)}
                         >
@@ -69,6 +73,11 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
                                     <label htmlFor={slice.id} className="font-medium cursor-pointer flex items-center gap-2">
                                         {getIcon(slice.skills)}
                                         {slice.title}
+                                        {isAmbiguous && (
+                                            <Badge variant="outline" className="ml-2 text-[10px] text-orange-600 bg-orange-50 border-orange-200">
+                                                High Ambiguity ⚠️
+                                            </Badge>
+                                        )}
                                     </label>
                                     {/* Status Badge if needed */}
                                 </div>
