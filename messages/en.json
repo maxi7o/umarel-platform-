@@ -103,7 +103,7 @@
         "roleClientAction": "Post a Request",
         "roleUmarelTitle": "The Umarel",
         "roleUmarelBadge": "Guardian",
-        "roleUmarelDesc": "The wise observer. You review scopes, settle disputes, and earn a share of the platform's success.",
+        "roleUmarelDesc": "The wise observer. You review scopes, ensure clarity, and earn a share of the platform's success.",
         "roleUmarelBenefit1": "Earn community dividends",
         "roleUmarelBenefit2": "Build reputation & rank",
         "roleUmarelAction": "Become an Umarel",
@@ -264,7 +264,7 @@
             },
             "umarel": {
                 "title": "The Umarel",
-                "description": "The wise observer. You review scopes, settle disputes, and earn a share of the platform's success."
+                "description": "The wise observer. You review scopes, ensure clarity, and earn a share of the platform's success."
             }
         },
         "safetyTips": {

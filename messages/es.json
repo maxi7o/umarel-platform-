@@ -100,7 +100,7 @@
         "roleClientAction": "Publicar Proyecto",
         "roleUmarelTitle": "El Umarel",
         "roleUmarelBadge": "Guardián",
-        "roleUmarelDesc": "El observador sabio. Revisás alcances, resolvés disputas y ganás parte del éxito de la plataforma.",
+        "roleUmarelDesc": "El observador sabio. Revisás alcances, asegurás la claridad y ganás parte del éxito de la plataforma.",
         "roleUmarelBenefit1": "Ganá dividendos comunitarios",
         "roleUmarelBenefit2": "Construí reputación y rango",
         "roleUmarelAction": "Ser un Umarel",
@@ -261,7 +261,7 @@
             },
             "umarel": {
                 "title": "El Umarel",
-                "description": "El observador sabio. Revisás alcances, resolvés disputas y ganás parte del éxito de la plataforma."
+                "description": "El observador sabio. Revisás alcances, asegurás la claridad y ganás parte del éxito de la plataforma."
             }
         },
         "safetyTips": {
