@@ -142,18 +142,28 @@ export async function recordJuryVote(
 
     // 2. Check if Consensus Reached
     const votes = await db.query.disputeJurors.findMany({
-        where: eq(disputeJurors.disputeId, disputeId)
+        where: eq(disputeJurors.disputeId, disputeId),
+        with: { user: true }
     });
 
     const votedCount = votes.filter(v => v.status === 'voted').length;
     const required = votes.length; // Usually 3
 
     if (votedCount === required) {
-        // Tally Votes
-        const releaseVotes = votes.filter(v => v.vote === 'resolved_release').length;
-        const refundVotes = votes.filter(v => v.vote === 'resolved_refund').length;
+        // Tally Votes with Weighting
+        let releaseScore = 0;
+        let refundScore = 0;
 
-        const winner = releaseVotes > refundVotes ? 'release' : 'refund';
+        for (const v of votes) {
+            if (v.status !== 'voted') continue;
+
+            const weight = getJurorWeight(v.user.auraLevel);
+
+            if (v.vote === 'resolved_release') releaseScore += weight;
+            if (v.vote === 'resolved_refund') refundScore += weight;
+        }
+
+        const winner = releaseScore > refundScore ? 'release' : 'refund';
 
         // Finalize
         await finalizeDispute(
@@ -188,4 +198,13 @@ export async function finalizeDispute(
 
     // 3. Execute Funds (Mock)
     // if (adminDecision === 'refund') ... call stripeRefund ...
+}
+
+function getJurorWeight(level: string | null): number {
+    switch (level) {
+        case 'diamond': return 10;
+        case 'gold': return 5;
+        case 'silver': return 2;
+        default: return 1;
+    }
 }

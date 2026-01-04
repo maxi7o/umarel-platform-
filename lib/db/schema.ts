@@ -725,3 +725,14 @@ export const disputeEvidenceRelations = relations(disputeEvidence, ({ one }) => 
         references: [users.id],
     }),
 }));
+
+export const disputeJurorsRelations = relations(disputeJurors, ({ one }) => ({
+    dispute: one(disputes, {
+        fields: [disputeJurors.disputeId],
+        references: [disputes.id],
+    }),
+    user: one(users, {
+        fields: [disputeJurors.userId],
+        references: [users.id],
+    }),
+}));
