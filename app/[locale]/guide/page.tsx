@@ -106,7 +106,7 @@ export default function GuidePage() {
                 <div className="text-center py-12">
                     <Link href="/requests/create">
                         <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6 h-auto rounded-full shadow-lg hover:shadow-xl transition-all">
-                            Start Your First Project
+                            {t('cta')}
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     </Link>

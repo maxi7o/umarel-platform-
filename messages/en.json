@@ -587,11 +587,12 @@
         "faq": {
             "title": "Common Questions",
             "q1": "What happens if I'm not happy?",
-            "a1": "The money is in Escrow. If the work isn't right, you don't click 'Approve'. We open a Dispute where a senior Umarel helps mediate.",
+            "a1": "The money is in Escrow. If the work isn't right, you don't click 'Approve'. Our AI Assistant immediately steps in to guide the mediation process.",
             "q2": "Is this a real contract?",
             "a2": "Yes. The 'Slices' form a digital agreement. It protects both sides better than a handshake.",
             "q3": "Do I need to be a tech expert?",
             "a3": "No. If you can take a photo and send a text, you can use Umarel. Our AI Assistant guides every step."
-        }
+        },
+        "cta": "Start your first project"
     }
 }

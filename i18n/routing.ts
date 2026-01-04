@@ -7,7 +7,24 @@ export const routing = defineRouting({
     locales: SUPPORTED_LOCALES,
 
     // Used when no locale matches
-    defaultLocale: DEFAULT_LOCALE
+    defaultLocale: DEFAULT_LOCALE,
+
+    // Localized pathnames
+    pathnames: {
+        '/': '/',
+        '/guide': {
+            en: '/guide',
+            es: '/guia'
+        },
+        '/browse': {
+            en: '/browse',
+            es: '/explorar'
+        },
+        '/requests/create': '/requests/create',
+        '/create-offering': '/create-offering',
+        '/login': '/login',
+        '/wallet': '/wallet'
+    }
 });
 
 // Lightweight wrappers around Next.js' navigation APIs
