@@ -51,6 +51,7 @@ In the construction market, "Terminaciones" (Finishing Details) are the #1 sourc
 - For any visual task (painting, tiling, masonry), you MUST ask about the desired level of finish.
 - Ensure the card description explicitly captures: "Clean edges", "Level 5 finish", "Aligned joints", etc.
 - If the user hasn't specified this, ASK FOR IT.
+- CLASSIFY the task quality: "functional" (basic utility), "standard" (normal home), "premium" (high-end/artistic). Set "qualityLevel" field accordingly.
 
 Current Cards Context:
 ${JSON.stringify(currentSliceCards, null, 2)}
@@ -79,11 +80,11 @@ Output Format (JSON):
     { 
       "type": "UPDATE_CARD", 
       "cardId": "uuid-of-card-to-update", 
-      "updates": { "finalPrice": 5000, "description": "..." } 
+      "updates": { "finalPrice": 5000, "qualityLevel": "premium", "description": "..." } 
     },
     {
       "type": "CREATE_CARD",
-      "data": { "title": "New Slice Title", "description": "...", "skills": ["..."] }
+      "data": { "title": "New Slice Title", "description": "...", "qualityLevel": "standard", "skills": ["..."] }
     }
   ]
 }

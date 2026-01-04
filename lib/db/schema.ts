@@ -16,6 +16,7 @@ export const auraLevelEnum = pgEnum('aura_level', ['bronze', 'silver', 'gold', '
 export const wizardMessageRoleEnum = pgEnum('wizard_message_role', ['user', 'assistant', 'system']);
 export const changeProposalStatusEnum = pgEnum('change_proposal_status', ['pending', 'accepted', 'rejected']);
 export const currencyEnum = pgEnum('currency', ['ARS', 'USD', 'BRL', 'MXN', 'COP']);
+export const qualityLevelEnum = pgEnum('quality_level', ['functional', 'standard', 'premium']);
 
 export const users = pgTable('users', {
     id: uuid('id').primaryKey().defaultRandom(),
@@ -58,6 +59,7 @@ export const slices = pgTable('slices', {
     description: text('description').notNull(),
     estimatedEffort: text('estimated_effort'),
     estimatedHours: integer('estimated_hours'), // 1-4 hours (≤0.5 day)
+    qualityLevel: qualityLevelEnum('quality_level').default('standard'), // functional, standard, premium
     marketPriceMin: integer('market_price_min'), // in cents
     marketPriceMax: integer('market_price_max'), // in cents
     finalPrice: integer('final_price'), // Agreed price in cents (set when accepted)
@@ -362,6 +364,7 @@ export const sliceCards = pgTable('slice_cards', {
     finalPrice: integer('final_price'), // in cents
     currency: currencyEnum('currency').default('ARS'),
     skills: jsonb('skills').$type<string[]>().default([]),
+    qualityLevel: qualityLevelEnum('quality_level').default('standard'),
     estimatedTime: text('estimated_time'),
     dependencies: jsonb('dependencies').$type<string[]>().default([]),
     acceptanceCriteria: jsonb('acceptance_criteria').$type<string[]>().default([]),

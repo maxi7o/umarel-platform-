@@ -113,11 +113,92 @@ async function judgeWithGemini(
             return { model: 'Gemini 1.5 Pro', decision: 'appealed', confidence: 0, reasoning: 'Model Key Missing', keyObservations: [] };
         }
 
+        // 1. Fetch and process images
+        const imageParts = await Promise.all(
+            imageUrls.map(async (url) => {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
+                    const arrayBuffer = await response.arrayBuffer();
+                    return {
+                        inlineData: {
+                            data: Buffer.from(arrayBuffer).toString("base64"),
+                            mimeType: response.headers.get("content-type") || "image/jpeg",
+                        },
+                    };
+                } catch (err) {
+                    console.error(`Failed to load image for Gemini: ${url}`, err);
+                    return null;
+                }
+            })
+        );
+
+        const validImages = imageParts.filter(part => part !== null) as { inlineData: { data: string; mimeType: string } }[];
+
+        if (validImages.length === 0) {
+            return { model: 'Gemini 1.5 Pro', decision: 'appealed', confidence: 0, reasoning: 'Failed to load evidence images for analysis.', keyObservations: [] };
+        }
+
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-        // TODO: Implement image fetching and base64 conversion here
-        // For now, return a placeholder indicating integration pending
-        return { model: 'Gemini 1.5 Pro', decision: 'appealed', confidence: 0, reasoning: 'Image Fetcher Not Implemented', keyObservations: [] };
+        const prompt = `
+        You are 'Umarel', a highly experienced, strict, and impartial construction supervisor acting as a dispute judge.
+
+        TASK:
+        Analyze the provided photos of the work against the contractual agreement. Determine if the funds should be released to the Provider, refunded to the Client, or split.
+
+        CRITICAL: Apply the following ESTABLISHED PRECEDENTS (User Refinements) to your judgment:
+        ${precedents.length > 0 ? precedents.slice(-15).map(p => `- ${p}`).join('\n') : 'No specific precedents.'}
+        (Prioritize recent precedents)
+
+        CRITICAL: "THE 1-METER RULE" (Reasonableness):
+        - Construction is manual work, not semiconductor manufacturing.
+        - REJECT "Pixel Peeping". If a flaw is only visible in a macro photo and not from a standard viewing distance (1 meter), it is ACCEPTABLE.
+        - Ignore microscopic brushstrokes unless they create a texture that looks bad from 1 meter away.
+
+        CRITICAL: EVIDENCE QUALITY GATE (Due Diligence):
+        - If the photos are blurry, too dark, or do not clearly show the disputed area:
+        - You MUST return 'appealed' with reasoning: "Evidence quality insufficient for fair judgment."
+        - This proves we (the platform) are acting with "Responsabilidad de Medios" by not guessing.
+
+        DECISION LOGIC:
+        - 'resolved_release': The work is complete and professional. Small imperfections are acceptable (Passes 1-Meter Rule).
+        - 'resolved_refund': The work is incomplete, damaged, or poor quality (Fails 1-Meter Rule).
+        - 'resolved_partial': The work is mostly done but has minor 'finishing' (Terminaciones) issues. Suggest a fair discount (e.g. 10-20% refund).
+        - 'appealed': The evidence is inconclusive or low quality.
+
+        OUTPUT JSON FORMAT (Return ONLY raw JSON, no markdown):
+        {
+            "decision": "resolved_release" | "resolved_refund" | "resolved_partial" | "appealed",
+            "confidence": number, // 0-100
+            "reasoning": "Clear, concise explanation...",
+            "keyObservations": ["List", "of", "facts"],
+            "suggestedSplit": { "provider": 80, "client": 20 }
+        }
+
+        CONTRACT DETAILS:
+        ${contractText}
+        `;
+
+        const result = await model.generateContent([
+            prompt,
+            ...validImages
+        ]);
+
+        const responseText = result.response.text();
+
+        // Clean markdown if present
+        const jsonStr = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+        const parsed = JSON.parse(jsonStr);
+
+        return {
+            model: 'Gemini 1.5 Pro',
+            decision: parsed.decision,
+            confidence: parsed.confidence,
+            reasoning: parsed.reasoning,
+            keyObservations: parsed.keyObservations || [],
+            suggestedSplit: parsed.suggestedSplit
+        };
 
     } catch (e) {
         console.error("Gemini Error", e);

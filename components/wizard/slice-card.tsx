@@ -21,6 +21,7 @@ interface SliceCardProps {
         acceptanceCriteria: string[];
         version: number;
         isLocked: boolean;
+        qualityLevel?: 'functional' | 'standard' | 'premium';
     };
     onUpdate: (updated: any) => void;
     isLocked: boolean;
@@ -50,6 +51,15 @@ export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: Sl
             currency: currency || 'ARS',
             minimumFractionDigits: 0,
         }).format(amount / 100);
+    };
+
+    const getQualityColor = (level?: string) => {
+        switch (level) {
+            case 'premium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+            case 'standard': return 'bg-blue-100 text-blue-800 border-blue-200';
+            case 'functional': return 'bg-gray-100 text-gray-800 border-gray-200';
+            default: return 'bg-stone-100 text-stone-800';
+        }
     };
 
     return (
@@ -86,6 +96,26 @@ export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: Sl
                                 rows={3}
                             />
                         </>
+                    )}
+                </div>
+
+                {/* Quality Level Badge */}
+                <div className="flex items-center justify-between">
+                    <span className="text-xs uppercase font-bold text-muted-foreground">Quality:</span>
+                    {isEditing ? (
+                        <select
+                            className="text-sm border rounded p-1"
+                            value={editedCard.qualityLevel || 'standard'}
+                            onChange={(e) => setEditedCard({ ...editedCard, qualityLevel: e.target.value as any })}
+                        >
+                            <option value="functional">Functional (Basic)</option>
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium (High Detail)</option>
+                        </select>
+                    ) : (
+                        <span className={`px-2 py-0.5 rounded text-xs font-bold border capitalize ${getQualityColor(sliceCard.qualityLevel)}`}>
+                            {sliceCard.qualityLevel || 'standard'}
+                        </span>
                     )}
                 </div>
 
