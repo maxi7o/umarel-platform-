@@ -1,84 +1,193 @@
+import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-import { openai } from './openai'; // Reusing existing client
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
-export type DisputeResolution = 'release_funds' | 'refund_client' | 'split_50_50' | 'manual_review';
-export type InsightSignal = 'adapt' | 'persevere' | 'noise';
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_KEY || '');
 
-export interface DisputeAnalysis {
-    resolution: DisputeResolution;
+export type ModelVerdict = {
+    model: string;
+    decision: 'resolved_release' | 'resolved_refund' | 'resolved_partial' | 'appealed';
     confidence: number;
     reasoning: string;
-    productInsight: {
-        signal: InsightSignal;
-        featureArea: string; // e.g. "Auto-Assign", "Payment Flow", "Wizard"
-        insight: string; // "Users misunderstand the auto-assign criteria..."
-    } | null;
+    keyObservations: string[];
+    suggestedSplit?: { provider: number; client: number }; // Percentage 0-100
+};
+
+export type CouncilVerdict = {
+    consensus: ModelVerdict['decision'] | 'split_decision';
+    verdicts: ModelVerdict[];
+    summary: string;
 }
 
-/**
- * The Judge: Analyzes a dispute to recommend a resolution AND extract product feedback.
- */
-export async function analyzeDispute(
-    sliceContext: any,
-    disputeClaim: { reason: string; description: string; evidenceDescription?: string }
-): Promise<DisputeAnalysis> {
-
-    const systemPrompt = `You are "The Judge" - an impartial mediator and Product Manager for Umarel (a home services marketplace).
-
-GOALS:
-1. Recommend a fair resolution for a dispute between a Client and a Provider.
-2. **CRITICAL**: Analyze if this dispute reveals a flaw in the Product/Platform (Feature Gap, Confusing UI, Bad Process).
-   - If the platform failed the users, signal "ADAPT" and name the feature.
-   - If the platform worked but users misbehaved, signal "PERSEVERE".
-   - If it's just a random noise/misunderstanding, signal "NOISE".
-
-CONTEXT:
-Slice Title: "${sliceContext.title}"
-Price: ${sliceContext.finalPrice} cents
-Status: ${sliceContext.status}
-Provider ID: ${sliceContext.assignedProviderId}
-Client ID: ${sliceContext.creatorId}
-
-DISPUTE CLAIM (File by Client):
-Reason: ${disputeClaim.reason}
-Description: "${disputeClaim.description}"
-Evidence: "${disputeClaim.evidenceDescription || 'None'}"
-
-OUTPUT FORMAT (JSON):
-{
-  "resolution": "release_funds" | "refund_client" | "split_50_50" | "manual_review",
-  "confidence": 0-100,
-  "reasoning": "Brief explanation...",
-  "productInsight": {
-    "signal": "adapt" | "persevere" | "noise",
-    "featureArea": "Short feature name (e.g. 'Wizard', 'Escrow', 'Chat')",
-    "insight": "One sentence explaining the product takeaway."
-  }
-}
-`;
-
+// ------------------------------------------
+// 1. OpenAI Implementation (GPT-4o)
+// ------------------------------------------
+async function judgeWithOpenAI(
+    contractText: string,
+    imageUrls: string[],
+    precedents: string[]
+): Promise<ModelVerdict> {
     try {
         const response = await openai.chat.completions.create({
-            model: "gpt-4-turbo-preview", // Use smart model for reasoning
+            model: "gpt-4o",
             messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: "Please analyze this case." }
+                {
+                    role: "system",
+                    content: `You are 'Umarel', a highly experienced, strict, and impartial construction supervisor acting as a dispute judge.
+                    
+                    TASK:
+                    Analyze the provided photos of the work against the contractual agreement. Determine if the funds should be released to the Provider, refunded to the Client, or split.
+                    
+                    CRITICAL: Apply the following ESTABLISHED PRECEDENTS (User Refinements) to your judgment:
+                    ${precedents.length > 0 ? precedents.slice(-15).map(p => `- ${p}`).join('\n') : 'No specific precedents.'}
+                    (Prioritize recent precedents)
+
+                    CRITICAL: "THE 1-METER RULE" (Reasonableness):
+                    - Construction is manual work, not semiconductor manufacturing.
+                    - REJECT "Pixel Peeping". If a flaw is only visible in a macro photo and not from a standard viewing distance (1 meter), it is ACCEPTABLE.
+                    - Ignore microscopic brushstrokes unless they create a texture that looks bad from 1 meter away.
+                    
+                    CRITICAL: EVIDENCE QUALITY GATE (Due Diligence):
+                    - If the photos are blurry, too dark, or do not clearly show the disputed area:
+                    - You MUST return 'appealed' with reasoning: "Evidence quality insufficient for fair judgment."
+                    - This proves we (the platform) are acting with "Responsabilidad de Medios" by not guessing.
+                    
+                    DECISION LOGIC:
+                    - 'resolved_release': The work is complete and professional. Small imperfections are acceptable (Passes 1-Meter Rule).
+                    - 'resolved_refund': The work is incomplete, damaged, or poor quality (Fails 1-Meter Rule).
+                    - 'resolved_partial': The work is mostly done but has minor 'finishing' (Terminaciones) issues. Suggest a fair discount (e.g. 10-20% refund).
+                    - 'appealed': The evidence is inconclusive or low quality.
+
+                    OUTPUT JSON FORMAT:
+                    {
+                        "decision": "resolved_release" | "resolved_refund" | "resolved_partial" | "appealed",
+                        "confidence": number, // 0-100
+                        "reasoning": "Clear, concise explanation...",
+                        "keyObservations": ["List", "of", "facts"],
+                        "suggestedSplit": { "provider": 80, "client": 20 } // Required if decision is resolved_partial
+                    }
+                    `
+                },
+                {
+                    role: "user",
+                    content: [
+                        { type: "text", text: contractText },
+                        ...imageUrls.map(url => ({ type: "image_url" as const, image_url: { url } }))
+                    ]
+                }
             ],
             response_format: { type: "json_object" },
-            temperature: 0.2 // Low temp for consistent outcomes
+            temperature: 0.1
         });
 
-        const content = response.choices[0].message.content || '{}';
-        return JSON.parse(content) as DisputeAnalysis;
+        const result = JSON.parse(response.choices[0].message.content || '{}');
+        const decision = validateDecision(result.decision);
 
-    } catch (error) {
-        console.error("AI Judge Error:", error);
-        // Fallback safety
         return {
-            resolution: 'manual_review',
-            confidence: 0,
-            reasoning: "AI Analysis Failed",
-            productInsight: null
+            model: 'GPT-4o',
+            decision: decision,
+            confidence: result.confidence || 0,
+            reasoning: result.reasoning || "No reasoning provided.",
+            keyObservations: result.keyObservations || [],
+            suggestedSplit: result.suggestedSplit
+        };
+    } catch (e) {
+        console.error("OpenAI Error", e);
+        return createErrorVerdict('GPT-4o');
+    }
+}
+
+// ------------------------------------------
+// 2. Google Gemini Implementation (1.5 Pro)
+// ------------------------------------------
+async function judgeWithGemini(
+    contractText: string,
+    imageUrls: string[],
+    precedents: string[]
+): Promise<ModelVerdict> {
+    try {
+        if (!process.env.GOOGLE_GENERATIVE_AI_KEY) {
+            return { model: 'Gemini 1.5 Pro', decision: 'appealed', confidence: 0, reasoning: 'Model Key Missing', keyObservations: [] };
+        }
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+
+        // TODO: Implement image fetching and base64 conversion here
+        // For now, return a placeholder indicating integration pending
+        return { model: 'Gemini 1.5 Pro', decision: 'appealed', confidence: 0, reasoning: 'Image Fetcher Not Implemented', keyObservations: [] };
+
+    } catch (e) {
+        console.error("Gemini Error", e);
+        return createErrorVerdict('Gemini 1.5 Pro');
+    }
+}
+
+// ------------------------------------------
+// ORCHESTRATOR
+// ------------------------------------------
+export async function judgeDisputeParallel(
+    contract: { title: string; description: string; price: number; currency: string; criteria?: string },
+    evidence: { url: string; type: 'image' | 'video' }[],
+    knownPrecedents: string[] = [] // User Refinement Criteria
+): Promise<CouncilVerdict> {
+
+    // Filter Media
+    const imageUrls = evidence.filter(e => e.type === 'image').map(e => e.url);
+    const contractText = `CONTRACT DETAILS: Task: ${contract.title}. Description: ${contract.description}. Acceptance Criteria: ${contract.criteria || 'Standard professional finish (Terminaciones)'}. Value: ${contract.currency} ${contract.price}`;
+
+    if (imageUrls.length === 0) {
+        return { consensus: 'appealed', verdicts: [], summary: "No visual evidence provided for AI analysis." };
+    }
+
+    // RUN PARALLEL
+    const results = await Promise.all([
+        judgeWithOpenAI(contractText, imageUrls, knownPrecedents),
+        judgeWithGemini(contractText, imageUrls, knownPrecedents)
+    ]);
+
+    // CONSENSUS LOGIC
+    const activeVerdicts = results.filter(v => v.reasoning !== 'Model Key Missing' && v.reasoning !== 'Image Fetcher Not Implemented' && v.decision !== 'appealed');
+
+    if (activeVerdicts.length === 0) {
+        return {
+            consensus: 'appealed',
+            verdicts: results,
+            summary: "Models inconclusive or failed."
         };
     }
+
+    const votes = activeVerdicts.map(r => r.decision);
+    const releaseVotes = votes.filter(v => v === 'resolved_release').length;
+    const refundVotes = votes.filter(v => v === 'resolved_refund').length;
+    const partialVotes = votes.filter(v => v === 'resolved_partial').length;
+
+    let consensus: CouncilVerdict['consensus'] = 'split_decision';
+
+    // Consensus thresholds
+    const majority = Math.ceil(activeVerdicts.length / 2);
+
+    if (releaseVotes >= majority) consensus = 'resolved_release';
+    else if (refundVotes >= majority) consensus = 'resolved_refund';
+    else if (partialVotes >= majority) consensus = 'resolved_partial';
+    else if (activeVerdicts.length === 1) consensus = activeVerdicts[0].decision;
+    else consensus = 'split_decision';
+
+    return {
+        consensus,
+        verdicts: results,
+        summary: `Council executed with ${results.length} models. ${activeVerdicts.length} active. Result: ${consensus}`
+    };
+}
+
+// Helpers
+function validateDecision(d: string): ModelVerdict['decision'] {
+    if (['resolved_release', 'resolved_refund', 'resolved_partial', 'appealed'].includes(d)) return d as any;
+    return 'appealed';
+}
+
+function createErrorVerdict(model: string): ModelVerdict {
+    return { model, decision: 'appealed', confidence: 0, reasoning: "Model execution error.", keyObservations: [] };
 }

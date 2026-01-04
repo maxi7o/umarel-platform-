@@ -46,6 +46,12 @@ Context: "Umarel" relies on breaking work into small, specialized units.
 - "Cleaning a rug" and "Repairing a rug" are TWO different cards.
 - "Demolition" and "Tiling" are TWO different cards.
 
+CRITICAL: QUALITY CONTROL ("TERMINACIONES")
+In the construction market, "Terminaciones" (Finishing Details) are the #1 source of disputes.
+- For any visual task (painting, tiling, masonry), you MUST ask about the desired level of finish.
+- Ensure the card description explicitly captures: "Clean edges", "Level 5 finish", "Aligned joints", etc.
+- If the user hasn't specified this, ASK FOR IT.
+
 Current Cards Context:
 ${JSON.stringify(currentSliceCards, null, 2)}
 

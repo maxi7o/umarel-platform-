@@ -645,3 +645,64 @@ export const experienceParticipantsRelations = relations(experienceParticipants,
         references: [escrowPayments.id],
     }),
 }));
+
+
+// ============================================
+// DISPUTE RESOLUTION & AI JUDGE
+// ============================================
+
+export const disputeStatusEnum = pgEnum('dispute_status', ['open', 'evidence_submission', 'analyzing', 'resolved_refund', 'resolved_release', 'appealed']);
+
+export const disputes = pgTable('disputes', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    initiatorId: uuid('initiator_id').references(() => users.id).notNull(),
+    reason: text('reason').notNull(),
+    status: disputeStatusEnum('status').default('open'),
+
+    // AI Analysis
+    aiVerdict: jsonb('ai_verdict'), // { decision: 'release', confidence: 0.95, reasoning: '...' }
+
+    // Financial Result
+    finalRuling: text('final_ruling'),
+
+    createdAt: timestamp('created_at').defaultNow(),
+    resolvedAt: timestamp('resolved_at'),
+});
+
+export const disputeEvidence = pgTable('dispute_evidence', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    disputeId: uuid('dispute_id').references(() => disputes.id).notNull(),
+    uploaderId: uuid('uploader_id').references(() => users.id).notNull(), // Provider or Client
+    mediaUrl: text('media_url').notNull(),
+    mimeType: text('mime_type').default('image/jpeg'),
+    description: text('description'),
+
+    // Proof Metadata
+    metadata: jsonb('metadata'), // { gps: {lat, lng}, timestamp: '...' }
+
+    createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const disputesRelations = relations(disputes, ({ one, many }) => ({
+    slice: one(slices, {
+        fields: [disputes.sliceId],
+        references: [slices.id],
+    }),
+    initiator: one(users, {
+        fields: [disputes.initiatorId],
+        references: [users.id],
+    }),
+    evidence: many(disputeEvidence),
+}));
+
+export const disputeEvidenceRelations = relations(disputeEvidence, ({ one }) => ({
+    dispute: one(disputes, {
+        fields: [disputeEvidence.disputeId],
+        references: [disputes.id],
+    }),
+    uploader: one(users, {
+        fields: [disputeEvidence.uploaderId],
+        references: [users.id],
+    }),
+}));
