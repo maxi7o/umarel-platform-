@@ -4,7 +4,7 @@ import { Link as I18nLink } from '@/i18n/routing'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Globe, LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search } from 'lucide-react'
+import { LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -91,11 +91,20 @@ export function Navbar({ user }: NavbarProps) {
                 {/* 3. ACTIONS & PROFILE */}
                 <div className="flex items-center gap-4">
 
-                    {/* Language Switcher */}
+                    {/* Country/Language Indicator */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-white/5 rounded-full w-8 h-8">
-                                <Globe className="h-4 w-4" />
+                            <Button variant="ghost" className="h-9 px-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-white gap-2 transition-all hover:border-white/20">
+                                <span className="text-lg leading-none filter drop-shadow-sm">
+                                    {{
+                                        en: '🇺🇸',
+                                        es: '🇦🇷',
+                                        pt: '🇧🇷'
+                                    }[currentLocale] || '🌐'}
+                                </span>
+                                <span className="text-xs font-bold tracking-widest text-slate-300 uppercase">
+                                    {currentLocale}
+                                </span>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="bg-slate-900 border-slate-800 text-slate-200">
@@ -106,8 +115,14 @@ export function Navbar({ user }: NavbarProps) {
                                     locale={key}
                                     onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}
                                 >
-                                    <DropdownMenuItem className="focus:bg-slate-800 focus:text-white cursor-pointer">
-                                        {currentLocale === key ? '✓ ' : ''}{label}
+                                    <DropdownMenuItem className="focus:bg-slate-800 focus:text-white cursor-pointer gap-3">
+                                        <span className="text-lg leading-none">
+                                            {{ en: '🇺🇸', es: '🇦🇷', pt: '🇧🇷' }[key] || '🌐'}
+                                        </span>
+                                        <span className={cn("font-medium", currentLocale === key ? "text-white" : "text-slate-300")}>
+                                            {label}
+                                        </span>
+                                        {currentLocale === key && <span className="ml-auto text-blue-400">✓</span>}
                                     </DropdownMenuItem>
                                 </I18nLink>
                             ))}

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, Suspense } from 'react'
-import { Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { Eye, EyeOff, AlertCircle, CheckCircle2, Facebook, Handshake } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 
-import { login, signup, signInWithGoogle } from './actions'
+import { login, signup, signInWithGoogle, signInWithFacebook, signInWithMercadoPago } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -45,14 +45,30 @@ function LoginForm() {
                         </div>
                     )}
 
-                    <form action={signInWithGoogle}>
-                        <Button variant="outline" className="w-full" type="submit">
-                            <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                                <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
-                            </svg>
-                            {t("login.googleButton")}
-                        </Button>
-                    </form>
+                    <div className="grid grid-cols-1 gap-3 mb-4">
+                        <form action={signInWithGoogle}>
+                            <Button variant="outline" className="w-full" type="submit">
+                                <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                                    <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
+                                </svg>
+                                Google
+                            </Button>
+                        </form>
+                        <div className="grid grid-cols-2 gap-3">
+                            <form action={signInWithFacebook}>
+                                <Button variant="outline" className="w-full" type="submit">
+                                    <Facebook className="mr-2 h-4 w-4 text-blue-600" />
+                                    Facebook
+                                </Button>
+                            </form>
+                            <form action={signInWithMercadoPago}>
+                                <Button variant="outline" className="w-full" type="submit">
+                                    <Handshake className="mr-2 h-4 w-4 text-blue-400" />
+                                    Mercado Pago
+                                </Button>
+                            </form>
+                        </div>
+                    </div>
                     <div className="flex items-center gap-4">
                         <Separator className="flex-1" />
                         <span className="text-xs text-muted-foreground">{t("login.or")}</span>

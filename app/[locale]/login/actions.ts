@@ -63,3 +63,33 @@ export async function signInWithGoogle() {
         redirect(data.url)
     }
 }
+
+export async function signInWithFacebook() {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.signInWithOAuth({
+        provider: 'facebook',
+        options: {
+            redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+        },
+    })
+
+    if (data.url) {
+        redirect(data.url)
+    }
+}
+
+export async function signInWithMercadoPago() {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.signInWithOAuth({
+        provider: 'mercadolibre' as any,
+        options: {
+            redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+        },
+    })
+
+    if (data.url) {
+        redirect(data.url)
+    }
+}
+
+
