@@ -11,7 +11,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div className="flex flex-col min-h-screen bg-stone-50 text-gray-900 font-sans selection:bg-orange-100 selection:text-orange-900">
 
-      {/* 1. Hero Section - The "Command Center" Look */}
+      {/* 1. Hero Section - The "Command Center" Look */}{/* Origin Story Updated */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
 
         {/* Background Gradients */}
