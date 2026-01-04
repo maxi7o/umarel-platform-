@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
-import { disputes, disputeEvidence, slices, users } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { disputes, disputeEvidence, disputeJurors, slices, users } from '@/lib/db/schema';
+import { eq, ne, and, sql } from 'drizzle-orm';
 import { awardAura } from '@/lib/aura/actions';
 import { judgeDisputeParallel } from '@/lib/ai/judge';
 
@@ -29,6 +29,57 @@ export async function createDispute(
     return dispute;
 }
 
+export async function triggerJuryProtocol(disputeId: string) {
+    // 1. Fetch Dispute details to exclude involved parties
+    const dispute = await db.query.disputes.findFirst({
+        where: eq(disputes.id, disputeId),
+        with: {
+            slice: true
+        }
+    });
+
+    if (!dispute) throw new Error("Dispute not found");
+
+    const participants = [dispute.initiatorId, dispute.slice.creatorId];
+    if (dispute.slice.assignedProviderId) participants.push(dispute.slice.assignedProviderId);
+
+    // 2. Select 3 Jurors (High Aura Preferred, Mock: Random for now)
+    // In production: where(gt(users.auraPoints, 1000))
+    const jurors = await db.select()
+        .from(users)
+        .where(
+            and(
+                ne(users.id, participants[0]),
+                // sql`id NOT IN ${participants}` // Simplified for demo
+            )
+        )
+        .orderBy(sql`RANDOM()`)
+        .limit(3);
+
+    // 3. Assign Jurors
+    if (jurors.length > 0) {
+        await db.insert(disputeJurors).values(
+            jurors.map(juror => ({
+                disputeId,
+                userId: juror.id,
+                status: 'pending'
+            }))
+        );
+
+        // 4. Update Dispute Status
+        await db.update(disputes)
+            .set({
+                status: 'jury_deliberation',
+                juryStatus: 'voting'
+            })
+            .where(eq(disputes.id, disputeId));
+
+        console.log(`Jury summoned for dispute ${disputeId}. Jurors: ${jurors.map(j => j.id).join(', ')}`);
+    } else {
+        console.warn("Not enough jurors found. Keeping dispute in appeal.");
+    }
+}
+
 export async function submitEvidenceAndJudge(
     disputeId: string,
     uploaderId: string,
@@ -55,17 +106,64 @@ export async function submitEvidenceAndJudge(
         ['User Precedent 1', 'User Precedent 2'] // Fetch these from DB in real implementation
     );
 
+    const isAppealed = councilVerdict.consensus === 'split_decision' || councilVerdict.consensus === 'appealed';
+
     // 3. Update Dispute with Verdict
     await db.update(disputes)
         .set({
             aiVerdict: councilVerdict,
-            status: councilVerdict.consensus === 'split_decision' || councilVerdict.consensus === 'appealed'
-                ? 'appealed'
-                : 'analyzing' // Ready for confirmation
+            status: isAppealed ? 'appealed' : 'analyzing'
         })
         .where(eq(disputes.id, disputeId));
 
+    // 4. If Appealed, Trigger Jury
+    if (isAppealed) {
+        await triggerJuryProtocol(disputeId);
+    }
+
     return councilVerdict;
+}
+
+export async function recordJuryVote(
+    disputeId: string,
+    userId: string,
+    vote: 'resolved_release' | 'resolved_refund',
+    reason: string
+) {
+    // 1. Record Vote
+    await db.update(disputeJurors)
+        .set({
+            vote,
+            reason,
+            status: 'voted',
+            votedAt: new Date()
+        })
+        .where(and(eq(disputeJurors.disputeId, disputeId), eq(disputeJurors.userId, userId)));
+
+    // 2. Check if Consensus Reached
+    const votes = await db.query.disputeJurors.findMany({
+        where: eq(disputeJurors.disputeId, disputeId)
+    });
+
+    const votedCount = votes.filter(v => v.status === 'voted').length;
+    const required = votes.length; // Usually 3
+
+    if (votedCount === required) {
+        // Tally Votes
+        const releaseVotes = votes.filter(v => v.vote === 'resolved_release').length;
+        const refundVotes = votes.filter(v => v.vote === 'resolved_refund').length;
+
+        const winner = releaseVotes > refundVotes ? 'release' : 'refund';
+
+        // Finalize
+        await finalizeDispute(
+            disputeId,
+            winner,
+            winner === 'release' ? 'client' : 'provider' // Simplified loser logic
+        );
+
+        // TODO: Distribute rewards to majority voters
+    }
 }
 
 export async function finalizeDispute(
@@ -77,13 +175,16 @@ export async function finalizeDispute(
     await db.update(disputes)
         .set({
             status: adminDecision === 'release' ? 'resolved_release' : 'resolved_refund', // map correctly
-            finalRuling: `Admin Ruled: ${adminDecision}`,
+            finalRuling: `Ruled by Jury/Admin: ${adminDecision}`,
             resolvedAt: new Date()
         })
         .where(eq(disputes.id, disputeId));
 
     // 2. Punish Loser (Aura Drop)
-    await awardAura(loserId, 'DISPUTE_LOST');
+    // NOTE: Need to verify if loserId is correct ID before calling
+    if (loserId && loserId !== 'system') {
+        await awardAura(loserId, 'DISPUTE_LOST');
+    }
 
     // 3. Execute Funds (Mock)
     // if (adminDecision === 'refund') ... call stripeRefund ...

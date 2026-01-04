@@ -654,7 +654,7 @@ export const experienceParticipantsRelations = relations(experienceParticipants,
 // DISPUTE RESOLUTION & AI JUDGE
 // ============================================
 
-export const disputeStatusEnum = pgEnum('dispute_status', ['open', 'evidence_submission', 'analyzing', 'resolved_refund', 'resolved_release', 'appealed']);
+export const disputeStatusEnum = pgEnum('dispute_status', ['open', 'evidence_submission', 'analyzing', 'resolved_refund', 'resolved_release', 'appealed', 'jury_deliberation']);
 
 export const disputes = pgTable('disputes', {
     id: uuid('id').primaryKey().defaultRandom(),
@@ -665,6 +665,10 @@ export const disputes = pgTable('disputes', {
 
     // AI Analysis
     aiVerdict: jsonb('ai_verdict'), // { decision: 'release', confidence: 0.95, reasoning: '...' }
+
+    // Jury Protocol
+    juryStatus: text('jury_status').default('none'), // none, selecting, voting, completed
+    juryResolution: text('jury_resolution'), // release, refund
 
     // Financial Result
     finalRuling: text('final_ruling'),
@@ -685,6 +689,18 @@ export const disputeEvidence = pgTable('dispute_evidence', {
     metadata: jsonb('metadata'), // { gps: {lat, lng}, timestamp: '...' }
 
     createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const disputeJurors = pgTable('dispute_jurors', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    disputeId: uuid('dispute_id').references(() => disputes.id).notNull(),
+    userId: uuid('user_id').references(() => users.id).notNull(), // The Random Juror
+    status: text('status').default('pending'), // pending, voted
+    vote: text('vote'), // resolved_release, resolved_refund (matches disputeStatus logic)
+    reason: text('reason'),
+    votedAt: timestamp('voted_at'),
+    createdAt: timestamp('created_at').defaultNow(),
+    rewardDistributed: boolean('reward_distributed').default(false),
 });
 
 export const disputesRelations = relations(disputes, ({ one, many }) => ({
