@@ -90,7 +90,7 @@
         "postRequest": "Publicar Proyecto",
         "browseServices": "Explorar Servicios",
         "originLabel": "Historia de Origen",
-        "originQuote": "\"Umarell (la palabra umarèl del idioma boloñés) es un término que se refiere específicamente a los hombres en edad de jubilación quiénes pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos no deseados.\"",
+        "originQuote": "\"Umarel se refiere a los hombres en edad de jubilación que pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos.\"",
         "originSource": "— Wikipedia / Cultura Popular",
         "rolesTitle": "Todos tienen un lugar en la mesa",
         "rolesSubtitle": "Ya sea que necesites ayuda, ofrezcas ayuda, o cuides la calidad - hay un lugar para vos en nuestra familia.",
@@ -116,7 +116,27 @@
         "prop2Title": "División Inteligente",
         "prop2Desc": "Nuestro Asistente IA divide tus grandes proyectos en \"fichas\" pequeñas y cotizables, ahorrándote hasta un 30% en costos.",
         "prop3Title": "Pago Seguro",
-        "prop3Desc": "Los fondos se retienen de forma segura hasta que el trabajo se verifique. Pagá solo por resultados, no por promesas."
+        "prop3Desc": "Los fondos se retienen de forma segura hasta que el trabajo se verifique. Pagá solo por resultados, no por promesas.",
+        "steps": {
+            "trustedBy": "Confiado por +2.000 Vecinos",
+            "stage1": {
+                "title": "Etapa 1: Alcance Definido",
+                "desc": "Requisitos bloqueados y aprobados"
+            },
+            "stage2": {
+                "title": "Etapa 2: Ejecución",
+                "badge": "En Progreso",
+                "desc": "Proveedor subiendo evidencia..."
+            },
+            "stage3": {
+                "title": "Etapa 3: Verificación",
+                "desc": "Fondos en garantía bloqueados"
+            },
+            "floater": {
+                "title": "Fondos Asegurados",
+                "desc": "Se libera solo al estar conforme."
+            }
+        }
     },
     "landing": {
         "concept": {

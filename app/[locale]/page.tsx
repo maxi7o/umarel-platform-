@@ -48,6 +48,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </Link>
             </div>
 
+// 1-10 are implicitly handled by the replacements below.
+
             {/* Trust Badge */}
             <div className="flex items-center gap-4 text-sm text-stone-500 font-medium">
               <div className="flex -space-x-2">
@@ -55,7 +57,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 <div className="w-8 h-8 rounded-full bg-orange-200 border-2 border-white" />
                 <div className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white" />
               </div>
-              <span>Trusted by 2,000+ Neighbors</span>
+              <span>{t('steps.trustedBy')}</span>
             </div>
           </div>
 
@@ -70,8 +72,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <div className="text-base font-bold text-stone-800 font-outfit">Stage 1: Scope Defined</div>
-                  <div className="text-sm text-stone-500">Requirements locked & approved</div>
+                  <div className="text-base font-bold text-stone-800 font-outfit">{t('steps.stage1.title')}</div>
+                  <div className="text-sm text-stone-500">{t('steps.stage1.desc')}</div>
                 </div>
                 <div className="ml-auto text-green-600 font-bold">$0.00</div>
               </div>
@@ -86,10 +88,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-bold text-stone-900 font-outfit">Stage 2: Installation</h3>
-                    <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">In Progress</span>
+                    <h3 className="text-lg font-bold text-stone-900 font-outfit">{t('steps.stage2.title')}</h3>
+                    <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">{t('steps.stage2.badge')}</span>
                   </div>
-                  <div className="text-sm text-stone-500 mt-1">Provider uploading evidence...</div>
+                  <div className="text-sm text-stone-500 mt-1">{t('steps.stage2.desc')}</div>
 
                   {/* Progress Bar Mock */}
                   <div className="w-full bg-stone-100 h-1.5 rounded-full mt-3 overflow-hidden">
@@ -107,8 +109,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                   <ShieldCheck size={24} />
                 </div>
                 <div>
-                  <div className="text-base font-bold text-stone-600 font-outfit">Stage 3: Verification</div>
-                  <div className="text-sm text-stone-400">Escrow funds locked</div>
+                  <div className="text-base font-bold text-stone-600 font-outfit">{t('steps.stage3.title')}</div>
+                  <div className="text-sm text-stone-400">{t('steps.stage3.desc')}</div>
                 </div>
                 <div className="ml-auto text-stone-400 font-bold">$450.00</div>
               </div>
@@ -117,8 +119,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               <div className="absolute -bottom-10 -right-10 bg-slate-900 text-white p-4 rounded-2xl shadow-2xl shadow-blue-900/50 flex gap-3 items-center max-w-[200px] animate-bounce duration-[3000ms]">
                 <Banknote className="text-green-400" size={32} />
                 <div className="text-xs">
-                  <div className="font-bold text-green-400">Funds Secured</div>
-                  <div className="opacity-80">Released only when satisfied.</div>
+                  <div className="font-bold text-green-400">{t('steps.floater.title')}</div>
+                  <div className="opacity-80">{t('steps.floater.desc')}</div>
                 </div>
               </div>
 

@@ -93,7 +93,7 @@
         "postRequest": "Post a Request",
         "browseServices": "Browse Services",
         "originLabel": "Origin Story",
-        "originQuote": "\"Umarell (Italian spelling of the Bolognese Emilian word umarèl, Emilian pronunciation: [umaˈrɛːl]; plural umarî) are men of retirement age who spend their time watching construction sites, especially roadworks – stereotypically with hands clasped behind their back and offering unwanted advice to the workers.\"",
+        "originQuote": "\"Umarel are men of retirement age who spend their time watching construction sites, especially roadworks – stereotypically with hands clasped behind their back and offering advice to the workers.\"",
         "originSource": "— Wikipedia / Popular Culture",
         "rolesTitle": "Everyone Has a Seat at the Table",
         "rolesSubtitle": "Whether you need help, offer help, or watch over quality - there's a place for you in our family.",
@@ -119,7 +119,27 @@
         "prop2Title": "Smart Breakdown",
         "prop2Desc": "Our AI Wizard breaks your big projects into small, priceable \"slices\", saving you up to 30% on costs.",
         "prop3Title": "Secure Escrow",
-        "prop3Desc": "Funds are held safely until the work is verified. Pay only for results, not for promises."
+        "prop3Desc": "Funds are held safely until the work is verified. Pay only for results, not for promises.",
+        "steps": {
+            "trustedBy": "Trusted by 2,000+ Neighbors",
+            "stage1": {
+                "title": "Stage 1: Scope Defined",
+                "desc": "Requirements locked & approved"
+            },
+            "stage2": {
+                "title": "Stage 2: Installation",
+                "badge": "In Progress",
+                "desc": "Provider uploading evidence..."
+            },
+            "stage3": {
+                "title": "Stage 3: Verification",
+                "desc": "Escrow funds locked"
+            },
+            "floater": {
+                "title": "Funds Secured",
+                "desc": "Released only when satisfied."
+            }
+        }
     },
     "landing": {
         "concept": {
