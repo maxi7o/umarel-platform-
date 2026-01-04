@@ -532,4 +532,15 @@
         "completion": "Finalización de Pedidos",
         "rating": "Calificación Comunitaria"
     }
+    ,"submitEvidence": {
+        "title": "Verificar Finalización",
+        "description": "Para completar \"{sliceTitle}\", verificá estrictamente cada criterio usando la Cámara Umarel.",
+        "guardianWarning": "<strong>{guardianName} está mirando:</strong> Se analiza la manipulación de metadatos.",
+        "guardianName": "Asistente IA",
+        "successApproved": "{guardianName}: Evidencia Aprobada (98% Confianza)",
+        "uploadRequired": "Requerido: {type, select, photo {📸 Foto Geo-etiquetada} video {🎥 Video Recorrido} other {Archivo}}",
+        "actionSubmit": "Enviar Evidencia",
+        "btnVerify": "Verificar y Completar",
+        "btnSigning": "Verificando..."
+    }
 }

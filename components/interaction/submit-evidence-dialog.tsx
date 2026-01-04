@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -36,6 +37,7 @@ const MOCK_CRITERIA: AcceptanceCriterion[] = [
 ];
 
 export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria = MOCK_CRITERIA, onSubmitted, children }: SubmitEvidenceDialogProps) {
+    const t = useTranslations('submitEvidence');
     const [isOpen, setIsOpen] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [criteria, setCriteria] = useState<AcceptanceCriterion[]>(acceptanceCriteria);
@@ -102,10 +104,8 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
 
             const data = await response.json();
 
-            toast.success("Slice completed & evidence verified! 🚀");
-            if (data.aiStatus === 'approved') {
-                toast.success("AI Guardian: Evidence Approved (98% Confidence)");
-            }
+            // Uses translated success message with dynamic guardian name
+            toast.success(t('successApproved', { guardianName: t('guardianName') }));
 
             setIsOpen(false);
             onSubmitted();
@@ -122,16 +122,16 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                {children || <Button>Submit Evidence</Button>}
+                {children || <Button>{t('actionSubmit')}</Button>}
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <ShieldCheck className="text-green-600" />
-                        Verify Completion
+                        {t('title')}
                     </DialogTitle>
                     <DialogDescription>
-                        To complete <strong>"{sliceTitle}"</strong>, strictly verify each criterion using the Umarel Camera.
+                        {t('description', { sliceTitle })}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -165,7 +165,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                             </Label>
                                         </div>
                                         <p className="text-xs text-muted-foreground pl-7">
-                                            Required: {criterion.requiredEvidenceType === 'photo' ? '📸 Geotagged Photo' : '🎥 Video Walkthrough'}
+                                            {t('uploadRequired', { type: criterion.requiredEvidenceType })}
                                         </p>
                                     </div>
 
@@ -204,8 +204,10 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                     <div className="bg-blue-50 text-blue-800 p-3 rounded-lg text-xs flex gap-2 items-start border border-blue-100">
                         <AlertCircle className="shrink-0 w-4 h-4 mt-0.5" />
                         <div>
-                            <strong>Umarel Guardian is watching:</strong> Uploads are analyzed for metadata manipulation.
-                            If the AI detects ambiguity or pre-recorded content, payment may be delayed.
+                            {t.rich('guardianWarning', {
+                                guardianName: t('guardianName'),
+                                strong: (chunks) => <strong>{chunks}</strong>
+                            })}
                         </div>
                     </div>
                 </div>
@@ -220,10 +222,10 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                         {submitting ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Verifying...
+                                {t('btnSigning')}
                             </>
                         ) : (
-                            "Sign & Complete Slice"
+                            t('btnVerify')
                         )}
                     </Button>
                 </DialogFooter>

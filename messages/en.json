@@ -517,4 +517,15 @@
         "completion": "Order Completion",
         "rating": "Community Rating"
     }
+    ,"submitEvidence": {
+        "title": "Verify Completion",
+        "description": "To complete \"{sliceTitle}\", strictly verify each criterion using the Umarel Camera.",
+        "guardianWarning": "<strong>{guardianName} is watching:</strong> Uploads are analyzed for metadata manipulation.",
+        "guardianName": "AI Assistant",
+        "successApproved": "{guardianName}: Evidence Approved (98% Confidence)",
+        "uploadRequired": "Required: {type, select, photo {📸 Geotagged Photo} video {🎥 Video Walkthrough} other {File}}",
+        "actionSubmit": "Submit Evidence",
+        "btnVerify": "Verify } Completed",
+        "btnSigning": "Verifying..."
+    }
 }
