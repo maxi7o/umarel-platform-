@@ -51,6 +51,7 @@
     },
     "nav": {
         "browse": "Explorar",
+        "howto": "Cómo Funciona",
         "offerServices": "Ofrecer Servicios",
         "login": "Iniciar sesión",
         "postNeed": "Publicar Proyecto",
@@ -531,8 +532,8 @@
         "provider": "Proveedor de Servicio",
         "completion": "Finalización de Pedidos",
         "rating": "Calificación Comunitaria"
-    }
-    ,"submitEvidence": {
+    },
+    "submitEvidence": {
         "title": "Verificar Finalización",
         "description": "Para completar \"{sliceTitle}\", verificá estrictamente cada criterio usando la Cámara Umarel.",
         "guardianWarning": "<strong>{guardianName} está mirando:</strong> Se analiza la manipulación de metadatos.",
@@ -542,8 +543,8 @@
         "actionSubmit": "Enviar Evidencia",
         "btnVerify": "Verificar y Completar",
         "btnSigning": "Verificando..."
-    }
-    ,"timeline": {
+    },
+    "timeline": {
         "status": {
             "pending": "Pendiente",
             "active": "En Progreso",
@@ -560,6 +561,52 @@
             "details": "Ver Detalles",
             "releaseFunds": "Aprobar y Pagar",
             "releaseFundsShort": "Pagar"
+        }
+    },
+    "guide": {
+        "title": "Cómo Funciona Umarel",
+        "subtitle": "Sin confusiones. Sin pasos ocultos. Solo gente ayudando a gente, verificada por la comunidad.",
+        "intro": "Sabemos que las reformas pueden ser estresantes. Umarel elimina la incertidumbre dividiendo cada trabajo en pequeños pasos verificados.",
+        "roles": {
+            "seeker": {
+                "title": "Necesito Ayuda (El Cliente)",
+                "desc": "Tienes un problema que resolver o un sueño que construir.",
+                "step1": "1. Descríbelo simple",
+                "step1Desc": "No te preocupes por términos técnicos. Solo dinos qué necesitas (ej: 'Arreglar mi bacha'). Nuestra IA te hará las preguntas correctas.",
+                "step2": "2. Plan Fijo",
+                "step2Desc": "En lugar de un presupuesto ciego, obtienes un 'Plan de Tramos'. El trabajo se divide en partes manejables. Ves exactamente lo que cuesta cada una.",
+                "step3": "3. Paga al Avanzar",
+                "step3Desc": "Nunca pagas el 100% por adelantado. Fondeas un Tramo a la vez. El dinero queda seguro en Garantía hasta que TÚ digas que está listo."
+            },
+            "creator": {
+                "title": "Ofrezco Habilidades (El Profesional)",
+                "desc": "Eres un profesional que quiere trabajar, no discutir sobre dinero.",
+                "step1": "1. Expectativas Claras",
+                "step1Desc": "El alcance se define antes de empezar. Sabes exactamente qué significa 'Terminado'.",
+                "step2": "2. Pago Garantizado",
+                "step2Desc": "Cuando un Tramo está fondeado, el dinero ya está ahí. Haces el trabajo, subes la prueba, y cobras al instante.",
+                "step3": "3. Construye Reputación",
+                "step3Desc": "Cada Tramo completado suma a tu 'Aura'. Más Aura significa mejores trabajos y respeto."
+            },
+            "umarel": {
+                "title": "Observo y Verifico (El Umarel)",
+                "desc": "Eres el vecino sabio que asegura que las cosas se hagan bien.",
+                "step1": "1. Revisa el Plan",
+                "step1Desc": "Usa tu experiencia para ver detalles faltantes. '¡Se olvidaron de la imprimación!'",
+                "step2": "2. Verifica la Evidencia",
+                "step2Desc": "Mira las fotos subidas. ¿La pared está pintada? ¿Está lisa?",
+                "step3": "3. Gana por Sabiduría",
+                "step3Desc": "Por cada verificación, ganas un dividendo. Tus ojos tienen valor."
+            }
+        },
+        "faq": {
+            "title": "Preguntas Frecuentes",
+            "q1": "¿Qué pasa si no estoy conforme?",
+            "a1": "El dinero está en Garantía. Si el trabajo no está bien, no apruebas. Abrimos una Disputa donde un Umarel senior ayuda.",
+            "q2": "¿Es un contrato real?",
+            "a2": "Sí. Los 'Tramos' forman un acuerdo digital. Protege a ambos lados mejor que un apretón de manos.",
+            "q3": "¿Necesito ser experto en tecnología?",
+            "a3": "No. Si puedes sacar una foto y mandar un mensaje, puedes usar Umarel. Nuestro Asistente IA te guía."
         }
     }
 }

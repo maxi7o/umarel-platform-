@@ -58,6 +58,9 @@ export function Navbar({ user }: NavbarProps) {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-6">
+                    <Link href="/guide" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                        {t('howto')}
+                    </Link>
                     <Link href="/browse" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                         {t('browse')}
                     </Link>

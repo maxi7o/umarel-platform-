@@ -51,6 +51,7 @@
     },
     "nav": {
         "browse": "Browse",
+        "howto": "How it Works",
         "offerServices": "Offer Services",
         "login": "Log In",
         "postNeed": "Post a Need",
@@ -516,8 +517,8 @@
         "provider": "Service Provider",
         "completion": "Order Completion",
         "rating": "Community Rating"
-    }
-    ,"submitEvidence": {
+    },
+    "submitEvidence": {
         "title": "Verify Completion",
         "description": "To complete \"{sliceTitle}\", strictly verify each criterion using the Umarel Camera.",
         "guardianWarning": "<strong>{guardianName} is watching:</strong> Uploads are analyzed for metadata manipulation.",
@@ -527,8 +528,8 @@
         "actionSubmit": "Submit Evidence",
         "btnVerify": "Verify } Completed",
         "btnSigning": "Verifying..."
-    }
-    ,"timeline": {
+    },
+    "timeline": {
         "status": {
             "pending": "Pending",
             "active": "In Progress",
@@ -545,6 +546,52 @@
             "details": "View Details",
             "releaseFunds": "Approve } Pay",
             "releaseFundsShort": "Pay"
+        }
+    },
+    "guide": {
+        "title": "How Umarel Works",
+        "subtitle": "No confusion. No hidden steps. Just people helping people, verified by community wisdom.",
+        "intro": "We know home repairs and services can be stressful. Umarel removes the uncertainty by breaking every job into small, verified steps.",
+        "roles": {
+            "seeker": {
+                "title": "I Need Help (The Seeker)",
+                "desc": "You have a problem to solve or a dream to build.",
+                "step1": "1. Describe it simply",
+                "step1Desc": "Don't worry about technical terms. Just tell us what you need (e.g., 'Fix my leaky sink'). Our AI Helper will ask the right questions.",
+                "step2": "2. Get a Fixed Plan",
+                "step2Desc": "Instead of a blind quote, you get a 'Slicing Plan'. The job is broken into small chunks (Slices). You see exactly what each part costs.",
+                "step3": "3. Pay as You Go",
+                "step3Desc": "You never pay 100% upfront. You fund one Slice at a time. The money stays safe in Escrow until YOU (and the Umarel) say it's done."
+            },
+            "creator": {
+                "title": "I Offer Skills (The Creator)",
+                "desc": "You are a professional who wants to work, not argue about money.",
+                "step1": "1. Clear Expectations",
+                "step1Desc": "The scope is defined before you start. No 'scope creep'. You know exactly what 'Done' looks like.",
+                "step2": "2. Guaranteed Payment",
+                "step2Desc": "When a Slice is funded, the money is already there. Do the work, upload the proof, and get paid instantly.",
+                "step3": "3. Build Reputation",
+                "step3Desc": "Every completed Slice adds to your 'Aura'. High Aura means better jobs and community respect."
+            },
+            "umarel": {
+                "title": "I Watch & Verify (The Umarel)",
+                "desc": "You are the wise neighbor who ensures things are done right.",
+                "step1": "1. Review the Plan",
+                "step1Desc": "Use your experience to spot missing details in a quote. 'They forgot the primer!'",
+                "step2": "2. Verify the Evidence",
+                "step2Desc": "Look at the photos uploaded. Is the wall actually painted? Is it smooth?",
+                "step3": "3. Earn from Wisdom",
+                "step3Desc": "For every verification, you earn a small dividend. Your eyes have value."
+            }
+        },
+        "faq": {
+            "title": "Common Questions",
+            "q1": "What happens if I'm not happy?",
+            "a1": "The money is in Escrow. If the work isn't right, you don't click 'Approve'. We open a Dispute where a senior Umarel helps mediate.",
+            "q2": "Is this a real contract?",
+            "a2": "Yes. The 'Slices' form a digital agreement. It protects both sides better than a handshake.",
+            "q3": "Do I need to be a tech expert?",
+            "a3": "No. If you can take a photo and send a text, you can use Umarel. Our AI Assistant guides every step."
         }
     }
 }
