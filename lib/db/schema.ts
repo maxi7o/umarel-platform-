@@ -549,6 +549,48 @@ export const withdrawalsRelations = relations(withdrawals, ({ one }) => ({
 }));
 
 // ============================================
+// CONTRACT SNAPSHOTS (Ricardian)
+// ============================================
+
+export const contracts = pgTable('contracts', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id).notNull(),
+    quoteId: uuid('quote_id').references(() => quotes.id), // Optional for direct bids
+    providerId: uuid('provider_id').references(() => users.id).notNull(),
+    clientId: uuid('client_id').references(() => users.id).notNull(),
+
+    // The Agreed State (Immutable)
+    snapshotJson: jsonb('snapshot_json').notNull(),
+    // { sliceTitle, sliceDesc, price, currency, deliveryDate, acceptanceCriteria }
+
+    contractHash: text('contract_hash').notNull(), // SHA-256 of the snapshot
+    smartContractAddress: text('smart_contract_address'), // Optional: if deployed to chain
+
+    createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const contractsRelations = relations(contracts, ({ one }) => ({
+    slice: one(slices, {
+        fields: [contracts.sliceId],
+        references: [slices.id],
+    }),
+    quote: one(quotes, {
+        fields: [contracts.quoteId],
+        references: [quotes.id],
+    }),
+    provider: one(users, {
+        fields: [contracts.providerId],
+        references: [users.id],
+        relationName: 'providerContracts'
+    }),
+    client: one(users, {
+        fields: [contracts.clientId],
+        references: [users.id],
+        relationName: 'clientContracts'
+    }),
+}));
+
+// ============================================
 // EXPERIENCES & DYNAMIC PRICING TABLES
 // ============================================
 

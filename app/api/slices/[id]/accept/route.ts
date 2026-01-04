@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { slices, escrowPayments } from '@/lib/db/schema';
+import { slices, escrowPayments, contracts } from '@/lib/db/schema';
+import { createHash } from 'crypto';
 import { eq } from 'drizzle-orm';
 import { calculatePaymentBreakdown } from '@/lib/payments/calculations';
 
@@ -11,7 +12,7 @@ export async function POST(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { bidAmount, providerId } = await request.json();
+        const { bidAmount, providerId, quoteId } = await request.json();
         const { id: sliceId } = await params;
 
         const supabase = await createClient();
@@ -51,6 +52,37 @@ export async function POST(
                 assignedProviderId: providerId,
             })
             .where(eq(slices.id, sliceId));
+
+        // ==========================================
+        // SMART CONTRACT CREATION
+        // ==========================================
+
+        const contractSnapshot = {
+            sliceId,
+            sliceTitle: slice.title,
+            sliceDescription: slice.description,
+            agreedPrice: bidAmount,
+            providerId,
+            clientId,
+            acceptedAt: new Date().toISOString(),
+            termsVersion: 'v1.0-ricardian'
+        };
+
+        // Generate SHA-256 Hash of the Agreement (Immutable Anchor)
+        const contractHash = createHash('sha256').update(JSON.stringify(contractSnapshot)).digest('hex');
+
+        // Store Contract Record
+        await db.insert(contracts).values({
+            sliceId,
+            quoteId: quoteId || null,
+            providerId,
+            clientId,
+            snapshotJson: contractSnapshot,
+            contractHash: contractHash,
+            createdAt: new Date(),
+        });
+
+        // ==========================================
 
         // Create escrow payment record
         const [escrowPayment] = await db
