@@ -673,6 +673,10 @@ export const disputes = pgTable('disputes', {
     // Financial Result
     finalRuling: text('final_ruling'),
 
+    // Honey Pot Auditing (Juror Integrity)
+    isHoneyPot: boolean('is_honey_pot').default(false),
+    correctVerdict: text('correct_verdict'), // 'resolved_release' | 'resolved_refund'
+
     createdAt: timestamp('created_at').defaultNow(),
     resolvedAt: timestamp('resolved_at'),
 });

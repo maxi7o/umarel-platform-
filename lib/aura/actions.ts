@@ -11,15 +11,19 @@ export type AuraActionType =
     | 'COMMUNITY_UPVOTE'
     | 'COMPLETED_SLICE'
     | 'DISPUTE_LOST' // Penalty
-    | 'DISPUTE_FEE'; // Cost
+    | 'DISPUTE_FEE' // Cost
+    | 'JURY_DUTY'   // Reward for voting
+    | 'AUDIT_SUCCESS'; // Reward for catching a honey pot
 
 const AURA_POINTS = {
     VALID_SLICE_CREATION: 10,
     HELPFUL_CLARIFICATION: 5,
     COMMUNITY_UPVOTE: 2,
     COMPLETED_SLICE: 50,
-    DISPUTE_LOST: -500, // Severe penalty for losing a dispute (bad work)
-    DISPUTE_FEE: -50    // Cost to open a dispute (prevents spam)
+    DISPUTE_LOST: -500,
+    DISPUTE_FEE: -50,
+    JURY_DUTY: 20,
+    AUDIT_SUCCESS: 50
 };
 
 export async function awardAura(userId: string, actionType: AuraActionType, multiplier: number = 1) {

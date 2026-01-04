@@ -130,7 +130,40 @@ export async function recordJuryVote(
     vote: 'resolved_release' | 'resolved_refund',
     reason: string
 ) {
-    // 1. Record Vote
+    // 0. Fetch Context
+    const dispute = await db.query.disputes.findFirst({
+        where: eq(disputes.id, disputeId)
+    });
+
+    if (!dispute) throw new Error("Dispute not found");
+
+    // HONEY POT AUDIT LOGIC
+    if (dispute.isHoneyPot) {
+        const isCorrect = vote === dispute.correctVerdict;
+
+        // Audit Result: Immediate Impact
+        if (isCorrect) {
+            await awardAura(userId, 'AUDIT_SUCCESS'); // Rewarded 50
+        } else {
+            // MAJOR PENALTY
+            await awardAura(userId, 'DISPUTE_LOST');  // Penalized 500
+        }
+
+        // Record vote but DO NOT finalize the dispute (it's fake)
+        await db.update(disputeJurors)
+            .set({
+                vote,
+                reason,
+                status: 'voted',
+                votedAt: new Date(),
+                rewardDistributed: true // Audit handled immediately
+            })
+            .where(and(eq(disputeJurors.disputeId, disputeId), eq(disputeJurors.userId, userId)));
+
+        return; // EXIT HONEY POT
+    }
+
+    // 1. Record Normal Vote
     await db.update(disputeJurors)
         .set({
             vote,
@@ -172,7 +205,15 @@ export async function recordJuryVote(
             winner === 'release' ? 'client' : 'provider' // Simplified loser logic
         );
 
-        // TODO: Distribute rewards to majority voters
+        // Distribute Rewards to Majority Jurors
+        // (Simplified: Everyone who voted with majority gets paid)
+        const majorityVote = winner === 'release' ? 'resolved_release' : 'resolved_refund';
+        for (const v of votes) {
+            if (v.vote === majorityVote && !v.rewardDistributed) {
+                await awardAura(v.userId, 'JURY_DUTY');
+                await db.update(disputeJurors).set({ rewardDistributed: true }).where(eq(disputeJurors.id, v.id));
+            }
+        }
     }
 }
 
