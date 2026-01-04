@@ -4,8 +4,11 @@ if (!process.env.OPENAI_API_KEY) {
     console.warn('OPENAI_API_KEY is not set - Wizard AI features will not work');
 }
 
+const apiKey = process.env.OPENAI_API_KEY;
+
 export const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || '',
+    apiKey: apiKey || 'sk-proj-mock-key-for-build-12345',
+    dangerouslyAllowBrowser: true
 });
 
 export type WizardAction =

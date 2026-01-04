@@ -28,7 +28,7 @@ export function TrattoriaRoles() {
             bgColor: 'bg-green-50',
             illustration: '⚒️',
             cta: tTrattoria('rolesCta.creator'),
-            link: '/offerings/create',
+            link: '/create-offering',
         },
         {
             emoji: '👴',
@@ -94,7 +94,7 @@ export function TrattoriaRoles() {
                                 </p>
 
                                 {/* CTA */}
-                                <Link href={role.link}>
+                                <Link href={role.link as any}>
                                     <Button
                                         className={`w-full bg-gradient-to-r ${role.color} text-white hover:shadow-lg transition-all duration-300 group/btn`}
                                         size="lg"

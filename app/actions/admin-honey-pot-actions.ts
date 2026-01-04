@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
-import { users, slices, disputes, disputeEvidence } from '@/lib/db/schema';
+import { users, slices, disputes, disputeEvidence, requests } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { triggerJuryProtocol } from '@/lib/services/dispute-service';
 
@@ -21,8 +21,17 @@ export async function createHoneyPot(
     const dbUser = await db.query.users.findFirst({ where: eq(users.id, user.id) });
     if (dbUser?.role !== 'admin') throw new Error("Unauthorized: Admin Only");
 
+    // 0. Create Fake Audit Request (Container)
+    const [request] = await db.insert(requests).values({
+        userId: user.id,
+        title: `AUDIT CONTAINER: ${title}`,
+        description: "System generated audit container.",
+        status: 'completed'
+    }).returning();
+
     // 1. Create Fake Slice
     const [slice] = await db.insert(slices).values({
+        requestId: request.id,
         creatorId: user.id, // Admin owns it
         title: `[AUDIT] ${title}`,
         description: description,

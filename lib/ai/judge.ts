@@ -1,9 +1,7 @@
-import OpenAI from "openai";
+import { openai } from '@/lib/ai/openai';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI... removed
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_KEY || '');
 

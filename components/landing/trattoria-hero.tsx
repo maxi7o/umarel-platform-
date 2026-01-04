@@ -63,7 +63,7 @@ export function TrattoriaHero() {
                             </Button>
                         </Link>
 
-                        <Link href="/offerings/create">
+                        <Link href="/create-offering">
                             <Button
                                 size="lg"
                                 className="bg-[#52B788] hover:bg-[#40916C] text-white text-lg px-8 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group w-full sm:w-auto"
