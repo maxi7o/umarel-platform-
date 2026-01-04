@@ -12,7 +12,7 @@ export async function POST(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { bidAmount, providerId, quoteId } = await request.json();
+        const { bidAmount, providerId, quoteId, arbitrationAccepted } = await request.json();
         const { id: sliceId } = await params;
 
         const supabase = await createClient();
@@ -20,6 +20,11 @@ export async function POST(
 
         if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        // LEGAL: Enforce Arbitration Agreement
+        if (arbitrationAccepted !== true) {
+            return NextResponse.json({ error: 'You must accept the Dispute Resolution Terms to proceed.' }, { status: 400 });
         }
 
         const clientId = user.id;
@@ -65,7 +70,9 @@ export async function POST(
             providerId,
             clientId,
             acceptedAt: new Date().toISOString(),
-            termsVersion: 'v1.0-ricardian'
+            termsVersion: 'v1.0-ricardian',
+            legalJurisdiction: 'Umarel Private Arbitration',
+            arbitrationClauseAccepted: true
         };
 
         // Generate SHA-256 Hash of the Agreement (Immutable Anchor)

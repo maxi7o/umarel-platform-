@@ -8,9 +8,11 @@ import { Button } from '@/components/ui/button';
 import { DisputeActions } from '@/components/payments/dispute-actions';
 import { StartJobDialog } from '@/components/interaction/start-job-dialog';
 import { SubmitEvidenceDialog } from '@/components/interaction/submit-evidence-dialog';
+import { AcceptDialog } from '@/components/interaction/accept-dialog';
 import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 interface Slice {
     id: string;
@@ -35,8 +37,6 @@ interface SliceKanbanProps {
     currentUserId?: string;
     onSliceUpdated: (slice: Slice) => void;
 }
-
-import { useTranslations } from 'next-intl';
 
 export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSliceUpdated }: SliceKanbanProps) {
     const t = useTranslations('kanban');
@@ -202,13 +202,14 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
 
                                                 <div className="flex justify-end gap-1 pt-3 mt-1">
                                                     {col.id === 'proposed' && isOwner && (
-                                                        <Button
-                                                            size="sm"
-                                                            className="h-7 text-xs w-full bg-stone-900 hover:bg-stone-800 text-white font-medium"
-                                                            onClick={() => handleMove(slice.id, 'accepted')}
-                                                        >
-                                                            {t('actions.accept')}
-                                                        </Button>
+                                                        <AcceptDialog slice={slice}>
+                                                            <Button
+                                                                size="sm"
+                                                                className="h-7 text-xs w-full bg-stone-900 hover:bg-stone-800 text-white font-medium"
+                                                            >
+                                                                {t('actions.accept')}
+                                                            </Button>
+                                                        </AcceptDialog>
                                                     )}
                                                     {col.id === 'accepted' && (
                                                         <>
