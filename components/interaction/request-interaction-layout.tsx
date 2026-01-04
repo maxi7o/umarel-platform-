@@ -82,11 +82,27 @@ export function RequestInteractionLayout({
         }
     };
 
+    const handleProposalRespond = async (proposalId: string, status: 'accepted' | 'rejected') => {
+        try {
+            const res = await fetch(`/api/proposals/${proposalId}/respond`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+            if (!res.ok) throw new Error("Failed to respond");
+
+            setProposals(prev => prev.filter(p => p.id !== proposalId)); // Remove processed proposal
+        } catch (e) {
+            console.error(e);
+            throw e; // Let the card handle the error toast
+        }
+    };
+
     const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
-            {/* 1. UNIFIED FOLDER HEADER (Replaces 'Detalles de Obra') */}
+            {/* 1. UNIFIED FOLDER HEADER */}
             <div className="border-b border-stone-200 pb-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
@@ -164,8 +180,7 @@ export function RequestInteractionLayout({
                         ) : (
                             <SliceKanban
                                 slices={slices}
-                                onSliceChange={handleSliceUpdated}
-                                onSliceCreate={handleSlicesCreated}
+                                onSliceUpdated={handleSliceUpdated}
                                 isOwner={isOwner}
                                 currentUserId={currentUser?.id}
                                 requestId={request.id}
@@ -183,11 +198,12 @@ export function RequestInteractionLayout({
 
                 {/* RIGHT: Sidebar (Tools & Context) */}
                 <div className="space-y-6">
-                    {/* The NEW Quote Builder */}
+                    {/* The Quote Builder */}
                     <QuoteBuilder
                         requestId={request.id}
+                        slices={slices}
+                        userId={currentUser?.id}
                         onQuoteCreated={handleQuoteCreated}
-                        existingQuotes={quotes}
                     />
 
                     {/* Change Proposals */}
@@ -197,7 +213,11 @@ export function RequestInteractionLayout({
                                 {t('pendingProposals')}
                             </h3>
                             {proposals.map(prop => (
-                                <ChangeProposalCard key={prop.id} proposal={prop} />
+                                <ChangeProposalCard
+                                    key={prop.id}
+                                    proposal={prop}
+                                    onRespond={handleProposalRespond}
+                                />
                             ))}
                         </div>
                     ) : (
