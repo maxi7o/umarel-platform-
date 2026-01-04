@@ -10,9 +10,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { SliceSelector } from './slice-selector';
-import { Loader2, DollarSign, Calendar } from 'lucide-react';
+import { Loader2, DollarSign, Calendar, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
-import { submitQuoteAction } from '@/app/[locale]/requests/[id]/actions';
+import { submitQuoteAction, generateQuoteDraft } from '@/app/[locale]/requests/[id]/actions';
 import { formatDate, getUserTimezone } from '@/lib/utils/date';
 
 interface QuoteBuilderProps {
@@ -32,9 +32,36 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
     const [message, setMessage] = useState('');
     const [estimatedDays, setEstimatedDays] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDrafting, setIsDrafting] = useState(false);
 
     // Filter only open/proposed slices? Or allows re-quoting?
     // For MVP assume all listed slices are quotable.
+
+    const handleAutoDraft = async () => {
+        if (selectedSlices.length === 0) {
+            toast.error("Seleccioná al menos una tarea para cotizar.");
+            return;
+        }
+
+        setIsDrafting(true);
+        try {
+            const draft = await generateQuoteDraft(requestId, selectedSlices);
+            if (draft) {
+                setAmount(String(draft.amount));
+                setCurrency('ARS');
+                setMessage(draft.message);
+                if (draft.estimatedDays) setEstimatedDays(String(draft.estimatedDays));
+                toast.success("¡Propuesta generada con IA!");
+            } else {
+                toast.error("No se pudo generar el borrador.");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Error al conectar con Umarel AI.");
+        } finally {
+            setIsDrafting(false);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,10 +121,24 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
         <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl mx-auto">
             <Card className="border-stone-200 dark:border-stone-800 shadow-lg">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Cotizar: {requestTitle}</CardTitle>
-                    <p className="text-muted-foreground">
-                        Elegí las tareas que querés realizar y poné tu precio total.
-                    </p>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <CardTitle className="text-2xl">Cotizar: {requestTitle}</CardTitle>
+                            <p className="text-muted-foreground">
+                                Elegí las tareas que querés realizar y poné tu precio total.
+                            </p>
+                        </div>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleAutoDraft}
+                            disabled={isDrafting || isSubmitting || selectedSlices.length === 0}
+                            className="bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200"
+                        >
+                            {isDrafting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+                            Auto-Quote
+                        </Button>
+                    </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     {/* 1. Selector */}
