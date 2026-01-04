@@ -4,12 +4,14 @@ import { Link as I18nLink } from '@/i18n/routing'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Globe, LogOut, LayoutDashboard, Bell, Menu } from 'lucide-react'
+import { Globe, LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
+    DropdownMenuSeparator,
+    DropdownMenuLabel
 } from '@/components/ui/dropdown-menu'
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { useTranslations } from 'next-intl'
@@ -19,7 +21,9 @@ import { LOCALE_CONFIG } from '@/i18n/config'
 import { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 interface NavbarProps {
     user?: User | null
@@ -27,6 +31,9 @@ interface NavbarProps {
 
 export function Navbar({ user }: NavbarProps) {
     const t = useTranslations('nav')
+    // Fallback for guide title from guide namespace if key missing in nav
+    const tGuide = useTranslations('guide.title').length > 0 ? "How it Works" : "How it Works";
+
     const pathname = usePathname()
     const params = useParams()
     const currentLocale = params.locale as string
@@ -39,50 +46,59 @@ export function Navbar({ user }: NavbarProps) {
     }
 
     return (
-        <nav className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
+        <nav className="sticky top-0 z-50 bg-slate-950 border-b border-white/10 shadow-xl backdrop-blur-xl supports-[backdrop-filter]:bg-slate-950/80">
             <div className="container mx-auto flex h-16 items-center justify-between px-6">
-                {/* Brand */}
-                <Link href="/" className="flex items-center gap-2.5 group">
-                    <div className="relative h-8 w-8 transition-transform group-hover:scale-105">
+
+                {/* 1. BRAND IDENTITY */}
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative h-8 w-8 transition-transform group-hover:rotate-12 duration-500">
                         <Image
                             src="/icon.png"
                             alt="Umarel"
                             fill
-                            className="object-contain"
+                            className="object-contain invert brightness-0 filter" // Make icon white if it's black, or just use as is if colorful
                         />
                     </div>
-                    <span className="font-bold text-xl tracking-tight text-gray-900">
+                    <span className="font-outfit font-bold text-xl tracking-tight text-white group-hover:text-blue-400 transition-colors">
                         Umarel
                     </span>
                 </Link>
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-6">
-                    <Link href="/guide" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                {/* 2. THE CONTROL DECK (Desktop) */}
+                <div className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 px-2 mx-4">
+                    <Link href="/guide" className={cn(
+                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all",
+                        pathname === '/guide' ? "bg-white/10 text-white shadow-sm" : "text-slate-400 hover:text-white"
+                    )}>
                         {t('howto')}
                     </Link>
-                    <Link href="/browse" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                    <Link href="/browse" className={cn(
+                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all",
+                        pathname === '/browse' ? "bg-white/10 text-white shadow-sm" : "text-slate-400 hover:text-white"
+                    )}>
                         {t('browse')}
                     </Link>
-                    <Link href="/requests/create" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                    <div className="w-px h-4 bg-white/10 mx-1" />
+                    <Link href="/requests/create" className={cn(
+                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                        pathname === '/requests/create' ? "bg-orange-500/20 text-orange-400" : "text-orange-400 hover:text-orange-300"
+                    )}>
+                        <PlusCircle size={14} />
                         {t('postNeed')}
-                    </Link>
-                    <Link href="/create-offering" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-                        {t('offerServices')}
                     </Link>
                 </div>
 
-                {/* Actions */}
-                <div className="flex items-center gap-3">
-                    <NotificationBell />
+                {/* 3. ACTIONS & PROFILE */}
+                <div className="flex items-center gap-4">
 
+                    {/* Language Switcher */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="text-gray-500 hover:text-gray-900">
+                            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-white/5 rounded-full w-8 h-8">
                                 <Globe className="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className="bg-slate-900 border-slate-800 text-slate-200">
                             {Object.entries(LOCALE_CONFIG).map(([key, { label }]) => (
                                 <I18nLink
                                     key={key}
@@ -90,7 +106,7 @@ export function Navbar({ user }: NavbarProps) {
                                     locale={key}
                                     onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}
                                 >
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem className="focus:bg-slate-800 focus:text-white cursor-pointer">
                                         {currentLocale === key ? '✓ ' : ''}{label}
                                     </DropdownMenuItem>
                                 </I18nLink>
@@ -98,35 +114,50 @@ export function Navbar({ user }: NavbarProps) {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
+                    {/* Notifications (Assuming Dark Mode Compatibility inside component, passing class?) */}
+                    <div className="text-white">
+                        <NotificationBell />
+                    </div>
+
                     {user ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 border border-gray-200 bg-gray-50">
-                                    <span className="text-sm font-semibold text-gray-700">
+                                <Button variant="ghost" className="relative h-9 w-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 p-0 overflow-hidden group">
+                                    <span className="text-sm font-semibold text-white group-hover:scale-110 transition-transform">
                                         {user.email?.charAt(0).toUpperCase() || 'U'}
                                     </span>
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-56">
-                                <div className="px-2 py-1.5 text-xs font-medium text-gray-500 truncate border-b mb-1">
-                                    {user.email}
+                            <DropdownMenuContent align="end" className="w-64 bg-slate-900 border-slate-800 text-slate-200 p-2">
+                                <div className="px-2 py-2 mb-2">
+                                    <p className="text-sm font-medium text-white">{user.email}</p>
+                                    <p className="text-xs text-slate-500">Member</p>
                                 </div>
+                                <DropdownMenuSeparator className="bg-white/10" />
                                 <Link href="/wallet">
-                                    <DropdownMenuItem>
-                                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                                    <DropdownMenuItem className="focus:bg-slate-800 focus:text-white cursor-pointer py-2">
+                                        <LayoutDashboard className="mr-2 h-4 w-4 text-blue-400" />
                                         {t('dashboard')}
                                     </DropdownMenuItem>
                                 </Link>
-                                <DropdownMenuItem onClick={handleSignOut} className="text-red-600 focus:text-red-600">
+                                <DropdownMenuSeparator className="bg-white/10" />
+                                <DropdownMenuItem onClick={handleSignOut} className="text-red-400 focus:text-red-300 focus:bg-red-950/30 cursor-pointer py-2">
                                     <LogOut className="mr-2 h-4 w-4" />
                                     {t('logout')}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <div className="hidden md:flex items-center gap-3">
+                        <div className="flex items-center gap-3">
                             <Link href="/login">
-                                <Button variant="ghost" className="text-gray-600">{t('login')}</Button>
+                                <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-white/5">
+                                    {t('login')}
+                                </Button>
+                            </Link>
+                            <Link href="/requests/create">
+                                <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-900/20 border border-orange-500/50">
+                                    {t('postNeed')}
+                                </Button>
                             </Link>
                         </div>
                     )}
@@ -135,26 +166,36 @@ export function Navbar({ user }: NavbarProps) {
                     <div className="md:hidden">
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                    <Menu className="h-5 w-5" />
+                                <Button variant="ghost" size="icon" className="text-slate-300 hover:text-white">
+                                    <Menu className="h-6 w-6" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent>
-                                <div className="flex flex-col gap-4 mt-8">
-                                    <Link href="/browse" className="text-lg font-medium">
+                            <SheetContent side="right" className="bg-slate-950 border-slate-800 text-white">
+                                <SheetHeader>
+                                    <SheetTitle className="text-left text-white font-outfit text-2xl">Umarel</SheetTitle>
+                                </SheetHeader>
+                                <div className="flex flex-col gap-2 mt-8">
+                                    <Link href="/guide" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
+                                        {t('howto')}
+                                    </Link>
+                                    <Link href="/browse" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
                                         {t('browse')}
+                                        <Search size={18} className="text-slate-500" />
                                     </Link>
-                                    <Link href="/create-offering" className="text-lg font-medium">
+                                    <Link href="/requests/create" className="px-4 py-3 rounded-lg bg-orange-600/10 text-orange-400 hover:bg-orange-600/20 text-lg font-medium transition-colors flex items-center justify-between">
+                                        {t('postNeed')}
+                                        <PlusCircle size={18} />
+                                    </Link>
+                                    <Link href="/create-offering" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
                                         {t('offerServices')}
+                                        <Badge variant="outline" className="border-slate-700 text-slate-400 text-xs">Pro</Badge>
                                     </Link>
+
                                     {!user && (
                                         <>
-                                            <hr className="my-2" />
-                                            <Link href="/login" className="text-lg font-medium">
+                                            <div className="h-px bg-white/10 my-4" />
+                                            <Link href="/login" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium">
                                                 {t('login')}
-                                            </Link>
-                                            <Link href="/requests/create">
-                                                <Button className="w-full">{t('postNeed')}</Button>
                                             </Link>
                                         </>
                                     )}
