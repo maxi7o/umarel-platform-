@@ -543,4 +543,23 @@
         "btnVerify": "Verificar y Completar",
         "btnSigning": "Verificando..."
     }
+    ,"timeline": {
+        "status": {
+            "pending": "Pendiente",
+            "active": "En Progreso",
+            "review": "Revisión Requerida",
+            "completed": "Completado",
+            "locked": "Bloqueado",
+            "paid": "Pagado"
+        },
+        "reviewNames": {
+            "evidenceReady": "Evidencia Enviada y Verificada",
+            "aiVerified": "El Asistente IA ha validado la ubicación y calidad."
+        },
+        "actions": {
+            "details": "Ver Detalles",
+            "releaseFunds": "Aprobar y Pagar",
+            "releaseFundsShort": "Pagar"
+        }
+    }
 }

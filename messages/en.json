@@ -528,4 +528,23 @@
         "btnVerify": "Verify } Completed",
         "btnSigning": "Verifying..."
     }
+    ,"timeline": {
+        "status": {
+            "pending": "Pending",
+            "active": "In Progress",
+            "review": "Review Needed",
+            "completed": "Completed",
+            "locked": "Locked",
+            "paid": "Paid"
+        },
+        "reviewNames": {
+            "evidenceReady": "Evidence Submitted } Verified",
+            "aiVerified": "AI Assistant has validated the location and quality."
+        },
+        "actions": {
+            "details": "View Details",
+            "releaseFunds": "Approve } Pay",
+            "releaseFundsShort": "Pay"
+        }
+    }
 }
