@@ -10,6 +10,7 @@ export const bidStatusEnum = pgEnum('bid_status', ['pending', 'accepted', 'rejec
 export const serviceOfferingStatusEnum = pgEnum('service_offering_status', ['active', 'paused', 'inactive']);
 export const paymentStatusEnum = pgEnum('payment_status', ['pending_escrow', 'in_escrow', 'released', 'refunded', 'failed', 'disputed']);
 export const paymentMethodEnum = pgEnum('payment_method', ['stripe', 'mercado_pago']);
+export const biometricStatusEnum = pgEnum('biometric_status', ['none', 'pending', 'verified', 'failed']);
 
 export const commentTypeEnum = pgEnum('comment_type', ['text', 'prompt', 'ai_response']);
 export const auraLevelEnum = pgEnum('aura_level', ['bronze', 'silver', 'gold', 'diamond']);
@@ -17,6 +18,7 @@ export const wizardMessageRoleEnum = pgEnum('wizard_message_role', ['user', 'ass
 export const changeProposalStatusEnum = pgEnum('change_proposal_status', ['pending', 'accepted', 'rejected']);
 export const currencyEnum = pgEnum('currency', ['ARS', 'USD', 'BRL', 'MXN', 'COP']);
 export const qualityLevelEnum = pgEnum('quality_level', ['functional', 'standard', 'premium']);
+export const materialAdvanceStatusEnum = pgEnum('material_advance_status', ['none', 'requested', 'approved', 'released', 'rejected']);
 
 export const users = pgTable('users', {
     id: uuid('id').primaryKey().defaultRandom(),
@@ -31,6 +33,11 @@ export const users = pgTable('users', {
     lastCommentAt: timestamp('last_comment_at'), // Anti-spam cooldown
     lastTosAcceptedAt: timestamp('last_tos_accepted_at'),
     tosVersion: integer('tos_version').default(0), // Current active version
+
+    // Biometric Verification
+    biometricStatus: biometricStatusEnum('biometric_status').default('none'),
+    biometricVerifiedAt: timestamp('biometric_verified_at'),
+
     createdAt: timestamp('created_at').defaultNow(),
 });
 
@@ -73,6 +80,11 @@ export const slices = pgTable('slices', {
     evidenceTimeWindowMinutes: integer('evidence_time_window_minutes'),
     ambiguityScore: integer('ambiguity_score').default(0), // 0-100 (100 = very ambiguous)
     isPublic: boolean('is_public').default(true),
+
+    // Material Advance (Acopio)
+    materialAdvanceStatus: materialAdvanceStatusEnum('material_advance_status').default('none'),
+    materialAdvanceAmount: integer('material_advance_amount'), // 40% typically
+    materialAdvanceEvidence: jsonb('material_advance_evidence'), // { photos: [], receipt: [] }
 
     // Refund Logic
     refundStatus: refundStatusEnum('refund_status').default('none'),
@@ -220,6 +232,18 @@ export const serviceOfferings = pgTable('service_offerings', {
     hourlyRate: integer('hourly_rate'), // in cents
     fixedRate: integer('fixed_rate'), // in cents (for fixed-price services)
     availability: text('availability'), // "Weekends", "Evenings", etc.
+    calendarSyncUrl: text('calendar_sync_url'), // iCal/WebCal URL for availability
+
+    // V2: Smart Forms & Dynamic Pricing
+    aiInterviewerConfig: jsonb('ai_interviewer_config'), // { mode: 'dynamic', initial_questions: [] }
+    pricingStrategy: text('pricing_strategy').default('standard'), // 'standard', 'distressed', 'early_bird'
+    pricingOptions: jsonb('pricing_options'), // { decay_rate_per_hour: 500, min_price: 1000 }
+
+    // V2: Group Experiences
+    minParticipants: integer('min_participants').default(1),
+    maxParticipants: integer('max_participants'),
+    instantBookingEnabled: boolean('instant_booking_enabled').default(false), // If true, skips approval if slot free
+
     skills: jsonb('skills'), // Array of skills
     portfolioImages: jsonb('portfolio_images'), // Array of image URLs
     featured: boolean('featured').default(false), // Premium placement

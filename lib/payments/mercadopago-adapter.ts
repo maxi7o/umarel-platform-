@@ -49,6 +49,15 @@ export class MercadoPagoAdapter implements PaymentStrategy {
                     // - 'marketplace_fee' is transferred to Platform
                     marketplace_fee: amountCents * 0.15 / 100, // 15% Fee
                     notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/mercadopago`,
+
+                    // FINANCIAL FLEXIBILITY CONFIGURATION
+                    payment_methods: {
+                        excluded_payment_methods: [], // Allow all (Visa, Mastercard, Amex, etc.)
+                        excluded_payment_types: [], // Allow all (Credit Card, Debit Card, Ticket, ATM)
+                        installments: 12, // Allow up to 12 installments
+                        default_installments: undefined // User chooses
+                    },
+
                     back_urls: {
                         success: `${process.env.NEXT_PUBLIC_APP_URL}/requests/success`,
                         failure: `${process.env.NEXT_PUBLIC_APP_URL}/requests/failure`,

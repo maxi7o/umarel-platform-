@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Shield, ShieldAlert, CheckCircle } from "lucide-react"
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminUsersPage() {
     // Fetch users sorted by creation date (newest first)
     const allUsers = await db.select().from(users).orderBy(desc(users.createdAt))

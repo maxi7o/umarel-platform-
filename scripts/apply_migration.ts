@@ -9,7 +9,7 @@ import path from 'path';
 async function main() {
     try {
         console.log('Applying migration...');
-        const migrationPath = path.join(process.cwd(), 'supabase/migrations/0000_tidy_colleen_wing.sql');
+        const migrationPath = path.join(process.cwd(), 'supabase/migrations/0001_natural_stepford_cuckoos.sql');
         const migrationSql = fs.readFileSync(migrationPath, 'utf-8');
 
         // Split by semicolon to run statements? Or run as one block?

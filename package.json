@@ -46,6 +46,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
+    "framer-motion": "^12.24.0",
     "ioredis": "^5.8.2",
     "jimp": "^1.6.0",
     "lucide-react": "^0.555.0",

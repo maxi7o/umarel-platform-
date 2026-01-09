@@ -71,7 +71,7 @@ export class PayrollService {
         const userScores = await this.calculateUserScores();
 
         if (totalPool === 0 || userScores.length === 0) {
-            return { totalPool, payouts: [] };
+            return { totalPool, payouts: [], totalScore: 0 };
         }
 
         const totalScore = userScores.reduce((acc, curr) => acc + curr.score, 0);

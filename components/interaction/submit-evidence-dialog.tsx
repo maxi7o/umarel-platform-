@@ -186,7 +186,11 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                             {criterion.isFulfilled ? (
                                                 <div className="flex items-center gap-2">
                                                     {criterion.evidenceUrl && (
-                                                        <img src={criterion.evidenceUrl} alt="Proof" className="w-10 h-10 rounded object-cover border border-green-200" />
+                                                        criterion.requiredEvidenceType === 'video' ? (
+                                                            <video src={criterion.evidenceUrl} className="w-10 h-10 rounded object-cover border border-green-200" />
+                                                        ) : (
+                                                            <img src={criterion.evidenceUrl} alt="Proof" className="w-10 h-10 rounded object-cover border border-green-200" />
+                                                        )
                                                     )}
                                                     <Button size="icon" variant="ghost" className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100">
                                                         <CheckCircle2 size={18} />
@@ -212,7 +216,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                                     <div className="relative">
                                                         <input
                                                             type="file"
-                                                            accept="image/*"
+                                                            accept={criterion.requiredEvidenceType === 'video' ? "video/*" : "image/*,application/pdf"}
                                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                             onChange={(e) => handleFileUpload(e, criterion.id)}
                                                         />

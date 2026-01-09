@@ -56,7 +56,12 @@
         "login": "Log In",
         "postNeed": "Post a Need",
         "dashboard": "Dashboard",
-        "logout": "Log out"
+        "logout": "Log out",
+        "home": "Home",
+        "roles": "Roles",
+        "about": "About Us",
+        "contact": "Contact",
+        "faq": "FAQ"
     },
     "footer": {
         "platform": "Platform",
@@ -71,6 +76,7 @@
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "cookie": "Cookie Policy",
+        "about": "About Us",
         "copyright": "© 2026 Umarel. All rights reserved. Made with 🧡 and espresso.",
         "dailyWisdom": "Daily Wisdom:",
         "quotes": [
@@ -486,6 +492,27 @@
         "acceptanceCriteriaLabel": "Acceptance Criteria",
         "saveChanges": "Save Changes",
         "version": "Slice Card v{version}"
+    },
+    "wallet": {
+        "title": "The Umarel Journal",
+        "stash": "Your Stash",
+        "aura": "Aura Accumulated",
+        "impact": "Project Impact",
+        "redemptions": "Redeem Points",
+        "greetings": {
+            "bronze": "Hey kid. You're just starting, but I see potential. Keep it clean.",
+            "silver": "Nice work! You're getting the hang of it. Keep it up.",
+            "gold": "Wow, what an eye you have! You're a spectacle. The community respects you.",
+            "diamond": "Master Builder! You're a legend here. Sit down, the coffee is on me."
+        },
+        "impactType": {
+            "risk_mitigation": "Risk Averted!",
+            "savings": "Pocket Saved",
+            "clarity": "Crystal Clear",
+            "quality": "Pure Quality"
+        },
+        "emptyStash": "No cash in the stash yet. Start commenting!",
+        "withdraw": "Withdraw Earnings"
     },
     "createOffering": {
         "pageTitle": "Offer Your Services",

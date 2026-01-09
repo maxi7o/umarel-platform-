@@ -1,59 +1,81 @@
-/**
- * Pricing Engine Service
- * Handles dynamic pricing calculations for experiences.
- */
 
-export interface PricingConfig {
-    strategy: 'standard' | 'early_bird' | 'viral';
+import { addHours, differenceInHours, differenceInDays } from 'date-fns';
+
+export type PricingStrategy = 'standard' | 'distressed' | 'early_bird' | 'viral';
+
+export interface PricingContext {
     basePrice: number; // in cents
-    tiers?: Array<{
-        count: number; // e.g. "First 5"
-        discount: number; // e.g. 0.20 for 20% off
-    }>;
+    strategy: PricingStrategy;
+    eventDate?: Date; // When the service/experience happens (Required for distressed/early_bird)
+    bookingDate: Date; // Now
+    occupancyRate?: number; // 0.0 to 1.0 (Optional)
+    currentParticipantsCount?: number;
+}
+
+export interface PricingResult {
+    finalPrice: number; // in cents
+    discountAmount: number; // in cents
+    discountPercentage: number; // 0-100
+    appliedStrategy: PricingStrategy;
+    reason: string;
 }
 
 /**
- * Calculate the price for the NEXT participant.
- * @param config The pricing configuration of the experience.
- * @param currentParticipantsCount How many people have ALREADY joined.
- * @returns The price in cents.
+ * Calculates the price for an experience based on the selected strategy and time factors.
+ * This is the core logic for the "Distressed Inventory" and "Early Bird" models.
  */
-export function calculateExperiencePrice(
-    config: PricingConfig,
-    currentParticipantsCount: number
-): number {
-    const { strategy, basePrice, tiers } = config;
+export function calculateDynamicPrice(ctx: PricingContext): PricingResult {
+    const { basePrice, strategy, eventDate, bookingDate } = ctx;
 
-    // 1. Standard: Always base price
-    if (strategy === 'standard') {
-        return basePrice;
-    }
+    // Default result (Standard)
+    let finalPrice = basePrice;
+    let discountAmount = 0;
+    let discountPercentage = 0;
+    let reason = "Standard pricing applied.";
 
-    // 2. Early Bird: Checks if the current slot falls within a discounted tier
-    if (strategy === 'early_bird' && tiers && tiers.length > 0) {
-        // Sort tiers just in case
-        const sortedTiers = [...tiers].sort((a, b) => a.count - b.count);
+    if (strategy === 'distressed' && eventDate) {
+        const hoursUntilEvent = differenceInHours(eventDate, bookingDate);
 
-        // Find if we are in a tier
-        // Example: Tier 1 is "First 5" (count=5).
-        // If currentParticipantsCount is 0, 1, 2, 3, 4 -> It is < 5. Discount applies.
-        for (const tier of sortedTiers) {
-            if (currentParticipantsCount < tier.count) {
-                const discountAmount = Math.round(basePrice * tier.discount);
-                return Math.max(0, basePrice - discountAmount);
-            }
+        // If it's very close (e.g. < 24 hours)
+        if (hoursUntilEvent <= 6 && hoursUntilEvent > 0) {
+            // FIRE SALE: Last 6 hours
+            discountPercentage = 40;
+            reason = "Last minute 'Fire Sale' discount applied.";
+        } else if (hoursUntilEvent <= 24 && hoursUntilEvent > 0) {
+            // 24 Hour Warning
+            discountPercentage = 20;
+            reason = "24h remaining discount applied.";
+        } else if (hoursUntilEvent <= 48 && hoursUntilEvent > 0) {
+            // 48 Hour
+            discountPercentage = 10;
+            reason = "48h remaining discount applied.";
         }
-        // If no tier matches (late comer), full price.
-        return basePrice;
+    } else if (strategy === 'early_bird' && eventDate) {
+        const daysUntilEvent = differenceInDays(eventDate, bookingDate);
+
+        if (daysUntilEvent >= 30) {
+            discountPercentage = 25;
+            reason = "Super Early Bird discount (30+ days).";
+        } else if (daysUntilEvent >= 14) {
+            discountPercentage = 15;
+            reason = "Early Bird discount (14+ days).";
+        }
     }
 
-    // 3. Viral Pool: EVERYONE pays Base Price initially.
-    // The discount is applied as a REFUND later if the goal is met.
-    // So for the "Purchase" moment, it is always Base Price.
-    if (strategy === 'viral') {
-        return basePrice;
+    // A/B Testing Hook (Placeholder)
+    // We could randomly adjust discountPercentage slightly to test elasticity
+    // if (process.env.ENABLE_PRICING_EXPERIMENTS) { ... }
+
+    if (discountPercentage > 0) {
+        discountAmount = Math.round(basePrice * (discountPercentage / 100));
+        finalPrice = basePrice - discountAmount;
     }
 
-    // Fallback
-    return basePrice;
+    return {
+        finalPrice,
+        discountAmount,
+        discountPercentage,
+        appliedStrategy: strategy,
+        reason
+    };
 }

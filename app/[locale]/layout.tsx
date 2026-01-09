@@ -12,6 +12,7 @@ import { MarketProvider } from '@/lib/market-context';
 import { LanguageSwitchPrompt } from '@/components/location/language-switch-prompt';
 import { InteractiveTable } from "@/components/layout/interactive-table";
 import { TranslationSentinel } from '@/components/debug/translation-sentinel';
+import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -20,10 +21,26 @@ import { Instrument_Serif, Caveat } from "next/font/google";
 const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"], variable: "--font-serif" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-hand" });
 
-export const metadata: Metadata = {
-    title: "Umarel - Get things done with wisdom",
-    description: "The marketplace where experienced Umarels help you break down tasks.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+
+    if (locale === 'es') {
+        return {
+            title: "Umarel Argentina - Reformas y Servicios Verificados",
+            description: "Conectá con profesionales verificados y 'abuelos de obra' que aseguran la calidad. Tu dinero protegido hasta que el trabajo esté terminado.",
+            openGraph: {
+                title: "Umarel - Construí con Confianza",
+                description: "El primer mercado de servicios con verificación experta en Argentina.",
+                images: ['/landing/hero-bg.png']
+            }
+        };
+    }
+
+    return {
+        title: "Umarel - Get things done with wisdom",
+        description: "The marketplace where experienced Umarels help you break down tasks.",
+    };
+}
 
 export const viewport = {
     themeColor: '#ffffff',
@@ -80,6 +97,7 @@ export default async function LocaleLayout({
                         </div>
                         <Toaster />
                         <LanguageSwitchPrompt />
+                        <WhatsAppButton />
                     </MarketProvider>
                 </NextIntlClientProvider>
             </body>

@@ -66,19 +66,36 @@ export function Navbar({ user }: NavbarProps) {
 
                 {/* 2. THE CONTROL DECK (Desktop) */}
                 <div className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 px-2 mx-4">
-                    <Link href="/guide" className={cn(
-                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all",
-                        pathname === '/guide' ? "bg-white/10 text-white shadow-sm" : "text-slate-400 hover:text-white"
-                    )}>
+                    <Link href="/" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
+                        {t('home')}
+                    </Link>
+                    <Link href="/#how-it-works" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
                         {t('howto')}
                     </Link>
-                    <Link href="/browse" className={cn(
-                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all",
-                        pathname === '/browse' ? "bg-white/10 text-white shadow-sm" : "text-slate-400 hover:text-white"
-                    )}>
+
+                    {/* Role Direct Links */}
+                    <div className="flex gap-1">
+                        <Link href="/#seeker" className="px-3 py-1.5 rounded-full text-sm font-bold text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all">
+                            Buscar
+                        </Link>
+                        <Link href="/#creator" className="px-3 py-1.5 rounded-full text-sm font-bold text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-all">
+                            Crear
+                        </Link>
+                        <Link href="/#umarel" className="px-3 py-1.5 rounded-full text-sm font-bold text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 transition-all">
+                            Verificar
+                        </Link>
+                    </div>
+
+                    <Link href="/#faq" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
+                        {t('faq')}
+                    </Link>
+
+                    <div className="w-px h-4 bg-white/10 mx-1" />
+
+                    <Link href="/browse" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
                         {t('browse')}
                     </Link>
-                    <div className="w-px h-4 bg-white/10 mx-1" />
+
                     <Link href="/requests/create" className={cn(
                         "px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2",
                         pathname === '/requests/create' ? "bg-orange-500/20 text-orange-400" : "text-orange-400 hover:text-orange-300"
@@ -190,8 +207,11 @@ export function Navbar({ user }: NavbarProps) {
                                     <SheetTitle className="text-left text-white font-outfit text-2xl">Umarel</SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-2 mt-8">
-                                    <Link href="/guide" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
+                                    <Link href="/#how-it-works" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
                                         {t('howto')}
+                                    </Link>
+                                    <Link href="/#roles" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
+                                        {t('roles')}
                                     </Link>
                                     <Link href="/browse" className="px-4 py-3 rounded-lg hover:bg-white/5 text-lg font-medium transition-colors flex items-center justify-between">
                                         {t('browse')}

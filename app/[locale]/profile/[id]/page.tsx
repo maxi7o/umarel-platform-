@@ -11,6 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CalendarDays, ShieldCheck, Star } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { ImageIcon } from 'lucide-react';
+import { getProviderStats } from '@/lib/recommendations';
+import { BiometricVerification } from '@/components/profile/biometric-verification';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,6 +47,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
     // 3. Fetch Provider Metrics (Optional)
     const [metrics] = await db.select().from(providerMetrics).where(eq(providerMetrics.providerId, id));
+    const stats = await getProviderStats(id);
 
     // 4. Fetch Portfolio Evidence
     const evidence = await db
@@ -93,6 +96,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
             <div className="grid md:grid-cols-3 gap-8">
                 {/* Left Column: Stats & Reputation */}
                 <div className="space-y-6">
+                    <BiometricVerification
+                        userId={user.id}
+                        isVerified={user.biometricStatus === 'verified'}
+                    />
+
                     <AuraCard
                         points={user.auraPoints || 0}
                         level={user.auraLevel || 'bronze'}
@@ -101,7 +109,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                     />
 
                     {/* Provider Stats (if applicable) */}
-                    {metrics && (
+                    {(metrics || stats.totalRatings > 0) && (
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-lg flex items-center gap-2">
@@ -112,21 +120,21 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                             <CardContent className="space-y-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">Jobs Completed</span>
-                                    <span className="font-bold">{metrics.totalSlicesCompleted}</span>
+                                    <span className="font-bold">{metrics?.totalSlicesCompleted || stats.totalRatings}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">On-Time Rate</span>
                                     <span className="font-bold text-green-600">
-                                        {(metrics.totalSlicesCompleted ?? 0) > 0
-                                            ? Math.round(((metrics.totalSlicesOnTime || 0) / (metrics.totalSlicesCompleted || 1)) * 100)
-                                            : 0}%
+                                        {metrics && metrics.totalSlicesCompleted && metrics.totalSlicesCompleted > 0
+                                            ? Math.round(((metrics.totalSlicesOnTime || 0) / metrics.totalSlicesCompleted) * 100)
+                                            : 100}%
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">Rating</span>
                                     <div className="flex items-center gap-1 font-bold text-yellow-600">
                                         <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                                        {(metrics.rating || 0) / 20} {/* Convert 100 scale to 5 */}
+                                        {stats.avgRating.toFixed(1)} <span className="text-xs text-muted-foreground font-normal">({stats.totalRatings})</span>
                                     </div>
                                 </div>
                             </CardContent>

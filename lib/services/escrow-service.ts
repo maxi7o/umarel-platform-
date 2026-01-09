@@ -72,5 +72,35 @@ export const escrowService = {
             .where(eq(escrowPayments.id, escrowId));
 
         console.log(`[EscrowService] Dispute resolved on ${escrowId} by ${adminId}. Outcome: ${newStatus}`);
+    },
+
+    // --- Admin Helpers ---
+
+    async adminForceRelease(sliceId: string, notes: string) {
+        // Find the escrow payment record linked to this slice
+        const payment = await db.query.escrowPayments.findFirst({
+            where: eq(escrowPayments.sliceId, sliceId)
+        });
+
+        if (!payment) throw new Error(`No escrow payment found for Slice ${sliceId}`);
+
+        // Resolve as 'release' (Pay Provider)
+        await this.resolveDispute(payment.id, 'release', notes, 'admin-action');
+
+        return { success: true, action: 'released', paymentId: payment.id };
+    },
+
+    async adminForceRefund(sliceId: string, notes: string) {
+        // Find the escrow payment record linked to this slice
+        const payment = await db.query.escrowPayments.findFirst({
+            where: eq(escrowPayments.sliceId, sliceId)
+        });
+
+        if (!payment) throw new Error(`No escrow payment found for Slice ${sliceId}`);
+
+        // Resolve as 'refund' (Return to Client)
+        await this.resolveDispute(payment.id, 'refund', notes, 'admin-action');
+
+        return { success: true, action: 'refunded', paymentId: payment.id };
     }
 };

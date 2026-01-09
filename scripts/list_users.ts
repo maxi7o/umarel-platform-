@@ -1,22 +1,16 @@
-import { db } from "../lib/db";
-import { users } from "../lib/db/schema";
-import { eq } from "drizzle-orm";
 
-async function list() {
-    // Find first 5 users with 'umarel' implicit role (or just any user to start)
-    // The schema has a 'role' enum but seed might just set names.
-    const allUsers = await db.query.users.findMany({
-        limit: 5
-    });
-    console.log("Users found:", allUsers);
+import { db } from '@/lib/db';
+import { users } from '@/lib/db/schema';
 
-    // Check key Umarel names from seed
-    const target = await db.query.users.findFirst({
-        where: eq(users.email, "umarel0@example.com")
-    });
-    console.log("Umarel0 status:", target ? "FOUND" : "MISSING");
-    if (target) console.log("Umarel0 ID:", target.id);
-
+async function listUsers() {
+    try {
+        const allUsers = await db.select().from(users);
+        console.log('Users in DB:', allUsers.length);
+        allUsers.forEach(u => console.log(`- ${u.id} (${u.email})`));
+    } catch (error) {
+        console.error('Error listing users:', error);
+    }
     process.exit(0);
 }
-list();
+
+listUsers();

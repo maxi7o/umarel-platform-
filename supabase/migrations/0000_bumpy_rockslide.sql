@@ -1,14 +1,18 @@
 CREATE TYPE "public"."aura_level" AS ENUM('bronze', 'silver', 'gold', 'diamond');--> statement-breakpoint
 CREATE TYPE "public"."bid_status" AS ENUM('pending', 'accepted', 'rejected');--> statement-breakpoint
+CREATE TYPE "public"."biometric_status" AS ENUM('none', 'pending', 'verified', 'failed');--> statement-breakpoint
 CREATE TYPE "public"."change_proposal_status" AS ENUM('pending', 'accepted', 'rejected');--> statement-breakpoint
 CREATE TYPE "public"."comment_type" AS ENUM('text', 'prompt', 'ai_response');--> statement-breakpoint
 CREATE TYPE "public"."currency" AS ENUM('ARS', 'USD', 'BRL', 'MXN', 'COP');--> statement-breakpoint
+CREATE TYPE "public"."dispute_status" AS ENUM('open', 'evidence_submission', 'analyzing', 'resolved_refund', 'resolved_release', 'appealed', 'jury_deliberation');--> statement-breakpoint
 CREATE TYPE "public"."experience_status" AS ENUM('scheduled', 'confirmed', 'cancelled', 'completed');--> statement-breakpoint
 CREATE TYPE "public"."participant_status" AS ENUM('joined', 'refunded', 'attended');--> statement-breakpoint
 CREATE TYPE "public"."payment_method" AS ENUM('stripe', 'mercado_pago');--> statement-breakpoint
 CREATE TYPE "public"."payment_status" AS ENUM('pending_escrow', 'in_escrow', 'released', 'refunded', 'failed', 'disputed');--> statement-breakpoint
+CREATE TYPE "public"."quality_level" AS ENUM('functional', 'standard', 'premium');--> statement-breakpoint
 CREATE TYPE "public"."question_status" AS ENUM('pending', 'forwarded_to_community', 'answered');--> statement-breakpoint
 CREATE TYPE "public"."quote_status" AS ENUM('pending', 'accepted', 'rejected');--> statement-breakpoint
+CREATE TYPE "public"."refund_status" AS ENUM('none', 'requested', 'approved', 'disputed', 'resolved');--> statement-breakpoint
 CREATE TYPE "public"."request_status" AS ENUM('open', 'in_progress', 'completed');--> statement-breakpoint
 CREATE TYPE "public"."service_offering_status" AS ENUM('active', 'paused', 'inactive');--> statement-breakpoint
 CREATE TYPE "public"."slice_status" AS ENUM('proposed', 'accepted', 'in_progress', 'completed', 'approved_by_client', 'paid', 'disputed');--> statement-breakpoint
@@ -76,6 +80,18 @@ CREATE TABLE "community_rewards" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "contracts" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"slice_id" uuid NOT NULL,
+	"quote_id" uuid,
+	"provider_id" uuid NOT NULL,
+	"client_id" uuid NOT NULL,
+	"snapshot_json" jsonb NOT NULL,
+	"contract_hash" text NOT NULL,
+	"smart_contract_address" text,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE "contribution_evaluations" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"request_id" uuid,
@@ -102,6 +118,45 @@ CREATE TABLE "daily_payouts" (
 	"recipients" jsonb,
 	"created_at" timestamp DEFAULT now(),
 	"processed_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "dispute_evidence" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"dispute_id" uuid NOT NULL,
+	"uploader_id" uuid NOT NULL,
+	"media_url" text NOT NULL,
+	"mime_type" text DEFAULT 'image/jpeg',
+	"description" text,
+	"metadata" jsonb,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "dispute_jurors" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"dispute_id" uuid NOT NULL,
+	"user_id" uuid NOT NULL,
+	"status" text DEFAULT 'pending',
+	"vote" text,
+	"reason" text,
+	"voted_at" timestamp,
+	"created_at" timestamp DEFAULT now(),
+	"reward_distributed" boolean DEFAULT false
+);
+--> statement-breakpoint
+CREATE TABLE "disputes" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"slice_id" uuid NOT NULL,
+	"initiator_id" uuid NOT NULL,
+	"reason" text NOT NULL,
+	"status" "dispute_status" DEFAULT 'open',
+	"ai_verdict" jsonb,
+	"jury_status" text DEFAULT 'none',
+	"jury_resolution" text,
+	"final_ruling" text,
+	"is_honey_pot" boolean DEFAULT false,
+	"correct_verdict" text,
+	"created_at" timestamp DEFAULT now(),
+	"resolved_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE "escrow_payments" (
@@ -195,6 +250,17 @@ CREATE TABLE "notifications" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "product_insights" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"source" text NOT NULL,
+	"source_id" text,
+	"insight" text NOT NULL,
+	"feature_area" text,
+	"sentiment" text,
+	"confidence" integer DEFAULT 0,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE "profiles" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
@@ -245,6 +311,8 @@ CREATE TABLE "quotes" (
 	"amount" integer NOT NULL,
 	"currency" "currency" DEFAULT 'ARS',
 	"message" text,
+	"proposed_acceptance_criteria" jsonb,
+	"ambiguity_reduction_score" integer DEFAULT 0,
 	"estimated_delivery_date" timestamp,
 	"status" "quote_status" DEFAULT 'pending',
 	"created_at" timestamp DEFAULT now()
@@ -285,6 +353,13 @@ CREATE TABLE "service_offerings" (
 	"hourly_rate" integer,
 	"fixed_rate" integer,
 	"availability" text,
+	"calendar_sync_url" text,
+	"ai_interviewer_config" jsonb,
+	"pricing_strategy" text DEFAULT 'standard',
+	"pricing_options" jsonb,
+	"min_participants" integer DEFAULT 1,
+	"max_participants" integer,
+	"instant_booking_enabled" boolean DEFAULT false,
 	"skills" jsonb,
 	"portfolio_images" jsonb,
 	"featured" boolean DEFAULT false,
@@ -331,6 +406,7 @@ CREATE TABLE "slice_cards" (
 	"final_price" integer,
 	"currency" "currency" DEFAULT 'ARS',
 	"skills" jsonb DEFAULT '[]'::jsonb,
+	"quality_level" "quality_level" DEFAULT 'standard',
 	"estimated_time" text,
 	"dependencies" jsonb DEFAULT '[]'::jsonb,
 	"acceptance_criteria" jsonb DEFAULT '[]'::jsonb,
@@ -349,6 +425,10 @@ CREATE TABLE "slice_evidence" (
 	"file_type" text DEFAULT 'image',
 	"description" text,
 	"metadata" jsonb,
+	"captured_at" timestamp,
+	"device_signature" text,
+	"ai_validation_status" text DEFAULT 'pending',
+	"ai_validation_json" jsonb,
 	"is_verified" boolean DEFAULT false,
 	"created_at" timestamp DEFAULT now()
 );
@@ -362,14 +442,27 @@ CREATE TABLE "slices" (
 	"description" text NOT NULL,
 	"estimated_effort" text,
 	"estimated_hours" integer,
+	"quality_level" "quality_level" DEFAULT 'standard',
 	"market_price_min" integer,
 	"market_price_max" integer,
 	"final_price" integer,
 	"status" "slice_status" DEFAULT 'proposed',
 	"is_ai_generated" boolean DEFAULT false,
 	"dependencies" jsonb,
+	"acceptance_criteria" jsonb,
+	"evidence_requirements" jsonb,
+	"evidence_time_window_minutes" integer,
+	"ambiguity_score" integer DEFAULT 0,
+	"is_public" boolean DEFAULT true,
+	"refund_status" "refund_status" DEFAULT 'none',
+	"refund_reason" text,
+	"dispute_evidence" jsonb,
+	"refund_requested_at" timestamp,
+	"refund_decided_at" timestamp,
 	"skills_required" jsonb,
 	"escrow_payment_id" text,
+	"auto_release_at" timestamp,
+	"dispute_status" text,
 	"approved_by_client_at" timestamp,
 	"paid_at" timestamp,
 	"disputed_at" timestamp,
@@ -388,6 +481,17 @@ CREATE TABLE "transactions" (
 	"status" "transaction_status" DEFAULT 'pending',
 	"completed_at" timestamp,
 	"confirmed_at" timestamp,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "umarel_contributions" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"slice_id" uuid NOT NULL,
+	"umarel_id" uuid NOT NULL,
+	"contribution_type" text NOT NULL,
+	"description" text NOT NULL,
+	"impact_score" integer DEFAULT 0,
+	"status" text DEFAULT 'pending',
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
@@ -422,6 +526,8 @@ CREATE TABLE "users" (
 	"last_comment_at" timestamp,
 	"last_tos_accepted_at" timestamp,
 	"tos_version" integer DEFAULT 0,
+	"biometric_status" "biometric_status" DEFAULT 'none',
+	"biometric_verified_at" timestamp,
 	"created_at" timestamp DEFAULT now(),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
@@ -466,10 +572,20 @@ ALTER TABLE "comments" ADD CONSTRAINT "comments_marked_helpful_by_users_id_fk" F
 ALTER TABLE "community_rewards" ADD CONSTRAINT "community_rewards_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "community_rewards" ADD CONSTRAINT "community_rewards_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "community_rewards" ADD CONSTRAINT "community_rewards_comment_id_comments_id_fk" FOREIGN KEY ("comment_id") REFERENCES "public"."comments"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_quote_id_quotes_id_fk" FOREIGN KEY ("quote_id") REFERENCES "public"."quotes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_provider_id_users_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_client_id_users_id_fk" FOREIGN KEY ("client_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "contribution_evaluations" ADD CONSTRAINT "contribution_evaluations_request_id_requests_id_fk" FOREIGN KEY ("request_id") REFERENCES "public"."requests"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "contribution_evaluations" ADD CONSTRAINT "contribution_evaluations_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "conversations" ADD CONSTRAINT "conversations_participant1_id_users_id_fk" FOREIGN KEY ("participant1_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "conversations" ADD CONSTRAINT "conversations_participant2_id_users_id_fk" FOREIGN KEY ("participant2_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "dispute_evidence" ADD CONSTRAINT "dispute_evidence_dispute_id_disputes_id_fk" FOREIGN KEY ("dispute_id") REFERENCES "public"."disputes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "dispute_evidence" ADD CONSTRAINT "dispute_evidence_uploader_id_users_id_fk" FOREIGN KEY ("uploader_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "dispute_jurors" ADD CONSTRAINT "dispute_jurors_dispute_id_disputes_id_fk" FOREIGN KEY ("dispute_id") REFERENCES "public"."disputes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "dispute_jurors" ADD CONSTRAINT "dispute_jurors_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "disputes" ADD CONSTRAINT "disputes_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "disputes" ADD CONSTRAINT "disputes_initiator_id_users_id_fk" FOREIGN KEY ("initiator_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "escrow_payments" ADD CONSTRAINT "escrow_payments_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "escrow_payments" ADD CONSTRAINT "escrow_payments_experience_id_experiences_id_fk" FOREIGN KEY ("experience_id") REFERENCES "public"."experiences"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "escrow_payments" ADD CONSTRAINT "escrow_payments_client_id_users_id_fk" FOREIGN KEY ("client_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -512,6 +628,8 @@ ALTER TABLE "transactions" ADD CONSTRAINT "transactions_slice_id_slices_id_fk" F
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_quote_id_quotes_id_fk" FOREIGN KEY ("quote_id") REFERENCES "public"."quotes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_provider_id_users_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_requester_id_users_id_fk" FOREIGN KEY ("requester_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "umarel_contributions" ADD CONSTRAINT "umarel_contributions_slice_id_slices_id_fk" FOREIGN KEY ("slice_id") REFERENCES "public"."slices"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "umarel_contributions" ADD CONSTRAINT "umarel_contributions_umarel_id_users_id_fk" FOREIGN KEY ("umarel_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_wallets" ADD CONSTRAINT "user_wallets_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "withdrawals" ADD CONSTRAINT "withdrawals_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "wizard_messages" ADD CONSTRAINT "wizard_messages_slice_card_id_slice_cards_id_fk" FOREIGN KEY ("slice_card_id") REFERENCES "public"."slice_cards"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

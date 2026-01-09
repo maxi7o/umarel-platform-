@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MaterialAdvanceAction } from '@/components/wizard/material-advance-action';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +12,7 @@ import { useState } from 'react';
 interface SliceCardProps {
     sliceCard: {
         title: string;
+        sliceId?: string;
         description: string;
         location?: string;
         finalPrice: number | null;
@@ -145,6 +147,11 @@ export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: Sl
                         </span>
                     )}
                 </div>
+
+                {/* Acopio / Material Advance Action (Only for logged-in, non-guest, active projects) */}
+                {!isGuest && !isEditing && sliceCard.finalPrice && sliceCard.sliceId && (
+                    <MaterialAdvanceAction sliceId={sliceCard.sliceId} amount={sliceCard.finalPrice} currency={sliceCard.currency} />
+                )}
 
                 {/* Skills */}
                 <div>

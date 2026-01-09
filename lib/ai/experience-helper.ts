@@ -7,7 +7,7 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: false,
 });
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'mock-key');
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_KEY || process.env.GEMINI_API_KEY || 'mock-key');
 
 export interface ExperienceSuggestion {
     title: string;

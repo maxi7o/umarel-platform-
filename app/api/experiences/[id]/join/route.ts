@@ -7,7 +7,7 @@ import {
     userWallets,
     users
 } from '@/lib/db/schema';
-import { calculateExperiencePrice, PricingConfig } from '@/lib/services/pricing-engine';
+import { calculateDynamicPrice } from '@/lib/services/pricing-engine';
 import { eq, count } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
@@ -47,11 +47,31 @@ export async function POST(
             return new NextResponse('Experience is full', { status: 400 });
         }
 
+        // Logic Check: Does Provider have capacity for ACTIVE jobs?
+        // We import dynamically to avoid circular deps if any
+        const { checkProviderCapacity } = await import('@/lib/services/capacity-service');
+        const capacityCheck = await checkProviderCapacity(experience.providerId);
+
+        if (!capacityCheck.allowed) {
+            return new NextResponse(
+                `Provider at Capacity: ${capacityCheck.reason}. Cannot book until they complete active jobs.`,
+                { status: 429 } // Too Many Requests (conceptually)
+            );
+        }
+
         // 2. Calculate Price
-        const priceInCents = calculateExperiencePrice(
-            experience.pricingConfig as PricingConfig,
-            currentCount
-        );
+        const pricingConfig = experience.pricingConfig as any;
+        const strategy = pricingConfig?.strategy || 'standard';
+        const basePrice = pricingConfig?.basePrice || 0;
+
+        const priceResult = calculateDynamicPrice({
+            basePrice,
+            strategy,
+            eventDate: experience.date, // Use the experience date
+            bookingDate: new Date(),
+        });
+
+        const priceInCents = priceResult.finalPrice;
 
         // 3. Create Escrow Payment (Individual for this user)
         // Need to fetch Provider to get their ID (already have it in experience.providerId)
