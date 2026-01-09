@@ -142,6 +142,25 @@
                 "title": "Fondos Asegurados",
                 "desc": "Se libera solo al estar conforme."
             }
+        },
+        "valueProp": {
+            "badge": "¿Por qué Umarel?",
+            "title": "Construido sobre confianza, impulsado por todos",
+            "subtitle": "Cada proyecto protegido. Cada experto verificado. Cada resultado transparente.",
+            "card1": {
+                "title": "Protección Escrow",
+                "desc": "Tu plata está segura hasta que se verifique el trabajo. Liberación automática tras 24hs o aprobación instantánea: vos tenés el control."
+            },
+            "card2": {
+                "badge": "De la Comunidad",
+                "title": "Dividendos Diarios",
+                "desc": "Los miembros útiles ganan plata real, no puntitos. Compartí sabiduría, ahorrá plata y recibí recompensas."
+            },
+            "card3": {
+                "title": "Emparejamiento Inteligente",
+                "desc": "La IA divide tu proyecto en tareas claras, sugiere precios justos y te conecta con los expertos adecuados."
+            },
+            "manifesto": "Leé nuestro Manifiesto"
         }
     },
     "landing": {

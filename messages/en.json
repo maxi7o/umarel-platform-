@@ -145,6 +145,25 @@
                 "title": "Funds Secured",
                 "desc": "Released only when satisfied."
             }
+        },
+        "valueProp": {
+            "badge": "Why Umarel?",
+            "title": "Built for trust, powered by community",
+            "subtitle": "Every project is protected. Every expert is verified. Every outcome is transparent.",
+            "card1": {
+                "title": "Escrow Protected",
+                "desc": "Your money is held safely until work is verified. Auto-release after 24 hours or instant approval—you're always in control."
+            },
+            "card2": {
+                "badge": "Community Owned",
+                "title": "Daily Dividends",
+                "desc": "Helpful community members earn real cash, not just points. Share wisdom, save money, get rewarded."
+            },
+            "card3": {
+                "title": "Smart Matching",
+                "desc": "AI breaks down your project into clear tasks, suggests fair pricing, and connects you with the right experts."
+            },
+            "manifesto": "Read Our Manifesto"
         }
     },
     "landing": {

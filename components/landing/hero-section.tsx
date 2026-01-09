@@ -71,7 +71,7 @@ export function HeroSection() {
                     </div>
 
                     <div className="pt-8 flex items-center gap-4 text-sm text-slate-400">
-                        <p>Confiado por +2.000 vecinos en Buenos Aires</p>
+                        <p>{t('steps.trustedBy')}</p>
                         <div className="h-1 w-1 rounded-full bg-slate-600" />
                         <div className="flex -space-x-2">
                             {[1, 2, 3, 4].map(i => (
@@ -91,34 +91,69 @@ export function HeroSection() {
                     className="hidden lg:block relative"
                 >
                     {/* Abstract Construction UI Representation */}
+                    {/* Stages UI Representation */}
                     <div className="relative p-6 bg-slate-800/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
                         {/* Floating Elements */}
                         <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl animate-pulse" />
                         <div className="absolute -bottom-5 -left-5 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl" />
 
                         <div className="space-y-4">
-                            <div className="flex items-center gap-4 p-4 bg-slate-900/60 rounded-2xl border border-white/5">
-                                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                            {/* Stage 1 */}
+                            <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 opacity-60">
+                                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold">Verificación Umarel</p>
-                                    <p className="text-slate-400 text-sm">Fondos liberados tras aprobación</p>
+                                    <p className="text-white font-bold">{t('steps.stage1.title')}</p>
+                                    <p className="text-slate-400 text-xs">{t('steps.stage1.desc')}</p>
                                 </div>
-                                <div className="ml-auto text-green-400 font-mono font-bold">+$150k</div>
+                                <div className="ml-auto text-green-400 font-mono text-sm">$0.00</div>
                             </div>
 
-                            <div className="flex items-center gap-4 p-4 bg-slate-900/60 rounded-2xl border border-white/5 opacity-80">
-                                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
+                            {/* Stage 2 (Active) */}
+                            <div className="relative transform scale-105 z-10">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-20"></div>
+                                <div className="relative flex items-center gap-4 p-4 bg-slate-900 rounded-2xl border border-blue-500/30 shadow-xl">
+                                    <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center justify-between mb-1">
+                                            <p className="text-white font-bold text-sm truncate pr-2">{t('steps.stage2.title')}</p>
+                                            <span className="px-2 py-0.5 text-[10px] rounded-full bg-blue-500/20 text-blue-300 font-medium uppercase tracking-wide whitespace-nowrap">
+                                                {t('steps.stage2.badge')}
+                                            </span>
+                                        </div>
+                                        <p className="text-slate-400 text-xs truncate">{t('steps.stage2.desc')}</p>
+                                        {/* Progress Bar */}
+                                        <div className="mt-2 h-1.5 w-full bg-slate-700/50 rounded-full overflow-hidden">
+                                            <div className="h-full bg-blue-500 w-2/3 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Stage 3 */}
+                            <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 opacity-40">
+                                <div className="w-10 h-10 rounded-full bg-slate-500/20 flex items-center justify-center text-slate-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold">Reparación de Cañería</p>
-                                    <p className="text-slate-400 text-sm">En progreso • Belgrano</p>
+                                    <p className="text-white font-bold">{t('steps.stage3.title')}</p>
+                                    <p className="text-slate-400 text-xs">{t('steps.stage3.desc')}</p>
                                 </div>
-                                <div className="ml-auto">
-                                    <span className="px-2 py-1 text-xs rounded bg-blue-500/20 text-blue-300">Activo</span>
-                                </div>
+                                <div className="ml-auto text-slate-500 font-mono text-sm">$450.00</div>
+                            </div>
+                        </div>
+
+                        {/* Floating Floater (Toast) */}
+                        <div className="absolute -bottom-12 -right-12 z-20 flex items-center gap-3 p-4 bg-slate-900 border border-green-500/30 rounded-xl shadow-2xl max-w-[240px]">
+                            <div className="w-10 h-10 rounded bg-green-900/50 flex items-center justify-center text-green-400 shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></svg>
+                            </div>
+                            <div>
+                                <p className="text-green-400 font-bold text-xs uppercase tracking-wide">{t('steps.floater.title')}</p>
+                                <p className="text-slate-400 text-[10px] leading-tight">{t('steps.floater.desc')}</p>
                             </div>
                         </div>
                     </div>
