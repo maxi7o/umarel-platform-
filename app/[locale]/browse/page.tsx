@@ -138,7 +138,7 @@ export default function BrowsePage() {
                             currentLocation={location}
                             onLocationChange={setLocation}
                         />
-                        <Link href="/post-request">
+                        <Link href="/requests/create">
                             <Button variant="outline">{t('postRequest')}</Button>
                         </Link>
                         <Link href="/create-offering">
@@ -210,19 +210,19 @@ export default function BrowsePage() {
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-20">
-                            <p className="text-lg text-muted-foreground mb-4">
-                                {t('noResults')} {location}
+                        <div className="text-center py-20 bg-stone-50 rounded-3xl border border-dashed border-stone-200">
+                            <h3 className="text-xl font-bold font-heading text-stone-900 mb-2">
+                                {t('noResultsTitle') || "No hay resultados todavía"}
+                            </h3>
+                            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+                                {t('noResultsDesc') || "Sé el primero en esta zona. Publicá lo que necesitás o lo que ofrecés."}
                             </p>
-                            <p className="text-sm text-muted-foreground mb-6">
-                                {t('tryAdjusting')}
-                            </p>
-                            <div className="flex items-center justify-center gap-3">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                 <Button variant="outline" onClick={() => setSelectedCategory(undefined)}>
                                     {t('clearFilters')}
                                 </Button>
-                                <Link href="/create-offering">
-                                    <Button>{t('beFirstToOffer')}</Button>
+                                <Link href="/requests/create">
+                                    <Button className="bg-orange-600 hover:bg-orange-700">{t('beFirstToOffer') || "Publicar Pedido"}</Button>
                                 </Link>
                             </div>
                         </div>
