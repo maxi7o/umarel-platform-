@@ -10,7 +10,7 @@ export function FaqSection() {
         },
         {
             q: "¿Cómo funciona el pago seguro (Escrow)?",
-            a: "Vos transferís el dinero a una cuenta de resguardo. El profesional ve que el dinero está ahí, pero no lo cobra hasta que vos (o un Umarel) aprueben el trabajo. Seguridad para los dos."
+            a: "El dinero queda en una cuenta intermedia segura. No se libera hasta que el trabajo está terminado y aprobado. Es la mejor garantía para ambas partes."
         },
         {
             q: "¿Tiene costo usar la plataforma?",

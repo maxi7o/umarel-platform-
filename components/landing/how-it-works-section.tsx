@@ -23,13 +23,13 @@ export function HowItWorksSection() {
             icon: <Hammer className="w-6 h-6 text-white" />,
             color: "bg-orange-500",
             title: "3. Manos a la Obra",
-            desc: "Tu pago va a un fondo seguro (escrow). El profesional trabaja tranquilo sabiendo que el dinero está ahí."
+            desc: "El profesional trabaja tranquilo sabiendo que el pago está garantizado."
         },
         {
             icon: <CheckCircle2 className="w-6 h-6 text-white" />,
             color: "bg-green-500",
             title: "4. Aprobá y Liberá",
-            desc: "Revisá las fotos (o dejá que un Umarel lo haga). Si está todo joya, liberás el pago. ¡Todos felices!"
+            desc: "Revisá las fotos. Si está todo bien, liberás el pago seguro (Escrow). ¡Todos felices!"
         }
     ];
 
