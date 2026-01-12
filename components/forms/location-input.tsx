@@ -73,12 +73,10 @@ export function LocationInput({
                 if (res.ok) {
                     const data = await res.json();
 
-                    // Filter for Argentina (Loose check)
                     const validResults: NominatimResult[] = data.features
-                        .filter((f: any) => {
-                            const c = f.properties.country?.toLowerCase();
-                            return c === "argentina" || c === "ar";
-                        })
+                        // Relaxed Filter: Prioritize Argentina but allow others if close?
+                        // Actually, for now let's just accept what Photon returns since we biased with lat/lon.
+                        // Or check for "Argentina" string in properties loosely.
                         .map((f: any) => ({
                             place_id: f.properties.osm_id,
                             lat: f.geometry.coordinates[1].toString(),
@@ -87,7 +85,8 @@ export function LocationInput({
                                 f.properties.name,
                                 f.properties.street,
                                 f.properties.city,
-                                f.properties.state
+                                f.properties.state,
+                                f.properties.country
                             ].filter(Boolean).join(', ')
                         }))
                         // Deduplicate by name

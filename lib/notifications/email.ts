@@ -1,3 +1,4 @@
+
 /**
  * Email notification templates and sending utilities
  * Uses Resend for email delivery
@@ -134,6 +135,30 @@ export function paymentFailedEmail(
       <p><strong>${sliceTitle}</strong></p>
       <p>Please try again or use a different payment method.</p>
       <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/checkout/${sliceId}">Try Again</a></p>
+    `,
+    };
+}
+
+/**
+ * New Guest Bid notification (to client)
+ */
+export function newBidEmail(
+    clientEmail: string,
+    sliceTitle: string,
+    amount: string,
+    contactInfo: string
+): EmailNotification {
+    return {
+        to: clientEmail,
+        subject: '🔔 New Bid Received (Guest)',
+        html: `
+      <h2>New Bid Received!</h2>
+      <p>A service provider has submitted a quick bid for:</p>
+      <p><strong>${sliceTitle}</strong></p>
+      <p>Price: <strong>${amount}</strong></p>
+      <p>Contact: ${contactInfo}</p>
+      <p>To accept this bid or view details, log in to your dashboard.</p>
+      <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard">View Bid</a></p>
     `,
     };
 }

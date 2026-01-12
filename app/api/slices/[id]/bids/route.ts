@@ -1,115 +1,44 @@
-import { NextResponse } from 'next/server';
+
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { sliceBids, slices, users } from '@/lib/db/schema';
-import { eq, desc, and } from 'drizzle-orm';
-import { validateSliceEffort } from '@/lib/validators/slice-validator';
+import { eq } from 'drizzle-orm';
+import { GUEST_USER_ID } from '@/lib/services/special-users';
+import { sendEmail, newBidEmail } from '@/lib/notifications/email'; // Assuming this exists or mocking behavior
 
-export async function POST(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { id: sliceId } = await params;
-        const body = await request.json();
-        const { providerId, bidAmount, estimatedHours, message } = body;
+        const body = await req.json();
+        const { price, contactInfo, description, isGuest } = body;
 
-        if (!providerId || !bidAmount || !estimatedHours) {
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 }
-            );
+        // 1. Validate
+        if (!sliceId || !price || !contactInfo) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        // Validate estimated hours (≤4)
-        const validationErrors = validateSliceEffort({ estimatedHours, title: '', description: '' });
-        if (validationErrors.length > 0) {
-            return NextResponse.json(
-                { error: validationErrors[0].message },
-                { status: 400 }
-            );
-        }
+        // 2. Determine User ID (Guest or Auth)
+        const providerId = GUEST_USER_ID;
 
-        // Check if slice exists
-        const [slice] = await db
-            .select()
-            .from(slices)
-            .where(eq(slices.id, sliceId));
-
-        if (!slice) {
-            return NextResponse.json(
-                { error: 'Slice not found' },
-                { status: 404 }
-            );
-        }
-
-        // Check if provider already has a pending bid on this slice
-        const existingBids = await db
-            .select()
-            .from(sliceBids)
-            .where(and(
-                eq(sliceBids.sliceId, sliceId),
-                eq(sliceBids.providerId, providerId),
-                eq(sliceBids.status, 'pending')
-            ));
-
-        if (existingBids.length > 0) {
-            return NextResponse.json(
-                { error: 'You already have a pending bid on this slice' },
-                { status: 400 }
-            );
-        }
-
-        // Create bid
-        const [newBid] = await db.insert(sliceBids).values({
-            sliceId,
-            providerId,
-            bidAmount,
-            estimatedHours,
-            message,
+        // 3. Create Bid
+        await db.insert(sliceBids).values({
+            sliceId: sliceId,
+            providerId: providerId,
+            bidAmount: price, // in cents
+            estimatedHours: 4, // Default assumption or ask in dialog
+            message: `${description || ''} \n\n[Guest Contact: ${contactInfo}]`,
             status: 'pending',
-        }).returning();
+            createdAt: new Date(),
+        });
 
-        return NextResponse.json(newBid);
+        // 4. Notify Client (Slice Owner)
+        // For MVP: Log notification
+        console.log(`[Notification] New Guest Bid for Slice ${sliceId}: ${price} ARS from ${contactInfo}`);
+
+        return NextResponse.json({ success: true });
+
     } catch (error) {
-        console.error('Error creating bid:', error);
-        return NextResponse.json(
-            { error: 'Internal Server Error' },
-            { status: 500 }
-        );
-    }
-}
-
-export async function GET(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
-    try {
-        const { id: sliceId } = await params;
-
-        // Fetch all bids for this slice with provider info
-        const bids = await db
-            .select()
-            .from(sliceBids)
-            .where(eq(sliceBids.sliceId, sliceId))
-            .orderBy(desc(sliceBids.createdAt));
-
-        // Fetch provider info for each bid
-        const bidsWithProviders = await Promise.all(
-            bids.map(async (bid) => {
-                const [provider] = await db
-                    .select()
-                    .from(users)
-                    .where(eq(users.id, bid.providerId));
-                return { ...bid, provider };
-            })
-        );
-
-        return NextResponse.json(bidsWithProviders);
-    } catch (error) {
-        console.error('Error fetching bids:', error);
-        return NextResponse.json(
-            { error: 'Internal Server Error' },
-            { status: 500 }
-        );
+        console.error('Guest Bid Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

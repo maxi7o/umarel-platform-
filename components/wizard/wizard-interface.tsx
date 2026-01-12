@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Send, Sparkles, Loader2, ChevronRight, ChevronLeft, Paperclip, Plus, Share2 } from 'lucide-react';
 import { SliceCard } from './slice-card';
 import { MessageThread } from './message-thread';
+import { GuestBidDialog } from '@/components/interaction/guest-bid-dialog';
 import {
     Dialog,
     DialogContent,
@@ -376,6 +377,28 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                     </div>
                 </div>
             </div>
+
+            {/* Guest Bid Call-to-Action (Visible in Consultant Mode / Share Page) */}
+            {isConsultant && sliceCards.length > 0 && (
+                <div className="bg-green-50 dark:bg-green-900/20 px-6 py-3 border-b border-green-200 dark:border-green-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="text-sm text-green-800 dark:text-green-200">
+                        <span className="font-bold block md:inline">👋 {locale === 'es' ? '¿Sos profesional?' : 'Are you a pro?'}</span>
+                        <span className="opacity-90"> {locale === 'es' ? 'Pasá un presupuesto rápido sin registrarte.' : 'Submit a quick bid without signing up.'}</span>
+                    </div>
+                    <GuestBidDialog
+                        sliceId={sliceId}
+                        sliceTitle={sliceCards[0]?.title || 'Project'}
+                        onBidSubmitted={() => {
+                            setMessages(prev => [...prev, {
+                                id: 'sys-' + Date.now(),
+                                role: 'system',
+                                content: locale === 'es' ? '✅ ¡Propuesta enviada al cliente!' : '✅ Bid sent to client!',
+                                createdAt: new Date()
+                            }]);
+                        }}
+                    />
+                </div>
+            )}
 
             {/* Main Content */}
             <div className="flex-1 overflow-hidden flex">
