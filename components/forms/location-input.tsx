@@ -17,6 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 interface LocationInputProps {
     value?: string;
+    defaultValue?: string;
     onChange?: (value: string, structuredData?: any) => void;
     placeholder?: string;
     className?: string;
@@ -32,7 +33,8 @@ interface NominatimResult {
 }
 
 export function LocationInput({
-    value = '',
+    value,
+    defaultValue,
     onChange,
     placeholder = 'Search address...',
     className,
@@ -40,7 +42,7 @@ export function LocationInput({
     name
 }: LocationInputProps) {
     const [open, setOpen] = useState(false);
-    const [query, setQuery] = useState(value);
+    const [query, setQuery] = useState(value || defaultValue || '');
     const [results, setResults] = useState<NominatimResult[]>([]);
     const [loading, setLoading] = useState(false);
 
