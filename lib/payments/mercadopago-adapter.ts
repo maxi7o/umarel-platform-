@@ -6,7 +6,7 @@ import { userWallets } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export class MercadoPagoAdapter implements PaymentStrategy {
-    async createEscrow(sliceId: string, amountCents: number, currency: string, payerId: string, payeeId: string) {
+    async createEscrow(sliceId: string, amountCents: number, currency: string, payerId: string, payeeId: string, escrowId: string) {
         console.log(`[MercadoPagoAdapter] Creating Preference for Slice ${sliceId}`);
 
         try {
@@ -38,7 +38,7 @@ export class MercadoPagoAdapter implements PaymentStrategy {
                         // In real app, we'd map our user ID to an email or customer ID
                         email: 'test_user_123@test.com'
                     },
-                    external_reference: sliceId,
+                    external_reference: escrowId,
                     metadata: {
                         payee_id: payeeId,
                         payer_id: payerId

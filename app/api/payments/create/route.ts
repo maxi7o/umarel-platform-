@@ -2,9 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPaymentStrategy } from '@/lib/payments/factory';
 import { db } from '@/lib/db';
-import { slices, users } from '@/lib/db/schema';
+import { slices, requests, escrowPayments, users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-import { getUserTimezone } from '@/lib/utils/date';
 
 export async function POST(req: NextRequest) {
     try {
@@ -12,44 +11,97 @@ export async function POST(req: NextRequest) {
         const { sliceId, paymentMethodId } = body;
 
         // 1. Fetch Slice and Request info
-        const [slice] = await db.select().from(slices).where(eq(slices.id, sliceId));
+        const [slice] = await db
+            .select({
+                id: slices.id,
+                requestId: slices.requestId,
+                finalPrice: slices.finalPrice,
+                marketPriceMax: slices.marketPriceMax,
+                assignedProviderId: slices.assignedProviderId,
+                title: slices.title
+            })
+            .from(slices)
+            .where(eq(slices.id, sliceId));
+
         if (!slice) {
             return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
         }
 
-        // 2. Determine Context (Country) for Payment Factory
-        // In a real app, strict geolocation or user profile 'country' is better.
-        // Here we derive it loosely from timezone or explicit param.
-        // Let's assume the frontend sends 'userCountry' or we guess from TZ.
-        // For Verification: We will look for a header or body param, defaulting to 'US'.
+        const [request] = await db
+            .select({ userId: requests.userId })
+            .from(requests)
+            .where(eq(requests.id, slice.requestId));
+
+        // Payer is the Client (Request owner)
+        const payerId = request.userId;
+        const payeeId = slice.assignedProviderId;
+
+        if (!payeeId) {
+            return NextResponse.json({ error: 'No provider assigned to this slice' }, { status: 400 });
+        }
+
+        // 2. Determine Amounts
+        const price = slice.finalPrice || slice.marketPriceMax || 1000; // Default 10.00 if missing
+
+        // 15% Platform Fee Logic
+        // We assume 'price' is the Total Amount the Client pays.
+        // The Platform Fee is deducted from this amount when paying the Provider.
+        const totalAmount = price;
+        const platformFee = Math.round(price * 0.15); // 15%
+        const communityRewardPool = Math.round(price * 0.03); // 3%
+        const sliceAmount = price; // The base amount for records
+
+        // 3. Create Escrow Record (Pending)
+        // We create this FIRST so we have an ID to pass to the Payment Provider
+        const [escrowPayment] = await db.insert(escrowPayments).values({
+            sliceId: slice.id,
+            clientId: payerId,
+            providerId: payeeId,
+            totalAmount,
+            sliceAmount,
+            platformFee,
+            communityRewardPool,
+            paymentMethod: 'mercado_pago', // Defaulting for now since we use MP strategy
+            status: 'pending_escrow',
+        }).returning();
+
+        // 4. Get Strategy & Create Payment Intent
         const userCountry = body.userCountry || 'US';
-
-        // 3. Get Strategy
         const strategy = getPaymentStrategy({ countryCode: userCountry });
-
-        // 4. Create Escrow
-        // Ensure price is set
-        const amount = slice.finalPrice || slice.marketPriceMax || 1000; // Default 10.00 if missing
-
-        // Payer usually current user (need auth). Mocking for now:
-        const payerId = 'current-user-id';
 
         const result = await strategy.createEscrow(
             slice.id,
-            amount,
-            'ARS', // TODO: Get from slice/request currency
+            totalAmount,
+            'ARS',
             payerId,
-            slice.assignedProviderId || 'provider-id'
+            payeeId,
+            escrowPayment.id // check this matches updated signature
         );
 
-        // Save escrowPaymentId to Slice
+        // 5. Update Escrow Record with External ID
+        // (If provided immediately, otherwise webhook handles it)
         if (result.transactionId) {
+            // Store the Preference ID (or PaymentIntent ID)
+            // We store it in `mercadoPagoPreapprovalId` or similar? 
+            // The schema has `mercadoPagoPaymentId` (usually for the final payment) 
+            // and `stripePaymentIntentId`. 
+            // For MP, `transactionId` returned here is the Preference ID (init_point ID), not the Payment ID.
+            // We don't have a dedicated column for Preference ID in schema shown earlier?
+            // Checking schema... `mercadoPagoPreapprovalId`? No.
+            // Let's store it in `mercadoPagoPaymentId` for now, OR rely on `external_reference` (escrowPayment.id) for link.
+            // Webhook uses `external_reference` -> `escrowId` mapping. 
+            // So we don't strictily NEED to store the Preference ID, but it helps for debugging.
+            // Let's update `slices.escrowPaymentId` to point to our internal UUID for easy lookup.
+
             await db.update(slices)
-                .set({ escrowPaymentId: result.transactionId })
+                .set({ escrowPaymentId: escrowPayment.id }) // Point to internal UUID
                 .where(eq(slices.id, sliceId));
         }
 
-        return NextResponse.json(result);
+        return NextResponse.json({
+            ...result,
+            escrowId: escrowPayment.id
+        });
 
     } catch (error) {
         console.error('Payment creation failed:', error);

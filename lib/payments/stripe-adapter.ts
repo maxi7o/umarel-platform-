@@ -4,7 +4,7 @@ import { PaymentStrategy } from './strategy';
 // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2023-10-16' });
 
 export class StripePaymentAdapter implements PaymentStrategy {
-    async createEscrow(sliceId: string, amountCents: number, currency: string, payerId: string, payeeId: string) {
+    async createEscrow(sliceId: string, amountCents: number, currency: string, payerId: string, payeeId: string, escrowId: string) {
         console.log(`[StripePayment] Creating Intent [Mocked for now]`);
         // Real implementation would:
         // 1. Create PaymentIntent with capture_method: 'manual' (Escrow-like behavior)

@@ -31,7 +31,7 @@ describe('MercadoPagoAdapter', () => {
 
             const result = await adapter.refund('tx-123');
 
-            expect(payment.refund).toHaveBeenCalledWith({ payment_id: 'tx-123' });
+            expect((payment as any).refund).toHaveBeenCalledWith({ payment_id: 'tx-123' });
             expect(result.success).toBe(true);
         });
 
@@ -40,7 +40,7 @@ describe('MercadoPagoAdapter', () => {
 
             const result = await adapter.refund('tx-123', 50.50);
 
-            expect(payment.refund).toHaveBeenCalledWith({
+            expect((payment as any).refund).toHaveBeenCalledWith({
                 payment_id: 'tx-123',
                 amount: 50.50
             });

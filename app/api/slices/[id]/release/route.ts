@@ -22,7 +22,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             .select({
                 id: slices.id,
                 status: slices.status,
-                escrowPaymentId: slices.escrowPaymentId,
+                escrowPaymentId: slices.escrowPaymentId, // This is the UUID of escrow_payments table
                 requestId: slices.requestId,
                 price: slices.finalPrice
             })
@@ -46,58 +46,57 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         }
 
         if (!slice.escrowPaymentId) {
-            return NextResponse.json({ error: 'No escrow payment found' }, { status: 400 });
+            return NextResponse.json({ error: 'No escrow payment found for this slice' }, { status: 400 });
         }
 
-        // 2. Call Adapter to Verify/Release
-        // For MP Split Payment, this confirms payment is 'approved' 
-        const strategy = getPaymentStrategy({ provider: 'mercadopago' }); // Defaulting to MP for MVP
-        const releaseResult = await strategy.releaseFunds(slice.escrowPaymentId);
+        // 2. Fetch the Escrow Payment Record
+        const [escrow] = await db
+            .select() // Select all columns
+            .from(escrowPayments)
+            .where(eq(escrowPayments.id, slice.escrowPaymentId));
+
+        if (!escrow) {
+            return NextResponse.json({ error: 'Escrow record not found' }, { status: 404 });
+        }
+
+        // Determine correct provider ID
+        // Note: For MP, we need the Payment ID (not the Preference ID/UUID).
+        // This MUST be populated by the Webhook when the user pays.
+        const providerTransactionId = escrow.mercadoPagoPaymentId || escrow.stripePaymentIntentId;
+
+        if (!providerTransactionId) {
+            return NextResponse.json({ error: 'Payment has not been confirmed by provider yet' }, { status: 400 });
+        }
+
+        // 3. Call Adapter to Verify/Release
+        const currency = 'ARS'; // TODO: Store currency in escrowPayments
+        const strategy = getPaymentStrategy({ countryCode: 'AR' }); // Assuming ARS/MP
+
+        // The adapter expects the Provider's Transaction ID (e.g. MP Payment ID)
+        const releaseResult = await strategy.releaseFunds(providerTransactionId);
 
         if (!releaseResult.success) {
-            return NextResponse.json({ error: 'Payment provider could not verify release eligibility' }, { status: 400 });
+            return NextResponse.json({ error: 'Payment provider blocked release (status not approved)' }, { status: 400 });
         }
 
-        // 3. Update DB State
-        // Mark Escrow as Released
-        // This is THE trigger for the Dividend Engine
+        // 4. Update DB State
         const [updatedEscrow] = await db.update(escrowPayments)
             .set({
                 status: 'released',
                 releasedAt: new Date()
             })
-            .where(eq(escrowPayments.id, slice.escrowPaymentId))
-            // Actually, in main code we use .where(eq(escrowPayments.transactionId, slice.escrowPaymentId))
-            // But we fetched escrowPaymentId from slice.
-            // Let's ensure this is correct. In schema: escrowPaymentId is text (transaction ID from provider) or UUID?
-            // In schema slices.escrowPaymentId is text.
-            // In escrowPayments.transactionId? No, schema has 'mercadoPagoPaymentId' or 'id'.
-            // Let's use `where(eq(escrowPayments.id, slice.escrowPaymentId))` if the slice stores the internal ID.
-            // Re-reading logic from "main" snippet in conflict:
-            // It used `transactionId`.
-            // Wait, schema.ts says `escrowPayments` has `id` (uuid) and `mercadoPagoPaymentId`.
-            // If `slice.escrowPaymentId` stores the UUID, we use `id`.
-            // To be safe, I will stick to what `main` had in the snippet:
-            // .where(eq(escrowPayments.transactionId, slice.escrowPaymentId))
-            // BUT schema doesn't seem to have `transactionId`.
-            // I'll check schema again if needed, but for now assuming Main was tested.
-            // Wait, previous lint error said `transactionId` does not exist.
-            // I should fix that. I'll use `mercadoPagoPaymentId` OR `id`.
-            // Given the complexity, I'll use `id` assuming standard internal linking.
+            .where(eq(escrowPayments.id, escrow.id))
             .returning();
 
-        // Wait, "Main" had lint errors about `transactionId`. 
-        // I will fix it by using `id`.
-
         // NOTIFICATION: Funds Released
-        if (updatedEscrow?.providerId) {
-            const [provider] = await db.select().from(users).where(eq(users.id, updatedEscrow.providerId));
+        if (escrow.providerId) {
+            const [provider] = await db.select().from(users).where(eq(users.id, escrow.providerId));
             if (provider?.email) {
                 await NotificationService.notifyFundsReleased(
                     provider.email,
                     provider.fullName || 'Provider',
-                    `Slice #${sliceId.slice(0, 8)}`, // Fallback title
-                    updatedEscrow.sliceAmount
+                    `Slice #${sliceId.slice(0, 8)}`,
+                    escrow.sliceAmount
                 );
             }
         }
