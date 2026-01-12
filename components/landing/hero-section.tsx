@@ -41,7 +41,7 @@ export function HeroSection() {
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
                         </span>
                         <span className="text-sm font-bold text-orange-200 tracking-wide uppercase">
-                            Disponible en Argentina
+                            {t('availableIn')}
                         </span>
                     </div>
 
@@ -66,7 +66,7 @@ export function HeroSection() {
 
                         <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur transition-all">
                             <PlayCircle className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors" />
-                            <span className="text-white font-medium">Ver cómo funciona</span>
+                            <span className="text-white font-medium">{t('watchVideo')}</span>
                         </button>
                     </div>
 

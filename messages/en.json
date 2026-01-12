@@ -61,7 +61,10 @@
         "roles": "Roles",
         "about": "About Us",
         "contact": "Contact",
-        "faq": "FAQ"
+        "faq": "FAQ",
+        "roleSeek": "Search",
+        "roleCreate": "Create",
+        "roleVerify": "Verify"
     },
     "footer": {
         "platform": "Platform",
@@ -97,6 +100,8 @@
         "heroTitleHighlight": "with wisdom.",
         "heroSubtitle": "The marketplace where experienced professionals help you break down complex tasks into manageable steps.",
         "postRequest": "Post a Request",
+        "availableIn": "Available in Argentina",
+        "watchVideo": "See how it works",
         "browseServices": "Browse Services",
         "originLabel": "Origin Story",
         "originQuote": "\"Umarel (Bolognese language [umaˈrɛːl]) are men of retirement age who spend their time watching construction sites, especially roadworks – stereotypically with hands clasped behind their back and commenting passionately about better ways to do the work.\"",

@@ -61,7 +61,10 @@
         "roles": "Roles",
         "about": "Sobre Nosotros",
         "contact": "Contacto",
-        "faq": "Preguntas"
+        "faq": "Preguntas",
+        "roleSeek": "Buscar",
+        "roleCreate": "Crear",
+        "roleVerify": "Verificar"
     },
     "footer": {
         "platform": "Plataforma",
@@ -94,6 +97,8 @@
         "heroTitleHighlight": "empezá por acá.",
         "heroSubtitle": "No necesitás tener todo claro. Contanos qué te pasa y lo pensamos juntos. Sin compromiso.",
         "postRequest": "Ordenar mi Problema",
+        "availableIn": "Disponible en Argentina",
+        "watchVideo": "Ver cómo funciona",
         "browseServices": "Ver cómo ayudamos",
         "originLabel": "Historia de Origen",
         "originQuote": "\"Umarel [umaˈrɛːl] (del idioma boloñés) es un término que se refiere específicamente a los hombres en edad de jubilación quiénes pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos.\"",
