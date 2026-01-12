@@ -14,6 +14,7 @@ import {
     DropdownMenuLabel
 } from '@/components/ui/dropdown-menu'
 import { NotificationBell } from '@/components/notifications/notification-bell';
+import { ReferralDialog } from '@/components/growth/referral-dialog';
 import { useTranslations } from 'next-intl'
 import { usePathname } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
@@ -136,7 +137,8 @@ export function Navbar({ user }: NavbarProps) {
                     </DropdownMenu>
 
                     {/* Notifications (Assuming Dark Mode Compatibility inside component, passing class?) */}
-                    <div className="text-white">
+                    <div className="text-white flex items-center gap-2">
+                        <ReferralDialog />
                         <NotificationBell />
                     </div>
 

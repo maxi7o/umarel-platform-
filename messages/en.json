@@ -665,5 +665,14 @@
             "a3": "No. If you can take a photo and send a text, you can use Umarel. Our AI Assistant guides every step."
         },
         "cta": "Start your first project"
+    },
+    "referral": {
+        "title": "Gift Trust, Earn Aura",
+        "subtitle": "Umarel grows when neighbors share the secret. Help us verify the neighborhood.",
+        "shareLink": "Your Invite Link",
+        "linkCopied": "Link copied!",
+        "shareWhatsApp": "Invite via WhatsApp",
+        "whatsappMessage": "👋 Hey, I found this app for home repairs that uses secure payments and verification. Check it out: https://umarel.org",
+        "disclaimer": "For every neighbor who signs up and completes a job, both receive a 'Trusted Neighbor' badge and 50 Aura points."
     }
 }

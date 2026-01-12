@@ -662,5 +662,14 @@
             "a3": "No. Si puedes sacar una foto y mandar un mensaje, puedes usar Umarel. Nuestro Asistente IA te guía."
         },
         "cta": "Comienza tu primer proyecto"
+    },
+    "referral": {
+        "title": "Regalá Confianza, Ganá Aura",
+        "subtitle": "Umarel crece cuando los vecinos se pasan el dato. Ayudanos a verificar el barrio.",
+        "shareLink": "Tu Enlace de Invitación",
+        "linkCopied": "¡Enlace copiado!",
+        "shareWhatsApp": "Invitar por WhatsApp",
+        "whatsappMessage": "👋 Che, encontré esta app para arreglos de casa que usa un sistema seguro de pagos y verificación. Fijate: https://umarel.org",
+        "disclaimer": "Por cada vecino que se registre y complete un trabajo, ambos recibirán una insignia de 'Vecino Confiable' y 50 puntos de Aura."
     }
 }
