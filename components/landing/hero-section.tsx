@@ -72,14 +72,6 @@ export function HeroSection() {
 
                     <div className="pt-8 flex items-center gap-4 text-sm text-slate-400">
                         <p>{t('steps.trustedBy')}</p>
-                        <div className="h-1 w-1 rounded-full bg-slate-600" />
-                        <div className="flex -space-x-2">
-                            {[1, 2, 3, 4].map(i => (
-                                <div key={i} className={`w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-700 flex items-center justify-center text-xs text-white`}>
-                                    {String.fromCharCode(64 + i)}
-                                </div>
-                            ))}
-                        </div>
                     </div>
                 </motion.div>
 

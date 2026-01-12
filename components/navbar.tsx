@@ -73,18 +73,7 @@ export function Navbar({ user }: NavbarProps) {
                         {t('howto')}
                     </Link>
 
-                    {/* Role Direct Links */}
-                    <div className="flex gap-1">
-                        <Link href="/#seeker" className="px-3 py-1.5 rounded-full text-sm font-bold text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all">
-                            {t('roleSeek')}
-                        </Link>
-                        <Link href="/#creator" className="px-3 py-1.5 rounded-full text-sm font-bold text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-all">
-                            {t('roleCreate')}
-                        </Link>
-                        <Link href="/#umarel" className="px-3 py-1.5 rounded-full text-sm font-bold text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 transition-all">
-                            {t('roleVerify')}
-                        </Link>
-                    </div>
+
 
                     <Link href="/#faq" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
                         {t('faq')}

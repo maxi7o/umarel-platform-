@@ -14,7 +14,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div className="flex flex-col min-h-screen font-sans selection:bg-orange-100 selection:text-orange-900">
       <HeroSection />
-      <TrustSection />
+      {/* TrustSection removed to reduce redundancy with Hero */}
       <HowItWorksSection />
       <RoleJourneys />
       <TestimonialsSection />
