@@ -526,7 +526,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     </TabsContent>
                 </Tabs>
 
-                <div className="flex justify-end pt-4 border-t">
+                <div className="flex flex-col items-end pt-4 border-t gap-2">
                     <Button type="submit" size="lg" className="min-w-[200px]" disabled={isLoading}>
                         {isLoading ? (
                             <>
@@ -537,6 +537,9 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                             t('form.submitButton')
                         )}
                     </Button>
+                    <p className="text-xs text-muted-foreground">
+                        By publishing, you agree to our <a href="/legal/terms" className="underline hover:text-primary" target="_blank">Terms</a>.
+                    </p>
                 </div>
             </form>
         </Form>

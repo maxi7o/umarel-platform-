@@ -206,6 +206,9 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                                 {isSubmitting ? "Publicando..." : "Publicar Pedido"}
                             </Button>
                         </div>
+                        <p className="text-xs text-center text-slate-400 mt-4">
+                            Al publicar, aceptás nuestros <a href="/legal/terms" className="underline hover:text-orange-500" target="_blank">Términos</a> y <a href="/legal/privacy" className="underline hover:text-orange-500" target="_blank">Privacidad</a>.
+                        </p>
                     </motion.div>
                 )}
             </AnimatePresence>
