@@ -8,12 +8,16 @@ import { v4 as uuidv4 } from 'uuid';
 const getRandom = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const CITIES = ['Buenos Aires', 'Córdoba', 'Rosario', 'Santiago', 'Bogotá', 'CDMX', 'Lima'];
-const CATEGORIES = ['Plumbing', 'Electrical', 'Construction', 'Painting', 'Cleaning', 'Carpentry', 'HVAC'];
+const CITIES = [
+    'Palermo, CABA', 'Recoleta, CABA', 'Belgrano, CABA', 'San Isidro, GBA',
+    'Vicente López, GBA', 'Lanús, GBA', 'Caballito, CABA', 'Villa Urquiza, CABA',
+    'Almagro, CABA', 'Tigre, GBA', 'Avellaneda, GBA'
+];
+const CATEGORIES = ['Plomería', 'Electricidad', 'Albañilería', 'Pintura', 'Limpieza', 'Carpintería', 'Aire Acondicionado'];
 const TITLES = [
-    'Fix leaking pipe in kitchen', 'Install new light fixtures', 'Paint living room', 'Repair drywall',
-    'Deep clean apartment', 'Build custom shelves', 'Fix AC unit', 'Replace bathroom faucet',
-    'Install ceiling fan', 'Repair wooden door', 'Waterproofing roof', 'Install electrical outlet'
+    'Arreglar pérdida en la cocina', 'Instalar luces nuevas', 'Pintar el living', 'Reparar humedad en pared',
+    'Limpieza profunda de departamento', 'Armar biblioteca a medida', 'Reparar Aire Acondicionado', 'Cambiar canilla del baño',
+    'Instalar ventilador de techo', 'Arreglar puerta de madera', 'Impermeabilizar techo', 'Instalar tomacorriente'
 ];
 
 async function seed() {
@@ -56,8 +60,8 @@ async function seed() {
 
         const [request] = await db.insert(requests).values({
             userId: client.id,
-            title: `${title} in ${city}`,
-            description: `I need help with ${title.toLowerCase()}. Please advise on the best way to do this.`,
+            title: `${title} en ${city}`,
+            description: `Necesito ayuda con ${title.toLowerCase()}. Por favor, necesito presupuesto y asesoramiento.`,
             category,
             location: city,
             status: 'open',
