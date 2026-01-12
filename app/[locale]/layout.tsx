@@ -9,8 +9,9 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { MarketProvider } from '@/lib/market-context';
+import { RoleSelectorDialog } from '@/components/dialogs/role-selector-dialog';
+
 import { LanguageSwitchPrompt } from '@/components/location/language-switch-prompt';
-import { InteractiveTable } from "@/components/layout/interactive-table";
 import { TranslationSentinel } from '@/components/debug/translation-sentinel';
 import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
@@ -98,6 +99,7 @@ export default async function LocaleLayout({
                         <Toaster />
                         <LanguageSwitchPrompt />
                         <WhatsAppButton />
+                        <RoleSelectorDialog />
                     </MarketProvider>
                 </NextIntlClientProvider>
             </body>
