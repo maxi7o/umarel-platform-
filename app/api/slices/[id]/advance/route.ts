@@ -1,82 +1,56 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { slices } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { createClient } from '@/lib/supabase/server';
 
-export async function POST(
-    request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
-) {
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { slices, requests } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const { id } = await params;
-        const sliceId = id;
+        const { id: sliceId } = await params;
+        const body = await req.json();
+        const { amount, evidence } = body;
 
         const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
-        const providerId = user?.id || request.headers.get('x-user-id');
 
-        if (!providerId) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const body = await request.json();
-        const { amount, evidence } = body;
+        // 1. Fetch Slice
+        const [slice] = await db
+            .select()
+            .from(slices)
+            .where(eq(slices.id, sliceId));
 
-        // Validate slice
-        const slice = await db.query.slices.findFirst({
-            where: eq(slices.id, sliceId),
-        });
+        if (!slice) return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
 
-        if (!slice) {
-            return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
+        // 2. Verify Provider match
+        if (slice.assignedProviderId !== user.id) {
+            return NextResponse.json({ error: 'Only the assigned provider can request acopio' }, { status: 403 });
         }
 
-        if (slice.assignedProviderId !== providerId) {
-            return NextResponse.json(
-                { error: 'You are not assigned to this slice' },
-                { status: 403 }
-            );
+        // 3. Validation
+        // Max 50% of final price
+        const maxAdvance = (slice.finalPrice || 0) * 0.50;
+        if (amount > maxAdvance) {
+            return NextResponse.json({ error: `Amount exceeds 50% limit of ${maxAdvance}` }, { status: 400 });
         }
 
-        if (slice.status !== 'in_progress') {
-            return NextResponse.json(
-                { error: 'Slice must be in progress to request advance' },
-                { status: 400 }
-            );
-        }
-
-        // Validate Evidence
-        if (!evidence || (typeof evidence !== 'object')) {
-            return NextResponse.json(
-                { error: 'Evidence is required (photos/receipts)' },
-                { status: 400 }
-            );
-        }
-
-        // Update Slice
+        // 4. Update DB
         await db.update(slices)
             .set({
                 materialAdvanceStatus: 'requested',
-                materialAdvanceAmount: amount, // e.g. 40%
-                materialAdvanceEvidence: evidence,
+                materialAdvanceAmount: amount,
+                materialAdvanceEvidence: evidence // { photos: [], receipts: [] }
             })
             .where(eq(slices.id, sliceId));
 
-        // TODO: Notify Client
-
-        return NextResponse.json({
-            success: true,
-            message: 'Material advance requested successfully',
-            status: 'requested',
-            amount: amount
-        });
+        return NextResponse.json({ success: true, status: 'requested' });
 
     } catch (error) {
-        console.error('Error requesting advance:', error);
-        return NextResponse.json(
-            { error: 'Failed to request advance' },
-            { status: 500 }
-        );
+        console.error('Advance Request Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

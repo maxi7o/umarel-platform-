@@ -13,6 +13,8 @@ import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+import { MaterialAdvanceAction } from '@/components/wizard/material-advance-action';
+import { ApproveAdvanceDialog } from '@/components/interaction/approve-advance-dialog';
 
 interface Slice {
     id: string;
@@ -28,6 +30,11 @@ interface Slice {
     creatorId?: string;
     acceptanceCriteria?: any[];
     ambiguityScore?: number;
+    materialAdvanceStatus?: 'none' | 'requested' | 'approved' | 'released' | 'rejected';
+    materialAdvanceAmount?: number;
+    materialAdvanceEvidence?: any;
+    finalPrice?: number;
+    currency?: string;
 }
 
 interface SliceKanbanProps {
@@ -211,6 +218,42 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                             </Button>
                                                         </AcceptDialog>
                                                     )}
+                                                    {/* Material Advance Logic */}
+                                                    {col.id === 'accepted' && slice.status !== 'completed' && (
+                                                        <div className="w-full mb-2">
+                                                            {/* Provider: Request Advance */}
+                                                            {currentUserId === slice.assignedProviderId && slice.materialAdvanceStatus === 'none' && (slice.finalPrice || slice.price) && (
+                                                                <MaterialAdvanceAction
+                                                                    sliceId={slice.id}
+                                                                    amount={slice.finalPrice || slice.price || 0}
+                                                                    currency={slice.currency || 'ARS'} // default
+                                                                />
+                                                            )}
+
+                                                            {/* Client: Approve Advance */}
+                                                            {isOwner && slice.materialAdvanceStatus === 'requested' && (
+                                                                <ApproveAdvanceDialog
+                                                                    sliceId={slice.id}
+                                                                    amount={slice.materialAdvanceAmount || 0}
+                                                                    evidence={slice.materialAdvanceEvidence || {}}
+                                                                    onApproved={() => handleMove(slice.id, slice.status)} // Refresh
+                                                                />
+                                                            )}
+
+                                                            {/* Status Badges */}
+                                                            {slice.materialAdvanceStatus === 'requested' && currentUserId === slice.assignedProviderId && (
+                                                                <div className="text-xs text-amber-600 bg-amber-50 p-2 rounded border border-amber-100 text-center">
+                                                                    Advance Requested... Waiting for Client
+                                                                </div>
+                                                            )}
+                                                            {(slice.materialAdvanceStatus === 'released' || slice.materialAdvanceStatus === 'approved') && (
+                                                                <div className="text-xs text-green-600 bg-green-50 p-2 rounded border border-green-100 text-center">
+                                                                    ✓ Material Advance Released
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    )}
+
                                                     {col.id === 'accepted' && (
                                                         <>
                                                             {slice.status === 'in_progress' ? (
@@ -250,7 +293,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                             onClick={async () => {
                                                                 if (!confirm('Release funds to provider? This is final.')) return;
                                                                 try {
-                                                                    const res = await fetch(`/api/slices/${slice.id}/release`, { method: 'POST' });
+                                                                    const res = await fetch(`/api/slices/${slice.id}/approve`, { method: 'POST' });
                                                                     if (!res.ok) throw new Error('Release failed');
                                                                     toast.success('Funds Released! 💸');
                                                                     window.location.reload();

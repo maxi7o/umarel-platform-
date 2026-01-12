@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { escrowPayments, slices, communityRewards, comments, userWallets, users } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { distributeRewards, formatARS } from '@/lib/payments/calculations';
+import { getPaymentStrategy } from '@/lib/payments/factory';
 
 import { createClient } from '@/lib/supabase/server';
 
@@ -61,9 +62,23 @@ export async function POST(
             );
         }
 
-        // CAPTURE THE STRIPE PAYMENT (Release from escrow)
-        if (escrow.paymentMethod === 'stripe' && escrow.stripePaymentIntentId) {
-            await stripe.paymentIntents.capture(escrow.stripePaymentIntentId);
+        // CAPTURE/RELEASE FUNDS via Payment Strategy
+        const providerTransactionId = escrow.mercadoPagoPaymentId || escrow.stripePaymentIntentId;
+
+        if (!providerTransactionId) {
+            return NextResponse.json({ error: 'Payment has not been confirmed by provider yet' }, { status: 400 });
+        }
+
+        // We assume the payment method in escrow matches the factory provider preference
+        // ideally we pass the exact provider to the factory, or factory detects from context.
+        // For MVP, we pass 'mercadopago' if it's MP, else default.
+        // Actually, schema has `paymentMethod` enum.
+        const strategy = getPaymentStrategy({ provider: escrow.paymentMethod === 'mercado_pago' ? 'mercadopago' : 'stripe' });
+
+        const releaseResult = await strategy.releaseFunds(providerTransactionId);
+
+        if (!releaseResult.success) {
+            return NextResponse.json({ error: 'Payment provider blocked release' }, { status: 400 });
         }
 
         // Get helpful comments marked by client

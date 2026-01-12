@@ -142,6 +142,7 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
                             className="absolute inset-0 opacity-0 cursor-pointer h-full z-20"
                             onChange={handleFileChange}
                             required
+                            capture="environment"
                         />
                     </div>
 
