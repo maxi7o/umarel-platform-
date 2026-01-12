@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { requests, slices, comments, quotes, users, questions, answers, changeProposals, escrowPayments } from '@/lib/db/schema'
+import { requests, slices, comments, quotes, users, questions, answers, changeProposals, escrowPayments, sliceBids } from '@/lib/db/schema'
 import { eq, desc, inArray } from 'drizzle-orm'
 import { RequestInteractionLayout } from '@/components/interaction/request-interaction-layout'
 import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
@@ -94,6 +94,23 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                 const [provider] = await db.select().from(users).where(eq(users.id, q.providerId));
                 return { ...q, provider };
             }));
+
+            // Fetch Direct Slice Bids (Guest Bids)
+            if (sliceIds.length > 0) {
+                const directBids = await db.select().from(sliceBids).where(inArray(sliceBids.sliceId, sliceIds));
+                const formattedDirectBids = directBids.map(bid => ({
+                    id: bid.id,
+                    amount: bid.bidAmount, // map to quotes 'amount'
+                    message: bid.message,
+                    status: bid.status,
+                    createdAt: bid.createdAt,
+                    isGuest: true, // Flag for frontend
+                    provider: { fullName: 'Guest Provider (WhatsApp)', isGuest: true }, // Mock provider object
+                    sliceId: bid.sliceId // Important to link to specific slice
+                }));
+                // Merge into quotes
+                requestQuotes = [...requestQuotes, ...formattedDirectBids];
+            }
 
             // Fetch user for request if needed
             const [user] = await db.select().from(users).where(eq(users.id, request.userId));

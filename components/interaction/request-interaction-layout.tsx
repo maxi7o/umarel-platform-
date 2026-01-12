@@ -206,6 +206,57 @@ export function RequestInteractionLayout({
                         onQuoteCreated={handleQuoteCreated}
                     />
 
+                    {/* Active Bids / Quotes */}
+                    {quotes.length > 0 && (
+                        <div className="space-y-4">
+                            <h3 className="text-sm font-semibold text-stone-500 uppercase tracking-wider">
+                                {t('tabs.quotes') || 'Received Bids'}
+                            </h3>
+                            {quotes.map((quote: any) => (
+                                <Card key={quote.id} className="bg-white border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="p-4">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <div className="font-bold text-stone-900">
+                                                    <CurrencyDisplay amount={quote.amount} currency={quote.currency || 'ARS'} />
+                                                </div>
+                                                <div className="text-xs text-stone-500 flex items-center gap-1">
+                                                    {quote.provider?.fullName || 'Provider'}
+                                                    {quote.isGuest && <Badge variant="secondary" className="text-[10px] h-4 px-1 bg-green-100 text-green-700">Guest</Badge>}
+                                                </div>
+                                            </div>
+                                            <Badge variant={quote.status === 'accepted' ? 'default' : 'outline'} className="capitalize">
+                                                {quote.status}
+                                            </Badge>
+                                        </div>
+                                        {quote.message && (
+                                            <p className="text-xs text-stone-600 mb-3 bg-stone-50 p-2 rounded line-clamp-3 italic">
+                                                "{quote.message}"
+                                            </p>
+                                        )}
+                                        {/* Actions (Only for Owner) */}
+                                        {isOwner && quote.status === 'pending' && (
+                                            <div className="grid grid-cols-2 gap-2 mt-2">
+                                                <button
+                                                    className="text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 py-1.5 rounded"
+                                                    onClick={() => toast.info("Chat feature coming soon")}
+                                                >
+                                                    Chat
+                                                </button>
+                                                <button
+                                                    className="text-xs bg-stone-900 hover:bg-black text-white py-1.5 rounded"
+                                                    onClick={() => toast.info("Acceptance flow coming soon")}
+                                                >
+                                                    Accept
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                    )}
+
                     {/* Change Proposals */}
                     {proposals.length > 0 ? (
                         <div className="space-y-4">
