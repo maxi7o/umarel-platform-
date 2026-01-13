@@ -97,7 +97,7 @@ export function RoleSelectorDialog() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-slate-900 group-hover:text-orange-600">Quiero ser Umarel</h3>
-                                <p className="text-sm text-slate-500">Tengo experiencia y quiero verificar obras.</p>
+                                <p className="text-sm text-slate-500">Tengo experiencia y quiero verificar proyectos.</p>
                             </div>
                         </motion.button>
 
