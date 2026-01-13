@@ -13,14 +13,15 @@ export function RoleSelectorDialog() {
     const router = useRouter()
 
     // Check if user has visited before
-    useEffect(() => {
-        const hasSeenRoleSelector = localStorage.getItem('hasSeenRoleSelector')
-        if (!hasSeenRoleSelector) {
-            // Show after a short delay on first visit
-            const timer = setTimeout(() => setOpen(true), 1500)
-            return () => clearTimeout(timer)
-        }
-    }, [])
+    // Check if user has visited before - DISABLED upon request
+    // useEffect(() => {
+    //     const hasSeenRoleSelector = localStorage.getItem('hasSeenRoleSelector')
+    //     if (!hasSeenRoleSelector) {
+    //         // Show after a short delay on first visit
+    //         const timer = setTimeout(() => setOpen(true), 1500)
+    //         return () => clearTimeout(timer)
+    //     }
+    // }, [])
 
     const handleSelect = (role: 'client' | 'provider' | 'umarel') => {
         localStorage.setItem('hasSeenRoleSelector', 'true')
