@@ -76,14 +76,6 @@ export function Navbar({ user }: NavbarProps) {
                     <Link href="/browse" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
                         {t('browse')}
                     </Link>
-
-                    <Link href="/requests/create" className={cn(
-                        "px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2",
-                        pathname === '/requests/create' ? "bg-orange-500/20 text-orange-400" : "text-orange-400 hover:text-orange-300"
-                    )}>
-                        <PlusCircle size={14} />
-                        {t('postNeed')}
-                    </Link>
                 </div>
 
                 {/* 3. ACTIONS & PROFILE */}
