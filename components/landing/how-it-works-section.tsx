@@ -11,7 +11,7 @@ export function HowItWorksSection() {
             icon: <PencilLine className="w-6 h-6 text-white" />,
             color: "bg-blue-500",
             title: "1. Definí tu Proyecto",
-            desc: "Contanos qué necesitás. Nuestro Asistente IA te ayuda a armar un pedido claro y técnico que los profesionales entienden."
+            desc: "Contanos qué necesitás. Nuestro Asistente IA te ayuda a armar un pedido claro y técnico que los profesionales puedan estimar."
         },
         {
             icon: <HandCoins className="w-6 h-6 text-white" />,
