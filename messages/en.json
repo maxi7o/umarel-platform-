@@ -185,6 +185,27 @@
             "cta": "Explore the Community"
         },
         "howItWorks": "The Flow of Truth",
+        "howItWorksSteps": {
+            "title": "How Umarel Works?",
+            "subtitle": "Step by Step",
+            "quote": "\"It's like having an architect uncle in your pocket.\"",
+            "step1": {
+                "title": "1. Define your Project",
+                "desc": "Tell us what you need. Our AI Assistant helps you create a clear, technical request that professionals can estimate."
+            },
+            "step2": {
+                "title": "2. Receive Quotes",
+                "desc": "The 'Clients' bid on your request. Compare prices, profiles, and reputation (Aura) with no obligation."
+            },
+            "step3": {
+                "title": "3. Work Begins",
+                "desc": "The professional works with peace of mind knowing payment is guaranteed."
+            },
+            "step4": {
+                "title": "4. Approve & Release",
+                "desc": "Review the photos. If everything looks good, release the secure payment (Escrow). Everyone is happy!"
+            }
+        },
         "clients": {
             "title": "For Seekers",
             "description": "Whether you need a renovation or a soul-retrieval journey, book with confidence knowing every detail is verified.",

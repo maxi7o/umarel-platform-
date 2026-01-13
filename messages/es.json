@@ -182,6 +182,27 @@
             "cta": "Unirme a la Comunidad"
         },
         "howItWorks": "Cómo Funciona",
+        "howItWorksSteps": {
+            "title": "¿Cómo funciona Umarel?",
+            "subtitle": "Paso a Paso",
+            "quote": "\"Es como tener a un tío arquitecto en el bolsillo.\"",
+            "step1": {
+                "title": "1. Definí tu Proyecto",
+                "desc": "Contanos qué necesitás. Nuestro Asistente IA te ayuda a armar un pedido claro y técnico que los profesionales puedan estimar."
+            },
+            "step2": {
+                "title": "2. Recibí Presupuestos",
+                "desc": "Los 'Clientes' ofertan sobre tu pedido. Compará precios, perfiles y reputación (Aura) sin compromiso."
+            },
+            "step3": {
+                "title": "3. Manos a la Obra",
+                "desc": "El profesional trabaja tranquilo sabiendo que el pago está garantizado."
+            },
+            "step4": {
+                "title": "4. Aprobá y Liberá",
+                "desc": "Revisá las fotos. Si está todo bien, liberás el pago seguro (Escrow). ¡Todos felices!"
+            }
+        },
         "clients": {
             "title": "Para Clientes",
             "description": "Proyectos claros y precios justos, verificados por la comunidad.",

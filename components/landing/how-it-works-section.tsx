@@ -4,32 +4,32 @@ import { useTranslations } from 'next-intl';
 import { PencilLine, HandCoins, Hammer, CheckCircle2 } from 'lucide-react';
 
 export function HowItWorksSection() {
-    // const t = useTranslations('howItWorks'); 
+    const t = useTranslations('landing.howItWorksSteps');
 
     const steps = [
         {
             icon: <PencilLine className="w-6 h-6 text-white" />,
             color: "bg-blue-500",
-            title: "1. Definí tu Proyecto",
-            desc: "Contanos qué necesitás. Nuestro Asistente IA te ayuda a armar un pedido claro y técnico que los profesionales puedan estimar."
+            title: t('step1.title'),
+            desc: t('step1.desc')
         },
         {
             icon: <HandCoins className="w-6 h-6 text-white" />,
             color: "bg-indigo-500",
-            title: "2. Recibí Presupuestos",
-            desc: "Los 'Creadores' ofertan sobre tu pedido. Compará precios, perfiles y reputación (Aura) sin compromiso."
+            title: t('step2.title'),
+            desc: t('step2.desc')
         },
         {
             icon: <Hammer className="w-6 h-6 text-white" />,
             color: "bg-orange-500",
-            title: "3. Manos a la Obra",
-            desc: "El profesional trabaja tranquilo sabiendo que el pago está garantizado."
+            title: t('step3.title'),
+            desc: t('step3.desc')
         },
         {
             icon: <CheckCircle2 className="w-6 h-6 text-white" />,
             color: "bg-green-500",
-            title: "4. Aprobá y Liberá",
-            desc: "Revisá las fotos. Si está todo bien, liberás el pago seguro (Escrow). ¡Todos felices!"
+            title: t('step4.title'),
+            desc: t('step4.desc')
         }
     ];
 
@@ -38,9 +38,9 @@ export function HowItWorksSection() {
             <div className="container mx-auto px-6">
 
                 <div className="text-center mb-16">
-                    <span className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2 block">Paso a Paso</span>
+                    <span className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2 block">{t('subtitle')}</span>
                     <h2 className="text-3xl md:text-5xl font-bold text-slate-900 font-outfit">
-                        ¿Cómo funciona Umarel?
+                        {t('title')}
                     </h2>
                 </div>
 
@@ -69,7 +69,7 @@ export function HowItWorksSection() {
                     </div>
 
                     <div className="mt-12 text-center">
-                        <p className="text-stone-500 italic">"Es como tener a un tío arquitecto en el bolsillo."</p>
+                        <p className="text-stone-500 italic">{t('quote')}</p>
                     </div>
 
                 </div>
