@@ -9,7 +9,7 @@ export function FaqSection() {
             a: "Es un término cariñoso para referirse a la persona que supervisa una obra. En nuestra plataforma, son expertos verificados (o IA) que aseguran que el trabajo se haga bien antes de pagar."
         },
         {
-            q: "¿Cómo funciona el pago seguro (Escrow)?",
+            q: "¿Cómo funciona el pago seguro?",
             a: "El dinero queda en una cuenta intermedia segura. No se libera hasta que el trabajo está terminado y aprobado. Es la mejor garantía para ambas partes."
         },
         {
