@@ -14,7 +14,7 @@ export function FaqSection() {
         },
         {
             q: "¿Tiene costo usar la plataforma?",
-            a: "Publicar es gratis. Solo cobramos una pequeña comisión al momento de contratar y pagar el servicio para cubrir los costos de verificación y seguro."
+            a: "Publicar es gratis. Solo cobramos una pequeña comisión al momento de contratar y pagar el servicio para cubrir los costos de verificación y seguro. Nuestra comisión ya está siempre incluida en los montos que ves."
         },
         {
             q: "¿Operan en todo el país?",
