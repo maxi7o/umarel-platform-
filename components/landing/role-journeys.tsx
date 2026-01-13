@@ -95,7 +95,7 @@ export function RoleJourneys() {
 
                         <ul className="space-y-3">
                             {[
-                                "Pagos asegurados antes de arrancar (Escrow).",
+                                "Pagos asegurados antes de arrancar.",
                                 "Clientes con el problema ya digerido y ordenado.",
                                 "Sin vueltas: terminás, mostrás y cobrás."
                             ].map((item, i) => (
@@ -149,7 +149,7 @@ export function RoleJourneys() {
 
                     <div className="order-1 lg:order-2 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-sm font-bold">
-                            <ShieldCheck size={14} /> El Compañero
+                            <ShieldCheck size={14} /> El Umarel
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
                             No venimos a juzgar. <br />
