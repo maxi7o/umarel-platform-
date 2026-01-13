@@ -70,15 +70,6 @@ export function Navbar({ user }: NavbarProps) {
                     <Link href="/" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
                         {t('home')}
                     </Link>
-                    <Link href="/#how-it-works" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
-                        {t('howto')}
-                    </Link>
-
-
-
-                    <Link href="/#faq" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">
-                        {t('faq')}
-                    </Link>
 
                     <div className="w-px h-4 bg-white/10 mx-1" />
 
