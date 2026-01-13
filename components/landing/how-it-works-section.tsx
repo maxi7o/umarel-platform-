@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { PencilLine, HandCoins, Hammer, CheckCircle2 } from 'lucide-react';
 
@@ -7,6 +8,7 @@ export function HowItWorksSection() {
     const t = useTranslations('landing.howItWorksSteps');
 
     const steps = [
+        // ... (steps remain unchanged, just ensuring `steps` variable is available)
         {
             icon: <PencilLine className="w-6 h-6 text-white" />,
             color: "bg-blue-500",
@@ -68,8 +70,24 @@ export function HowItWorksSection() {
                         ))}
                     </div>
 
-                    <div className="mt-12 text-center">
-                        <p className="text-stone-500 italic">{t('quote')}</p>
+                    <div className="mt-16 flex flex-col items-center justify-center gap-4">
+                        <div className="relative">
+                            <Image
+                                src="/umarel-mascot.png"
+                                alt="Umarel Mascot"
+                                width={80}
+                                height={80}
+                                className="object-contain hover:scale-110 transition-transform duration-300"
+                            />
+                            {/* Speech Bubble Tail */}
+                            <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200 hidden" />
+                        </div>
+                        <div className="bg-white px-6 py-3 rounded-full shadow-sm border border-stone-200 relative">
+                            <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200"></div>
+                            <p className="text-stone-600 italic font-medium text-lg relative z-10">
+                                {t('quote')}
+                            </p>
+                        </div>
                     </div>
 
                 </div>
