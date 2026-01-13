@@ -27,9 +27,6 @@ export default function BrowsePage() {
     const [radius, setRadius] = useState(50);
     const [locationData, setLocationData] = useState<any>(null);
 
-    // Umarel Mode: For finding ambiguous requests to optimize
-    const [isUmarelMode, setIsUmarelMode] = useState(false);
-
     // Sync location with market initially
     useEffect(() => {
         if (market && !location && !locationData) {
@@ -47,14 +44,14 @@ export default function BrowsePage() {
 
     useEffect(() => {
         fetchResults();
-    }, [location, locationData, radius, selectedType, selectedCategory, includeVirtual, debouncedQuery, isUmarelMode]);
+    }, [location, locationData, radius, selectedType, selectedCategory, includeVirtual, debouncedQuery]);
 
     const fetchResults = async () => {
         setIsLoading(true);
         try {
             const params = new URLSearchParams({
                 location: locationData ? locationData.address : (location === 'Virtual' ? '' : location),
-                type: isUmarelMode ? 'requests' : selectedType, // Umarels mostly fix requests
+                type: selectedType,
                 includeVirtual: includeVirtual.toString(),
             });
 
@@ -72,10 +69,6 @@ export default function BrowsePage() {
                 params.append('q', debouncedQuery);
             }
 
-            if (isUmarelMode) {
-                params.append('min_ambiguity', '50');
-            }
-
             const res = await fetch(`/api/browse?${params}`);
             const data = await res.json();
             setResults(data);
@@ -90,13 +83,6 @@ export default function BrowsePage() {
         ...(results.requests || []).map((r: any) => ({ ...r, type: 'request' })),
         ...(results.offerings || []).map((o: any) => ({ ...o, type: 'offering' })),
     ].sort((a, b) => {
-        // Umarel Mode: Prioritize High Ambiguity
-        if (isUmarelMode) {
-            const ambA = a.ambiguityScore || 0;
-            const ambB = b.ambiguityScore || 0;
-            if (ambA !== ambB) return ambB - ambA; // Descending
-        }
-
         // Featured first
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
@@ -178,7 +164,6 @@ export default function BrowsePage() {
                             includeVirtual={includeVirtual}
                             locationData={locationData}
                             radius={radius}
-                            isUmarelMode={isUmarelMode}
                             onTypeChange={setSelectedType}
                             onCategoryChange={setSelectedCategory}
                             onVirtualToggle={setIncludeVirtual}
@@ -188,7 +173,6 @@ export default function BrowsePage() {
                                 else setLocation('');
                             }}
                             onRadiusChange={setRadius}
-                            onUmarelModeToggle={setIsUmarelMode}
                         />
                     </div>
                 </aside>

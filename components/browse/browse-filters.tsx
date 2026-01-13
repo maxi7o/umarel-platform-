@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge';
 import { Globe } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { Switch } from '@/components/ui/switch';
 import { LocationInput } from '@/components/forms/location-input';
 
 interface BrowseFiltersProps {
@@ -19,13 +18,11 @@ interface BrowseFiltersProps {
     includeVirtual: boolean;
     locationData?: { address: string; lat: number; lng: number } | null;
     radius?: number;
-    isUmarelMode?: boolean; // New Prop
     onTypeChange: (type: 'all' | 'requests' | 'offerings') => void;
     onCategoryChange: (category: string | undefined) => void;
     onVirtualToggle: (include: boolean) => void;
     onLocationChange: (data: any) => void;
     onRadiusChange: (radius: number) => void;
-    onUmarelModeToggle?: (enabled: boolean) => void; // New Prop
 }
 
 export function BrowseFilters({
@@ -34,13 +31,11 @@ export function BrowseFilters({
     includeVirtual,
     locationData,
     radius = 50,
-    isUmarelMode = false,
     onTypeChange,
     onCategoryChange,
     onVirtualToggle,
     onLocationChange,
     onRadiusChange,
-    onUmarelModeToggle
 }: BrowseFiltersProps) {
     const t = useTranslations('filters');
 
@@ -57,28 +52,6 @@ export function BrowseFilters({
 
     return (
         <div className="space-y-6">
-            {/* Umarel Mode Toggle */}
-            <Card className={isUmarelMode ? "border-orange-500 bg-orange-50" : ""}>
-                <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                        <CardTitle className="text-base flex items-center gap-2">
-                            <span>👷‍♂️ Umarel Mode</span>
-                        </CardTitle>
-                        <Switch
-                            checked={isUmarelMode}
-                            onCheckedChange={onUmarelModeToggle}
-                        />
-                    </div>
-                </CardHeader>
-                <CardContent className="pt-0">
-                    <p className="text-xs text-muted-foreground">
-                        {isUmarelMode
-                            ? "Identifying ambiguous requests. Fix them to earn Aura & Rewards."
-                            : "Switch to Umarel Mode to find optimization opportunities."}
-                    </p>
-                </CardContent>
-            </Card>
-
             {/* Location Filter */}
             <Card>
                 <CardHeader>
