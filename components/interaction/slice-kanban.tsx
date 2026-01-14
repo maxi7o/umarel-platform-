@@ -6,7 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DisputeActions } from '@/components/payments/dispute-actions';
-import { StartJobDialog } from '@/components/interaction/start-job-dialog';
+
 import { SubmitEvidenceDialog } from '@/components/interaction/submit-evidence-dialog';
 import { AcceptDialog } from '@/components/interaction/accept-dialog';
 import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 'lucide-react';
@@ -256,33 +256,21 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
 
                                                     {col.id === 'accepted' && (
                                                         <>
-                                                            {slice.status === 'in_progress' ? (
-                                                                <div className="w-full">
-                                                                    <SubmitEvidenceDialog
-                                                                        sliceId={slice.id}
-                                                                        sliceTitle={slice.title}
-                                                                        onSubmitted={() => handleMove(slice.id, 'completed')}
+                                                            <div className="w-full">
+                                                                <SubmitEvidenceDialog
+                                                                    sliceId={slice.id}
+                                                                    sliceTitle={slice.title}
+                                                                    onSubmitted={() => handleMove(slice.id, 'completed')}
+                                                                >
+                                                                    <Button
+                                                                        size="sm"
+                                                                        className="h-8 text-xs w-full bg-green-600 hover:bg-green-700 text-white shadow-sm transition-all"
                                                                     >
-                                                                        <Button
-                                                                            size="sm"
-                                                                            className="h-8 text-xs w-full bg-green-600 hover:bg-green-700 text-white shadow-sm transition-all"
-                                                                        >
-                                                                            <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
-                                                                            Verify & Completed
-                                                                        </Button>
-                                                                    </SubmitEvidenceDialog>
-                                                                </div>
-                                                            ) : (
-                                                                <div className="w-full">
-                                                                    {/* Only Provider can Start */}
-                                                                    {currentUserId === slice.assignedProviderId && (
-                                                                        <StartJobDialog
-                                                                            sliceId={slice.id}
-                                                                            onStarted={() => { }} // Reload handles update
-                                                                        />
-                                                                    )}
-                                                                </div>
-                                                            )}
+                                                                        <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
+                                                                        Verify & Completed
+                                                                    </Button>
+                                                                </SubmitEvidenceDialog>
+                                                            </div>
                                                         </>
                                                     )}
                                                     {/* Fund Release Button */}

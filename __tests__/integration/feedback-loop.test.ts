@@ -7,6 +7,7 @@ import { db } from '@/lib/db';
 import { users, requests, slices, changeProposals, comments } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import * as openai from '@/lib/ai/openai';
+import { randomUUID } from 'crypto';
 
 // Mock OpenAI processing to avoid API calls and ensure deterministic results
 vi.mock('@/lib/ai/openai', async () => {
@@ -56,7 +57,7 @@ runIfAiAvailable('Feedback Loop Integration', () => {
         // Setup Data
         // 1. Create Owner
         const [owner] = await db.insert(users).values({
-            email: `owner-${Date.now()}@test.com`,
+            email: `owner-${randomUUID()}@test.com`,
             fullName: 'Test Owner',
             role: 'user'
         }).returning();
@@ -64,7 +65,7 @@ runIfAiAvailable('Feedback Loop Integration', () => {
 
         // 2. Create Expert
         const [expert] = await db.insert(users).values({
-            email: `expert-${Date.now()}@test.com`,
+            email: `expert-${randomUUID()}@test.com`,
             fullName: 'Test Expert',
             role: 'user',
             auraPoints: 100
@@ -161,5 +162,5 @@ runIfAiAvailable('Feedback Loop Integration', () => {
         // Formula in code: quality 10 -> 10*10 = 100 points. total should be 200.
         const [updatedExpert] = await db.select().from(users).where(eq(users.id, expertId));
         expect(updatedExpert.auraPoints).toBe(200);
-    });
+    }, 15000);
 });

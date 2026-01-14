@@ -127,6 +127,7 @@ export async function handleWizardMessage(
                 title: action.data.title,
                 description: action.data.description,
                 status: 'proposed',
+                estimatedEffort: action.data.estimatedEffort || 'TBD', // Default if AI misses it
             }).returning();
 
             const [newCard] = await db.insert(sliceCards).values({
@@ -134,6 +135,7 @@ export async function handleWizardMessage(
                 requestId: requestId,
                 title: action.data.title,
                 description: action.data.description,
+                estimatedTime: action.data.estimatedEffort || 'TBD',
                 skills: action.data.skills || [],
                 currency: 'ARS',
             }).returning();

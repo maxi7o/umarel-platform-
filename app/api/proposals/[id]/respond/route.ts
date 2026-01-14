@@ -86,6 +86,7 @@ export async function POST(
             }
         }
 
+
         // 4. Award Aura to Umarel
         if (umarelId && proposal.aiImpact) {
             const impact = proposal.aiImpact as { qualityScore: number, impactType: string, estimatedSavings: number };
@@ -100,6 +101,8 @@ export async function POST(
             } else {
                 auraPoints = qualityScore * 10;
             }
+
+
 
             if (qualityScore < 2) auraPoints = 0;
 

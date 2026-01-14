@@ -54,7 +54,8 @@ vi.mock('@/lib/db/schema', () => ({
     slices: { id: 'slices', requestId: 'req_id', title: 'title' },
     sliceCards: { id: 'sliceCards', sliceId: 'slice_id', requestId: 'req_id' },
     wizardMessages: { id: 'wizardMessages', sliceCardId: 'card_id', createdAt: 'date' },
-    users: { id: 'users' }
+    users: { id: 'users' },
+    notifications: { id: 'notifications', userId: 'user_id' }
 }));
 
 // Mock AI
@@ -114,7 +115,7 @@ describe('Wizard Service (Full Logic)', () => {
 
         // Verify:
         // 1. User Message Saved
-        expect(mockDb.insert).toHaveBeenCalledTimes(6); // UserMsg, AI User, Guest User, Slice, SliceCard, AI Msg
+        expect(mockDb.insert).toHaveBeenCalledTimes(7); // UserMsg, AI User, Guest User, Slice, SliceCard, AI Msg, Notification
 
         // Let's check specific insertions
 

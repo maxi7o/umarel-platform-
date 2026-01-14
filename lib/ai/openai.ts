@@ -13,7 +13,7 @@ export const openai = new OpenAI({
 
 export type WizardAction =
     | { type: 'UPDATE_CARD'; cardId: string; updates: any }
-    | { type: 'CREATE_CARD'; data: { title: string; description: string; skills: string[] } }
+    | { type: 'CREATE_CARD'; data: { title: string; description: string; skills: string[]; estimatedEffort: string } }
     | { type: 'NO_ACTION' };
 
 /**
@@ -49,6 +49,13 @@ Context: "Umarel" relies on breaking work into small, specialized units.
 - "Cleaning a rug" and "Repairing a rug" are TWO different cards.
 - "Demolition" and "Tiling" are TWO different cards.
 
+CRITICAL: DEADLINES & ESTIMATES (MANDATORY)
+- Every slice MUST have an \`estimatedEffort\` defined in precise terms (e.g. "4h", "2d", "1 week").
+- AVOID vague terms like "soon" or "quickly".
+- MAX SCOPE: If a task takes > 3 days of effort, PROPOSE SPLITTING IT.
+- The user said: "Slices should be small enough to not require days... just a minimum execution."
+- If the user doesn't specify time, you MUST estimate it based on industry standards and set it.
+
 CRITICAL: QUALITY CONTROL ("TERMINACIONES")
 In the construction market, "Terminaciones" (Finishing Details) are the #1 source of disputes.
 - For any visual task (painting, tiling, masonry), you MUST ask about the desired level of finish.
@@ -83,11 +90,11 @@ Output Format (JSON):
     { 
       "type": "UPDATE_CARD", 
       "cardId": "uuid-of-card-to-update", 
-      "updates": { "finalPrice": 5000, "qualityLevel": "premium", "description": "..." } 
+      "updates": { "finalPrice": 5000, "qualityLevel": "premium", "description": "...", "estimatedEffort": "4h" } 
     },
     {
       "type": "CREATE_CARD",
-      "data": { "title": "New Slice Title", "description": "...", "qualityLevel": "standard", "skills": ["..."] }
+      "data": { "title": "New Slice Title", "description": "...", "qualityLevel": "standard", "skills": ["..."], "estimatedEffort": "2d" }
     }
   ]
 }

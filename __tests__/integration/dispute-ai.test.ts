@@ -1,10 +1,10 @@
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { db } from '@/lib/db';
 import { users, requests, slices, sliceEvidence, escrowPayments } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { POST as completeSlice } from '@/app/api/slices/[id]/complete/route';
 import { analyzeDisputeAction } from '@/app/admin/actions';
+import { randomUUID } from 'crypto';
 
 vi.mock('next/cache', () => ({
     revalidatePath: vi.fn()
@@ -51,15 +51,21 @@ runIfAiAvailable('Dispute & AI Integration', () => {
 
     beforeEach(async () => {
         // Setup User & Provider
-        const [prov] = await db.insert(users).values({
-            email: `prov-${Date.now()}@test.com`,
-            fullName: 'Provider AI',
-            role: 'user'
-        }).returning();
-        providerId = prov.id;
+        try {
+            const [prov] = await db.insert(users).values({
+                email: `prov-${randomUUID()}@test.com`,
+                fullName: 'Provider AI',
+                role: 'user'
+            }).returning();
+            providerId = prov.id;
+        } catch (error) {
+            console.error('FULL DB ERROR:', JSON.stringify(error, null, 2));
+            console.error(error);
+            throw error;
+        }
 
         const [client] = await db.insert(users).values({
-            email: `client-${Date.now()}@test.com`,
+            email: `client-${randomUUID()}@test.com`,
             fullName: 'Client AI',
             role: 'user'
         }).returning();
@@ -74,7 +80,7 @@ runIfAiAvailable('Dispute & AI Integration', () => {
         const [slice] = await db.insert(slices).values({
             requestId: req.id,
             creatorId: client.id,
-            assignedProviderId: prov.id,
+            assignedProviderId: providerId,
             title: 'Roof Repair',
             description: 'Fix leak',
             status: 'in_progress',
@@ -86,7 +92,7 @@ runIfAiAvailable('Dispute & AI Integration', () => {
         const [escrow] = await db.insert(escrowPayments).values({
             sliceId: slice.id,
             clientId: client.id,
-            providerId: prov.id,
+            providerId: providerId,
             totalAmount: 11500,
             sliceAmount: 10000,
             platformFee: 1500,
