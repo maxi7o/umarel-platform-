@@ -52,9 +52,11 @@ export function HeroSection() {
                         </span>
                     </h1>
 
-                    <p className="text-xl text-slate-300 leading-relaxed max-w-lg">
-                        {t('heroSubtitle')}
-                    </p>
+                    <div className="text-lg text-slate-300 leading-relaxed max-w-lg space-y-2">
+                        <p>{t('heroSteps.step1')}</p>
+                        <p>{t('heroSteps.step2')}</p>
+                        <p>{t('heroSteps.step3')}</p>
+                    </div>
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
                         <Link href="/requests/create" className="w-full sm:w-auto">
@@ -64,10 +66,11 @@ export function HeroSection() {
                             </Button>
                         </Link>
 
-                        <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur transition-all">
-                            <PlayCircle className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors" />
-                            <span className="text-white font-medium">{t('watchVideo')}</span>
-                        </button>
+                        <Link href="/create-offering" className="w-full sm:w-auto">
+                            <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 h-14 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur transition-all">
+                                <span className="text-white font-medium">{t('offerServices')}</span>
+                            </button>
+                        </Link>
                     </div>
 
                     <div className="pt-8 flex items-center gap-4 text-sm text-slate-400">
@@ -145,7 +148,13 @@ export function HeroSection() {
                             </div>
                             <div>
                                 <p className="text-green-400 font-bold text-xs uppercase tracking-wide">{t('steps.floater.title')}</p>
-                                <p className="text-slate-400 text-[10px] leading-tight">{t('steps.floater.desc')}</p>
+                                <div className="flex items-center gap-1">
+                                    <p className="text-slate-400 text-[10px] leading-tight flex items-center gap-1">
+                                        <span className="opacity-70">via</span>
+                                        <img src="https://img.mp.lat/orion/production/mercadopago_iso.png" alt="Mercado Pago" className="h-4 w-auto object-contain" />
+                                        <span className="font-semibold text-white">Mercado Pago</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,6 @@ export async function checkProviderCapacity(providerId: string) {
                 // eq(slices.status, 'pending_start'), // Removed as it was invalid
                 // Valid Active Statuses:
                 eq(slices.status, 'accepted'),
-                eq(slices.status, 'in_progress'),
                 eq(slices.status, 'disputed')
             )
         ));

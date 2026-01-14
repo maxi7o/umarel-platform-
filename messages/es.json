@@ -93,11 +93,17 @@
         ]
     },
     "home": {
-        "heroTitle1": "Si estás trabado,",
-        "heroTitleHighlight": "empezá por acá.",
-        "heroSubtitle": "No necesitás tener todo claro. Contanos qué te pasa y lo pensamos juntos. Sin compromiso.",
-        "postRequest": "Ordenar mi Problema",
-        "availableIn": "Disponible en Argentina",
+        "heroTitle1": "Tu proyecto terminado.",
+        "heroTitleHighlight": "Sin vueltas.",
+        "heroSubtitle": "La plataforma de servicios donde la evidencia manda.",
+        "heroSteps": {
+            "step1": "1. Publicá tu problema gratis (plomería, arreglos, tech).",
+            "step2": "2. Tu pago queda protegido en Mercado Pago hasta ver la evidencia.",
+            "step3": "3. Aprobá las fotos y liberá la plata. Si no, reembolso."
+        },
+        "postRequest": "Contar mi problema (gratis)",
+        "offerServices": "Ofrecer soluciones",
+        "availableIn": "Disponible en CABA y GBA",
         "watchVideo": "Ver cómo funciona",
         "browseServices": "Ver cómo ayudamos",
         "originLabel": "Historia de Origen",
@@ -129,23 +135,23 @@
         "prop3Title": "Plata Segura",
         "prop3Desc": "Nadie cobra hasta que vos estés tranquilo. Y nadie trabaja gratis.",
         "steps": {
-            "trustedBy": "Confiado por +2.000 Vecinos",
+            "trustedBy": "Pagos procesados por Mercado Pago",
             "stage1": {
-                "title": "Etapa 1: Alcance Definido",
-                "desc": "Requisitos bloqueados y aprobados"
+                "title": "Subís el problema",
+                "desc": "Fotos, audios, sin tecnicismos."
             },
             "stage2": {
-                "title": "Etapa 2: Ejecución",
-                "badge": "En Progreso",
-                "desc": "Proveedor subiendo evidencia..."
+                "title": "Ves la evidencia",
+                "badge": "Clave",
+                "desc": "El pro sube foto del trabajo hecho."
             },
             "stage3": {
-                "title": "Etapa 3: Verificación",
-                "desc": "Fondos en garantía bloqueados"
+                "title": "Aprobá y pagá",
+                "desc": "Confirmás y liberás la plata."
             },
             "floater": {
-                "title": "Fondos Asegurados",
-                "desc": "Se libera solo al estar conforme."
+                "title": "Pagos en Garantía",
+                "desc": "Protegido por Mercado Pago"
             }
         },
         "valueProp": {
@@ -201,6 +207,21 @@
             "step4": {
                 "title": "4. Aprobá y Liberá",
                 "desc": "Revisá las fotos. Si está todo bien, liberás el pago seguro. ¡Todos felices!"
+            },
+            "slicesFeature": {
+                "title": "Tu garantía son las 'Fichas'",
+                "description": "Acá no hay 'dame el 50% para materiales'. Dividimos el trabajo en pequeñas fichas verificables. Se hace, se muestra, se paga.",
+                "exampleTitle": "Ejemplo: Reparación de Humedad",
+                "exampleStep1": "1. Diagnóstico ($15k): Foto del problema real.",
+                "exampleStep2": "2. Arreglo ($45k): Video del parche fresco.",
+                "exampleStep3": "3. Pintura ($20k): Foto de pared terminada."
+            },
+            "aiFeature": {
+                "title": "Tu Capataz Digital",
+                "description": "No sabés cómo pedirlo? Decile a la IA: 'tengo agua en el piso'.",
+                "chatUser": "👱‍♂️ Tengo mucha humedad en el techo del baño.",
+                "chatAi": "🤖 Entendido. ¿Es mancha negra o gotea agua? -> Armado pedido: 'Reparación de filtración en cielorraso con pintura antihongo'.",
+                "cta": "Probar Asistente ahora"
             }
         },
         "clients": {

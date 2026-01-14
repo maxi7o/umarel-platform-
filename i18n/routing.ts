@@ -22,7 +22,8 @@ export const routing = defineRouting({
         '/create-offering': '/create-offering',
         '/login': '/login',
         '/wallet': '/wallet'
-    }
+    },
+    localePrefix: 'as-needed'
 });
 
 // Lightweight wrappers around Next.js' navigation APIs

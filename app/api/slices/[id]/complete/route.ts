@@ -41,7 +41,7 @@ export async function POST(
             );
         }
 
-        if (slice.status !== 'in_progress' && slice.status !== 'accepted') {
+        if (slice.status !== 'accepted') {
             return NextResponse.json(
                 { error: 'Slice is not in progress' },
                 { status: 400 }

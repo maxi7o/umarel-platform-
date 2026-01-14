@@ -11,8 +11,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { MarketProvider } from '@/lib/market-context';
 import { RoleSelectorDialog } from '@/components/dialogs/role-selector-dialog';
 
-import { LanguageSwitchPrompt } from '@/components/location/language-switch-prompt';
-import { TranslationSentinel } from '@/components/debug/translation-sentinel';
 import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
 
@@ -33,6 +31,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
                 title: "Umarel - Construí con Confianza",
                 description: "El primer mercado de servicios con verificación experta en Argentina.",
                 images: ['/landing/hero-bg.png']
+            },
+            icons: {
+                icon: '/umarel-mascot.png',
+                shortcut: '/umarel-mascot.png',
             }
         };
     }
@@ -88,7 +90,6 @@ export default async function LocaleLayout({
             >
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
-                        <TranslationSentinel />
                         <div className="flex flex-col min-h-screen">
                             <Navbar user={user} />
                             <main className="flex-grow">
@@ -97,7 +98,6 @@ export default async function LocaleLayout({
                             <Footer />
                         </div>
                         <Toaster />
-                        <LanguageSwitchPrompt />
                         <WhatsAppButton />
                         <RoleSelectorDialog />
                     </MarketProvider>

@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
                 // 1. Update Slice Status
                 await db.update(slices)
                     .set({
-                        status: 'in_progress', // Funded = Ready to start
+                        status: 'accepted', // Funded = Ready to start
                         paidAt: new Date(),
                     })
                     .where(eq(slices.id, sliceId));
