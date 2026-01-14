@@ -81,43 +81,7 @@ export function Navbar({ user }: NavbarProps) {
                 {/* 3. ACTIONS & PROFILE */}
                 <div className="flex items-center gap-4">
 
-                    {/* Country/Language Indicator */}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-9 px-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-white gap-2 transition-all hover:border-white/20">
-                                <span className="text-lg leading-none filter drop-shadow-sm">
-                                    {{
-                                        en: '🇺🇸',
-                                        es: '🇦🇷',
-                                        pt: '🇧🇷'
-                                    }[currentLocale] || '🌐'}
-                                </span>
-                                <span className="text-xs font-bold tracking-widest text-slate-300 uppercase">
-                                    {currentLocale}
-                                </span>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-slate-900 border-slate-800 text-slate-200">
-                            {Object.entries(LOCALE_CONFIG).map(([key, { label }]) => (
-                                <I18nLink
-                                    key={key}
-                                    href={pathname}
-                                    locale={key}
-                                    onClick={() => sessionStorage.setItem('manualLanguageSwitch', 'true')}
-                                >
-                                    <DropdownMenuItem className="focus:bg-slate-800 focus:text-white cursor-pointer gap-3">
-                                        <span className="text-lg leading-none">
-                                            {{ en: '🇺🇸', es: '🇦🇷', pt: '🇧🇷' }[key] || '🌐'}
-                                        </span>
-                                        <span className={cn("font-medium", currentLocale === key ? "text-white" : "text-slate-300")}>
-                                            {label}
-                                        </span>
-                                        {currentLocale === key && <span className="ml-auto text-blue-400">✓</span>}
-                                    </DropdownMenuItem>
-                                </I18nLink>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+
 
                     {/* Notifications (Assuming Dark Mode Compatibility inside component, passing class?) */}
                     <div className="text-white flex items-center gap-2">
