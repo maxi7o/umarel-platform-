@@ -3,7 +3,7 @@ import { relations } from 'drizzle-orm';
 
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 export const requestStatusEnum = pgEnum('request_status', ['open', 'in_progress', 'completed']);
-export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'in_progress', 'completed', 'approved_by_client', 'paid', 'disputed']);
+export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'completed', 'approved_by_client', 'paid', 'disputed']);
 export const quoteStatusEnum = pgEnum('quote_status', ['pending', 'accepted', 'rejected']);
 export const transactionStatusEnum = pgEnum('transaction_status', ['pending', 'completed', 'confirmed', 'disputed']);
 export const bidStatusEnum = pgEnum('bid_status', ['pending', 'accepted', 'rejected']);

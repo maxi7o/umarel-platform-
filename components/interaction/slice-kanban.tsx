@@ -21,7 +21,7 @@ interface Slice {
     title: string;
     description: string;
     estimatedEffort: string;
-    status: 'proposed' | 'accepted' | 'in_progress' | 'completed';
+    status: 'proposed' | 'accepted' | 'completed';
     isAiGenerated: boolean;
     requiredSkills?: string[];
     escrow?: any;
@@ -87,7 +87,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
             {COLUMNS.map(col => {
                 const colSlices = slices.filter(s => {
-                    if (col.id === 'accepted') return s.status === 'accepted' || s.status === 'in_progress';
+                    if (col.id === 'accepted') return s.status === 'accepted';
                     return s.status === col.id;
                 });
                 const Icon = col.icon;
