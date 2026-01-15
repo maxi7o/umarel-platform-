@@ -116,8 +116,8 @@
         "roleClientBenefit1": "Claridad antes de gastar",
         "roleClientBenefit2": "Te ayudamos a entender",
         "roleClientAction": "Contar mi Problema",
-        "roleUmarelTitle": "El Umarel",
-        "roleUmarelBadge": "Guía",
+        "roleUmarelTitle": "El Entendido",
+        "roleUmarelBadge": "Guía Experto",
         "roleUmarelDesc": "No venimos a corregirte el examen. Venimos a pensar con vos para que no se te escape nada.",
         "roleUmarelBenefit1": "Tu experiencia ayuda a otros",
         "roleUmarelBenefit2": "Ganá por pensar soluciones",
@@ -217,7 +217,7 @@
                 "exampleStep3": "3. Pintura ($20k): Foto de pared terminada."
             },
             "aiFeature": {
-                "title": "Tu Capataz Digital",
+                "title": "Tu Entendido Digital",
                 "description": "No sabés cómo pedirlo? Decile a la IA: 'tengo agua en el piso'.",
                 "chatUser": "👱‍♂️ Tengo mucha humedad en el techo del baño.",
                 "chatAi": "🤖 Entendido. ¿Es mancha negra o gotea agua? -> Armado pedido: 'Reparación de filtración en cielorraso con pintura antihongo'.",
@@ -305,7 +305,7 @@
             "rolesCta": {
                 "seeker": "Publicar Proyecto",
                 "creator": "Ofrecer Servicios",
-                "umarel": "Convertirme en Umarel"
+                "umarel": "Convertirme en Entendido"
             },
             "rolesQuote": "En nuestra mesa, todos contribuyen. El que necesita, el que construye, y el sabio que observa - juntos creamos algo hermoso.",
             "rolesQuoteTag": "El Camino Umarel",
@@ -353,7 +353,7 @@
                 "description": "Artesanos, guías y expertos. Vos entregás valor. Nosotros aseguramos que cobres precios justos por tu trabajo verificado."
             },
             "umarel": {
-                "title": "El Umarel",
+                "title": "El Entendido",
                 "description": "El observador sabio. Revisás alcances, asegurás la claridad y ganás parte del éxito de la plataforma."
             }
         },
@@ -684,7 +684,7 @@
                 "step3Desc": "Cada Tramo completado suma a tu 'Aura'. Más Aura significa mejores trabajos y respeto."
             },
             "umarel": {
-                "title": "Observo y Verifico (El Umarel)",
+                "title": "Observo y Verifico (El Entendido)",
                 "desc": "Eres el vecino sabio que asegura que las cosas se hagan bien.",
                 "step1": "1. Revisa el Plan",
                 "step1Desc": "Usa tu experiencia para ver detalles faltantes. '¡Se olvidaron de la imprimación!'",

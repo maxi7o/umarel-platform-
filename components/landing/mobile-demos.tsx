@@ -10,7 +10,7 @@ const DEMOS = [
         id: 'client',
         label: 'Tengo un Problema',
         icon: User,
-        color: 'blue',
+        color: 'blue', // Strategy: Request
         title: 'Pedí ayuda en segundos',
         description: 'Decinos qué pasa, no hace falta que sepas el nombre técnico.'
     },
@@ -18,15 +18,15 @@ const DEMOS = [
         id: 'provider',
         label: 'Soy Profesional',
         icon: Hammer,
-        color: 'orange',
+        color: 'slate', // Strategy: Execution/Foundation
         title: 'Trabajá con garantía',
         description: 'Elegí trabajos cerca y cobrá seguro al terminar.'
     },
     {
         id: 'umarel',
-        label: 'Soy Umarel',
+        label: 'Soy Entendido',
         icon: Glasses,
-        color: 'purple',
+        color: 'indigo', // Strategy: Insight/Verification
         title: 'Verificá y ganá',
         description: 'Usá tu ojo clínico para validar trabajos y ganar dinero.'
     }
@@ -56,14 +56,14 @@ export function MobileDemos() {
                                 key={demo.id}
                                 onClick={() => setActiveTab(index)}
                                 className={`text-left p-6 rounded-2xl transition-all duration-300 border ${activeTab === index
-                                        ? 'bg-white border-slate-200 shadow-xl scale-105'
-                                        : 'bg-transparent border-transparent hover:bg-white/50 opacity-60 hover:opacity-100'
+                                    ? 'bg-white border-slate-200 shadow-xl scale-105'
+                                    : 'bg-transparent border-transparent hover:bg-white/50 opacity-60 hover:opacity-100'
                                     }`}
                             >
                                 <div className="flex items-center gap-4 mb-2">
                                     <div className={`p-3 rounded-full ${activeTab === index
-                                            ? `bg-${demo.color}-100 text-${demo.color}-600`
-                                            : 'bg-slate-200 text-slate-500'
+                                        ? `bg-${demo.color}-100 text-${demo.color}-600`
+                                        : 'bg-slate-200 text-slate-500'
                                         }`}>
                                         <demo.icon size={24} />
                                     </div>
@@ -95,7 +95,7 @@ export function MobileDemos() {
 
                         {/* Background Decor */}
                         <div className={`absolute -inset-10 -z-10 rounded-full blur-3xl opacity-20 transition-colors duration-1000 ${activeTab === 0 ? 'bg-blue-500' :
-                                activeTab === 1 ? 'bg-orange-500' : 'bg-purple-500'
+                            activeTab === 1 ? 'bg-orange-500' : 'bg-purple-500'
                             }`}></div>
                     </div>
 

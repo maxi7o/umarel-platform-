@@ -59,15 +59,12 @@ const config = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
-                // Umarel Palette
-                umarel: {
-                    orange: "#F97316", // Classic Orange
-                    stone: "#F5F5F4", // Light Stone
-                    dark: "#1C1917", // Warm Black
-                },
-                trattoria: {
-                    red: "#C41E3A", // Sauce Red
-                    check: "#FFE4E1", // Pinkish White for checks
+                // Strategy Brand Colors
+                brand: {
+                    navy: "#0f172a", // Slate 900
+                    slate: "#64748b", // Slate 500
+                    blue: "#2563eb", // Blue 600
+                    paper: "#f8fafc", // Slate 50
                 }
             },
             borderRadius: {
