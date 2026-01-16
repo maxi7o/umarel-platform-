@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+
 import { useTranslations } from 'next-intl';
 import { PencilLine, HandCoins, Hammer, CheckCircle2 } from 'lucide-react';
 
@@ -79,7 +79,7 @@ export function HowItWorksSection() {
                     {/* 1. SLICES EXPLANATION */}
                     <div className="bg-white rounded-3xl p-8 shadow-xl border border-stone-100 flex flex-col">
                         <h3 className="text-2xl font-bold font-outfit text-slate-900 mb-4 flex items-center gap-2">
-                            <span className="text-3xl">🍕</span> {t('slicesFeature.title')}
+                            {t('slicesFeature.title')}
                         </h3>
                         <p className="text-stone-600 mb-6 text-lg">
                             {t('slicesFeature.description')}
@@ -109,10 +109,10 @@ export function HowItWorksSection() {
                     {/* 2. AI ASSISTANT */}
                     <div className="bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-800 text-white flex flex-col relative overflow-hidden">
                         {/* Bg Effect */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
                         <h3 className="text-2xl font-bold font-outfit mb-4 flex items-center gap-2 relative z-10">
-                            <span className="text-3xl">🤖</span> {t('aiFeature.title')}
+                            {t('aiFeature.title')}
                         </h3>
                         <p className="text-slate-300 mb-6 text-lg relative z-10">
                             {t('aiFeature.description')}
@@ -122,7 +122,7 @@ export function HowItWorksSection() {
                             <div className="bg-slate-800 p-3 rounded-2xl rounded-tr-none self-end ml-8 relative shadow-lg">
                                 <p className="text-sm text-slate-200">{t('aiFeature.chatUser')}</p>
                             </div>
-                            <div className="bg-purple-600 p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
+                            <div className="bg-blue-600 p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
                                 <p className="text-sm text-white font-medium">{t('aiFeature.chatAi')}</p>
                             </div>
 
@@ -137,20 +137,8 @@ export function HowItWorksSection() {
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-4">
-                    <div className="relative">
-                        <Image
-                            src="/umarel-mascot.png"
-                            alt="Umarel Mascot"
-                            width={80}
-                            height={80}
-                            className="object-contain hover:scale-110 transition-transform duration-300"
-                        />
-                        {/* Speech Bubble Tail */}
-                        <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200 hidden" />
-                    </div>
                     <div className="bg-white px-6 py-3 rounded-full shadow-sm border border-stone-200 relative">
-                        <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200"></div>
-                        <p className="text-stone-600 italic font-medium text-lg relative z-10">
+                        <p className="text-slate-500 italic font-medium text-lg relative z-10">
                             {t('quote')}
                         </p>
                     </div>
