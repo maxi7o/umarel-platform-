@@ -1,100 +1,91 @@
-# 🚀 Operation Umarel: Go-To-Market Strategy (CABA/GBA & Beyond)
+# 🚀 Operation Umarel: Go-To-Market Strategy v2 (CABA/GBA Focus)
 
 > **"Basta de chamuyo. Mostrá la evidencia."** (Enough bullshit. Show the evidence.)
 
-## 🌟 The Manifesto (Internal)
-Service marketplaces are broken. Clients are scared of getting ripped off; honest providers are tired of competing with scammers. We don't just "connect" them. We **referee** the game. We bring the "Umarel" spirit—the wise observer—into the digital age.
-
-Our leverage is **TRUST** via **EVIDENCE**. We are not LinkedIn. We are not Upwork. We are the **Anti-Gig-Economy**. We are the "Economy of Done".
+## 🌟 The Core Value
+We are the **Anti-Gig-Economy**. No bidding wars, no bots, no "500 five-star reviews" with zero context.
+For Workers: "Don't tell me you're good. Show me a Slice you closed."
+For Clients: "Don't pay for promises. Pay for Evidence."
 
 ---
 
-## 🎯 Target Audience (The "Neighbors")
+## 🎯 Target Audience & Supply-First Focus
 
-### 1. The "Quemados" (Burned Clients) - **Primary**
-*   **Who:** Small business owners in CABA/GBA (cafes, kiosks, startups) and homeowners.
-*   **Pain:** Hired a dev/plumber who ghosted them. Tired of vague quotes.
-*   **Hook:** "Don't pay until you see the photo. Literally."
+We are shifting to a **Supply-First** approach ("The Crack"). Why? A client with money but no workers bounces instantly. A worker with no immediate job will still hang around if the *promise* of fair work is strong enough.
 
-### 2. The "Crack" (Honest Providers) - **Secondary**
-*   **Who:** Skilled junior/mid devs, handymen, designers who are actually good but lack "500 reviews" on Upwork.
-*   **Pain:** Competing with $5/hr bots.
-*   **Hook:** "Your work speaks for itself. Build a 'Proof Portfolio' that nobody can fake."
+### 1. The "Crack" (Honest Workers) - **Primary Focus (Bootstrap)**
+*   **Who:** Junior/Mid devs, designers, and local tradespeople (gasistas, plomeros) in Argentina who are skilled but drowned out by bots on Upwork/Freelancer or tired of chasing clients on Facebook.
+*   **Pain:** "I apply to 100 jobs, get 0 replies because a bot bid $2/hr." / "I did the work and the client ghosted."
+*   **Hook:** **"Portfolio de Evidencia."** Unlike GitHub (code) or Behance (pictures), an Umarel Profile proves you *shipped* and *got paid*. It’s un-fakeable reputation.
+*   **The Offer:** "Zero fees for first 3 months. Priority ranking in your neighborhood/stack."
+
+### 2. The "Quemados" (Burned Clients) - **Secondary**
+*   **Who:** Small business owners (PyMEs) and homeowners in CABA.
+*   **Pain:** "The last guy took the 50% advance and vanished."
+*   **Hook:** "Pay $0 until you see the photo/video evidence. Money stays in Mercado Pago until you are happy."
 
 ### 3. The "Umarels" (The Community) - **Tertiary**
-*   **Who:** Retired experts, bored seniors, tech leads with spare time.
-*   **Pain:** Want to share knowledge but hate commitment.
-*   **Hook:** "Judge other people's work and get paid for being right." (The Dividend Engine).
+*   **Who:** Experienced seniors (retired or active).
+*   **Role:** The "Wise Observer". They validate the evidence when the client doesn't know technical details.
 
 ---
 
-## 💣 Phase 1: The Guerrilla Launch (CABA/GBA Focus)
-*Budget: $0 - $100. Effort: Maximum.*
+## 📢 Channels: Hyper-Local & High-Trust (Zero Budget)
 
-### A. The "Wall of Shame vs. Hall of Fame" Campaign
-*   **Stunt:** Create a viral Twitter/Instagram thread of "Worst Contractor Disasters" (anonymous) vs. "Umarel Fixed It" (with evidence).
+Forget TikTok dances. We go where the pain is real and the conversation is raw.
+
+### A. The "Vecino" Groups (WhatsApp/Facebook)
+*   **Target:** "Vecinos de Palermo", "Albañiles y Gasistas Matriculado", "Freelancers Argentina", "Emprendedores CABA".
+*   **Tactic:** DO NOT SPAM. Respond to pain.
+    *   *Trigger:* Someone posts "Busco plomero de confianza" or "Busco dev para landing page".
+    *   *Reply:* "Don't just hire a random. I'm building a tool where they only get paid if they send photo evidence of the fix. I have 3 verifyied workers on the list. Want me to connect you? commission-free."
+
+### B. The Troll-Free Forums (Reddit & Discord)
+*   **Target:** `r/devsarg`, `r/merval`, `r/argentina`.
+*   **Tactic:** "The Anti-Chamuyo Thread".
+    *   Post: "I'm tired of Upwork bots taking our jobs. I built a platform for us (Argentinos) that tracks *slices* of work (verified evidence) so clients can't ghost payment. Who wants to beta test? No fees."
+    *   Value Prop: Focus on *getting paid*, not just getting hired.
+
+### C. Targeted Twitter/X (The "Sniper" Approach)
+*   **Target:** Keywords like "estafaron albañil", "dev ghosted me", "necesito programador urgente".
+*   **Tactic:**
+    *   **Manual (Phase 1):** Personal DM. "Saw you had a bad experience. We track 'Slices' (small verifiable steps). Next time, try this. If they don't upload a photo in 24h, you pay nothing."
+    *   **Automated (Phase 2):** Setup visual alerts (Zapier) for these keywords to jump in fast with a helpful (not salesy) comment.
+
+---
+
+## 🛠 Key Tactics: Next 2 Weeks (Actionable)
+
+### 1. The "Pilot Squad" (Recruiting The Crack)
+*   **Goal:** Onboard **20 verifiable workers** (10 Digital / 10 Trade).
 *   **Action:**
-    *   Find broken things in Palermo/San Telmo (wobbly tables in cafes, broken websites of local shops).
-    *   **Proactive Fix:** Fix it (digitally or physically), send the fix/evidence to the owner with a link: "This project is already done. Release funds here if you want it."
-    *   **The Sticker Bomb:** QR codes on actual construction fences or lamp posts near coworking spaces. "Need an Umarel to watch this? Scan here."
+    *   Post in `r/devsarg` looking for "Devs who deliver".
+    *   Direct Message active helpers in Facebook Trade groups ("This answer was great, you clearly know your stuff. Want to be a verified Pro on Umarel?").
+*   **Incentive:** "Founding Member" badge (permanent 0% fee on first $1000 earned).
 
-### B. The "Slices" Challenge (TikTok/Reels)
-*   **Concept:** "How much is a slice?"
-*   **Content:** Fast-paced videos showing real jobs broken down.
-    *   *Video 1:* "Fixing a React bug." -> *Slice:* "Identify error." *Evidence:* Screenshot of log. *Paid:* $10.
-    *   *Video 2:* "Changing a tap." -> *Slice:* "Remove old washer." *Evidence:* Photo. *Paid:* $15.
-*   **Goal:** Normalize the "Slice" psychology. It's not a $1000 contract; it's ten $100 verifiable wins.
+### 2. "Evidence Threads" on X (Show, Don't Tell)
+*   **Goal:** Demonstrate the "Slice" mechanic without a complex live event.
+*   **Action:**
+    *   Take a simple task (e.g., "Fixing the footer on umarel.org").
+    *   Thread:
+        1.  "Task: Fix broken image."
+        2.  "Slice 1: Diagnose ($5)." -> [Screenshot of Error].
+        3.  "Slice 2: Fix Code ($10)." -> [Screenshot of Diff].
+        4.  "Slice 3: Verify ($5)." -> [Video of working site].
+    *   Tagline: "This is how we work. No meetings. Just evidence."
 
-### C. The "Mate & Code" Partnership
-*   **Partner:** Local coding bootcamps (Henry, Coderhouse).
-*   **Pitch:** "Your students need a portfolio. GitHub is boring. An Umarel Portfolio proves they actually *delivered* value to a real human."
-*   **Incentive:** Grant "Silver Aura" to the first 50 students who complete a paid gig (even a tiny one).
-
----
-
-## 🏎 Phase 2: Viral Mechanics (Product-Led Growth)
-
-### A. "Ghostbusting" Guarantee
-*   **Marketing Copy:** "If they don't upload a photo in 24h, the money comes back to you automatically. Smart Contracts don't ghost."
-*   **Feature Highlight:** Push the **Proof of Arrival** feature hard. "See exactly when your plumber arrived."
-
-### B. The Aura Leaderboard (Gamification)
-*   **Weekly "Umarel of the Week":** Highlighting the user who settled the most disputes or provided the most helpful comments.
-*   **Reward:** Not just money, but status. "Gold Umarel" badges that they can put on LinkedIn.
-*   **Dividend FOMO:** Publish the daily payout amounts on Twitter. "Yesterday, the Community Pool paid out $45 to people just for voting correctly."
+### 3. The "Micro-Job" Seed
+*   **Goal:** Create the first real transaction flow.
+*   **Action:**
+    *   You (Maxi) act as the first "Client".
+    *   Create 5 real micro-tasks on the platform (e.g., "Design a banner for Twitter", "Write a README", "Research competitor pricing").
+    *   Post these "Bounties" in the Reddit/Discord channels. "First to claim and upload evidence gets paid instantly via MP."
+    *   This forces users to actually *use* the Slice/Upload/Payout flow.
 
 ---
 
-## 📈 Leveraging the Technical Edge (Why Copycats Fail)
+## 📊 3 Specific Next Steps (Quick Wins)
 
-Copycats will build a marketplace. They won't build the **Protocol**.
-
-1.  **Open Source the Trust:** We show the transaction hashes (or DB logs) of dispute resolutions. Radical transparency.
-2.  **AI as the Mediator, Not the Boss:** Emphasize that AI prepares the case, but *Humans* (Umarels) make the call. This resonates with the "Human-in-the-loop" vibe people trust more than black boxes.
-3.  **Local Payment Dominance:** Lean heavily into **Mercado Pago** integration. Foreign competitors (Upwork/Fiverr) fail here because extracting money is a nightmare in Argentina. "Pesos in, Pesos out. Fast."
-
----
-
-## 📋 Action Plan: Next 2 Weeks
-
-1.  **Day 1-3: The "Soft" Shell**
-    *   Finalize the landing page copy to be "Locally Aggressive" (use local slang, imply trust).
-    *   Record 3 demo videos (The "Client" view, The "Provider" view, The "Umarel" (Judge) view).
-
-2.  **Day 4-7: The Outreach**
-    *   Manual outreach to 50 specific people on Twitter/LinkedIn who complained about bad service recently.
-    *   "I built a tool so this never happens again. Want to try it for free? (No fees)."
-
-3.  **Day 8-14: The "First Transaction" Event**
-    *   Orchestrate a LIVE event (digital or hybrid). "Live Bug Fix".
-    *   We hire a dev on Umarel to fix a bug in Umarel *during* a livestream.
-    *   Show the Request -> Slice -> Evidence -> Payment flow in real-time.
-
----
-
-## 🔮 The "North Star" Vision
-We start in CABA. We validate that **Granular Trust (Slices)** works better than **Big Contracts**.
-Once validated, we take this tailored "Latin American Trust Model" to Brazil (Pix) and Mexico.
-The world is tired of intermediaries. We aren't an intermediary; we are the infrastructure of reputation.
-
-**Let's build the future of work, one Slice at a time.**
+1.  **The "DevsArg" Post:** Write and post the "Anti-Upwork" manifesto on `r/devsarg`. Focus on local payment (Mercado Pago) and evidence-based reputation. Aim for 10 signups.
+2.  **The "Bounty" List:** Create 3 real, low-cost tasks ($5-$10 USD equivalent in ARS) on the platform yourself. Use them as the "carrot" to get those 10 signups to actually log in and upload evidence.
+3.  **The WhatsApp Infiltration:** Join 3 local trade/neighbor groups. Listen for 48h. Identify one "Key Opinion Leader" (someone who recommends others) and demo the tool to them via DM.
