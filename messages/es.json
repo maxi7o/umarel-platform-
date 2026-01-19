@@ -1,717 +1,717 @@
 {
     "card": {
-        "lookingForService": "Solicitud de Presupuesto",
-        "offeringService": "Cartera de Servicios",
-        "savedToFavorites": "Añadido a lista de seguimiento",
-        "removedFromFavorites": "Eliminado de lista de seguimiento",
-        "failedToUpdateFavorites": "Error al actualizar seguimiento",
-        "viewDetails": "Ver Expediente",
-        "postedBy": "Gestionado por",
+        "lookingForService": "Pedir Presupuesto",
+        "offeringService": "Perfil Profesional",
+        "savedToFavorites": "Guardado",
+        "removedFromFavorites": "Eliminado de guardados",
+        "failedToUpdateFavorites": "Error al guardar",
+        "viewDetails": "Ver Detalle",
+        "postedBy": "Publicado por",
         "featured": "Destacado",
-        "virtual": "Consultoría Remota"
+        "virtual": "Virtual"
     },
     "execution": {
-        "backToDashboard": "Volver al Tablero",
-        "status": "Estado de Avance",
-        "inProgress": "En Ejecución",
-        "progress": "Certificación",
-        "steps": "Hitos",
-        "umarelWisdom": "Dictamen del Entendido",
-        "umarelCriticalAlert": "Alerta de Riesgo",
-        "proofRequired": "Evidencia Documental Requerida",
-        "verified": "Auditado",
-        "pendingUpload": "Pendiente de Documentación",
-        "tapCapture": "Capturar Evidencia",
-        "completeStep": "Certificar Hito",
-        "summonUmarel": "Solicitar Auditoría"
+        "backToDashboard": "Volver al Panel",
+        "status": "Estado",
+        "inProgress": "En Marcha",
+        "progress": "Avance",
+        "steps": "Pasos",
+        "umarelWisdom": "Opinión del Entendido",
+        "umarelCriticalAlert": "Ojo con esto",
+        "proofRequired": "Subí una foto o video",
+        "verified": "Revisado",
+        "pendingUpload": "Falta foto",
+        "tapCapture": "Sacar foto",
+        "completeStep": "Terminar Paso",
+        "summonUmarel": "Pedir ayuda a un Entendido"
     },
     "manifesto": {
         "heading": {
-            "title": "El Estándar de Ejecución",
-            "headlineLine1": "La obra no se sufre.",
-            "headlineLine2": "Se gestiona.",
-            "subheadline": "El sistema tradicional de 'confianza ciega' está roto. Introducimos Trazabilidad Total: custodia de fondos, hitos verificables y auditoría experta.",
-            "highlight": "Control Total"
+            "title": "Hacé obras sin dolores de cabeza.",
+            "headlineLine1": "Basta de 'veremos'.",
+            "headlineLine2": "Acá se cumple.",
+            "subheadline": "Conectamos a gente que necesita arreglos con profesionales que saben trabajar. Sin vueltas y con la plata protegida.",
+            "highlight": "Simple y seguro"
         },
         "pillars": {
             "bandwidth": {
-                "title": "Eficiencia Operativa",
-                "description": "Tercerizá la fricción. Nuestra IA estructura el alcance técnico para que vos solo tomes decisiones ejecutivas."
+                "title": "Menos vueltas",
+                "description": "No pierdas tiempo explicando mil veces lo mismo. Decinos qué necesitás y te ayudamos a armar el pedido."
             },
             "judge": {
-                "title": "Arbitraje Técnico",
-                "description": "El 'me dijo/le dije' se termina hoy. Las disputas se resuelven con evidencia contractual y peritaje neutral.",
-                "bold": "evidencia contractual"
+                "title": "El Entendido te ayuda",
+                "description": "¿No sabés si el precio está bien? Un experto (El Entendido) revisa todo para que no pagues de más.",
+                "bold": "revisa todo"
             },
             "growth": {
-                "title": "Meritocracia Verificada",
-                "description": "Un mercado donde el activo más valioso es la reputación (Aura). Los profesionales de alto rendimiento suben; los improvisados caen."
+                "title": "Gente de confianza",
+                "description": "Acá valen los puntos. Los que trabajan bien suben de nivel. Los chantas quedan afuera."
             }
         }
     },
     "nav": {
-        "browse": "Mercado de Oportunidades",
-        "howto": "Metodología",
-        "offerServices": "Ofrecer Expertis",
-        "login": "Acceso Clientes",
-        "postNeed": "Nuevo Proyecto",
-        "dashboard": "Tablero de Control",
-        "logout": "Cerrar Sesión",
+        "browse": "Buscar Proyectos",
+        "howto": "Cómo funciona",
+        "offerServices": "Soy Profesional",
+        "login": "Ingresar",
+        "postNeed": "Publicar Pedido",
+        "dashboard": "Mis Proyectos",
+        "logout": "Salir",
         "home": "Inicio",
-        "roles": "Perfiles",
-        "about": "Visión",
-        "contact": "Soporte",
-        "faq": "Centro de Ayuda",
+        "roles": "Quién es Quién",
+        "about": "Nosotros",
+        "contact": "Ayuda",
+        "faq": "Preguntas",
         "roleSeek": "Contratar",
         "roleCreate": "Trabajar",
         "roleVerify": "Auditar"
     },
     "footer": {
-        "platform": "Ecosistema",
-        "howItWorks": "Proceso de Certificación",
-        "becomeUmarel": "Aplica como Auditor",
-        "findWork": "Licitaciones Activas",
-        "support": "Soporte",
-        "helpCenter": "Base de Conocimiento",
-        "guidelines": "Protocolos",
-        "contact": "Mesa de Ayuda",
-        "legal": "Marco Legal",
-        "terms": "Términos de Servicio",
-        "privacy": "Privacidad de Datos",
-        "cookie": "Política de Cookies",
-        "about": "Nuestra Misión",
-        "copyright": "© 2026 Umarel. Gestión de Activos Inmobiliarios.",
-        "dailyWisdom": "Insight del Día:",
+        "platform": "Plataforma",
+        "howItWorks": "Cómo funciona",
+        "becomeUmarel": "Ser Entendido",
+        "findWork": "Buscar Trabajo",
+        "support": "Ayuda",
+        "helpCenter": "Centro de Ayuda",
+        "guidelines": "Reglas",
+        "contact": "Contacto",
+        "legal": "Legal",
+        "terms": "Términos",
+        "privacy": "Privacidad",
+        "cookie": "Cookies",
+        "about": "Misión",
+        "copyright": "© 2026 El Entendido.",
+        "dailyWisdom": "Frase del día:",
         "quotes": [
-            "Lo barato sale caro si no hay auditoría.",
-            "En Dios confiamos; los demás traigan evidencia.",
-            "Una obra sin plan es una deuda futura.",
-            "La confianza es buena, el control es mejor.",
-            "Si no está documentado, no sucedió.",
-            "Calidad es cumplimiento de requisitos.",
-            "Medimos resultados, no intenciones."
+            "Lo barato sale caro.",
+            "Mejor prevenir que curar.",
+            "Cuentas claras conservan la amistad.",
+            "Al que madruga Dios lo ayuda.",
+            "Despacio que estoy apurado.",
+            "El ojo del amo engorda el ganado.",
+            "Hacé las cosas bien o no las hagas."
         ]
     },
     "home": {
-        "heroTitle1": "Tu casa es tu mayor activo.",
-        "heroTitleHighlight": "Gestioná su valor.",
-        "heroSubtitle": "Fintech aplicada a la construcción. Fondeos en custodia, pagos contra avance certificado y auditoría experta.",
+        "heroTitle1": "Tu casa es importante.",
+        "heroTitleHighlight": "Cuidala en serio.",
+        "heroSubtitle": "La forma más segura de contratar arreglos y reformas. Pagá solo cuando el trabajo está listo y aprobado.",
         "heroSteps": {
-            "step1": "1. Estructurá el alcance técnico con IA.",
-            "step2": "2. Fondeá la etapa en cuenta segura (Escrow).",
-            "step3": "3. Liberá fondos contra evidencia verificada."
+            "step1": "1. Contanos qué necesitás arreglar.",
+            "step2": "2. Reservá la plata seguro (nadie la toca).",
+            "step3": "3. Liberá el pago cuando veas el trabajo listo."
         },
-        "postRequest": "Iniciar Proyecto",
-        "offerServices": "Cargar Perfil Profesional",
-        "availableIn": "Operativo en CABA y Zona Norte",
-        "watchVideo": "Ver Demo Operativa",
-        "browseServices": "Explorar Licitaciones",
-        "originLabel": "El Concepto",
-        "originQuote": "\"Umarell\": Término italiano para el observador que fiscaliza obras urbanas. Tomamos esa vigilancia obsesiva y la digitalizamos.",
-        "originSource": "— Origen del Modelo",
-        "rolesTitle": "Ecosistema de Ejecución",
-        "rolesSubtitle": "Tres roles, un objetivo: eficiencia constructiva. Cada parte es integral para el aseguramiento de la calidad.",
-        "roleClientTitle": "El Comitente (Dueño)",
-        "roleClientDesc": "Inversor del proyecto. Define qué quiere, aprueba hitos y controla el flujo de caja.",
-        "roleClientBenefit1": "Seguridad financiera",
-        "roleClientBenefit2": "Gestión sin estrés",
-        "roleClientAction": "Iniciar Gestión",
-        "roleUmarelTitle": "El Entendido (Auditor)",
-        "roleUmarelBadge": "Control de Calidad",
-        "roleUmarelDesc": "El ojo técnico. Valida alcances, detecta desvíos y asegura que lo pagado sea lo ejecutado.",
-        "roleUmarelBenefit1": "Monetizá tu expertis",
-        "roleUmarelBenefit2": "Elevá el estándar",
-        "roleUmarelAction": "Aplicar como Auditor",
-        "roleProviderTitle": "El Ejecutor (Pro)",
-        "roleProviderDesc": "Profesional técnico. Se enfoca en la ejecución perfecta sabiendo que el dinero ya está reservado.",
-        "roleProviderBenefit1": "Solvencia garantizada",
-        "roleProviderBenefit2": "Reputación verificable",
-        "roleProviderAction": "Ingresar al Registro",
-        "soon": "Próximamente",
-        "prop1Title": "Auditoría Técnica",
-        "prop1Desc": "No estás solo. Expertos (Entendidos) validan que el presupuesto tenga sentido técnico.",
-        "prop2Title": "Fichas de Ejecución",
-        "prop2Desc": "Atomizamos la obra. Nada de 'todo junto'. Se avanza por hitos pequeños y controlables.",
-        "prop3Title": "Custodia de Pagos",
-        "prop3Desc": "El dinero espera en Mercado Pago. El profesional ve que tenés la plata; vos no la soltás hasta ver el trabajo.",
+        "postRequest": "Pedir Presupuesto",
+        "offerServices": "Ofrecer Servicios",
+        "availableIn": "Disponible en CABA y GBA",
+        "watchVideo": "Ver cómo es",
+        "browseServices": "Ver Pedidos",
+        "originLabel": "La Idea",
+        "originQuote": "Nos inspiramos en ese vecino que sabe de todo y mira las obras para asegurarse de que nadie meta la pata.",
+        "originSource": "— El Origen",
+        "rolesTitle": "Cómo nos organizamos",
+        "rolesSubtitle": "Tres roles simples para que todo salga bien.",
+        "roleClientTitle": "El Cliente (Vos)",
+        "roleClientDesc": "Tenés algo para arreglar o construir. Querés que quede bien y no te cobren cualquier cosa.",
+        "roleClientBenefit1": "Plata protegida",
+        "roleClientBenefit2": "Cero estrés",
+        "roleClientAction": "Empezar",
+        "roleUmarelTitle": "El Entendido",
+        "roleUmarelBadge": "Tu aliado",
+        "roleUmarelDesc": "Alguien que sabe mucho del tema. Mira los presupuestos y las fotos para decirte si está todo OK.",
+        "roleUmarelBenefit1": "Ganá por saber",
+        "roleUmarelBenefit2": "Ayudá a otros",
+        "roleUmarelAction": "Tengo experiencia",
+        "roleProviderTitle": "El Profesional",
+        "roleProviderDesc": "Plomeros, electricistas, albañiles. Gente de oficio que quiere trabajar tranquila y cobrar seguro.",
+        "roleProviderBenefit1": "Pagos asegurados",
+        "roleProviderBenefit2": "Mostrá tu calidad",
+        "roleProviderAction": "Quiero trabajar",
+        "soon": "Pronto",
+        "prop1Title": "Ayuda Experta",
+        "prop1Desc": "No estás solo. El Entendido te ayuda a ver si el presupuesto es lógico.",
+        "prop2Title": "Paso a paso",
+        "prop2Desc": "Dividimos los trabajos grandes en partes chicas. Así es más fácil controlar.",
+        "prop3Title": "Pago Seguro",
+        "prop3Desc": "La plata espera en Mercado Pago. El profesional sabe que tenés la plata, vos no la soltás hasta ver el trabajo hecho.",
         "steps": {
-            "trustedBy": "Transacciones aseguradas por Mercado Pago",
+            "trustedBy": "Protegido por Mercado Pago",
             "stage1": {
-                "title": "Alcance y Licitación",
-                "desc": "Definición técnica y recepción de ofertas."
+                "title": "El Pedido",
+                "desc": "Decinos qué necesitás."
             },
             "stage2": {
-                "title": "Ejecución y Evidencia",
-                "badge": "En Curso",
-                "desc": "Avance de obra documentado en video/foto."
+                "title": "El Trabajo",
+                "badge": "En marcha",
+                "desc": "El profesional trabaja y manda fotos."
             },
             "stage3": {
-                "title": "Certificación y Pago",
-                "desc": "Validación de calidad y liberación de fondos."
+                "title": "El Pago",
+                "desc": "Si te gusta, liberás la plata."
             },
             "floater": {
-                "title": "Fondos en Custodia",
-                "desc": "Garantía Mercado Pago"
+                "title": "Pago Protegido",
+                "desc": "Reserva segura"
             }
         },
         "valueProp": {
-            "badge": "Propuesta de Valor",
-            "title": "Ingeniería de Confianza",
-            "subtitle": "Un sistema diseñado para eliminar el riesgo de contraparte mediante incentivos alineados.",
+            "badge": "Por qué elegirnos",
+            "title": "Confianza de verdad",
+            "subtitle": "Un sistema pensado para que nadie desconfíe de nadie.",
             "card1": {
-                "title": "Protocolo Escrow",
-                "desc": "Eliminamos el riesgo de impago y de abandono de obra. Los incentivos financieros están alineados al cumplimiento."
+                "title": "Sin sorpresas",
+                "desc": "El precio se cierra antes. La plata se reserva antes. Las reglas están claras."
             },
             "card2": {
-                "badge": "Meritocracia",
-                "title": "Economía de Reputación",
-                "desc": "El 'Aura' no se compra. Es un índice inmutable de cumplimiento y calidad técnica acumulada."
+                "badge": "Ranking",
+                "title": "Buena Reputación",
+                "desc": "Los puntos 'Aura' muestran quién cumple. Si tenés buen puntaje, conseguís mejores trabajos."
             },
             "card3": {
-                "title": "Inteligencia Constructiva",
-                "desc": "Algoritmos que estandarizan precios y detectan anomalías en presupuestos antes de que firmes."
+                "title": "Tecnología Fácil",
+                "desc": "Hablale a nuestra IA como si fuera un audio de WhatsApp y te armamos el pedido técnico."
             },
-            "manifesto": "Ver Documentación Técnica"
+            "manifesto": "Leer más"
         }
     },
     "landing": {
         "concept": {
-            "title": "El Factor Umarel",
-            "subtitle": "Digitalizando la Supervisión",
-            "description": "Tomamos la figura del **Entendido** —ese experto de barrio— y lo escalamos con tecnología. No es solo mirar; es auditar con criterio.",
-            "digital": "En nuestra plataforma, **El Entendido es un rol activo**. Valida presupuestos, arbitra en dudas técnicas y certifica calidad. Es tu gerente de obra on-demand."
+            "title": "El Factor Entendido",
+            "subtitle": "Tu experto de confianza",
+            "description": "Todos necesitamos a alguien que 'la tenga clara' con las obras. Ese es **El Entendido**.",
+            "digital": "En nuestra app, **El Entendido** te ayuda a revisar que no te estén pasando un presupuesto inflado o haciendo un trabajo a medias."
         },
         "hero": {
-            "title": "Profesionalizá tu reforma. Blindá tu presupuesto.",
-            "subtitle1": "La plataforma que introduce estándares corporativos a las reformas del hogar —",
-            "subtitle2": "gestión, control y garantías reales.",
-            "cta": "Comenzar Auditoría"
+            "title": "Arreglá tu casa sin sufrir.",
+            "subtitle1": "La app para contratar reformas seguras —",
+            "subtitle2": "profesionales verificados y pagos protegidos.",
+            "cta": "Empezar Ahora"
         },
-        "howItWorks": "Flujo de Trabajo",
+        "howItWorks": "Pasos",
         "howItWorksSteps": {
-            "title": "Metodología de Ejecución",
-            "subtitle": "Proceso Estándar",
-            "quote": "“Lo que no se mide, no se gestiona.”",
+            "title": "Cómo es el proceso",
+            "subtitle": "Paso a Paso",
+            "quote": "“Cuentas claras.”",
             "step1": {
-                "title": "1. Especificación Técnica",
-                "desc": "Usá nuestra IA para redactar un pliego de condiciones claro. Eliminá la ambigüedad del 'quiero que quede lindo'."
+                "title": "1. Pedilo",
+                "desc": "Contale a la app qué necesitás. 'Tengo humedad', 'Quiero pintar'. Nosotros lo traducimos a lenguaje técnico."
             },
             "step2": {
-                "title": "2. Licitación Transparente",
-                "desc": "Recibí propuestas de Ejecutores calificados. Evaluá por índice de Aura y cumplimiento, no solo por precio."
+                "title": "2. Elegí",
+                "desc": "Recibí propuestas. Mirá las calificaciones y elegí al que más confianza te de."
             },
             "step3": {
-                "title": "3. Asignación de Fondos",
-                "desc": "Depositá el monto de la etapa en custodia. El Ejecutor trabaja con la seguridad de solvencia."
+                "title": "3. Reservá",
+                "desc": "Poné la plata en reserva. El profesional arranca tranquilo porque sabe que el pago está."
             },
             "step4": {
-                "title": "4. Certificación Final",
-                "desc": "Contra evidencia documental, liberás el pago. La transacción se cierra y se actualizan las reputaciones."
+                "title": "4. Aprobá",
+                "desc": "Cuando te muestran que terminaron, liberás el pago. Listo."
             },
             "slicesFeature": {
-                "title": "Tecnología de 'Fichas'",
-                "description": "Atomizamos el proyecto. Transformamos una obra grande en activos digitales pequeños y líquidos (Fichas). Ejecutás, auditás, pagás.",
-                "exampleTitle": "Caso: Impermeabilización",
-                "exampleStep1": "1. Diagnóstico ($15k): Informe técnico fotográfico.",
-                "exampleStep2": "2. Ejecución ($45k): Video de aplicación de membrana.",
-                "exampleStep3": "3. Acabado ($20k): Foto final y prueba hidráulica."
+                "title": "Hacelo por partes",
+                "description": "Si la obra es grande, la dividimos en 'Fichas'. Pagás por avance, no todo junto.",
+                "exampleTitle": "Ejemplo: Arreglar Techo",
+                "exampleStep1": "1. Visita y diagnóstico ($15k).",
+                "exampleStep2": "2. Materiales y primera mano ($45k).",
+                "exampleStep3": "3. Terminación y prueba ($20k)."
             },
             "aiFeature": {
-                "title": "Tu Gerente de Obra (IA)",
-                "description": "¿No sabés de construcción? Nuestra IA traduce 'tengo una mancha' a especificaciones técnicas.",
-                "chatUser": "👱‍♂️ Tengo humedad en el techo del baño.",
-                "chatAi": "🤖 Recibido. Generando Pliego: 'Reparación de filtración en losa sanitaria + Pintura antihongo'.",
-                "cta": "Iniciar Asistente Técnico"
+                "title": "Asistente Inteligente",
+                "description": "¿No sabés cómo explicarlo? Decímelo en criollo y yo lo escribo en 'idioma obra'.",
+                "chatUser": "👱‍♂️ Tengo una mancha de humedad en el baño.",
+                "chatAi": "🤖 Dale. Lo anoto como: 'Reparación de filtración en losa y pintura antihongo'.",
+                "cta": "Probar Asistente"
             }
         },
         "clients": {
-            "title": "Para Comitentes",
-            "description": "Invertí en tu propiedad con seguridad jurídica y financiera.",
-            "badge": "Inversores"
+            "title": "Para Clientes",
+            "description": "Arreglá tu casa sin miedo a que te dejen plantado.",
+            "badge": "Dueños"
         },
         "providers": {
-            "title": "Para Ejecutores",
-            "description": "Validá tu calidad técnica y accedé a clientes solventes.",
-            "badge": "Profesionales"
+            "title": "Para Profesionales",
+            "description": "Conseguí trabajos serios y cobrá seguro.",
+            "badge": "Expertos"
         },
         "umarels": {
             "title": "Para Entendidos",
-            "description": "Capitalizá tu conocimiento técnico auditando proyectos de terceros.",
+            "description": "Usá tu experiencia para ayudar a otros y ganar algo extra.",
             "badge": "Auditores"
         },
         "stats": {
-            "foundations": "Activos",
-            "foundationsLabel": "Proyectos",
-            "savings": "Eficiencia",
-            "savingsLabel": "En Costos",
+            "foundations": "Obras",
+            "foundationsLabel": "En marcha",
+            "savings": "Ahorro",
+            "savingsLabel": "Promedio",
             "free": "100%",
-            "freeLabel": "Transparencia",
+            "freeLabel": "Seguro",
             "daily": "Real",
-            "dailyLabel": "Interacción Humana"
+            "dailyLabel": "Personas Reales"
         },
         "cta": {
-            "title": "Tomá el Control de tu Obra",
-            "subtitle": "Estándares profesionales · Garantía de fondos · Auditoría experta",
-            "postButton": "Iniciar Proyecto",
-            "browseButton": "Ver Mercado",
-            "joinText": "Unite a la red de construcción profesional más confiable."
+            "title": "Tomá el control de tu obra",
+            "subtitle": "Simple. Seguro. Con gente que sabe.",
+            "postButton": "Pedir Presupuesto",
+            "browseButton": "Ver Profesionales",
+            "joinText": "Sumate a la comunidad de confianza."
         },
         "trattoria": {
-            "welcome": "Centro de Comando",
+            "welcome": "Panel de Control",
             "offerServices": "Ofrecer Servicios",
             "exploreCommunity": "Ver Mercado",
-            "secureEscrow": "Fondos en Custodia",
-            "verifiedExperts": "Auditores Certificados",
-            "fairPricing": "Valuación de Mercado",
-            "communityTrust": "Red de Confianza",
-            "benefitsTitle": "Arquitectura del Sistema",
-            "benefitsSubtitle": "Componentes diseñados para mitigar riesgo y maximizar eficiencia en cada etapa del proyecto.",
+            "secureEscrow": "Pago Protegido",
+            "verifiedExperts": "Expertos Verificados",
+            "fairPricing": "Precio Justo",
+            "communityTrust": "Comunidad",
+            "benefitsTitle": "Cómo te protegemos",
+            "benefitsSubtitle": "Herramientas para que nadie pierda plata ni tiempo.",
             "escrowProtection": {
-                "title": "Blindaje Financiero",
-                "description": "Tus fondos permanecen en una cuenta transitoria (Escrow). Vos mantenés la liquidez hasta que el entregable cumpla con las especificaciones."
+                "title": "Reserva de Dinero",
+                "description": "Tu plata queda guardada hasta que veas el trabajo terminado. Vos decidís cuándo pagar."
             },
             "dailyDividends": {
-                "title": "Incentivos por Auditoría",
-                "description": "Detectá errores, validá precios o mejorá especificaciones. Tu aporte técnico genera dividendos reales sobre el valor eficientizado."
+                "title": "Premios por Ayudar",
+                "description": "Si ayudás a detectar errores o validás trabajos bien hechos, sumás puntos y beneficios."
             },
             "aiWizard": {
-                "title": "Especificación Asistida",
-                "description": "Nuestra IA redacta los pliegos técnicos por vos. Convierte tus requerimientos vagos en instrucciones de obra precisas."
+                "title": "Te ayudamos a pedir",
+                "description": "No hace falta que sepas de construcción. Nuestro asistente te ayuda a explicar qué necesitás."
             },
             "communityWisdom": {
-                "title": "Revisión de Pares",
-                "description": "El efecto 'Ojos Múltiples'. Entendidos de la red revisan tu proyecto para detectar omisiones antes de que cuesten plata."
+                "title": "Ojos extra",
+                "description": "Otros usuarios con experiencia pueden mirar tu proyecto y avisarte si algo falta."
             },
             "auraReputation": {
-                "title": "Índice Aura",
-                "description": "Un puntaje de crédito reputacional. Incorruptible. Basado en obras entregadas en tiempo, forma y presupuesto."
+                "title": "Puntos Aura",
+                "description": "Es como el Veraz de la construcción. Si tenés buen Aura, es porque cumpliste siempre."
             },
             "proofOfArrival": {
-                "title": "Prueba de Ejecución",
-                "description": "Blockchain de eventos. Cada hito requiere foto geo-referenciada y timestamp. La historia de la obra es inalterable."
+                "title": "Evidencia Real",
+                "description": "Nada de 'ya pasé'. Acá se sube foto con ubicación y hora para demostrar que se fue a trabajar."
             },
             "fairPricingBenefit": {
                 "title": "Precios de Referencia",
-                "description": "Algoritmos que cruzan datos de mercado para decirte si un presupuesto está 'en precio' o fuera de rango."
+                "description": "El sistema te avisa si un presupuesto es muy caro o sospechosamente barato."
             },
             "milestonePayments": {
-                "title": "Financiamiento por Hitos",
-                "description": "No adelantes capital a ciegas. Desembolsá contra hitos cumplidos. Mantené el apalancamiento financiero durante la obra."
+                "title": "Pago por Etapas",
+                "description": "No pagues todo junto. Pagá a medida que ves avances concretos."
             },
-            "quote": "Lo que no se controla, se degrada.",
-            "quoteAuthor": "Principio de Gestión de Calidad",
-            "rolesTitle": "Roles del Ecosistema",
-            "rolesSubtitle": "Una estructura tripartita diseñada para el equilibrio de intereses.",
+            "quote": "Lo barato sale caro.",
+            "quoteAuthor": "Dicho Popular",
+            "rolesTitle": "Roles",
+            "rolesSubtitle": "Cada uno hace lo suyo.",
             "rolesCta": {
-                "seeker": "Contratar Obra",
-                "creator": "Ofrecer Ejecución",
-                "umarel": "Auditar Proyectos"
+                "seeker": "Contratar",
+                "creator": "Trabajar",
+                "umarel": "Auditar"
             },
-            "rolesQuote": "La calidad no es un accidente; es el resultado de un esfuerzo inteligente.",
-            "rolesQuoteTag": "Filosofía de Gestión",
+            "rolesQuote": "Haciendo las cosas bien, ganamos todos.",
+            "rolesQuoteTag": "Filosofía",
             "finalCta": {
-                "title": "Empezá a Gestionar",
-                "subtitle": "Unite a la plataforma que está profesionalizando el mercado de reformas en Argentina.",
-                "quote": "Eficiencia. Transparencia. Control."
+                "title": "Empezá hoy",
+                "subtitle": "La forma nueva y segura de hacer arreglos.",
+                "quote": "Sin vueltas."
             }
         },
         "trustHero": {
-            "tagline": "Ingeniería de Confianza",
-            "title": "La primera 'Fintech de Ladrillos' para tu hogar.",
-            "subtitle": "Combinamos seguridad bancaria con supervisión de obra. Tu reforma, gestionada como un activo financiero.",
-            "ctaPrimary": "Iniciar Gestión",
+            "tagline": "Confianza Total",
+            "title": "Arreglos y Reformas Seguras.",
+            "subtitle": "Olvidate de perseguir gente. Acá el trabajo se hace y se paga cuando está listo.",
+            "ctaPrimary": "Empezar",
             "ctaSecondary": "Ver Profesionales",
-            "ticker": "Custodia de fondos activa... Auditoría de presupuestos en tiempo real... Certificación de identidad...",
+            "ticker": "Custodia de fondos activa... Precios de referencia... Usuarios verificados...",
             "demoCard": {
-                "header": "Impermeabilización Terraza",
-                "meta": "Ejecutor: Techistas Pro • 98 Aura",
-                "riskBadge": "AUDITADO",
+                "header": "Arreglo Terraza",
+                "meta": "Techista Pro • 98 Aura",
+                "riskBadge": "REVISADO",
                 "item1": "Materiales Incluidos",
-                "item2": "Garantía 12 Meses",
-                "insightLabel": "Dictamen del Entendido",
-                "insightText": "Presupuesto validado. El detalle de materiales cumple norma IRAM. Cronograma de 3 días es realista.",
-                "fairPrice": "Precio de Mercado",
-                "savedBadge": "SOLVENTE",
-                "verifiedAudits": "Verificado Técnicamente",
-                "saved": "Seguro"
+                "item2": "Garantía",
+                "insightLabel": "Opinión del Entendido",
+                "insightText": "El presupuesto está bien. Los materiales son los correctos para esa superficie.",
+                "fairPrice": "Precio Lógico",
+                "savedBadge": "SEGURO",
+                "verifiedAudits": "Verificado",
+                "saved": "OK"
             }
         },
         "italianQuotes": {
-            "q1": "La confianza es buena, el control es mejor.",
-            "q2": "El precio es lo que pagas. El valor es lo que obtienes.",
-            "q3": "Calidad significa hacer lo correcto cuando nadie está mirando.",
-            "q4": "Si creés que un profesional es caro, esperá a contratar a un aficionado.",
-            "q5": "La amargura de la mala calidad permanece mucho tiempo después de olvidar la dulzura del precio bajo."
+            "q1": "Cuentas claras conservan la amistad.",
+            "q2": "Lo barato sale caro.",
+            "q3": "Hacelo bien o no lo hagas.",
+            "q4": "El que sabe, sabe.",
+            "q5": "Mejor prevenir que curar."
         },
         "roles": {
             "client": {
-                "title": "El Comitente",
-                "description": "Tenés un activo que necesita mantenimiento o mejora. Buscás ejecución precisa y seguridad financiera."
+                "title": "Cliente",
+                "description": "Tenés que arreglar algo. Buscás a alguien confiable y no querés líos con la plata."
             },
             "builder": {
-                "title": "El Ejecutor",
-                "description": "Oficio certificado. Buscás clientes serios, reglas claras y pagos garantizados sin perseguir cobranzas."
+                "title": "Profesional",
+                "description": "Sabés tu oficio. Querés clientes serios que paguen a término."
             },
             "umarel": {
                 "title": "El Entendido",
-                "description": "Consultor técnico. Aportás tu criterio para validar presupuestos y certificar calidad a cambio de honorarios."
+                "description": "Ayudás revisando presupuestos y fotos para que todo salga bien."
             }
         },
         "safetyTips": {
-            "title": "Protocolos de Seguridad",
+            "title": "Consejos de Seguridad",
             "tips": [
-                "Toda transacción debe pasar por la plataforma.",
-                "Jamás adelantes efectivo por fuera.",
-                "La evidencia visual es obligatoria para cobrar.",
-                "Las modificaciones de alcance se documentan.",
-                "El respeto profesional es la base del contrato.",
-                "La reputación es tu activo más valioso.",
-                "Ante la duda, solicitá auditoría."
+                "Todo pago se hace por la web.",
+                "Nunca des efectivo por fuera.",
+                "Sin foto no hay pago.",
+                "Si cambiás algo, anotalo en el chat.",
+                "El respeto es clave.",
+                "Cuidá tus puntos Aura.",
+                "Ante la duda, preguntale a un Entendido."
             ]
         }
     },
     "login": {
-        "title": "Acceso a Plataforma",
-        "subtitle": "Credenciales de usuario",
-        "googleButton": "Ingreso con Google",
+        "title": "Bienvenido",
+        "subtitle": "Ingresá a tu cuenta",
+        "googleButton": "Entrar con Google",
         "or": "O",
-        "email": "Correo Corporativo / Personal",
+        "email": "Email",
         "password": "Clave",
-        "signIn": "Ingresar",
-        "signUp": "Crear Cuenta",
+        "signIn": "Entrar",
+        "signUp": "Registrarme",
         "agreeToTerms": "Acepto los {terms} y la {privacy}",
-        "termsLink": "Términos de Uso",
-        "privacyLink": "Política de Datos"
+        "termsLink": "Términos",
+        "privacyLink": "Privacidad"
     },
     "createRequest": {
-        "title": "Nuevo Requerimiento",
-        "subtitle": "Definí el alcance. La IA te asistirá en la redacción técnica.",
+        "title": "Nuevo Pedido",
+        "subtitle": "Contanos qué pasa. La IA te ayuda a escribirlo.",
         "form": {
-            "title": "Título del Proyecto",
-            "titlePlaceholder": "ej. Renovación Integral de Baño Principal",
-            "description": "Especificaciones Técnicas",
-            "descPlaceholder": "Detalles operativos, materiales preferidos, restricciones horarias...",
-            "location": "Ubicación del Activo",
-            "locationPlaceholder": "Dirección o Coordenadas",
-            "photos": "Relevamiento Fotográfico",
-            "uploadText": "Adjuntar evidencia inicial",
-            "submit": "Lanzar Licitación"
+            "title": "Título",
+            "titlePlaceholder": "ej. Arreglar baño, Pintar cocina",
+            "description": "Detalles",
+            "descPlaceholder": "Contá un poco más... ¿Qué materiales querés? ¿Para cuándo?",
+            "location": "Ubicación",
+            "locationPlaceholder": "Dirección o Barrio",
+            "photos": "Fotos",
+            "uploadText": "Subí fotos del problema",
+            "submit": "Publicar"
         }
     },
     "requestDetail": {
-        "openForSlicing": "Abierto a Estructuración",
-        "postedBy": "Titular",
-        "splittingZone": "Mesa de Ingeniería",
-        "splittingZoneDesc": "Colaborá en la división de tareas. Optimizá el plan de trabajo.",
-        "suggestedBy": "Ingeniero Sugerido",
-        "est": "Est.",
-        "discuss": "Mesa Técnica",
-        "noSlices": "Pendiente de estructuración. Esperando input técnico."
+        "openForSlicing": "Borrador",
+        "postedBy": "Dueño",
+        "splittingZone": "Zona de Trabajo",
+        "splittingZoneDesc": "Acá dividimos el trabajo en partes.",
+        "suggestedBy": "Sugerido por",
+        "est": "Aprox.",
+        "discuss": "Chat del Proyecto",
+        "noSlices": "Todavía no se definieron los pasos."
     },
     "dashboard": {
         "provider": {
-            "title": "Consola de Ejecutor",
-            "subtitle": "Gestión de ofertas y obras en curso.",
-            "updateProfile": "Editar Credenciales",
+            "title": "Mis Trabajos",
+            "subtitle": "Obras y presupuestos enviados.",
+            "updateProfile": "Editar Perfil",
             "project": "Obra:",
-            "viewDetails": "Ver Pliego"
+            "viewDetails": "Ver"
         },
         "customer": {
-            "title": "Portafolio de Proyectos",
-            "subtitle": "Estado de situación de tus activos en obra.",
-            "postNew": "Nuevo Proyecto",
-            "slicesDefined": "Hitos definidos",
-            "quotesReceived": "Ofertas activas",
-            "viewDetails": "Detalle de Gestión",
-            "postedOn": "Alta en sistema"
+            "title": "Mis Pedidos",
+            "subtitle": "El estado de tus arreglos.",
+            "postNew": "Nuevo Pedido",
+            "slicesDefined": "Pasos listos",
+            "quotesReceived": "Ofertas",
+            "viewDetails": "Ver",
+            "postedOn": "Fecha"
         }
     },
     "profile": {
-        "memberSince": "Antigüedad",
-        "auraPoints": "Índice Aura",
-        "yourJourney": "Tu Carrera",
-        "keepContributing": "Métrica de desempeño para ascenso de categoría.",
-        "currentRank": "Categoría:",
-        "nextRank": "Próxima Categoría:",
-        "pointsToGo": "puntos para ascenso",
-        "slicesCreated": "Estructuras Creadas",
-        "upvotesReceived": "Validaciones",
-        "slicesCompleted": "Obras Entregadas",
-        "topUmarels": "Ranking de Auditores"
+        "memberSince": "Miembro desde",
+        "auraPoints": "Puntos Aura",
+        "yourJourney": "Tu Nivel",
+        "keepContributing": "Seguí sumando para subir de nivel.",
+        "currentRank": "Nivel Actual:",
+        "nextRank": "Próximo Nivel:",
+        "pointsToGo": "puntos faltan",
+        "slicesCreated": "Pedidos",
+        "upvotesReceived": "Votos",
+        "slicesCompleted": "Trabajos",
+        "topUmarels": "Ranking"
     },
     "NotFound": {
-        "title": "Ruta No Válida",
-        "description": "El recurso solicitado no se encuentra en el servidor."
+        "title": "No encontrado",
+        "description": "No encontramos lo que buscabas."
     },
     "browse": {
-        "title": "Mercado de Servicios",
-        "subtitle": "Buscador de oportunidades y proveedores calificados.",
-        "searchPlaceholder": "Filtrar por rubro...",
-        "postRequest": "Publicar Requerimiento",
-        "offerServices": "Ofrecer Disponibilidad",
-        "showing": "Listando",
-        "results": "registros",
+        "title": "Buscar",
+        "subtitle": "Encontrá oportunidades o profesionales.",
+        "searchPlaceholder": "Buscar...",
+        "postRequest": "Publicar Pedido",
+        "offerServices": "Ofrecer Servicio",
+        "showing": "Mostrando",
+        "results": "resultados",
         "in": "en",
-        "noResults": "Sin coincidencias en",
-        "tryAdjusting": "Modificar criterios de búsqueda",
-        "clearFilters": "Restablecer Filtros",
-        "beFirstToOffer": "Inaugurar Categoría"
+        "noResults": "Nada por acá en",
+        "tryAdjusting": "Probá buscar otra cosa",
+        "clearFilters": "Limpiar filtros",
+        "beFirstToOffer": "Sé el primero"
     },
     "filters": {
-        "show": "Visualizar",
-        "allListings": "Global",
-        "requestsOnly": "Licitaciones",
+        "show": "Ver",
+        "allListings": "Todo",
+        "requestsOnly": "Pedidos",
         "offeringsOnly": "Profesionales",
-        "category": "Especialidad",
-        "allCategories": "Todas las Especialidades",
-        "location": "Zona Operativa",
-        "includeVirtual": "Incluir Remotos",
-        "hourlyRate": "Honorarios ($/h)",
-        "activeFilters": "Filtros Aplicados",
-        "localOnly": "Radio Local",
+        "category": "Rubro",
+        "allCategories": "Todos los rubros",
+        "location": "Zona",
+        "includeVirtual": "Virtual",
+        "hourlyRate": "Precio Hora",
+        "activeFilters": "Filtros",
+        "localOnly": "Cerca mío",
         "categories": {
-            "plumbing": "Instalaciones Sanitarias",
-            "electrical": "Electricidad e Iluminación",
-            "carpentry": "Carpintería y Mobiliario",
-            "painting": "Pintura y Revestimientos",
-            "cleaning": "Mantenimiento y Limpieza",
-            "gardening": "Paisajismo",
-            "moving": "Logística y Mudanzas",
-            "other": "Servicios Especiales"
+            "plumbing": "Plomería",
+            "electrical": "Electricidad",
+            "carpentry": "Carpintería",
+            "painting": "Pintura",
+            "cleaning": "Limpieza",
+            "gardening": "Jardinería",
+            "moving": "Fletes",
+            "other": "Varios"
         },
         "locationPlaceholder": "Localidad..."
     },
     "locationInput": {
-        "placeholder": "Ingresar dirección...",
-        "noResults": "Ubicación no indexada.",
-        "searching": "Geolocalizando..."
+        "placeholder": "Dirección...",
+        "noResults": "No encontrado.",
+        "searching": "Buscando..."
     },
     "requestInteraction": {
-        "description": "Especificaciones",
-        "details": "Ficha Técnica",
-        "location": "Ubicación",
-        "postedBy": "Comitente",
-        "created": "Fecha de Alta",
-        "privateInsights": "Bitácora Privada",
-        "noInsights": "👋 **Sistema Iniciado.**\n\nEste es tu espacio de definición. Detallá el requerimiento y el **Capataz IA** estructurará el plan de trabajo en 'Fichas de Ejecución'.\n\nObjetivo: Claridad contractual.",
-        "noComments": "Sin registros en bitácora.",
-        "placeholder": "Ingresar observación técnica, riesgo o desvío...",
-        "placeholderInsight": "Descripción del alcance...",
-        "placeholderComment": "Comentario de seguimiento...",
-        "placeholderPrompt": "Instrucción al sistema (ej. dividir en fases)...",
-        "aiMode": "Modo Capataz AI",
-        "aiModeActive": "IA Activa",
+        "description": "Detalles",
+        "details": "Ficha",
+        "location": "Lugar",
+        "postedBy": "Cliente",
+        "created": "Fecha",
+        "privateInsights": "Notas Privadas",
+        "noInsights": "👋 **Hola.**\n\nAcá definimos el trabajo. Detallá bien todo para que la IA te ayude a organizarlo en pasos claros.\n\nObjetivo: Que no haya malentendidos.",
+        "noComments": "Nada por ahora.",
+        "placeholder": "Escribí algo...",
+        "placeholderInsight": "Detalle...",
+        "placeholderComment": "Comentario...",
+        "placeholderPrompt": "Instrucción para la IA...",
+        "aiMode": "Modo IA",
+        "aiModeActive": "IA On",
         "phase": {
-            "label": "Estado de Fase",
-            "defining": "Ingeniería",
-            "bidding": "Licitación"
+            "label": "Estado",
+            "defining": "Definiendo",
+            "bidding": "Presupuestando"
         },
         "tabs": {
-            "slices": "Cronograma",
+            "slices": "Pasos",
             "quotes": "Ofertas"
         },
-        "send": "Registrar",
-        "sending": "Procesando...",
-        "pendingProposals": "Cambios Pendientes",
+        "send": "Enviar",
+        "sending": "...",
+        "pendingProposals": "Pendientes",
         "tips": {
-            "label": "Tips de Gestión",
-            "text": "Consultá a la IA:",
-            "example1": "Analizar precios unitarios",
-            "example2": "Evaluar riesgos de ejecución"
+            "label": "Tips",
+            "text": "Preguntale a la IA:",
+            "example1": "Analizar precios",
+            "example2": "Ver riesgos"
         },
-        "submittedQuotes": "Propuestas Económicas",
-        "noQuotes": "Bandeja de ofertas vacía.",
-        "quoteFrom": "Cotización de",
-        "optimizationDiscussion": "Optimización de Costos",
-        "fullActivityLog": "Traza de Auditoría"
+        "submittedQuotes": "Presupuestos",
+        "noQuotes": "No hay ofertas aún.",
+        "quoteFrom": "Oferta de",
+        "optimizationDiscussion": "Charla sobre Costos",
+        "fullActivityLog": "Historial"
     },
     "kanban": {
         "columns": {
             "proposed": "Borrador",
-            "accepted": "Validado",
-            "completed": "Ejecutado"
+            "accepted": "Aprobado",
+            "completed": "Listo"
         },
         "actions": {
-            "accept": "Autorizar",
-            "complete": "Certificar"
+            "accept": "Aceptar",
+            "complete": "Terminar"
         },
         "labels": {
-            "ai": "Automático",
-            "noSlices": "Fase sin items."
+            "ai": "Auto",
+            "noSlices": "Vacío"
         },
         "errors": {
-            "updateFailed": "Fallo en operación",
-            "movedTo": "Estado cambiado a {status}"
+            "updateFailed": "Error",
+            "movedTo": "Pasó a {status}"
         }
     },
     "sliceCard": {
-        "titleLabel": "Item",
-        "descriptionLabel": "Especificación",
-        "locationLabel": "Sector",
-        "finalPriceLabel": "Precio Cerrado",
-        "requiredSkillsLabel": "Competencias",
-        "estimatedTimeLabel": "Plazo",
-        "dependenciesLabel": "Pre-requisitos",
-        "acceptanceCriteriaLabel": "Criterios de Aceptación",
-        "saveChanges": "Confirmar Edición",
-        "version": "Rev.{version}"
+        "titleLabel": "Tarea",
+        "descriptionLabel": "Detalle",
+        "locationLabel": "Lugar",
+        "finalPriceLabel": "Precio",
+        "requiredSkillsLabel": "Saber hacer",
+        "estimatedTimeLabel": "Tiempo",
+        "dependenciesLabel": "Se necesita antes",
+        "acceptanceCriteriaLabel": "Para aprobar",
+        "saveChanges": "Guardar",
+        "version": "v{version}"
     },
     "wallet": {
-        "title": "Estado de Cuenta",
-        "stash": "Saldo Disponible",
-        "aura": "Índice Aura",
-        "impact": "Métricas de Impacto",
-        "redemptions": "Liquidación",
+        "title": "Mi Billetera",
+        "stash": "Saldo",
+        "aura": "Puntos Aura",
+        "impact": "Impacto",
+        "redemptions": "Retirar",
         "greetings": {
-            "bronze": "Perfil Junior. Iniciando trayectoria.",
-            "silver": "Perfil Semi-Senior. Rendimiento consistente.",
-            "gold": "Perfil Senior. Referente técnico.",
-            "diamond": "Perfil Master. Autoridad en la materia."
+            "bronze": "Nivel Inicial.",
+            "silver": "Nivel Medio. ¡Bien!",
+            "gold": "Nivel Experto.",
+            "diamond": "Nivel Maestro."
         },
         "impactType": {
-            "risk_mitigation": "Mitigación de Riesgos",
-            "savings": "Ahorro Generado",
-            "clarity": "Claridad Técnica",
-            "quality": "Aseguramiento Calidad"
+            "risk_mitigation": "Problemas evitados",
+            "savings": "Plata ahorrada",
+            "clarity": "Claridad",
+            "quality": "Calidad"
         },
-        "emptyStash": "Sin fondos acumulados. Participá en auditorías.",
-        "withdraw": "Transferir Fondos"
+        "emptyStash": "Sin fondos.",
+        "withdraw": "Retirar plata"
     },
     "createOffering": {
-        "pageTitle": "Alta de Servicio Profesional",
-        "pageSubtitle": "Configurá tu oferta técnica para aparecer en el radar de clientes.",
-        "cardTitle": "Ficha de Servicio",
-        "cardDescription": "Datos públicos de tu oferta.",
+        "pageTitle": "Crear Perfil",
+        "pageSubtitle": "Completá tus datos para que te contraten.",
+        "cardTitle": "Tu Ficha",
+        "cardDescription": "Esto es lo que van a ver los clientes.",
         "form": {
-            "titleLabel": "Título Profesional",
-            "titlePlaceholder": "ej. Especialista en Instalaciones de Gas Matriculado",
-            "titleDesc": "Denominación clara de tu rol.",
+            "titleLabel": "Título",
+            "titlePlaceholder": "ej. Gasista Matriculado",
+            "titleDesc": "Cómo te presentás.",
             "categoryLabel": "Rubro",
-            "categoryPlaceholder": "Seleccionar Rubro",
-            "descriptionLabel": "Perfil Técnico",
-            "descriptionPlaceholder": "Experiencia, certificaciones, metodología de trabajo...",
-            "virtualLabel": "Modalidad Remota",
-            "virtualDesc": "Habilitado para consultoría o diseño a distancia.",
-            "locationLabel": "Base Operativa",
-            "locationPlaceholder": "ej. CABA, Vicente López",
-            "locationDesc": "Área de cobertura principal.",
-            "hourlyRateLabel": "Honorario Base ($/h) (Ref.)",
+            "categoryPlaceholder": "Elegí uno",
+            "descriptionLabel": "Sobre vos",
+            "descriptionPlaceholder": "Experiencia, herramientas, cómo trabajás...",
+            "virtualLabel": "Trabajo Online",
+            "virtualDesc": "Si hacés consultoría a distancia.",
+            "locationLabel": "Zona",
+            "locationPlaceholder": "ej. Belgrano, Palermo",
+            "locationDesc": "Dónde trabajás.",
+            "hourlyRateLabel": "Precio Hora Ref.",
             "availabilityLabel": "Disponibilidad",
-            "availabilityPlaceholder": "ej. Full-time, Fines de semana",
-            "skillsLabel": "Competencias",
-            "skillsPlaceholder": "ej. Termofusión, Detección de Fugas",
-            "skillsDesc": "Etiquetas de especialidad.",
-            "portfolioLabel": "Portfolio de Obras",
-            "addImage": "Subir Evidencia",
-            "portfolioDesc": "Fotos de trabajos previos terminados.",
-            "submitButton": "Publicar Perfil",
-            "submittingButton": "Procesando...",
-            "successMessage": "Perfil activo.",
-            "errorMessage": "Error en el alta."
+            "availabilityPlaceholder": "ej. Mañanas",
+            "skillsLabel": "Habilidades",
+            "skillsPlaceholder": "ej. Caños, Soldadura",
+            "skillsDesc": "Etiquetas.",
+            "portfolioLabel": "Fotos de Trabajos",
+            "addImage": "Subir Foto",
+            "portfolioDesc": "Mostrá lo que hiciste.",
+            "submitButton": "Guardar Perfil",
+            "submittingButton": "Guardando...",
+            "successMessage": "Listo.",
+            "errorMessage": "Error."
         }
     },
     "terms": {
-        "title": "Términos Legales",
-        "intro": "Marco contractual de uso...",
-        "privacyTitle": "Políticas de Datos"
+        "title": "Legales",
+        "intro": "Reglas de juego...",
+        "privacyTitle": "Privacidad"
     },
     "offeringDetail": {
-        "backToBrowse": "Volver al Listado",
-        "virtual": "Servicio Remoto",
-        "aboutService": "Acerca del Servicio",
-        "skills": "Matriz de Competencias",
-        "availability": "Ventana Operativa",
-        "editOffering": "Gestionar Servicio",
-        "contactProvider": "Iniciar Consulta",
-        "contactDisclaimer": "La consulta no genera obligación contractual.",
-        "provider": "Prestador",
-        "completion": "Tasa de Cumplimiento",
-        "rating": "Calificación Global"
+        "backToBrowse": "Volver",
+        "virtual": "Online",
+        "aboutService": "Sobre el servicio",
+        "skills": "Habilidades",
+        "availability": "Horarios",
+        "editOffering": "Editar",
+        "contactProvider": "Contactar",
+        "contactDisclaimer": "Consultar es gratis.",
+        "provider": "Profesional",
+        "completion": "Cumplimiento",
+        "rating": "Puntaje"
     },
     "submitEvidence": {
-        "title": "Certificar Hito",
-        "description": "Para dar por cumplido \"{sliceTitle}\", se requiere evidencia documental estricta.",
-        "guardianWarning": "<strong>Auditoría {guardianName}:</strong> Análisis forense de metadatos activo.",
-        "guardianName": "Bot de Integridad",
-        "successApproved": "{guardianName}: Evidencia Validada (Integridad OK)",
-        "uploadRequired": "Requisito: {type, select, photo {📸 Foto Georreferenciada} video {🎥 Video de Recorrido} other {Documento}}",
-        "actionSubmit": "Cargar Evidencia",
-        "btnVerify": "Validar y Cerrar",
+        "title": "Terminar Tarea",
+        "description": "Para cerrar \"{sliceTitle}\", tenés que subir la prueba.",
+        "guardianWarning": "<strong>Revisión {guardianName}:</strong> Analizando foto...",
+        "guardianName": "Bot",
+        "successApproved": "{guardianName}: Foto OK",
+        "uploadRequired": "Subí: {type, select, photo {📸 Foto} video {🎥 Video} other {Archivo}}",
+        "actionSubmit": "Subir",
+        "btnVerify": "Validar",
         "btnSigning": "Firmando..."
     },
     "timeline": {
         "status": {
-            "pending": "A la Espera",
-            "active": "En Curso",
-            "review": "En Auditoría",
-            "completed": "Certificado",
+            "pending": "Esperando",
+            "active": "Haciendo",
+            "review": "Revisando",
+            "completed": "Listo",
             "locked": "Bloqueado",
-            "paid": "Liquidado"
+            "paid": "Pagado"
         },
         "reviewNames": {
-            "evidenceReady": "Documentación Disponible",
-            "aiVerified": "Validación Algorítmica OK."
+            "evidenceReady": "Hay foto",
+            "aiVerified": "IA OK."
         },
         "actions": {
-            "details": "Ver Trazabilidad",
-            "releaseFunds": "Liberar Pago",
+            "details": "Ver",
+            "releaseFunds": "Pagar",
             "releaseFundsShort": "Pagar"
         }
     },
     "guide": {
-        "title": "Manual Operativo",
-        "subtitle": "Protocolo de ejecución segura. Sin letra chica.",
-        "intro": "Estandarizamos el proceso de reforma para eliminar la incertidumbre.",
+        "title": "Manual",
+        "subtitle": "Cómo se usa.",
+        "intro": "Simple y seguro.",
         "roles": {
             "seeker": {
-                "title": "Comitente (Dueño)",
-                "desc": "Tenés una necesidad constructiva.",
-                "step1": "1. Especificar",
-                "step1Desc": "Definí el alcance sin tecnicismos. La IA lo traduce a un pliego técnico.",
-                "step2": "2. Estructurar",
-                "step2Desc": "Dividimos la obra en 'Hitos' con precio cerrado. Planificación financiera clara.",
-                "step3": "3. Fondear",
-                "step3Desc": "Depositás en garantía (Escrow). No pagás por adelantado, pero demostrás solvencia."
+                "title": "Cliente",
+                "desc": "Tenés que hacer algo.",
+                "step1": "1. Pedir",
+                "step1Desc": "Decinos qué necesitás.",
+                "step2": "2. Organizar",
+                "step2Desc": "Dividimos el trabajo.",
+                "step3": "3. Reservar",
+                "step3Desc": "Asegurás el pago."
             },
             "creator": {
-                "title": "Ejecutor (Pro)",
-                "desc": "Sos un profesional que quiere trabajar seriamente.",
+                "title": "Profesional",
+                "desc": "Querés trabajar.",
                 "step1": "1. Acordar",
-                "step1Desc": "Alcance 100% definido. Sabés qué tenés que hacer.",
-                "step2": "2. Ejecutar",
-                "step2Desc": "Ves los fondos reservados. Trabajás tranquilo.",
+                "step1Desc": "Definimos qué hacer.",
+                "step2": "2. Hacer",
+                "step2Desc": "Trabajás tranquilo.",
                 "step3": "3. Cobrar",
-                "step3Desc": "Subís evidencia, el cliente aprueba, el dinero se libera al instante."
+                "step3Desc": "Subís foto y cobrás."
             },
             "umarel": {
-                "title": "Entendido (Auditor)",
-                "desc": "Aportás control de calidad externo.",
-                "step1": "1. Auditar Plan",
-                "step1Desc": "Revisás el presupuesto en busca de errores u omisiones.",
-                "step2": "2. Validar Avance",
-                "step2Desc": "¿La evidencia coincide con lo prometido? Das tu OK técnico.",
-                "step3": "3. Monetizar",
-                "step3Desc": "Cobrás honorarios por cada intervención que agregue valor."
+                "title": "Entendido",
+                "desc": "Ayudás a controlar.",
+                "step1": "1. Auditar",
+                "step1Desc": "Revisás precios.",
+                "step2": "2. Validar",
+                "step2Desc": "Mirás las fotos.",
+                "step3": "3. Ganar",
+                "step3Desc": "Cobrás por ayudar."
             }
         },
         "faq": {
-            "title": "Base de Conocimiento",
-            "q1": "¿Qué pasa si rechazo el trabajo?",
-            "a1": "Los fondos siguen en custodia. Se abre una instancia de mediación técnica asistida por IA.",
-            "q2": "¿Es vinculante?",
-            "a2": "Sí. Los Hitos funcionan como contratos inteligentes de ejecución.",
-            "q3": "¿Requisitos técnicos?",
-            "a3": "Mínimos. Un celular con cámara y acceso a la plataforma."
+            "title": "Preguntas",
+            "q1": "¿Y si no me gusta?",
+            "a1": "La plata sigue guardada. Un Entendido ayuda a resolver el problema.",
+            "q2": "¿Es seguro?",
+            "a2": "Sí, usamos Mercado Pago.",
+            "q3": "¿Qué necesito?",
+            "a3": "Solo tu celular."
         },
-        "cta": "Iniciar Gestión"
+        "cta": "Empezar"
     },
     "referral": {
-        "title": "Programa de Referidos",
-        "subtitle": "Ayudanos a filtrar el mercado. Invitá a buenos profesionales.",
-        "shareLink": "Link de Invitación",
-        "linkCopied": "Link copiado",
-        "shareWhatsApp": "Enviar por WhatsApp",
-        "whatsappMessage": "👋 Che, mirá esta plataforma para gestionar obras de forma profesional. Tienen pagos seguros y verificación: https://umarel.org",
-        "disclaimer": "Beneficios en Aura y reputación por cada referido verificado."
+        "title": "Invitá amigos",
+        "subtitle": "Ayudanos a filtrar a los buenos.",
+        "shareLink": "Tu Link",
+        "linkCopied": "Copiado",
+        "shareWhatsApp": "Mandar por WhatsApp",
+        "whatsappMessage": "👋 Che, mirá esta app para arreglos de casa. Es segura y fácil: https://umarel.org",
+        "disclaimer": "Sumás puntos Aura."
     }
 }

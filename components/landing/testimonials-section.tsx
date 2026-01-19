@@ -8,7 +8,7 @@ export function TestimonialsSection() {
         {
             name: "Carlos M.",
             role: "Vecino de Caballito",
-            quote: "Tenía una humedad hace meses. Umarel me ayudó a definir bien el trabajo y el albañil que vino fue un fenómeno. Pagué recién cuando vi la pared seca.",
+            quote: "Tenía una humedad hace meses. El Entendido me ayudó a definir bien el trabajo y el albañil que vino fue un fenómeno. Pagué recién cuando vi la pared seca.",
             rating: 5,
             avatar: "C"
         },
@@ -21,7 +21,7 @@ export function TestimonialsSection() {
         },
         {
             name: "Antonio V.",
-            role: "Umarel (Jubilado)",
+            role: "Entendido (Jubilado)",
             quote: "Toda la vida trabajé en obra. Ahora uso mi experiencia para ayudar a otros a que no los estafen. Y de paso, me mantengo activo.",
             rating: 5,
             avatar: "A"

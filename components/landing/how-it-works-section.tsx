@@ -107,27 +107,27 @@ export function HowItWorksSection() {
                     </div>
 
                     {/* 2. AI ASSISTANT */}
-                    <div className="bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-800 text-white flex flex-col relative overflow-hidden">
+                    <div className="bg-blue-600 rounded-3xl p-8 shadow-xl border border-blue-500 text-white flex flex-col relative overflow-hidden">
                         {/* Bg Effect */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
                         <h3 className="text-2xl font-bold font-outfit mb-4 flex items-center gap-2 relative z-10">
                             {t('aiFeature.title')}
                         </h3>
-                        <p className="text-slate-300 mb-6 text-lg relative z-10">
+                        <p className="text-blue-100 mb-6 text-lg relative z-10">
                             {t('aiFeature.description')}
                         </p>
 
-                        <div className="bg-white/5 rounded-xl p-4 border border-white/10 mt-auto relative z-10 space-y-4">
-                            <div className="bg-slate-800 p-3 rounded-2xl rounded-tr-none self-end ml-8 relative shadow-lg">
-                                <p className="text-sm text-slate-200">{t('aiFeature.chatUser')}</p>
+                        <div className="bg-white/10 rounded-xl p-4 border border-white/20 mt-auto relative z-10 space-y-4">
+                            <div className="bg-blue-800/50 p-3 rounded-2xl rounded-tr-none self-end ml-8 relative shadow-sm border border-blue-700/50">
+                                <p className="text-sm text-blue-100">{t('aiFeature.chatUser')}</p>
                             </div>
-                            <div className="bg-blue-600 p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
-                                <p className="text-sm text-white font-medium">{t('aiFeature.chatAi')}</p>
+                            <div className="bg-white p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
+                                <p className="text-sm text-blue-900 font-bold">{t('aiFeature.chatAi')}</p>
                             </div>
 
                             <div className="pt-2">
-                                <button className="w-full py-3 rounded-xl bg-white text-slate-900 font-bold hover:bg-slate-100 transition-colors shadow-lg">
+                                <button className="w-full py-3 rounded-xl bg-white text-blue-600 font-bold hover:bg-blue-50 transition-colors shadow-lg">
                                     {t('aiFeature.cta')}
                                 </button>
                             </div>

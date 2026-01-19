@@ -112,6 +112,19 @@ export default async function LocaleLayout({
                     />
                 </noscript>
                 {/* End Meta Pixel Code */}
+
+                {/* Google Analytics (GA4) */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID" />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-MEASUREMENT_ID');
+            `,
+                    }}
+                />
             </head>
             <body
                 suppressHydrationWarning

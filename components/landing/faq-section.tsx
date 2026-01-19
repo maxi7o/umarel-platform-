@@ -5,8 +5,8 @@
 export function FaqSection() {
     const faqs = [
         {
-            q: "¿Qué es exactamente un Umarel?",
-            a: "Es un término cariñoso para referirse a la persona que supervisa una obra. En nuestra plataforma, son expertos verificados (o IA) que aseguran que el trabajo se haga bien antes de pagar."
+            q: "¿Qué es un Entendido?",
+            a: "Es alguien que sabe de obra (o nuestra IA). Te ayuda a revisar que no te cobren de más y que el trabajo quede bien hecho antes de pagar."
         },
         {
             q: "¿Cómo funciona el pago seguro?",
