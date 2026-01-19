@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { HeroSection } from '@/components/landing/hero-section';
-import { TrustSection } from '@/components/landing/trust-section';
+
 import { HowItWorksSection } from '@/components/landing/how-it-works-section';
 import { MobileDemos } from '@/components/landing/mobile-demos';
 import { TestimonialsSection } from '@/components/landing/testimonials-section';
