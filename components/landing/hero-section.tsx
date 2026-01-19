@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function HeroSection() {
@@ -118,7 +118,7 @@ export function HeroSection() {
 
                         {/* Floating Badge - Mercado Pago */}
                         <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white border border-slate-100 py-3 px-6 rounded-full shadow-xl flex items-center gap-3 whitespace-nowrap">
-                            <img src="https://img.mp.lat/orion/production/mercadopago_iso.png" alt="Mercado Pago" className="w-6 h-6 object-contain" />
+                            <ShieldCheck className="w-6 h-6 text-blue-600 fill-blue-100" />
                             <span className="text-sm font-bold text-slate-700">Pago Protegido</span>
                         </div>
                     </div>
