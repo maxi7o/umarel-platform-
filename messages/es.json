@@ -93,16 +93,16 @@
         ]
     },
     "home": {
-        "heroTitle1": "Tu casa es importante.",
-        "heroTitleHighlight": "Cuidala en serio.",
-        "heroSubtitle": "La forma más segura de contratar arreglos y reformas. Pagá solo cuando el trabajo está listo y aprobado.",
+        "heroTitle1": "Acordá. Cumplí.",
+        "heroTitleHighlight": "Cobrá.",
+        "heroSubtitle": "La forma más segura de contratar servicios. El Entendido la CUSTODIA hasta que el trabajo está listo.",
         "heroSteps": {
-            "step1": "1. Contanos qué necesitás arreglar.",
-            "step2": "2. Reservá la plata seguro (nadie la toca).",
-            "step3": "3. Liberá el pago cuando veas el trabajo listo."
+            "step1": "1. Definí lo que necesitás.",
+            "step2": "2. El Entendido la CUSTODIA.",
+            "step3": "3. Aprobá Etapas Verificables."
         },
         "postRequest": "Pedir Presupuesto",
-        "offerServices": "Ofrecer Servicios",
+        "offerServices": "Cotizar un Servicio",
         "availableIn": "Disponible en CABA y GBA",
         "watchVideo": "Ver cómo es",
         "browseServices": "Ver Pedidos",
@@ -141,13 +141,13 @@
                 "desc": "Decinos qué necesitás."
             },
             "stage2": {
-                "title": "El Trabajo",
-                "badge": "En marcha",
-                "desc": "El profesional trabaja y manda fotos."
+                "title": "Reservá con Seguridad",
+                "badge": "Custodia Segura",
+                "desc": "El dinero queda en CUSTODIA. Nadie lo toca hasta que vos das el OK."
             },
             "stage3": {
-                "title": "El Pago",
-                "desc": "Si te gusta, liberás la plata."
+                "title": "Etapas Verificables",
+                "desc": "Se paga paso a paso. Solo cuando ves la evidencia del trabajo hecho."
             },
             "floater": {
                 "title": "Pago Protegido",
