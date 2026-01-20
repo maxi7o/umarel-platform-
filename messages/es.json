@@ -713,5 +713,25 @@
         "shareWhatsApp": "Mandar por WhatsApp",
         "whatsappMessage": "👋 Che, mirá esta app para arreglos de casa. Es segura y fácil: https://umarel.org",
         "disclaimer": "Sumás puntos Aura."
+    },
+    "verification": {
+        "title": "Verificar Identidad",
+        "subtitle": "Para ser Profesional, necesitamos saber que sos vos.",
+        "steps": {
+            "idFront": "Frente del DNI",
+            "idBack": "Dorso del DNI",
+            "selfie": "Selfie"
+        },
+        "instructions": {
+            "id": "Buscá buena luz. Que se lean todos los datos.",
+            "selfie": "Sin anteojos ni gorra. Mirá a la cámara."
+        },
+        "upload": "Subir Foto",
+        "camera": "Usar Cámara",
+        "submit": "Enviar a Verificación",
+        "submitting": "Subiendo...",
+        "successTitle": "Documentos Recibidos",
+        "successDesc": "Nuestro equipo (y la IA) va a revisar tus datos. En unas horas te confirmamos.",
+        "backToProfile": "Volver al Perfil"
     }
 }
