@@ -12,7 +12,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
 
   return (
-    <div className="flex flex-col min-h-screen font-sans selection:bg-orange-100 selection:text-orange-900">
+    <div className="flex flex-col min-h-screen font-sans selection:bg-orange-100 selection:text-orange-900 overflow-x-hidden w-full">
       <HeroSection />
       {/* TrustSection removed to reduce redundancy with Hero */}
       <HowItWorksSection />

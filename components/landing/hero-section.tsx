@@ -75,14 +75,14 @@ export function HeroSection() {
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
                         <Link href="/requests/create" className="w-full sm:w-auto">
-                            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-xl shadow-blue-200 transition-all hover:scale-105 border-0">
+                            <Button size="lg" className="w-full sm:w-auto min-h-[3.5rem] h-auto py-3 px-8 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-xl shadow-blue-200 transition-all hover:scale-105 border-0 whitespace-normal text-center leading-tight">
                                 {t('postRequest')}
-                                <ArrowRight className="ml-2 h-5 w-5" />
+                                <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                             </Button>
                         </Link>
 
                         <Link href="/create-offering" className="w-full sm:w-auto">
-                            <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 h-14 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-all font-bold text-slate-600 shadow-sm">
+                            <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 min-h-[3.5rem] h-auto py-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-all font-bold text-slate-600 shadow-sm whitespace-normal text-center leading-tight">
                                 <span>{t('offerServices')}</span>
                             </button>
                         </Link>

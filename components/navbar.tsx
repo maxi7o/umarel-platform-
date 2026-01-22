@@ -57,10 +57,10 @@ export function Navbar({ user }: NavbarProps) {
                             src="/icon.png"
                             alt="El Entendido"
                             fill
-                            className="object-contain" // Removed invert to show original colors (likely black/orange) on white
+                            className="object-contain"
                         />
                     </div>
-                    <span className="font-outfit font-bold text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
+                    <span className="font-outfit font-bold text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
                         El Entendido
                     </span>
                 </Link>
