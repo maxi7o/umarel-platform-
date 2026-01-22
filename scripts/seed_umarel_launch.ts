@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { users, requests, slices, comments, communityRewards, escrowPayments, dailyPayouts, wizardMessages, sliceCards } from '@/lib/db/schema';
 import { faker } from '@faker-js/faker'; // Assuming faker is available or I'll use simple random
 import { v4 as uuidv4 } from 'uuid';
+import { eq } from 'drizzle-orm';
 
 // Simple random helpers if faker isn't installed
 const getRandom = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
@@ -29,24 +30,46 @@ async function seed() {
 
     // Create 50 Umarels
     for (let i = 0; i < 50; i++) {
-        const [user] = await db.insert(users).values({
-            email: `umarel${i}@example.com`,
-            fullName: `Umarel ${i}`,
-            role: 'user',
-            auraLevel: getRandom(['bronze', 'silver', 'gold', 'diamond']),
-            totalSavingsGenerated: getRandomInt(10000, 5000000), // in cents
-        }).returning();
-        umarels.push(user);
+        const email = `umarel${i}@example.com`;
+        let user;
+        try {
+            const [newUser] = await db.insert(users).values({
+                email,
+                fullName: `Umarel ${i}`,
+                role: 'user',
+                auraLevel: getRandom(['bronze', 'silver', 'gold', 'diamond']),
+                totalSavingsGenerated: getRandomInt(10000, 5000000), // in cents
+            }).onConflictDoNothing().returning();
+            user = newUser;
+        } catch (e) { console.log('User exists'); }
+
+        if (!user) {
+            const [existingUser] = await db.select().from(users).where(eq(users.email, email));
+            user = existingUser;
+        }
+        if (user) umarels.push(user);
     }
 
     // Create 20 Clients
     for (let i = 0; i < 20; i++) {
-        const [user] = await db.insert(users).values({
-            email: `client${i}@example.com`,
-            fullName: `Client ${i}`,
-            role: 'user',
-        }).returning();
-        clients.push(user);
+        const email = `client${i}@example.com`;
+        let user;
+        try {
+            const [newUser] = await db.insert(users).values({
+                email,
+                fullName: `Client ${i}`,
+                role: 'user',
+            }).onConflictDoNothing().returning();
+            user = newUser;
+        } catch (e) {
+            console.log('User exists');
+        }
+
+        if (!user) {
+            const [existingUser] = await db.select().from(users).where(eq(users.email, email));
+            user = existingUser;
+        }
+        if (user) clients.push(user);
     }
 
     console.log(`✅ Created ${umarels.length} Umarels and ${clients.length} Clients`);
