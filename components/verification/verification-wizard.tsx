@@ -104,7 +104,7 @@ export function VerificationWizard() {
                                 onClick={() => triggerInput(frontInputRef)}
                                 className="aspect-video bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 transition-colors relative overflow-hidden group"
                             >
-                                <input ref={frontInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'front')} />
+                                <input ref={frontInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileChange(e, 'front')} />
 
                                 {images.front ? (
                                     <Image src={images.front} alt="ID Front" fill className="object-cover" />
@@ -146,7 +146,7 @@ export function VerificationWizard() {
                                 onClick={() => triggerInput(backInputRef)}
                                 className="aspect-video bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 transition-colors relative overflow-hidden group"
                             >
-                                <input ref={backInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'back')} />
+                                <input ref={backInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileChange(e, 'back')} />
 
                                 {images.back ? (
                                     <Image src={images.back} alt="ID Back" fill className="object-cover" />
