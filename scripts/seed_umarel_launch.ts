@@ -14,11 +14,13 @@ const CITIES = [
     'Vicente López, GBA', 'Lanús, GBA', 'Caballito, CABA', 'Villa Urquiza, CABA',
     'Almagro, CABA', 'Tigre, GBA', 'Avellaneda, GBA'
 ];
-const CATEGORIES = ['Plomería', 'Electricidad', 'Albañilería', 'Pintura', 'Limpieza', 'Carpintería', 'Aire Acondicionado'];
+const CATEGORIES = ['Plomería', 'Electricidad', 'Albañilería', 'Pintura', 'Limpieza', 'Carpintería', 'Aire Acondicionado', 'Experiencias'];
 const TITLES = [
     'Arreglar pérdida en la cocina', 'Instalar luces nuevas', 'Pintar el living', 'Reparar humedad en pared',
     'Limpieza profunda de departamento', 'Armar biblioteca a medida', 'Reparar Aire Acondicionado', 'Cambiar canilla del baño',
-    'Instalar ventilador de techo', 'Arreglar puerta de madera', 'Impermeabilizar techo', 'Instalar tomacorriente'
+    'Instalar ventilador de techo', 'Arreglar puerta de madera', 'Impermeabilizar techo', 'Instalar tomacorriente',
+    'Tour de Bares Notables en Palermo', 'Clases de Roller en el Rosedal', 'Asado Argentino con Desconocidos', 'Búsqueda del Tesoro Urbana',
+    'Cata de Vinos en Terraza Privada', 'Taller de Fileteado Porteño'
 ];
 
 async function seed() {
@@ -78,13 +80,26 @@ async function seed() {
     for (let i = 0; i < 250; i++) {
         const client = getRandom(clients);
         const city = getRandom(CITIES);
-        const category = getRandom(CATEGORIES);
-        const title = getRandom(TITLES);
+        // Weighted random to give experiences some visibility but keep mix realistic
+        const isExperience = Math.random() < 0.15;
+        const category = isExperience ? 'Experiencias' : getRandom(CATEGORIES.filter(c => c !== 'Experiencias'));
+
+        let title;
+        if (category === 'Experiencias') {
+            title = getRandom([
+                'Tour de Bares Notables en Palermo', 'Clases de Roller en el Rosedal', 'Asado Argentino con Desconocidos',
+                'Búsqueda del Tesoro Urbana', 'Cata de Vinos en Terraza Privada', 'Taller de Fileteado Porteño'
+            ]);
+        } else {
+            title = getRandom(TITLES.slice(0, 12)); // Only utility titles
+        }
 
         const [request] = await db.insert(requests).values({
             userId: client.id,
-            title: `${title} en ${city}`,
-            description: `Necesito ayuda con ${title.toLowerCase()}. Por favor, necesito presupuesto y asesoramiento.`,
+            title: category === 'Experiencias' ? title : `${title} en ${city}`,
+            description: category === 'Experiencias'
+                ? `Busco gente para sumarse a ${title.toLowerCase()}. Una experiencia única para compartir.`
+                : `Necesito ayuda con ${title.toLowerCase()}. Por favor, necesito presupuesto y asesoramiento.`,
             category,
             location: city,
             status: 'open',

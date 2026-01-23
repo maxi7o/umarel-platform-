@@ -477,6 +477,7 @@
             "cleaning": "Limpieza",
             "gardening": "Jardinería",
             "moving": "Fletes",
+            "experiences": "Experiencias",
             "other": "Varios"
         },
         "locationPlaceholder": "Localidad..."
