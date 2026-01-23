@@ -123,7 +123,7 @@ export function HeroSection() {
                                 alt="Mercado Pago"
                                 width={24}
                                 height={24}
-                                className="h-6 w-auto object-contain"
+                                className="h-6 w-auto object-contain shrink-0"
                             />
                             <span className="text-sm font-bold text-slate-700">Pago Protegido</span>
                         </div>
