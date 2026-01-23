@@ -11,7 +11,7 @@ import Image from 'next/image'
 export function ReferralDialog({ trigger }: { trigger?: React.ReactNode }) {
     const t = useTranslations('referral')
     const [copied, setCopied] = useState(false)
-    const shareLink = "https://umarel.org"
+    const shareLink = "https://elentendido.ar"
 
     const handleCopy = () => {
         navigator.clipboard.writeText(shareLink)
@@ -62,7 +62,14 @@ export function ReferralDialog({ trigger }: { trigger?: React.ReactNode }) {
                     </div>
 
                     <Button onClick={handleWhatsApp} className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white">
-                        <Image src="/whatsapp.svg" alt="WhatsApp" width={20} height={20} className="mr-2 invert" />
+                        <div className="relative w-5 h-5 mr-2 shrink-0">
+                            <Image
+                                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                alt="WhatsApp"
+                                fill
+                                className="object-contain brightness-0 invert"
+                            />
+                        </div>
                         {t('shareWhatsApp')}
                     </Button>
 
