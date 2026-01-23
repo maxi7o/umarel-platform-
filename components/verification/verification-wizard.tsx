@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,6 +47,20 @@ export function VerificationWizard() {
 
     const nextStep = (next: Step) => setStep(next);
 
+    const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+            if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent)) {
+                setIsMobile(true);
+            } else {
+                setIsMobile(false);
+            }
+        };
+        checkMobile();
+    }, []);
+
     const StepIndicator = ({ current, total }: { current: number, total: number }) => (
         <div className="flex gap-2 mb-8 justify-center">
             {[1, 2, 3].map((num) => (
@@ -58,6 +72,33 @@ export function VerificationWizard() {
             ))}
         </div>
     );
+
+    if (isMobile === false) {
+        return (
+            <div className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden text-center p-8">
+                <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
+                    <ShieldCheck size={40} />
+                </div>
+                <h2 className="text-xl font-bold text-slate-900 mb-2">Dispositivo no permitido</h2>
+                <p className="text-slate-500 mb-6 text-sm">
+                    Para garantizar la seguridad de la identidad, este proceso solo puede realizarse desde un celular con cámara.
+                </p>
+
+                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-6 inline-block">
+                    {/* Placeholder for QR Code - In a real app we'd generate a specific URL */}
+                    <div className="w-48 h-48 bg-white p-2 mx-auto">
+                        <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${typeof window !== 'undefined' ? window.location.href : ''}`} alt="Scan to continue on mobile" className="w-full h-full" />
+                    </div>
+                </div>
+
+                <p className="text-xs text-slate-400">
+                    Escaneá el código QR con tu celular para continuar.
+                </p>
+            </div>
+        );
+    }
+
+    if (isMobile === null) return null; // Loading state
 
     return (
         <div className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
