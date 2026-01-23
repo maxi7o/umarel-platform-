@@ -117,8 +117,14 @@ export function HeroSection() {
                         </div>
 
                         {/* Floating Badge - Mercado Pago */}
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white border border-slate-100 py-3 px-6 rounded-full shadow-xl flex items-center gap-3 whitespace-nowrap">
-                            <ShieldCheck className="w-6 h-6 text-blue-600 fill-blue-100" />
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white border border-slate-100 py-3 px-6 rounded-full shadow-xl flex items-center gap-3 whitespace-nowrap min-w-max">
+                            <Image
+                                src="https://img.icons8.com/color/48/mercado-pago.png"
+                                alt="Mercado Pago"
+                                width={24}
+                                height={24}
+                                className="h-6 w-auto object-contain"
+                            />
                             <span className="text-sm font-bold text-slate-700">Pago Protegido</span>
                         </div>
                     </div>
