@@ -131,7 +131,7 @@
         "prop1Title": "Asistente Inteligente",
         "prop1Desc": "No hace falta saber términos técnicos. Contanos tu idea y la organizamos en un plan claro.",
         "prop2Title": "Hacelo por Partes",
-        "prop2Desc": "Dividí el trabajo en etapas (Slices). Si la primera sale bien, seguís. Si no, frenás. Vos tenés el control.",
+        "prop2Desc": "Dividí el trabajo en Etapas. Si la primera sale bien, seguís. Si no, frenás. Vos tenés el control.",
         "prop3Title": "Evidencia Real",
         "prop3Desc": "Acá se paga cuando se ve el trabajo terminado. Fotos, videos y validación real.",
         "steps": {
@@ -198,11 +198,11 @@
             },
             "step2": {
                 "title": "2. Dividí",
-                "desc": "Organizamos el proyecto en 'Slices' (etapas). Es más fácil gestionar montos chicos."
+                "desc": "Organizamos el proyecto en 'Etapas' (partes). Es más fácil gestionar montos chicos."
             },
             "step3": {
                 "title": "3. Ejecutá",
-                "desc": "El profesional realiza la tarea. Se sube evidencia (fotos/video) de lo hecho."
+                "desc": "El profesional realiza la tarea. Se sube evidencia (fotos) de lo hecho."
             },
             "step4": {
                 "title": "4. Validá",

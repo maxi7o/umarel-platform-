@@ -105,13 +105,19 @@ export function HeroSection() {
 
                         {/* Main Trust Indicator */}
                         <div className="flex flex-col items-center text-center space-y-4">
-                            <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-2 shadow-inner">
-                                <ShieldCheck size={40} className="text-emerald-600" />
+                            <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-2 shadow-inner">
+                                <Image
+                                    src="https://img.icons8.com/color/96/mercado-pago.png"
+                                    alt="Mercado Pago"
+                                    width={48}
+                                    height={48}
+                                    className="object-contain"
+                                />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-slate-900 font-outfit">Slice #1: Completada</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 font-outfit">Pago Protegido</h3>
                                 <p className="text-slate-500 mt-2 max-w-[220px] mx-auto text-sm">
-                                    Evidencia presente. Valor entregado. Vos decidís si seguimos.
+                                    Tu dinero está seguro en Mercado Pago hasta que apruebes la etapa.
                                 </p>
                             </div>
                         </div>
