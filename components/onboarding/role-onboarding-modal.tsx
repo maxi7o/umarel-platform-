@@ -2,10 +2,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function RoleOnboardingModal() {
@@ -35,80 +35,101 @@ export function RoleOnboardingModal() {
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="max-w-4xl p-0 overflow-hidden bg-transparent border-none shadow-none sm:max-h-[80vh]">
-                <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-full">
+            <DialogContent className="w-[85%] max-w-[360px] p-0 overflow-visible bg-transparent border-none shadow-none focus:outline-none">
+
+                {/* Close Button Outside */}
+                <button
+                    onClick={handleClose}
+                    className="absolute -top-12 right-0 p-2 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+                >
+                    <span className="sr-only">Cerrar</span>
+                    <X className="w-8 h-8" />
+                </button>
+
+                <div className="bg-white dark:bg-stone-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh] overflow-y-auto relative">
+
+                    {/* Header */}
+                    <div className="bg-stone-50 dark:bg-stone-800 p-5 border-b border-stone-100 dark:border-stone-700 text-center">
+                        <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100 font-outfit">
+                            Tres Roles, Una Plataforma Única
+                        </h2>
+                    </div>
 
                     {/* Role 1: CLIENT */}
-                    <motion.div
-                        whileHover={{ flex: 2 }}
-                        className="flex-1 bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-slate-900 p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800 transition-all duration-300 group cursor-pointer"
+                    <div
+                        className="flex-1 bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-blue-50/50 transition-colors"
                         onClick={() => handleSelectRole('client')}
                     >
-                        <div>
-                            <div className="bg-blue-100 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-6">🏗️</div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Cliente</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-                                Tenés una idea o una necesidad.
-                            </p>
-                            <ul className="space-y-3">
-                                <ThinkingPoint text="Definí con IA" color="bg-blue-500" />
-                                <ThinkingPoint text="Pagá al aprobar" color="bg-blue-500" />
-                                <ThinkingPoint text="Ahorrá 30%" color="bg-blue-500" />
-                            </ul>
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
+                                    <span className="text-2xl">🏗️</span> Cliente
+                                </h3>
+                                <p className="text-stone-500 dark:text-stone-400 text-xs mt-1 mb-3">
+                                    Tenés un proyecto o reparación para realizar.
+                                </p>
+                                <ul className="space-y-2">
+                                    <ThinkingPoint text="Pagá contra avance de obra" color="bg-blue-500" />
+                                    <ThinkingPoint text="Definición técnica con IA" color="bg-blue-500" />
+                                    <ThinkingPoint text="Dinero protegido en garantía" color="bg-blue-500" />
+                                </ul>
+                            </div>
+                            <Button variant="ghost" size="sm" className="text-blue-600">
+                                <ArrowRight className="w-5 h-5" />
+                            </Button>
                         </div>
-                        <Button variant="ghost" className="mt-8 justify-start p-0 hover:bg-transparent group-hover:text-blue-600 transition-colors">
-                            Soy Cliente <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </motion.div>
+                    </div>
 
                     {/* Role 2: PROVIDER */}
-                    <motion.div
-                        whileHover={{ flex: 2 }}
-                        className="flex-1 bg-gradient-to-br from-orange-50 to-white dark:from-orange-900/20 dark:to-slate-900 p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800 transition-all duration-300 group cursor-pointer"
+                    <div
+                        className="flex-1 bg-gradient-to-r from-orange-50 to-white dark:from-orange-900/20 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-orange-50/50 transition-colors"
                         onClick={() => handleSelectRole('provider')}
                     >
-                        <div>
-                            <div className="bg-orange-100 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-6">🛠️</div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Profesional</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-                                Querés trabajar y cobrar seguro.
-                            </p>
-                            <ul className="space-y-3">
-                                <ThinkingPoint text="Sin burocracia" color="bg-orange-500" />
-                                <ThinkingPoint text="Cobro inmediato" color="bg-orange-500" />
-                                <ThinkingPoint text="Portfolio Real" color="bg-orange-500" />
-                            </ul>
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
+                                    <span className="text-2xl">🛠️</span> Profesional
+                                </h3>
+                                <p className="text-stone-500 dark:text-stone-400 text-xs mt-1 mb-3">
+                                    Ofrecés servicios de construcción o mantenimiento.
+                                </p>
+                                <ul className="space-y-2">
+                                    <ThinkingPoint text="Cobro liberado al cumplir" color="bg-orange-500" />
+                                    <ThinkingPoint text="Sin visitas en vano" color="bg-orange-500" />
+                                    <ThinkingPoint text="Tu reputación es tu activo" color="bg-orange-500" />
+                                </ul>
+                            </div>
+                            <Button variant="ghost" size="sm" className="text-orange-600">
+                                <ArrowRight className="w-5 h-5" />
+                            </Button>
                         </div>
-                        <Button variant="ghost" className="mt-8 justify-start p-0 hover:bg-transparent group-hover:text-orange-600 transition-colors">
-                            Soy Profesional <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </motion.div>
+                    </div>
 
                     {/* Role 3: ENENDIDO */}
-                    <motion.div
-                        whileHover={{ flex: 2 }}
-                        className="flex-1 bg-gradient-to-br from-yellow-50 to-white dark:from-yellow-900/20 dark:to-slate-900 p-8 flex flex-col justify-between transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    <div
+                        className="flex-1 bg-gradient-to-r from-yellow-50 to-white dark:from-yellow-900/20 dark:to-stone-900 p-6 flex flex-col justify-between cursor-pointer hover:bg-yellow-50/50 transition-colors relative"
                         onClick={() => handleSelectRole('entendido')}
                     >
-                        <div className="absolute top-0 right-0 bg-yellow-400 text-black text-[10px] uppercase font-bold px-3 py-1 rounded-bl-xl z-20">
-                            Nuevo
+                        {/* Removed 'NUEVO' badge as requested */}
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
+                                    <span className="text-2xl">🧐</span> Entendido
+                                </h3>
+                                <p className="text-stone-500 dark:text-stone-400 text-xs mt-1 mb-3">
+                                    Tenés experiencia técnica y querés opinar.
+                                </p>
+                                <ul className="space-y-2">
+                                    <ThinkingPoint text="Monetizá tu experiencia" color="bg-yellow-500" />
+                                    <ThinkingPoint text="Validación por pares" color="bg-yellow-500" />
+                                    <ThinkingPoint text="Participación flexible" color="bg-yellow-500" />
+                                </ul>
+                            </div>
+                            <Button variant="ghost" size="sm" className="text-yellow-600">
+                                <ArrowRight className="w-5 h-5" />
+                            </Button>
                         </div>
-                        <div>
-                            <div className="bg-yellow-100 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-6">🧐</div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Entendido</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-                                Sabés del tema y querés opinar.
-                            </p>
-                            <ul className="space-y-3">
-                                <ThinkingPoint text="Ganás por saber" color="bg-yellow-500" />
-                                <ThinkingPoint text="Ayudás a otros" color="bg-yellow-500" />
-                                <ThinkingPoint text="Sin compromiso" color="bg-yellow-500" />
-                            </ul>
-                        </div>
-                        <Button variant="ghost" className="mt-8 justify-start p-0 hover:bg-transparent group-hover:text-yellow-600 transition-colors">
-                            Solo quiero opinar <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </motion.div>
+                    </div>
 
                 </div>
             </DialogContent>
