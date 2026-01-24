@@ -48,6 +48,13 @@ export function RoleOnboardingModal() {
 
                 <div className="bg-white dark:bg-stone-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh] overflow-y-auto">
 
+                    {/* Header */}
+                    <div className="bg-stone-50 dark:bg-stone-800 p-4 border-b border-stone-100 dark:border-stone-700 text-center">
+                        <h2 className="text-lg font-bold text-stone-800 dark:text-stone-100 font-outfit">
+                            Tres Roles, Una Plataforma
+                        </h2>
+                    </div>
+
                     {/* Role 1: CLIENT */}
                     <div
                         className="flex-1 bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-blue-50/50 transition-colors"
