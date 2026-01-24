@@ -165,7 +165,7 @@
             "card2": {
                 "badge": "Calidad",
                 "title": "Reputación Real",
-                "desc": "Los buenos profesionales suben de nivel. El sistema premia al que cumple."
+                "desc": "El buen Aura muestra quién cumple. El sistema premia al que tiene buen nivel."
             },
             "card3": {
                 "title": "Tecnología Útil",
@@ -283,7 +283,7 @@
                 "description": "Otros usuarios con experiencia pueden mirar tu proyecto y avisarte si algo falta."
             },
             "auraReputation": {
-                "title": "Puntos Aura",
+                "title": "Aura",
                 "description": "Es como el Veraz de la construcción. Si tenés buen Aura, es porque cumpliste siempre."
             },
             "proofOfArrival": {
@@ -365,7 +365,7 @@
                 "Sin foto no hay pago.",
                 "Si cambiás algo, anotalo en el chat.",
                 "El respeto es clave.",
-                "Cuidá tus puntos Aura.",
+                "Cuidá tu Aura.",
                 "Ante la duda, preguntale a un Entendido."
             ]
         }
@@ -428,7 +428,7 @@
     },
     "profile": {
         "memberSince": "Miembro desde",
-        "auraPoints": "Puntos Aura",
+        "auraPoints": "Aura",
         "yourJourney": "Tu Nivel",
         "keepContributing": "Seguí sumando para subir de nivel.",
         "currentRank": "Nivel Actual:",
@@ -560,7 +560,7 @@
     "wallet": {
         "title": "Mi Billetera",
         "stash": "Saldo",
-        "aura": "Puntos Aura",
+        "aura": "Aura",
         "impact": "Impacto",
         "redemptions": "Retirar",
         "greetings": {
