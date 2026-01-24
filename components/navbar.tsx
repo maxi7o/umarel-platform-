@@ -50,30 +50,26 @@ export function Navbar({ user }: NavbarProps) {
         <nav className="sticky top-0 z-50 bg-white/80 border-b border-slate-200 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
             <div className="container mx-auto flex h-16 items-center justify-between px-6">
 
-                {/* 1. BRAND IDENTITY */}
-                <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative h-8 w-8 text-blue-600 transition-transform group-hover:rotate-12 duration-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" /><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" /><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" /></svg>
+                {/* 1. BRAND IDENTITY + EXPLORE */}
+                <div className="flex items-center gap-8">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="relative h-8 w-8 text-blue-600 transition-transform group-hover:rotate-12 duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" /><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" /><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" /></svg>
+                        </div>
+                        <span className="font-outfit font-bold text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                            El Entendido
+                        </span>
+                    </Link>
+
+                    {/* Desktop Explore Link */}
+                    <div className="hidden md:block">
+                        <Link href="/browse" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+                            {t('browse')}
+                        </Link>
                     </div>
-                    <span className="font-outfit font-bold text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
-                        El Entendido
-                    </span>
-                </Link>
-
-                {/* 2. THE CONTROL DECK (Desktop) */}
-                <div className="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-full border border-slate-200 px-2 mx-4">
-                    <Link href="/" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">
-                        {t('home')}
-                    </Link>
-
-                    <div className="w-px h-4 bg-slate-300 mx-1" />
-
-                    <Link href="/browse" className="px-4 py-1.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">
-                        {t('browse')}
-                    </Link>
                 </div>
 
-                {/* 3. ACTIONS & PROFILE */}
+                {/* 2. ACTIONS & PROFILE */}
                 <div className="flex items-center gap-4">
 
                     {/* Notifications */}
@@ -112,7 +108,7 @@ export function Navbar({ user }: NavbarProps) {
                         </DropdownMenu>
                     ) : (
                         <div className="flex items-center gap-3">
-                            <Link href="/login">
+                            <Link href="/login" className="hidden sm:block">
                                 <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100">
                                     {t('login')}
                                 </Button>
@@ -138,23 +134,9 @@ export function Navbar({ user }: NavbarProps) {
                                     <SheetTitle className="text-left text-slate-900 font-outfit text-2xl">El Entendido</SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-2 mt-8">
-                                    <Link href="/#how-it-works" className="px-4 py-3 rounded-lg hover:bg-slate-50 text-lg font-medium transition-colors flex items-center justify-between">
-                                        {t('howto')}
-                                    </Link>
-                                    <Link href="/#roles" className="px-4 py-3 rounded-lg hover:bg-slate-50 text-lg font-medium transition-colors flex items-center justify-between">
-                                        {t('roles')}
-                                    </Link>
                                     <Link href="/browse" className="px-4 py-3 rounded-lg hover:bg-slate-50 text-lg font-medium transition-colors flex items-center justify-between">
                                         {t('browse')}
                                         <Search size={18} className="text-slate-400" />
-                                    </Link>
-                                    <Link href="/requests/create" className="px-4 py-3 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 text-lg font-medium transition-colors flex items-center justify-between">
-                                        {t('postNeed')}
-                                        <PlusCircle size={18} />
-                                    </Link>
-                                    <Link href="/create-offering" className="px-4 py-3 rounded-lg hover:bg-slate-50 text-lg font-medium transition-colors flex items-center justify-between">
-                                        {t('offerServices')}
-                                        <Badge variant="outline" className="border-slate-200 text-slate-500 text-xs">Pro</Badge>
                                     </Link>
 
                                     {!user && (
