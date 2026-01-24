@@ -23,7 +23,7 @@ export function ConstructionHero() {
                     <span>///</span>
                     <span>Inspection in Progress</span>
                     <span>///</span>
-                    <span>Umarel Watching</span>
+                    <span>Entendido Watching</span>
                     <span>///</span>
                     <span>Caution: Men at Work</span>
                     <span>///</span>
