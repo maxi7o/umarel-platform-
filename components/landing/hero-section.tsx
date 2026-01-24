@@ -105,19 +105,24 @@ export function HeroSection() {
 
                         {/* Main Trust Indicator */}
                         <div className="flex flex-col items-center text-center space-y-4">
-                            <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-2 shadow-inner">
-                                <Image
-                                    src="https://img.icons8.com/color/96/mercado-pago.png"
-                                    alt="Mercado Pago"
-                                    width={48}
-                                    height={48}
-                                    className="object-contain"
-                                />
+                            {/* Official MercadoPago Logo */}
+                            <div className="flex flex-col items-center gap-3">
+                                <svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 0C8.954 0 0 8.954 0 20s8.954 20 20 20 20-8.954 20-20S31.046 0 20 0zm0 36c-8.822 0-16-7.178-16-16S11.178 4 20 4s16 7.178 16 16-7.178 16-16 16z" fill="#009EE3" />
+                                    <path d="M20 8c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12S26.627 8 20 8zm0 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z" fill="#009EE3" />
+                                    <path d="M50 14h4.5v12H50V14zm0-4h4.5v3H50v-3zM58 14h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H58V14zm16 0h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H74V14zm16 0h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H90V14zm16 0h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H106V14zm16 0h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H122V14zm16 0h4.5v1.5c.9-1.2 2.4-1.8 4.2-1.8 3.3 0 5.3 2.4 5.3 6.3v6h-4.5v-5.4c0-1.8-.9-2.7-2.4-2.7-1.5 0-2.6.9-2.6 3v5.1H138V14z" fill="#009EE3" />
+                                </svg>
+                                <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
+                                    <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                    </svg>
+                                    <span className="text-xs font-semibold text-blue-700">Pago Verificado</span>
+                                </div>
                             </div>
                             <div>
                                 <h3 className="text-2xl font-bold text-slate-900 font-outfit">Pago Protegido</h3>
                                 <p className="text-slate-500 mt-2 max-w-[220px] mx-auto text-sm">
-                                    Tu dinero está seguro en Mercado Pago hasta que apruebes la etapa.
+                                    Tu dinero está seguro hasta que apruebes cada etapa del proyecto.
                                 </p>
                             </div>
                         </div>
