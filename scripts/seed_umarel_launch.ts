@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { users, requests, slices, comments, communityRewards, escrowPayments, dailyPayouts, wizardMessages, sliceCards } from '@/lib/db/schema';
 import { faker } from '@faker-js/faker'; // Assuming faker is available or I'll use simple random
 import { v4 as uuidv4 } from 'uuid';
+import { eq } from 'drizzle-orm';
 
 // Simple random helpers if faker isn't installed
 const getRandom = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
@@ -13,11 +14,13 @@ const CITIES = [
     'Vicente López, GBA', 'Lanús, GBA', 'Caballito, CABA', 'Villa Urquiza, CABA',
     'Almagro, CABA', 'Tigre, GBA', 'Avellaneda, GBA'
 ];
-const CATEGORIES = ['Plomería', 'Electricidad', 'Albañilería', 'Pintura', 'Limpieza', 'Carpintería', 'Aire Acondicionado'];
+const CATEGORIES = ['Plomería', 'Electricidad', 'Albañilería', 'Pintura', 'Limpieza', 'Carpintería', 'Aire Acondicionado', 'Experiencias'];
 const TITLES = [
     'Arreglar pérdida en la cocina', 'Instalar luces nuevas', 'Pintar el living', 'Reparar humedad en pared',
     'Limpieza profunda de departamento', 'Armar biblioteca a medida', 'Reparar Aire Acondicionado', 'Cambiar canilla del baño',
-    'Instalar ventilador de techo', 'Arreglar puerta de madera', 'Impermeabilizar techo', 'Instalar tomacorriente'
+    'Instalar ventilador de techo', 'Arreglar puerta de madera', 'Impermeabilizar techo', 'Instalar tomacorriente',
+    'Tour de Bares Notables en Palermo', 'Clases de Roller en el Rosedal', 'Asado Argentino con Desconocidos', 'Búsqueda del Tesoro Urbana',
+    'Cata de Vinos en Terraza Privada', 'Taller de Fileteado Porteño'
 ];
 
 async function seed() {
@@ -29,24 +32,46 @@ async function seed() {
 
     // Create 50 Umarels
     for (let i = 0; i < 50; i++) {
-        const [user] = await db.insert(users).values({
-            email: `umarel${i}@example.com`,
-            fullName: `Umarel ${i}`,
-            role: 'user',
-            auraLevel: getRandom(['bronze', 'silver', 'gold', 'diamond']),
-            totalSavingsGenerated: getRandomInt(10000, 5000000), // in cents
-        }).returning();
-        umarels.push(user);
+        const email = `umarel${i}@example.com`;
+        let user;
+        try {
+            const [newUser] = await db.insert(users).values({
+                email,
+                fullName: `Umarel ${i}`,
+                role: 'user',
+                auraLevel: getRandom(['bronze', 'silver', 'gold', 'diamond']),
+                totalSavingsGenerated: getRandomInt(10000, 5000000), // in cents
+            }).onConflictDoNothing().returning();
+            user = newUser;
+        } catch (e) { console.log('User exists'); }
+
+        if (!user) {
+            const [existingUser] = await db.select().from(users).where(eq(users.email, email));
+            user = existingUser;
+        }
+        if (user) umarels.push(user);
     }
 
     // Create 20 Clients
     for (let i = 0; i < 20; i++) {
-        const [user] = await db.insert(users).values({
-            email: `client${i}@example.com`,
-            fullName: `Client ${i}`,
-            role: 'user',
-        }).returning();
-        clients.push(user);
+        const email = `client${i}@example.com`;
+        let user;
+        try {
+            const [newUser] = await db.insert(users).values({
+                email,
+                fullName: `Client ${i}`,
+                role: 'user',
+            }).onConflictDoNothing().returning();
+            user = newUser;
+        } catch (e) {
+            console.log('User exists');
+        }
+
+        if (!user) {
+            const [existingUser] = await db.select().from(users).where(eq(users.email, email));
+            user = existingUser;
+        }
+        if (user) clients.push(user);
     }
 
     console.log(`✅ Created ${umarels.length} Umarels and ${clients.length} Clients`);
@@ -55,13 +80,26 @@ async function seed() {
     for (let i = 0; i < 250; i++) {
         const client = getRandom(clients);
         const city = getRandom(CITIES);
-        const category = getRandom(CATEGORIES);
-        const title = getRandom(TITLES);
+        // Weighted random to give experiences some visibility but keep mix realistic
+        const isExperience = Math.random() < 0.15;
+        const category = isExperience ? 'Experiencias' : getRandom(CATEGORIES.filter(c => c !== 'Experiencias'));
+
+        let title;
+        if (category === 'Experiencias') {
+            title = getRandom([
+                'Tour de Bares Notables en Palermo', 'Clases de Roller en el Rosedal', 'Asado Argentino con Desconocidos',
+                'Búsqueda del Tesoro Urbana', 'Cata de Vinos en Terraza Privada', 'Taller de Fileteado Porteño'
+            ]);
+        } else {
+            title = getRandom(TITLES.slice(0, 12)); // Only utility titles
+        }
 
         const [request] = await db.insert(requests).values({
             userId: client.id,
-            title: `${title} en ${city}`,
-            description: `Necesito ayuda con ${title.toLowerCase()}. Por favor, necesito presupuesto y asesoramiento.`,
+            title: category === 'Experiencias' ? title : `${title} en ${city}`,
+            description: category === 'Experiencias'
+                ? `Busco gente para sumarse a ${title.toLowerCase()}. Una experiencia única para compartir.`
+                : `Necesito ayuda con ${title.toLowerCase()}. Por favor, necesito presupuesto y asesoramiento.`,
             category,
             location: city,
             status: 'open',

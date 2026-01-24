@@ -1,11 +1,11 @@
 {
     "card": {
-        "lookingForService": "Busco Servicio",
-        "offeringService": "Ofrezco Servicio",
-        "savedToFavorites": "Guardado en favoritos",
-        "removedFromFavorites": "Eliminado de favoritos",
-        "failedToUpdateFavorites": "Error al actualizar favoritos",
-        "viewDetails": "Ver Detalles",
+        "lookingForService": "Pedir Presupuesto",
+        "offeringService": "Perfil Profesional",
+        "savedToFavorites": "Guardado",
+        "removedFromFavorites": "Eliminado de guardados",
+        "failedToUpdateFavorites": "Error al guardar",
+        "viewDetails": "Ver Detalle",
         "postedBy": "Publicado por",
         "featured": "Destacado",
         "virtual": "Virtual"
@@ -13,462 +13,462 @@
     "execution": {
         "backToDashboard": "Volver al Panel",
         "status": "Estado",
-        "inProgress": "En Progreso",
-        "progress": "Progreso",
+        "inProgress": "En Marcha",
+        "progress": "Avance",
         "steps": "Pasos",
-        "umarelWisdom": "Sabiduría Umarel",
-        "umarelCriticalAlert": "Alerta Crítica Umarel",
-        "proofRequired": "Prueba de Verdad Requerida",
-        "verified": "Verificado",
-        "pendingUpload": "Pendiente de Subida",
-        "tapCapture": "Tocar para Capturar",
-        "completeStep": "Completar Paso",
-        "summonUmarel": "Invocar Umarel"
+        "umarelWisdom": "Opinión del Entendido",
+        "umarelCriticalAlert": "Ojo con esto",
+        "proofRequired": "Subí una foto o video",
+        "verified": "Revisado",
+        "pendingUpload": "Falta foto",
+        "tapCapture": "Sacar foto",
+        "completeStep": "Terminar Paso",
+        "summonUmarel": "Pedir ayuda a un Entendido"
     },
     "manifesto": {
         "heading": {
-            "title": "La Filosofía Umarel",
-            "headlineLine1": "No solo miramos.",
-            "headlineLine2": "Maximizamos la verdad.",
-            "subheadline": "La construcción es caos. Las disputas ralentizan todo. Somos la Fuente de Verdad que convierte el \"me dijo, le dije\" en colaboración verificada.",
-            "highlight": "Fuente de Verdad"
+            "title": "Hacé obras sin dolores de cabeza.",
+            "headlineLine1": "Basta de 'veremos'.",
+            "headlineLine2": "Acá se cumple.",
+            "subheadline": "Conectamos a gente que necesita arreglos con profesionales que saben trabajar. Sin vueltas y con la plata protegida.",
+            "highlight": "Simple y seguro"
         },
         "pillars": {
             "bandwidth": {
-                "title": "Ancho de Banda Colaborativo",
-                "description": "Cada minuto discutiendo es un minuto perdido. Usamos IA y supervisión experta para eliminar el ruido y que te enfoques en construir."
+                "title": "Menos vueltas",
+                "description": "No pierdas tiempo explicando mil veces lo mismo. Decinos qué necesitás y te ayudamos a armar el pedido."
             },
             "judge": {
-                "title": "El Juez Pragmático",
-                "description": "La justicia perfecta es lenta. Optimizamos el flujo justo. Nuestro objetivo es destrabar la obra protegiendo la integridad del trato.",
-                "bold": "flujo justo"
+                "title": "El Entendido te ayuda",
+                "description": "¿No sabés si el precio está bien? Un experto (El Entendido) revisa todo para que no pagues de más.",
+                "bold": "revisa todo"
             },
             "growth": {
-                "title": "Crecimiento Sostenible",
-                "description": "Un mercado basado en la verdad crece solo. Los buenos proveedores reciben la insignia \"Verdad Verificada\"; la comunidad filtra a los malos."
+                "title": "Gente de confianza",
+                "description": "Acá valen los puntos. Los que trabajan bien suben de nivel. Los chantas quedan afuera."
             }
         }
     },
     "nav": {
-        "browse": "Explorar Problemas",
-        "howto": "Cómo Ayudamos",
-        "offerServices": "Ofrecer Soluciones",
-        "login": "Entrar",
-        "postNeed": "Tengo un Problema",
-        "dashboard": "Mi Espacio",
+        "browse": "Explorar",
+        "howto": "Filosofía",
+        "offerServices": "Soy Profesional",
+        "login": "Ingresar",
+        "postNeed": "Diseñar Proyecto",
+        "dashboard": "Panel",
         "logout": "Salir",
         "home": "Inicio",
-        "roles": "Roles",
-        "about": "Sobre Nosotros",
-        "contact": "Contacto",
+        "roles": "Quién es Quién",
+        "about": "Nosotros",
+        "contact": "Ayuda",
         "faq": "Preguntas",
-        "roleSeek": "Buscar",
-        "roleCreate": "Crear",
-        "roleVerify": "Verificar"
+        "roleSeek": "Contratar",
+        "roleCreate": "Trabajar",
+        "roleVerify": "Auditar"
     },
     "footer": {
         "platform": "Plataforma",
         "howItWorks": "Cómo funciona",
-        "becomeUmarel": "Conviértete en Umarel",
-        "findWork": "Encontrar Trabajo",
-        "support": "Soporte",
+        "becomeUmarel": "Ser Entendido",
+        "findWork": "Buscar Trabajo",
+        "support": "Ayuda",
         "helpCenter": "Centro de Ayuda",
-        "guidelines": "Guías de la Comunidad",
-        "contact": "Contáctanos",
+        "guidelines": "Reglas",
+        "contact": "Contacto",
         "legal": "Legal",
-        "terms": "Términos de Servicio",
-        "privacy": "Política de Privacidad",
-        "cookie": "Política de Cookies",
-        "about": "Sobre Nosotros",
-        "copyright": "© 2026 Umarel. Todos los derechos reservados. Hecho con 🧡 y café.",
-        "dailyWisdom": "Sabiduría Diaria:",
+        "terms": "Términos",
+        "privacy": "Privacidad",
+        "cookie": "Cookies",
+        "about": "Misión",
+        "copyright": "© 2026 El Entendido.",
+        "dailyWisdom": "Frase del día:",
         "quotes": [
-            "Non si fa così... (Así no se hace...)",
-            "Ai miei tempi qui era tutta campagna. (En mis tiempos esto era todo campo.)",
-            "Ma chi ha fatto questo lavoro? (¿Quién hizo este trabajo?)",
-            "Guarda, guarda... storto! (Mirá, mirá... ¡torcido!)",
-            "Ci vuole pazienza. (Se necesita paciencia.)",
-            "Ottimo lavoro! (¡Excelente trabajo!)",
-            "Manca il tocco finale. (Falta el toque final.)"
+            "Lo barato sale caro.",
+            "Mejor prevenir que curar.",
+            "Cuentas claras conservan la amistad.",
+            "Al que madruga Dios lo ayuda.",
+            "Despacio que estoy apurado.",
+            "El ojo del amo engorda el ganado.",
+            "Hacé las cosas bien o no las hagas."
         ]
     },
     "home": {
-        "heroTitle1": "Tu proyecto terminado.",
-        "heroTitleHighlight": "Sin vueltas.",
-        "heroSubtitle": "La plataforma de servicios donde la evidencia manda.",
+        "heroTitle1": "Tu Proyecto,",
+        "heroTitleHighlight": "Bien Hecho.",
+        "heroSubtitle": "La plataforma donde la tecnología te ayuda a definir qué necesitás, y expertos verificados lo hacen realidad. Paso a paso.",
         "heroSteps": {
-            "step1": "1. Publicá tu problema gratis (plomería, arreglos, tech).",
-            "step2": "2. Tu pago queda protegido en Mercado Pago hasta ver la evidencia.",
-            "step3": "3. Aprobá las fotos y liberá la plata. Si no, reembolso."
+            "step1": "1. La IA ordena tu idea.",
+            "step2": "2. Dividimos en partes.",
+            "step3": "3. Pagás contra avance."
         },
-        "postRequest": "Contar mi problema (gratis)",
-        "offerServices": "Ofrecer soluciones",
-        "availableIn": "Disponible en CABA y GBA",
-        "watchVideo": "Ver cómo funciona",
-        "browseServices": "Ver cómo ayudamos",
-        "originLabel": "Historia de Origen",
-        "originQuote": "\"Umarel [umaˈrɛːl] (del idioma boloñés) es un término que se refiere específicamente a los hombres en edad de jubilación quiénes pasan su tiempo mirando sitios de construcción, especialmente obras viales, estereotípicamente con manos cruzadas detrás de su espalda y ofreciendo consejos.\"",
-        "originSource": "— Wikipedia / Cultura Popular",
-        "rolesTitle": "No estás solo en esto",
-        "rolesSubtitle": "Ya sea que tengas un problema, sepas cómo arreglarlo, o solo quieras ayudar a pensar - acá nos sentamos todos a la misma mesa.",
-        "roleClientTitle": "¿Tenés un problema?",
-        "roleClientDesc": "No hace falta que sepas cómo se arregla. Describilo como te salga y le damos forma.",
-        "roleClientBenefit1": "Claridad antes de gastar",
-        "roleClientBenefit2": "Te ayudamos a entender",
-        "roleClientAction": "Contar mi Problema",
-        "roleUmarelTitle": "El Entendido",
-        "roleUmarelBadge": "Guía Experto",
-        "roleUmarelDesc": "No venimos a corregirte el examen. Venimos a pensar con vos para que no se te escape nada.",
-        "roleUmarelBenefit1": "Tu experiencia ayuda a otros",
-        "roleUmarelBenefit2": "Ganá por pensar soluciones",
-        "roleUmarelAction": "Quiero Ayudar",
+        "postRequest": "Empezar Proyecto",
+        "offerServices": "Ofrecer Servicios",
+        "availableIn": "Comunidad de Profesionales",
+        "watchVideo": "Cómo funciona",
+        "browseServices": "Explorar Ofertas",
+        "originLabel": "La Idea",
+        "originQuote": "La calidad no es un accidente. Es el resultado de la intención clara y la ejecución honesta.",
+        "originSource": "— Filosofía El Entendido",
+        "rolesTitle": "Un Ecosistema de Valor",
+        "rolesSubtitle": "Cada rol tiene una función específica para que el sistema funcione.",
+        "roleClientTitle": "El Cliente (Define)",
+        "roleClientDesc": "Tu rol es tener la visión. Usás la IA para definir QUÉ querés hacer, dividís el proyecto en etapas y tenés el control de liberar el pago cuando estás conforme.",
+        "roleClientBenefit1": "Claridad total",
+        "roleClientBenefit2": "A tu ritmo",
+        "roleClientAction": "Empezar Proyecto",
+        "roleUmarelTitle": "El Entendido (Opina)",
+        "roleUmarelBadge": "Dato Experto",
+        "roleUmarelDesc": "Aporta una opinión experta basada en la evidencia. Su input no es obligatorio, pero ayuda a dar certeza y confianza a ambas partes. Es un 'dato' más.",
+        "roleUmarelBenefit1": "Reconocimiento",
+        "roleUmarelBenefit2": "Ingresos Extra",
+        "roleUmarelAction": "Tengo experiencia",
+        "roleProviderTitle": "El Profesional (Ejecuta)",
+        "roleProviderDesc": "Se concentra en hacer el trabajo. Sube fotos como evidencia de avance y decide libremente si toma la siguiente etapa o no.",
+        "roleProviderBenefit1": "Crecimiento Real",
+        "roleProviderBenefit2": "Cobro Seguro",
+        "roleProviderAction": "Ofrecer Servicio",
         "soon": "Pronto",
-        "roleProviderTitle": "El Solucionador",
-        "roleProviderDesc": "Si sabés arreglar cosas, acá te cuidamos. La plata está asegurada antes de que arranques.",
-        "roleProviderBenefit1": "Pagos seguros",
-        "roleProviderBenefit2": "Solo ocupate de trabajar",
-        "roleProviderAction": "Ofrecer Soluciones",
-        "prop1Title": "Experiencia, no Juicio",
-        "prop1Desc": "Hay gente que ya pasó por esto. No te van a retar, te van a explicar.",
-        "prop2Title": "Paso a Paso",
-        "prop2Desc": "No trates de resolver todo junto. Dividimos el problema en pedacitos manejables.",
-        "prop3Title": "Plata Segura",
-        "prop3Desc": "Nadie cobra hasta que vos estés tranquilo. Y nadie trabaja gratis.",
+        "prop1Title": "Asistente Inteligente",
+        "prop1Desc": "No hace falta saber términos técnicos. Contanos tu idea y la organizamos en un plan claro.",
+        "prop2Title": "Hacelo por Partes",
+        "prop2Desc": "Dividí el trabajo en Etapas. Si la primera sale bien, seguís. Si no, frenás. Vos tenés el control.",
+        "prop3Title": "Pago Contra Aprobación",
+        "prop3Desc": "El dinero espera seguro. Solo se libera cuando vos das el OK a la evidencia (fotos).",
         "steps": {
-            "trustedBy": "Pagos procesados por Mercado Pago",
+            "trustedBy": "Plataforma Segura",
             "stage1": {
-                "title": "Subís el problema",
-                "desc": "Fotos, audios, sin tecnicismos."
+                "title": "Tu Idea",
+                "desc": "Definimos el plan."
             },
             "stage2": {
-                "title": "Ves la evidencia",
-                "badge": "Clave",
-                "desc": "El pro sube foto del trabajo hecho."
+                "title": "Por Etapas",
+                "badge": "Tu Control",
+                "desc": "Aprobás paso a paso."
             },
             "stage3": {
-                "title": "Aprobá y pagá",
-                "desc": "Confirmás y liberás la plata."
+                "title": "Resultado",
+                "desc": "Calidad asegurada."
             },
             "floater": {
-                "title": "Pagos en Garantía",
-                "desc": "Protegido por Mercado Pago"
+                "title": "Garantía",
+                "desc": "Tranquilidad total"
             }
         },
         "valueProp": {
-            "badge": "¿Por qué Umarel?",
-            "title": "Construido sobre confianza, impulsado por todos",
-            "subtitle": "Cada proyecto protegido. Cada experto verificado. Cada resultado transparente.",
+            "badge": "Propuesta",
+            "title": "Simple. Seguro. Justo.",
+            "subtitle": "Eliminamos los problemas de siempre para que puedas enfocarte en el resultado.",
             "card1": {
-                "title": "Protección Escrow",
-                "desc": "Tu plata está segura hasta que se verifique el trabajo. Liberación automática tras 24hs o aprobación instantánea: vos tenés el control."
+                "title": "Paz Mental",
+                "desc": "Al trabajar por etapas, eliminás el riesgo de 'clavarte' con un proyecto grande."
             },
             "card2": {
-                "badge": "De la Comunidad",
-                "title": "Dividendos Diarios",
-                "desc": "Los miembros útiles ganan plata real, no puntitos. Compartí sabiduría, ahorrá plata y recibí recompensas."
+                "badge": "Calidad",
+                "title": "Reputación Real",
+                "desc": "El buen Aura muestra quién cumple. El sistema premia al que tiene buen nivel."
             },
             "card3": {
-                "title": "Emparejamiento Inteligente",
-                "desc": "La IA divide tu proyecto en tareas claras, sugiere precios justos y te conecta con los expertos adecuados."
+                "title": "Tecnología Útil",
+                "desc": "Usamos IA para traducir 'lo que quiero' a 'lo que hay que hacer'. Sin confusiones."
             },
-            "manifesto": "Leé nuestro Manifiesto"
+            "manifesto": "Ver Misión"
         }
     },
     "landing": {
         "concept": {
-            "title": "¿Qué es un Umarel?",
-            "subtitle": "La leyenda detrás del nombre",
-            "description": "Originario de Bolonia, Italia, el **Umarell** es el jubilado que se para en las obras con las manos atrás, observando y ofreciendo consejos. Un guardián de la calidad.",
-            "digital": "Convertimos esta figura en un rol digital. En nuestra plataforma, **los Umarels son expertos verificados** que aseguran que tu proyecto esté bien definido, los precios sean justos y el trabajo impecable."
+            "title": "El Entendido",
+            "subtitle": "Experiencia que vale",
+            "description": "El rol que **garantiza la calidad**, aportando su mirada experta para validar el trabajo bien hecho.",
+            "digital": "En nuestra plataforma, transformamos la confianza en un sistema que funciona para todos."
         },
         "hero": {
-            "title": "Construí confianza, compartí sabiduría, ganá reputación.",
-            "subtitle1": "Unite a una comunidad de expertos ayudando a vecinos a hacer las cosas bien —",
-            "subtitle2": "construí tu reputación, proyecto por proyecto.",
-            "cta": "Unirme a la Comunidad"
+            "title": "Proyectos Reales, Sin Vueltas.",
+            "subtitle1": "La forma moderna de contratar y trabajar —",
+            "subtitle2": "asistida por tecnología, validada por expertos.",
+            "cta": "Empezar Proyecto"
         },
-        "howItWorks": "Cómo Funciona",
+        "howItWorks": "Proceso",
         "howItWorksSteps": {
-            "title": "¿Cómo funciona Umarel?",
-            "subtitle": "Paso a Paso",
-            "quote": "“Non si fa così...” (Así no se hace...)",
+            "title": "Cómo Trabajamos",
+            "subtitle": "Paso a paso",
+            "quote": "“Cuentas claras.”",
             "step1": {
-                "title": "1. Definí tu Proyecto",
-                "desc": "Contanos qué necesitás. Nuestro Asistente IA te ayuda a armar un pedido claro y técnico que los profesionales puedan estimar."
+                "title": "1. Definí",
+                "desc": "Contanos tu idea. Nuestro asistente te ayuda a armar un plan de trabajo claro."
             },
             "step2": {
-                "title": "2. Recibí Presupuestos",
-                "desc": "Los 'Clientes' ofertan sobre tu pedido. Compará precios, perfiles y reputación (Aura) sin compromiso."
+                "title": "2. Dividí",
+                "desc": "Organizamos el proyecto en 'Etapas' (partes). Es más fácil gestionar montos chicos."
             },
             "step3": {
-                "title": "3. Manos a la Obra",
-                "desc": "El profesional trabaja tranquilo sabiendo que el pago está garantizado."
+                "title": "3. Ejecutá",
+                "desc": "El profesional realiza la tarea. Se sube evidencia (fotos) de lo hecho."
             },
             "step4": {
-                "title": "4. Aprobá y Liberá",
-                "desc": "Revisá las fotos. Si está todo bien, liberás el pago seguro. ¡Todos felices!"
+                "title": "4. Validá",
+                "desc": "Vos liberás el pago. El profesional decide si acepta tomar la siguiente etapa. Libertad para ambos."
             },
             "slicesFeature": {
-                "title": "Tu garantía son las 'Fichas'",
-                "description": "Acá no hay 'dame el 50% para materiales'. Dividimos el trabajo en pequeñas fichas verificables. Se hace, se muestra, se paga.",
-                "exampleTitle": "Ejemplo: Reparación de Humedad",
-                "exampleStep1": "1. Diagnóstico ($15k): Foto del problema real.",
-                "exampleStep2": "2. Arreglo ($45k): Video del parche fresco.",
-                "exampleStep3": "3. Pintura ($20k): Foto de pared terminada."
+                "title": "El Poder de las Etapas",
+                "description": "No te comprometas a todo de una. Probá con una primera etapa pequeña. Es tu garantía de satisfacción.",
+                "exampleTitle": "Ejemplo: Un Evento",
+                "exampleStep1": "1. Propuesta y Diseño.",
+                "exampleStep2": "2. Organización.",
+                "exampleStep3": "3. El Día del Evento."
             },
             "aiFeature": {
-                "title": "Tu Entendido Digital",
-                "description": "No sabés cómo pedirlo? Decile a la IA: 'tengo agua en el piso'.",
-                "chatUser": "👱‍♂️ Tengo mucha humedad en el techo del baño.",
-                "chatAi": "🤖 Entendido. ¿Es mancha negra o gotea agua? -> Armado pedido: 'Reparación de filtración en cielorraso con pintura antihongo'.",
-                "cta": "Probar Asistente ahora"
+                "title": "Asistente IA",
+                "description": "Te ayudamos a estructurar tus pedidos para que los profesionales entiendan exactamente qué necesitás.",
+                "chatUser": "🧠 Quiero organizar una cata de vinos.",
+                "chatAi": "🤖 ¡Genial! Lo podemos dividir en 3 etapas: 1. Selección de Vinos, 2. Compra y Logística, 3. Servicio. ¿Te parece?",
+                "cta": "Probar Asistente"
             }
         },
         "clients": {
             "title": "Para Clientes",
-            "description": "Proyectos claros y precios justos, verificados por la comunidad.",
-            "badge": "Verificado"
+            "description": "Arreglá tu casa sin miedo a que te dejen plantado.",
+            "badge": "Dueños"
         },
         "providers": {
             "title": "Para Profesionales",
-            "description": "Enfocate en tu oficio. Nosotros nos encargamos de la claridad y el alcance.",
-            "badge": "Calidad Garantizada"
+            "description": "Conseguí trabajos serios y cobrá seguro.",
+            "badge": "Expertos"
         },
         "umarels": {
-            "title": "Para Umarels",
-            "description": "Compartí tu experiencia, ayudá a evitar errores y ganá reconocimiento.",
-            "badge": "Aura y Respeto"
+            "title": "Para Entendidos",
+            "description": "Usá tu experiencia para ayudar a otros y ganar algo extra.",
+            "badge": "Auditores"
         },
         "stats": {
-            "foundations": "Activo",
-            "foundationsLabel": "Proyectos",
-            "savings": "Justo",
-            "savingsLabel": "Precios",
+            "foundations": "Obras",
+            "foundationsLabel": "En marcha",
+            "savings": "Ahorro",
+            "savingsLabel": "Promedio",
             "free": "100%",
-            "freeLabel": "Transparente",
+            "freeLabel": "Seguro",
             "daily": "Real",
-            "dailyLabel": "Conexión Humana"
+            "dailyLabel": "Personas Reales"
         },
         "cta": {
-            "title": "Unite a la mesa",
-            "subtitle": "Precios justos · Recompensas comunitarias · 100% Verificado",
-            "postButton": "Publicar Proyecto",
-            "browseButton": "Explorar Servicios",
-            "joinText": "Formá parte de un mercado construido sobre la confianza."
+            "title": "Tomá el control de tu obra",
+            "subtitle": "Simple. Seguro. Con gente que sabe.",
+            "postButton": "Pedir Presupuesto",
+            "browseButton": "Ver Profesionales",
+            "joinText": "Sumate a la comunidad de confianza."
         },
         "trattoria": {
-            "welcome": "Bienvenidos a la Mesa Umarel",
+            "welcome": "Panel de Control",
             "offerServices": "Ofrecer Servicios",
-            "exploreCommunity": "Explorar Comunidad",
-            "secureEscrow": "Pago Seguro",
+            "exploreCommunity": "Ver Mercado",
+            "secureEscrow": "Pago Protegido",
             "verifiedExperts": "Expertos Verificados",
-            "fairPricing": "Precios Justos",
-            "communityTrust": "Confianza Comunitaria",
-            "benefitsTitle": "¿Qué hay en la Mesa?",
-            "benefitsSubtitle": "Cada función está hecha con cariño, como una receta familiar que pasa de generación en generación.",
+            "fairPricing": "Precio Justo",
+            "communityTrust": "Comunidad",
+            "benefitsTitle": "Cómo te protegemos",
+            "benefitsSubtitle": "Herramientas para que nadie pierda plata ni tiempo.",
             "escrowProtection": {
-                "title": "Protección de Pago",
-                "description": "Tu plata está segura hasta que el trabajo esté listo. Como la nonna que guarda la receta - solo se libera cuando está perfecto."
+                "title": "Reserva de Dinero",
+                "description": "Tu plata queda guardada hasta que veas el trabajo terminado. Vos decidís cuándo pagar."
             },
             "dailyDividends": {
-                "title": "Dividendos Diarios",
-                "description": "Ayudá a la comunidad, ganá recompensas. Cada comentario útil suma a tu plato."
+                "title": "Premios por Ayudar",
+                "description": "Si ayudás a detectar errores o validás trabajos bien hechos, sumás puntos y beneficios."
             },
             "aiWizard": {
-                "title": "Asistente IA",
-                "description": "Nuestra IA divide proyectos complejos en tareas manejables. Como cortar una lasagna perfecta."
+                "title": "Te ayudamos a pedir",
+                "description": "No hace falta que sepas de construcción. Nuestro asistente te ayuda a explicar qué necesitás."
             },
             "communityWisdom": {
-                "title": "Sabiduría Comunitaria",
-                "description": "Umarels experimentados revisan cada proyecto. Varios ojos ven lo que uno solo no."
+                "title": "Ojos extra",
+                "description": "Otros usuarios con experiencia pueden mirar tu proyecto y avisarte si algo falta."
             },
             "auraReputation": {
-                "title": "Reputación Aura",
-                "description": "Construí tu reputación con cada trabajo. La calidad genera respeto que perdura."
+                "title": "Aura",
+                "description": "Es como el Veraz de la construcción. Si tenés buen Aura, es porque cumpliste siempre."
             },
             "proofOfArrival": {
-                "title": "Prueba de Llegada",
-                "description": "Evidencia fotográfica en cada hito. La verdad queda documentada, las disputas son raras."
+                "title": "Evidencia Real",
+                "description": "Nada de 'ya pasé'. Acá se sube foto con ubicación y hora para demostrar que se fue a trabajar."
             },
             "fairPricingBenefit": {
-                "title": "Precios Justos",
-                "description": "Tarifas verificadas por la comunidad. Sin sorpresas, sin costos ocultos. Solo trabajo honesto por pago honesto."
+                "title": "Precios de Referencia",
+                "description": "El sistema te avisa si un presupuesto es muy caro o sospechosamente barato."
             },
             "milestonePayments": {
-                "title": "Pagos por Etapa",
-                "description": "Pagás a medida que avanzás. Cada etapa completada libera su pago. Progreso que podés ver y confiar."
+                "title": "Pago por Etapas",
+                "description": "No pagues todo junto. Pagá a medida que ves avances concretos."
             },
-            "quote": "Non si fa così... lo hacemos juntos, con sabiduría.",
-            "quoteAuthor": "Cada Umarel, en todas partes",
-            "rolesTitle": "Todos Tienen un Lugar en la Mesa",
-            "rolesSubtitle": "Ya sea que necesites ayuda, ofrezcas ayuda, o cuides la calidad - hay un lugar para vos en nuestra familia.",
+            "quote": "Lo barato sale caro.",
+            "quoteAuthor": "Dicho Popular",
+            "rolesTitle": "Roles",
+            "rolesSubtitle": "Cada uno hace lo suyo.",
             "rolesCta": {
-                "seeker": "Publicar Proyecto",
-                "creator": "Ofrecer Servicios",
-                "umarel": "Convertirme en Entendido"
+                "seeker": "Contratar",
+                "creator": "Trabajar",
+                "umarel": "Auditar"
             },
-            "rolesQuote": "En nuestra mesa, todos contribuyen. El que necesita, el que construye, y el sabio que observa - juntos creamos algo hermoso.",
-            "rolesQuoteTag": "El Camino Umarel",
+            "rolesQuote": "Haciendo las cosas bien, ganamos todos.",
+            "rolesQuoteTag": "Filosofía",
             "finalCta": {
-                "title": "Acercá una Silla",
-                "subtitle": "Unite a miles de personas construyendo, creando y compartiendo sabiduría. En Umarel, todos tienen un lugar en la mesa.",
-                "quote": "Non si fa così... lo hacemos juntos."
+                "title": "Empezá hoy",
+                "subtitle": "La forma nueva y segura de hacer arreglos.",
+                "quote": "Sin vueltas."
             }
         },
         "trustHero": {
-            "tagline": "Sabiduría comunitaria para cada proyecto",
-            "title": "Expertos en los que podés confiar. Proyectos que podés verificar.",
-            "subtitle": "Desde reformas complejas hasta experiencias únicas. Usamos IA y sabiduría comunitaria para asegurar precios justos y ejecución perfecta.",
-            "ctaPrimary": "Empezar un Proyecto",
-            "ctaSecondary": "Explorar Servicios",
-            "ticker": "La transparencia es nuestra moneda... Recompensas comunitarias para miembros activos... Solo reseñas verificadas...",
+            "tagline": "Confianza Total",
+            "title": "Arreglos y Reformas Seguras.",
+            "subtitle": "Olvidate de perseguir gente. Acá el trabajo se hace y se paga cuando está listo.",
+            "ctaPrimary": "Empezar",
+            "ctaSecondary": "Ver Profesionales",
+            "ticker": "Custodia de fondos activa... Precios de referencia... Usuarios verificados...",
             "demoCard": {
-                "header": "Trekking & Yoga Patagonia",
-                "meta": "Proveedor: Sarah • 5.0 Aura",
-                "riskBadge": "VERIFICADO",
-                "item1": "Guía y Transporte",
-                "item2": "Alquiler de Equipo",
-                "insightLabel": "Verificación Umarel",
-                "insightText": "Precio justo confirmado. La proveedora tiene 15 viajes exitosos verificados. Contingencia climática incluida.",
-                "fairPrice": "Puntaje Comunitario",
-                "savedBadge": "CONFIABLE",
-                "verifiedAudits": "Verificado por Humanos",
-                "saved": "Seguro"
+                "header": "Arreglo Terraza",
+                "meta": "Techista Pro • 98 Aura",
+                "riskBadge": "REVISADO",
+                "item1": "Materiales Incluidos",
+                "item2": "Garantía",
+                "insightLabel": "Opinión del Entendido",
+                "insightText": "El presupuesto está bien. Los materiales son los correctos para esa superficie.",
+                "fairPrice": "Precio Lógico",
+                "savedBadge": "SEGURO",
+                "verifiedAudits": "Verificado",
+                "saved": "OK"
             }
         },
         "italianQuotes": {
-            "q1": "La verdad es el fundamento de todo valor.",
-            "q2": "Medí dos veces, cortá una vez, viví plenamente.",
-            "q3": "La calidad no es un acto, es un hábito.",
-            "q4": "La comunidad ve lo que el individuo no.",
-            "q5": "La justicia es el único modelo de negocio sostenible."
+            "q1": "Cuentas claras conservan la amistad.",
+            "q2": "Lo barato sale caro.",
+            "q3": "Hacelo bien o no lo hagas.",
+            "q4": "El que sabe, sabe.",
+            "q5": "Mejor prevenir que curar."
         },
         "roles": {
             "client": {
-                "title": "El que Busca",
-                "description": "Tenés un proyecto — una reparación, una experiencia. Definilo acá y dejá que la comunidad te guíe."
+                "title": "Cliente",
+                "description": "Tenés que arreglar algo. Buscás a alguien confiable y no querés líos con la plata."
             },
             "builder": {
-                "title": "El Creador",
-                "description": "Artesanos, guías y expertos. Vos entregás valor. Nosotros aseguramos que cobres precios justos por tu trabajo verificado."
+                "title": "Profesional",
+                "description": "Sabés tu oficio. Querés clientes serios que paguen a término."
             },
             "umarel": {
                 "title": "El Entendido",
-                "description": "El observador sabio. Revisás alcances, asegurás la claridad y ganás parte del éxito de la plataforma."
+                "description": "Ayudás revisando presupuestos y fotos para que todo salga bien."
             }
         },
         "safetyTips": {
-            "title": "Valores de la Comunidad",
+            "title": "Consejos de Seguridad",
             "tips": [
-                "La verdad ante todo.",
-                "Respetá el oficio.",
-                "Pago justo por trabajo justo.",
-                "Las disputas son oportunidades de claridad.",
-                "Compartimos el valor que creamos.",
-                "La confianza se construye, no se compra.",
-                "Dejalo mejor de lo que lo encontraste."
+                "Todo pago se hace por la web.",
+                "Nunca des efectivo por fuera.",
+                "Sin foto no hay pago.",
+                "Si cambiás algo, anotalo en el chat.",
+                "El respeto es clave.",
+                "Cuidá tu Aura.",
+                "Ante la duda, preguntale a un Entendido."
             ]
         }
     },
     "login": {
-        "title": "Iniciar sesión en Umarel",
-        "subtitle": "Ingresá tu email para acceder a tu cuenta",
-        "googleButton": "Continuar con Google",
+        "title": "Bienvenido",
+        "subtitle": "Ingresá a tu cuenta",
+        "googleButton": "Entrar con Google",
         "or": "O",
         "email": "Email",
-        "password": "Contraseña",
-        "signIn": "Iniciar Sesión",
-        "signUp": "Registrarse",
+        "password": "Clave",
+        "signIn": "Entrar",
+        "signUp": "Registrarme",
         "agreeToTerms": "Acepto los {terms} y la {privacy}",
-        "termsLink": "Términos de Servicio",
-        "privacyLink": "Política de Privacidad"
+        "termsLink": "Términos",
+        "privacyLink": "Privacidad"
     },
     "createRequest": {
-        "title": "Publicar un Proyecto",
-        "subtitle": "Contanos qué necesitás. Nuestra comunidad te ayuda a dividirlo en etapas claras.",
+        "title": "Nuevo Pedido",
+        "subtitle": "Contanos qué pasa. La IA te ayuda a escribirlo.",
         "form": {
             "title": "Título",
-            "titlePlaceholder": "ej. Arreglar la cocina y pintar la pared",
-            "description": "Descripción",
-            "descPlaceholder": "Contanos más detalles sobre el proyecto...",
+            "titlePlaceholder": "ej. Arreglar baño, Pintar cocina",
+            "description": "Detalles",
+            "descPlaceholder": "Contá un poco más... ¿Qué materiales querés? ¿Para cuándo?",
             "location": "Ubicación",
-            "locationPlaceholder": "Ciudad o Dirección",
-            "photos": "Fotos (Opcional)",
-            "uploadText": "Hacé clic para subir o arrastrá las fotos acá",
-            "submit": "Publicar Proyecto"
+            "locationPlaceholder": "Dirección o Barrio",
+            "photos": "Fotos",
+            "uploadText": "Subí fotos del problema",
+            "submit": "Publicar"
         }
     },
     "requestDetail": {
-        "openForSlicing": "Abierto para División",
-        "postedBy": "Publicado por",
-        "splittingZone": "Zona de División Umarel",
-        "splittingZoneDesc": "Ayudá a dividir este proyecto en etapas pagables. ¡Ganá puntos de Aura!",
+        "openForSlicing": "Borrador",
+        "postedBy": "Dueño",
+        "splittingZone": "Zona de Trabajo",
+        "splittingZoneDesc": "Acá dividimos el trabajo en partes.",
         "suggestedBy": "Sugerido por",
-        "est": "Est.",
-        "discuss": "Discutir",
-        "noSlices": "Todavía no hay etapas. ¡Sé el primer Umarel en ayudar!"
+        "est": "Aprox.",
+        "discuss": "Chat del Proyecto",
+        "noSlices": "Todavía no se definieron los pasos."
     },
     "dashboard": {
         "provider": {
-            "title": "Panel de Profesional",
-            "subtitle": "Encontrá trabajo cerca tuyo y enviá presupuestos.",
-            "updateProfile": "Actualizar Perfil",
-            "project": "Proyecto:",
-            "viewDetails": "Ver Detalles y Cotizar"
+            "title": "Mis Trabajos",
+            "subtitle": "Obras y presupuestos enviados.",
+            "updateProfile": "Editar Perfil",
+            "project": "Obra:",
+            "viewDetails": "Ver"
         },
         "customer": {
-            "title": "Mis Proyectos",
-            "subtitle": "Gestioná tus proyectos y pagos.",
-            "postNew": "Publicar Nuevo Proyecto",
-            "slicesDefined": "Etapas definidas",
-            "quotesReceived": "Presupuestos recibidos",
-            "viewDetails": "Ver Detalles",
-            "postedOn": "Publicado el"
+            "title": "Mis Pedidos",
+            "subtitle": "El estado de tus arreglos.",
+            "postNew": "Nuevo Pedido",
+            "slicesDefined": "Pasos listos",
+            "quotesReceived": "Ofertas",
+            "viewDetails": "Ver",
+            "postedOn": "Fecha"
         }
     },
     "profile": {
         "memberSince": "Miembro desde",
-        "auraPoints": "Puntos de Aura",
-        "yourJourney": "Tu Trayectoria",
-        "keepContributing": "¡Seguí contribuyendo para alcanzar el siguiente nivel!",
+        "auraPoints": "Aura",
+        "yourJourney": "Tu Nivel",
+        "keepContributing": "Seguí sumando para subir de nivel.",
         "currentRank": "Nivel Actual:",
         "nextRank": "Próximo Nivel:",
-        "pointsToGo": "puntos para llegar",
-        "slicesCreated": "Etapas Creadas",
-        "upvotesReceived": "Votos Recibidos",
-        "slicesCompleted": "Etapas Completadas",
-        "topUmarels": "Mejores Umarels"
+        "pointsToGo": "puntos faltan",
+        "slicesCreated": "Pedidos",
+        "upvotesReceived": "Votos",
+        "slicesCompleted": "Trabajos",
+        "topUmarels": "Ranking"
     },
     "NotFound": {
-        "title": "Página No Encontrada",
-        "description": "La página que buscás no existe."
+        "title": "No encontrado",
+        "description": "No encontramos lo que buscabas."
     },
     "browse": {
-        "title": "Explorar Servicios",
-        "subtitle": "Encontrá proyectos y profesionales en tu zona",
-        "searchPlaceholder": "Buscar servicios...",
-        "postRequest": "Publicar Proyecto",
-        "offerServices": "Ofrecer Servicios",
+        "title": "Buscar",
+        "subtitle": "Encontrá oportunidades o profesionales.",
+        "searchPlaceholder": "Buscar...",
+        "postRequest": "Publicar Pedido",
+        "offerServices": "Ofrecer Servicio",
         "showing": "Mostrando",
         "results": "resultados",
         "in": "en",
-        "noResults": "No se encontraron resultados en",
-        "tryAdjusting": "Probá ajustar los filtros o seleccionar otra ubicación",
-        "clearFilters": "Limpiar Filtros",
-        "beFirstToOffer": "Sé el Primero en Ofrecer Servicios"
+        "noResults": "Nada por acá en",
+        "tryAdjusting": "Probá buscar otra cosa",
+        "clearFilters": "Limpiar filtros",
+        "beFirstToOffer": "Sé el primero"
     },
     "filters": {
-        "show": "Mostrar",
+        "show": "Ver",
         "allListings": "Todo",
-        "requestsOnly": "Solo Proyectos",
-        "offeringsOnly": "Solo Servicios",
-        "category": "Categoría",
-        "allCategories": "Todas las Categorías",
-        "location": "Ubicación",
-        "includeVirtual": "Incluir Servicios Virtuales",
-        "hourlyRate": "Tarifa por Hora",
-        "activeFilters": "Filtros Activos",
-        "localOnly": "Solo local",
+        "requestsOnly": "Pedidos",
+        "offeringsOnly": "Profesionales",
+        "category": "Rubro",
+        "allCategories": "Todos los rubros",
+        "location": "Zona",
+        "includeVirtual": "Virtual",
+        "hourlyRate": "Precio Hora",
+        "activeFilters": "Filtros",
+        "localOnly": "Cerca mío",
         "categories": {
             "plumbing": "Plomería",
             "electrical": "Electricidad",
@@ -476,242 +476,263 @@
             "painting": "Pintura",
             "cleaning": "Limpieza",
             "gardening": "Jardinería",
-            "moving": "Mudanzas",
-            "other": "Otro"
+            "moving": "Fletes",
+            "experiences": "Experiencias",
+            "other": "Varios"
         },
-        "locationPlaceholder": "Ciudad, barrio..."
+        "locationPlaceholder": "Localidad..."
     },
     "locationInput": {
-        "placeholder": "Buscar dirección...",
-        "noResults": "No se encontraron resultados.",
+        "placeholder": "Dirección...",
+        "noResults": "No encontrado.",
         "searching": "Buscando..."
     },
     "requestInteraction": {
-        "description": "Alcance del Proyecto",
-        "details": "Detalles de Obra",
-        "location": "Ubicación",
-        "postedBy": "Responsable",
-        "created": "Inicio de Obra",
-        "privateInsights": "La Libreta del Umarel",
-        "noInsights": "👋 ¡Bienvenido a tu Libreta de Obra!\n\nAcá definimos el éxito. Describí tu proyecto con tus palabras y yo (tu Capataz IA) te haré preguntas breves para dividirlo en **Fichas de Ejecución** claras.\n\nAsí obtenés presupuestos exactos y sin sorpresas.",
-        "noComments": "Todavía no hay actividad. Empezá a describir tu proyecto para generar Fichas de Ejecución.",
-        "placeholder": "Acá no venimos a charlar. Señalá riesgos, sugerí mejoras o marcá el error...",
-        "placeholderInsight": "Describí tu proyecto acá. La IA te ayudará a definir Fichas de Ejecución...",
-        "placeholderComment": "Escribí un comentario o actualización...",
-        "placeholderPrompt": "Decime que divida esto en fases o analice los costos...",
-        "aiMode": "Capataz IA",
-        "aiModeActive": "Capataz IA Activo",
+        "description": "Detalles",
+        "details": "Ficha",
+        "location": "Lugar",
+        "postedBy": "Cliente",
+        "created": "Fecha",
+        "privateInsights": "Notas Privadas",
+        "noInsights": "👋 **Hola.**\n\nAcá definimos el trabajo. Detallá bien todo para que la IA te ayude a organizarlo en pasos claros.\n\nObjetivo: Que no haya malentendidos.",
+        "noComments": "Nada por ahora.",
+        "placeholder": "Escribí algo...",
+        "placeholderInsight": "Detalle...",
+        "placeholderComment": "Comentario...",
+        "placeholderPrompt": "Instrucción para la IA...",
+        "aiMode": "Modo IA",
+        "aiModeActive": "IA On",
         "phase": {
-            "label": "Fase Actual",
-            "defining": "Definiendo Alcance",
-            "bidding": "Abierto a Ofertas"
+            "label": "Estado",
+            "defining": "Definiendo",
+            "bidding": "Presupuestando"
         },
         "tabs": {
-            "slices": "Planilla",
+            "slices": "Pasos",
             "quotes": "Ofertas"
         },
         "send": "Enviar",
-        "sending": "Enviando...",
-        "pendingProposals": "Órdenes de Cambio Pendientes",
+        "sending": "...",
+        "pendingProposals": "Pendientes",
         "tips": {
-            "label": "Consejo Pro",
-            "text": "Usá la libreta para preguntarle a la IA cosas como",
-            "example1": "¿Es justo este presupuesto?",
-            "example2": "¿Qué riesgos debería buscar?"
+            "label": "Tips",
+            "text": "Preguntale a la IA:",
+            "example1": "Analizar precios",
+            "example2": "Ver riesgos"
         },
-        "submittedQuotes": "Ofertas Recibidas",
-        "noQuotes": "Todavía no hay ofertas sobre la mesa.",
+        "submittedQuotes": "Presupuestos",
+        "noQuotes": "No hay ofertas aún.",
         "quoteFrom": "Oferta de",
-        "optimizationDiscussion": "Ingeniería de Valor",
-        "fullActivityLog": "Bitácora Completa"
+        "optimizationDiscussion": "Charla sobre Costos",
+        "fullActivityLog": "Historial"
     },
     "kanban": {
         "columns": {
-            "proposed": "Propuesto",
-            "accepted": "Aceptado",
-            "completed": "Terminado"
+            "proposed": "Borrador",
+            "accepted": "Aprobado",
+            "completed": "Listo"
         },
         "actions": {
-            "accept": "Aprobar",
-            "complete": "Finalizar"
+            "accept": "Aceptar",
+            "complete": "Terminar"
         },
         "labels": {
-            "ai": "IA",
-            "noSlices": "Sin items en esta fase."
+            "ai": "Auto",
+            "noSlices": "Vacío"
         },
         "errors": {
-            "updateFailed": "Error al actualizar estado",
-            "movedTo": "Movido a {status}"
+            "updateFailed": "Error",
+            "movedTo": "Pasó a {status}"
         }
     },
     "sliceCard": {
-        "titleLabel": "Título",
-        "descriptionLabel": "Descripción",
-        "locationLabel": "Ubicación",
-        "finalPriceLabel": "Precio Final",
-        "requiredSkillsLabel": "Habilidades Requeridas",
-        "estimatedTimeLabel": "Tiempo Estimado",
-        "dependenciesLabel": "Dependencias",
-        "acceptanceCriteriaLabel": "Criterios de Aceptación",
-        "saveChanges": "Guardar Cambios",
-        "version": "Etapa v{version}"
+        "titleLabel": "Tarea",
+        "descriptionLabel": "Detalle",
+        "locationLabel": "Lugar",
+        "finalPriceLabel": "Precio",
+        "requiredSkillsLabel": "Saber hacer",
+        "estimatedTimeLabel": "Tiempo",
+        "dependenciesLabel": "Se necesita antes",
+        "acceptanceCriteriaLabel": "Para aprobar",
+        "saveChanges": "Guardar",
+        "version": "v{version}"
     },
     "wallet": {
-        "title": "El Diario del Umarel",
-        "stash": "Tu Canuto",
-        "aura": "Aura Acumulada",
-        "impact": "Impacto en Obras",
-        "redemptions": "Canjear Puntos",
+        "title": "Mi Billetera",
+        "stash": "Saldo",
+        "aura": "Aura",
+        "impact": "Impacto",
+        "redemptions": "Retirar",
         "greetings": {
-            "bronze": "Hola pibe. Recién arrancás, pero veo potencial. Hacé buena letra.",
-            "silver": "¡Bien ahí! Ya le vas agarrando la mano. Seguí así.",
-            "gold": "¡Che, qué ojo tenés! Sos un espectáculo. La comunidad te respeta.",
-            "diamond": "¡Maestro Mayor de Obras! Sos una leyenda acá. Sentate, yo invito el mate."
+            "bronze": "Nivel Inicial.",
+            "silver": "Nivel Medio. ¡Bien!",
+            "gold": "Nivel Experto.",
+            "diamond": "Nivel Maestro."
         },
         "impactType": {
-            "risk_mitigation": "¡Salvaste las papas!",
-            "savings": "Cuidando el bolsillo",
-            "clarity": "Clarito como el agua",
-            "quality": "Calidad pura"
+            "risk_mitigation": "Problemas evitados",
+            "savings": "Plata ahorrada",
+            "clarity": "Claridad",
+            "quality": "Calidad"
         },
-        "emptyStash": "Todavía no hay guita en el canuto. ¡Empezá a comentar!",
-        "withdraw": "Retirar Ganancias"
+        "emptyStash": "Sin fondos.",
+        "withdraw": "Retirar plata"
     },
     "createOffering": {
-        "pageTitle": "Ofrecer Servicios",
-        "pageSubtitle": "Creá un perfil profesional para mostrar tus habilidades y que te descubran en tu zona.",
-        "cardTitle": "Detalles del Servicio",
-        "cardDescription": "Contanos sobre el servicio que querés ofrecer.",
+        "pageTitle": "Crear Perfil",
+        "pageSubtitle": "Completá tus datos para que te contraten.",
+        "cardTitle": "Tu Ficha",
+        "cardDescription": "Esto es lo que van a ver los clientes.",
         "form": {
-            "titleLabel": "Título del Servicio",
-            "titlePlaceholder": "ej. Plomero con experiencia para reparaciones residenciales",
-            "titleDesc": "Un título claro y profesional para tu servicio.",
-            "categoryLabel": "Categoría",
-            "categoryPlaceholder": "Seleccioná una categoría",
-            "descriptionLabel": "Descripción",
-            "descriptionPlaceholder": "Describí tu experiencia, servicios ofrecidos y qué te hace único...",
-            "virtualLabel": "Servicio Virtual",
-            "virtualDesc": "Marcá esto si tu servicio se puede hacer de forma remota (ej. consultoría, diseño).",
-            "locationLabel": "Ubicación",
-            "locationPlaceholder": "ej. Buenos Aires, Argentina",
-            "locationDesc": "La zona principal donde ofrecés tus servicios.",
-            "hourlyRateLabel": "Tarifa por Hora ($) (Opcional)",
+            "titleLabel": "Título",
+            "titlePlaceholder": "ej. Gasista Matriculado",
+            "titleDesc": "Cómo te presentás.",
+            "categoryLabel": "Rubro",
+            "categoryPlaceholder": "Elegí uno",
+            "descriptionLabel": "Sobre vos",
+            "descriptionPlaceholder": "Experiencia, herramientas, cómo trabajás...",
+            "virtualLabel": "Trabajo Online",
+            "virtualDesc": "Si hacés consultoría a distancia.",
+            "locationLabel": "Zona",
+            "locationPlaceholder": "ej. Belgrano, Palermo",
+            "locationDesc": "Dónde trabajás.",
+            "hourlyRateLabel": "Precio Hora Ref.",
             "availabilityLabel": "Disponibilidad",
-            "availabilityPlaceholder": "ej. Fines de semana, Tardes, Lun-Vie 9-17",
+            "availabilityPlaceholder": "ej. Mañanas",
             "skillsLabel": "Habilidades",
-            "skillsPlaceholder": "ej. Instalación de tuberías, Reparación de fugas",
-            "skillsDesc": "Lista separada por comas de habilidades específicas.",
-            "portfolioLabel": "Imágenes del Portfolio",
-            "addImage": "Agregar Imagen",
-            "portfolioDesc": "Agregá fotos de tu trabajo anterior para generar confianza.",
-            "submitButton": "Publicar Servicio",
-            "submittingButton": "Creando Servicio...",
-            "successMessage": "¡Servicio creado con éxito!",
-            "errorMessage": "Error al crear el servicio. Por favor intentá de nuevo."
+            "skillsPlaceholder": "ej. Caños, Soldadura",
+            "skillsDesc": "Etiquetas.",
+            "portfolioLabel": "Fotos de Trabajos",
+            "addImage": "Subir Foto",
+            "portfolioDesc": "Mostrá lo que hiciste.",
+            "submitButton": "Guardar Perfil",
+            "submittingButton": "Guardando...",
+            "successMessage": "Listo.",
+            "errorMessage": "Error."
         }
     },
     "terms": {
-        "title": "Términos de Servicio",
-        "intro": "Bienvenido a Umarel...",
-        "privacyTitle": "Política de Privacidad"
+        "title": "Legales",
+        "intro": "Reglas de juego...",
+        "privacyTitle": "Privacidad"
     },
     "offeringDetail": {
-        "backToBrowse": "Volver a Servicios",
-        "virtual": "Servicio Virtual",
-        "aboutService": "Sobre este Servicio",
-        "skills": "Habilidades y Experiencia",
-        "availability": "Disponibilidad Típica",
-        "editOffering": "Editar Servicio",
-        "contactProvider": "Contactar Proveedor",
-        "contactDisclaimer": "Vas a poder discutir los detalles antes de reservar.",
-        "provider": "Proveedor de Servicio",
-        "completion": "Finalización de Pedidos",
-        "rating": "Calificación Comunitaria"
+        "backToBrowse": "Volver",
+        "virtual": "Online",
+        "aboutService": "Sobre el servicio",
+        "skills": "Habilidades",
+        "availability": "Horarios",
+        "editOffering": "Editar",
+        "contactProvider": "Contactar",
+        "contactDisclaimer": "Consultar es gratis.",
+        "provider": "Profesional",
+        "completion": "Cumplimiento",
+        "rating": "Puntaje"
     },
     "submitEvidence": {
-        "title": "Verificar Finalización",
-        "description": "Para completar \"{sliceTitle}\", verificá estrictamente cada criterio usando la Cámara Umarel.",
-        "guardianWarning": "<strong>{guardianName} está mirando:</strong> Se analiza la manipulación de metadatos.",
-        "guardianName": "Asistente IA",
-        "successApproved": "{guardianName}: Evidencia Aprobada (98% Confianza)",
-        "uploadRequired": "Requerido: {type, select, photo {📸 Foto Geo-etiquetada} video {🎥 Video Recorrido} other {Archivo}}",
-        "actionSubmit": "Enviar Evidencia",
-        "btnVerify": "Verificar y Completar",
-        "btnSigning": "Verificando..."
+        "title": "Terminar Tarea",
+        "description": "Para cerrar \"{sliceTitle}\", tenés que subir la prueba.",
+        "guardianWarning": "<strong>Revisión {guardianName}:</strong> Analizando foto...",
+        "guardianName": "Bot",
+        "successApproved": "{guardianName}: Foto OK",
+        "uploadRequired": "Subí: {type, select, photo {📸 Foto} video {🎥 Video} other {Archivo}}",
+        "actionSubmit": "Subir",
+        "btnVerify": "Validar",
+        "btnSigning": "Firmando..."
     },
     "timeline": {
         "status": {
-            "pending": "Pendiente",
-            "active": "En Progreso",
-            "review": "Revisión Requerida",
-            "completed": "Completado",
+            "pending": "Esperando",
+            "active": "Haciendo",
+            "review": "Revisando",
+            "completed": "Listo",
             "locked": "Bloqueado",
             "paid": "Pagado"
         },
         "reviewNames": {
-            "evidenceReady": "Evidencia Enviada y Verificada",
-            "aiVerified": "El Asistente IA ha validado la ubicación y calidad."
+            "evidenceReady": "Hay foto",
+            "aiVerified": "IA OK."
         },
         "actions": {
-            "details": "Ver Detalles",
-            "releaseFunds": "Aprobar y Pagar",
+            "details": "Ver",
+            "releaseFunds": "Pagar",
             "releaseFundsShort": "Pagar"
         }
     },
     "guide": {
-        "title": "Cómo Funciona Umarel",
-        "subtitle": "Sin confusiones. Sin pasos ocultos. Solo gente ayudando a gente, verificada por la comunidad.",
-        "intro": "Sabemos que las reformas pueden ser estresantes. Umarel elimina la incertidumbre dividiendo cada trabajo en pequeños pasos verificados.",
+        "title": "Manual",
+        "subtitle": "Cómo se usa.",
+        "intro": "Simple y seguro.",
         "roles": {
             "seeker": {
-                "title": "Necesito Ayuda (El Cliente)",
-                "desc": "Tienes un problema que resolver o un sueño que construir.",
-                "step1": "1. Descríbelo simple",
-                "step1Desc": "No te preocupes por términos técnicos. Solo dinos qué necesitas (ej: 'Arreglar mi bacha'). Nuestra IA te hará las preguntas correctas.",
-                "step2": "2. Plan Fijo",
-                "step2Desc": "En lugar de un presupuesto ciego, obtienes un 'Plan de Tramos'. El trabajo se divide en partes manejables. Ves exactamente lo que cuesta cada una.",
-                "step3": "3. Paga al Avanzar",
-                "step3Desc": "Nunca pagas el 100% por adelantado. Fondeas un Tramo a la vez. El dinero queda seguro en Garantía hasta que TÚ digas que está listo."
+                "title": "Cliente",
+                "desc": "Tenés que hacer algo.",
+                "step1": "1. Pedir",
+                "step1Desc": "Decinos qué necesitás.",
+                "step2": "2. Organizar",
+                "step2Desc": "Dividimos el trabajo.",
+                "step3": "3. Reservar",
+                "step3Desc": "Asegurás el pago."
             },
             "creator": {
-                "title": "Ofrezco Habilidades (El Profesional)",
-                "desc": "Eres un profesional que quiere trabajar, no discutir sobre dinero.",
-                "step1": "1. Expectativas Claras",
-                "step1Desc": "El alcance se define antes de empezar. Sabes exactamente qué significa 'Terminado'.",
-                "step2": "2. Pago Garantizado",
-                "step2Desc": "Cuando un Tramo está fondeado, el dinero ya está ahí. Haces el trabajo, subes la prueba, y cobras al instante.",
-                "step3": "3. Construye Reputación",
-                "step3Desc": "Cada Tramo completado suma a tu 'Aura'. Más Aura significa mejores trabajos y respeto."
+                "title": "Profesional",
+                "desc": "Querés trabajar.",
+                "step1": "1. Acordar",
+                "step1Desc": "Definimos qué hacer.",
+                "step2": "2. Hacer",
+                "step2Desc": "Trabajás tranquilo.",
+                "step3": "3. Cobrar",
+                "step3Desc": "Subís foto y cobrás."
             },
             "umarel": {
-                "title": "Observo y Verifico (El Entendido)",
-                "desc": "Eres el vecino sabio que asegura que las cosas se hagan bien.",
-                "step1": "1. Revisa el Plan",
-                "step1Desc": "Usa tu experiencia para ver detalles faltantes. '¡Se olvidaron de la imprimación!'",
-                "step2": "2. Verifica la Evidencia",
-                "step2Desc": "Mira las fotos subidas. ¿La pared está pintada? ¿Está lisa?",
-                "step3": "3. Gana por Sabiduría",
-                "step3Desc": "Por cada verificación, ganas un dividendo. Tus ojos tienen valor."
+                "title": "Entendido",
+                "desc": "Ayudás a controlar.",
+                "step1": "1. Auditar",
+                "step1Desc": "Revisás precios.",
+                "step2": "2. Validar",
+                "step2Desc": "Mirás las fotos.",
+                "step3": "3. Ganar",
+                "step3Desc": "Cobrás por ayudar."
             }
         },
         "faq": {
-            "title": "Preguntas Frecuentes",
-            "q1": "¿Qué pasa si no estoy conforme?",
-            "a1": "El dinero está en Garantía. Si el trabajo no está bien, no apruebas. Nuestro Asistente IA interviene de inmediato para guiar la mediación.",
-            "q2": "¿Es un contrato real?",
-            "a2": "Sí. Los 'Tramos' forman un acuerdo digital. Protege a ambos lados mejor que un apretón de manos.",
-            "q3": "¿Necesito ser experto en tecnología?",
-            "a3": "No. Si puedes sacar una foto y mandar un mensaje, puedes usar Umarel. Nuestro Asistente IA te guía."
+            "title": "Preguntas",
+            "q1": "¿Y si no me gusta?",
+            "a1": "La plata sigue guardada. Un Entendido ayuda a resolver el problema.",
+            "q2": "¿Es seguro?",
+            "a2": "Sí, usamos Mercado Pago.",
+            "q3": "¿Qué necesito?",
+            "a3": "Solo tu celular."
         },
-        "cta": "Comienza tu primer proyecto"
+        "cta": "Empezar"
     },
     "referral": {
-        "title": "Regalá Confianza, Ganá Aura",
-        "subtitle": "Umarel crece cuando los vecinos se pasan el dato. Ayudanos a verificar el barrio.",
-        "shareLink": "Tu Enlace de Invitación",
-        "linkCopied": "¡Enlace copiado!",
-        "shareWhatsApp": "Invitar por WhatsApp",
-        "whatsappMessage": "👋 Che, encontré esta app para arreglos de casa que usa un sistema seguro de pagos y verificación. Fijate: https://umarel.org",
-        "disclaimer": "Por cada vecino que se registre y complete un trabajo, ambos recibirán una insignia de 'Vecino Confiable' y 50 puntos de Aura."
+        "title": "Invitá amigos",
+        "subtitle": "Ayudanos a filtrar a los buenos.",
+        "shareLink": "Tu Link",
+        "linkCopied": "Copiado",
+        "shareWhatsApp": "Mandar por WhatsApp",
+        "whatsappMessage": "👋 Che, mirá esta app para arreglos de casa. Es segura y fácil: https://elentendido.ar",
+        "disclaimer": "Sumás puntos Aura."
+    },
+    "verification": {
+        "title": "Verificar Identidad",
+        "subtitle": "Para ser Profesional, necesitamos saber que sos vos.",
+        "steps": {
+            "idFront": "Frente del DNI",
+            "idBack": "Dorso del DNI",
+            "selfie": "Selfie"
+        },
+        "instructions": {
+            "id": "Buscá buena luz. Que se lean todos los datos.",
+            "selfie": "Sin anteojos ni gorra. Mirá a la cámara."
+        },
+        "upload": "Subir Foto",
+        "camera": "Usar Cámara",
+        "submit": "Enviar a Verificación",
+        "submitting": "Subiendo...",
+        "successTitle": "Documentos Recibidos",
+        "successDesc": "Nuestro equipo (y la IA) va a revisar tus datos. En unas horas te confirmamos.",
+        "backToProfile": "Volver al Perfil"
     }
 }

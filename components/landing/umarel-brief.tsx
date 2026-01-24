@@ -18,7 +18,7 @@ export function UmarelBrief() {
 
                         <div className="relative z-10 bg-white p-12 rounded-full shadow-xl border-4 border-orange-100 flex flex-col items-center text-center w-64 h-64 justify-center">
                             <span className="text-8xl mb-4 filter drop-shadow-md">👴</span>
-                            <div className="text-sm font-mono text-orange-600 tracking-widest uppercase font-bold mt-2">The Umarell</div>
+                            <div className="text-sm font-mono text-orange-600 tracking-widest uppercase font-bold mt-2">El Entendido</div>
                         </div>
 
                         {/* Floating "Hands Behind Back" Icon Concept */}

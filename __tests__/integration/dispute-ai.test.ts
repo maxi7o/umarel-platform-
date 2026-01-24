@@ -83,7 +83,7 @@ runIfAiAvailable('Dispute & AI Integration', () => {
             assignedProviderId: providerId,
             title: 'Roof Repair',
             description: 'Fix leak',
-            status: 'in_progress',
+            status: 'accepted',
             finalPrice: 10000
         }).returning();
         sliceId = slice.id;

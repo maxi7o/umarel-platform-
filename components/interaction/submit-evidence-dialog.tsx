@@ -217,6 +217,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                                         <input
                                                             type="file"
                                                             accept={criterion.requiredEvidenceType === 'video' ? "video/*" : "image/*,application/pdf"}
+                                                            capture="environment"
                                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                             onChange={(e) => handleFileUpload(e, criterion.id)}
                                                         />

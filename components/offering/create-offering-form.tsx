@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useTranslations } from 'next-intl';
-import { Loader2, Upload, X, Calendar, Users, Zap, BrainCircuit, TrendingDown } from 'lucide-react';
+import { Loader2, Upload, X, Calendar, Users, Zap, BrainCircuit, TrendingDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -78,6 +78,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     const t = useTranslations('createOffering');
     const tFilter = useTranslations('filters');
     const [isLoading, setIsLoading] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
     const [portfolioImages, setPortfolioImages] = useState<string[]>([]);
 
     const form = useForm<FormValues>({
@@ -176,6 +177,54 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
         setPortfolioImages(portfolioImages.filter((_, i) => i !== index));
     };
 
+    async function handleAIMagic() {
+        const currentDesc = form.getValues('description');
+        const currentTitle = form.getValues('title');
+
+        const prompt = currentDesc && currentDesc.length > 10 ? currentDesc : currentTitle;
+
+        if (!prompt || prompt.length < 5) {
+            toast.error("Please enter a rough title or description first so the AI knows what to polish!");
+            return;
+        }
+
+        setIsGenerating(true);
+        try {
+            const res = await fetch('/api/experiences/ai-suggest', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, mode: 'service' })
+            });
+
+            if (!res.ok) throw new Error("AI failed");
+
+            const data = await res.json();
+
+            // Update form fields
+            form.setValue('title', data.title);
+            form.setValue('description', data.description);
+
+            // Map strategy if valid
+            if (['standard', 'distressed', 'early_bird'].includes(data.strategy)) {
+                form.setValue('pricingStrategy', data.strategy);
+            }
+
+            // Suggest price - AI returns direct unit value for services now
+            if (data.estimatedPrice) {
+                form.setValue('hourlyRate', String(data.estimatedPrice));
+            }
+
+            toast.success("✨ AI has optimized your specific listing!");
+            toast.info(`Optimized for value per unit. Reasoning: ${data.reasoning}`);
+
+        } catch (e) {
+            console.error(e);
+            toast.error("AI could not generate suggestions. Try again.");
+        } finally {
+            setIsGenerating(false);
+        }
+    }
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -251,10 +300,27 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                             name="description"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{t('form.descriptionLabel')}</FormLabel>
+                                    <div className="flex justify-between items-center">
+                                        <FormLabel>{t('form.descriptionLabel')}</FormLabel>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={handleAIMagic}
+                                            disabled={isLoading || isGenerating}
+                                            className="h-8 text-purple-600 border-purple-200 hover:bg-purple-50"
+                                        >
+                                            {isGenerating ? (
+                                                <Loader2 className="w-3 h-3 mr-2 animate-spin" />
+                                            ) : (
+                                                <Sparkles className="w-3 h-3 mr-2" />
+                                            )}
+                                            {isGenerating ? "Developing..." : "Develop with AI"}
+                                        </Button>
+                                    </div>
                                     <FormControl>
                                         <Textarea
-                                            placeholder="Describe the experience in detail..."
+                                            placeholder="Describe what you want to offer and why you are passionate about it..."
                                             className="min-h-[150px]"
                                             {...field}
                                         />

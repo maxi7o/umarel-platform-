@@ -35,27 +35,27 @@ export function RolesSection() {
                         </div>
                     </div>
 
-                    {/* Umarel */}
-                    <div className="group relative bg-slate-900 p-8 rounded-[2rem] border border-slate-800 shadow-2xl shadow-slate-900/20 hover:shadow-slate-900/30 transition-all duration-300 hover:-translate-y-2 -mt-4 lg:-mt-8">
-                        <div className="h-16 w-16 bg-orange-500/10 text-orange-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-orange-500/20">
+                    {/* Entendido (ex-Umarel) */}
+                    <div className="group relative bg-green-600 p-8 rounded-[2rem] border border-green-500 shadow-2xl shadow-green-900/20 hover:shadow-green-900/30 transition-all duration-300 hover:-translate-y-2 -mt-4 lg:-mt-8">
+                        <div className="h-16 w-16 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/20">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>
                         </div>
                         <h3 className="text-2xl font-bold mb-3 font-outfit text-white">{t('roleUmarelTitle')}</h3>
-                        <p className="text-slate-400 mb-8 leading-relaxed">
+                        <p className="text-green-50 mb-8 leading-relaxed">
                             {t('roleUmarelDesc')}
                         </p>
-                        <div className="pt-6 border-t border-slate-800">
+                        <div className="pt-6 border-t border-green-500">
                             <Link href="/browse">
-                                <span className="text-orange-400 font-bold flex items-center group-hover:gap-2 transition-all">
+                                <span className="text-white font-bold flex items-center group-hover:gap-2 transition-all">
                                     {t('roleUmarelAction')} <ArrowRight className="ml-1 h-4 w-4" />
                                 </span>
                             </Link>
                         </div>
                     </div>
 
-                    {/* Creator */}
+                    {/* Provider */}
                     <div className="group relative bg-white p-8 rounded-[2rem] border border-stone-100 shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-stone-200/80 transition-all duration-300 hover:-translate-y-2">
-                        <div className="h-16 w-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <div className="h-16 w-16 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
                         </div>
                         <h3 className="text-2xl font-bold mb-3 font-outfit text-slate-900">{t('roleProviderTitle')}</h3>
@@ -64,7 +64,7 @@ export function RolesSection() {
                         </p>
                         <div className="pt-6 border-t border-stone-100">
                             <Link href="/create-offering">
-                                <span className="text-green-600 font-bold flex items-center group-hover:gap-2 transition-all">
+                                <span className="text-orange-600 font-bold flex items-center group-hover:gap-2 transition-all">
                                     {t('roleProviderAction')} <ArrowRight className="ml-1 h-4 w-4" />
                                 </span>
                             </Link>

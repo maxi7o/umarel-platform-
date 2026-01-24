@@ -116,13 +116,13 @@ export default function CreateExperiencePage() {
                                     disabled={isGenerating}
                                     className="text-purple-600 border-purple-200 hover:bg-purple-50"
                                 >
-                                    {isGenerating ? "✨ Magic..." : "✨ AI Polish"}
+                                    {isGenerating ? "Developing..." : "Develop with AI"}
                                 </Button>
                             </div>
                             <Textarea
                                 id="description"
                                 name="description"
-                                placeholder="I want to take people for a bike ride seeing graffiti in Palermo..."
+                                placeholder="Describe your experience idea and why you are passionate about hosting it..."
                                 required
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}

@@ -1,33 +1,33 @@
 'use client';
 
-import Image from 'next/image';
+
 import { useTranslations } from 'next-intl';
-import { PencilLine, HandCoins, Hammer, CheckCircle2 } from 'lucide-react';
+import { Bot, Layers, Zap, ShieldCheck } from 'lucide-react';
 
 export function HowItWorksSection() {
     const t = useTranslations('landing.howItWorksSteps');
 
     const steps = [
         {
-            icon: <PencilLine className="w-6 h-6 text-white" />,
+            icon: <Bot className="w-6 h-6 text-white" />,
             color: "bg-blue-500",
             title: t('step1.title'),
             desc: t('step1.desc')
         },
         {
-            icon: <HandCoins className="w-6 h-6 text-white" />,
+            icon: <Layers className="w-6 h-6 text-white" />,
             color: "bg-indigo-500",
             title: t('step2.title'),
             desc: t('step2.desc')
         },
         {
-            icon: <Hammer className="w-6 h-6 text-white" />,
+            icon: <Zap className="w-6 h-6 text-white" />,
             color: "bg-orange-500",
             title: t('step3.title'),
             desc: t('step3.desc')
         },
         {
-            icon: <CheckCircle2 className="w-6 h-6 text-white" />,
+            icon: <ShieldCheck className="w-6 h-6 text-white" />,
             color: "bg-green-500",
             title: t('step4.title'),
             desc: t('step4.desc')
@@ -79,7 +79,7 @@ export function HowItWorksSection() {
                     {/* 1. SLICES EXPLANATION */}
                     <div className="bg-white rounded-3xl p-8 shadow-xl border border-stone-100 flex flex-col">
                         <h3 className="text-2xl font-bold font-outfit text-slate-900 mb-4 flex items-center gap-2">
-                            <span className="text-3xl">🍕</span> {t('slicesFeature.title')}
+                            {t('slicesFeature.title')}
                         </h3>
                         <p className="text-stone-600 mb-6 text-lg">
                             {t('slicesFeature.description')}
@@ -107,27 +107,27 @@ export function HowItWorksSection() {
                     </div>
 
                     {/* 2. AI ASSISTANT */}
-                    <div className="bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-800 text-white flex flex-col relative overflow-hidden">
+                    <div className="bg-blue-600 rounded-3xl p-8 shadow-xl border border-blue-500 text-white flex flex-col relative overflow-hidden">
                         {/* Bg Effect */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
                         <h3 className="text-2xl font-bold font-outfit mb-4 flex items-center gap-2 relative z-10">
-                            <span className="text-3xl">🤖</span> {t('aiFeature.title')}
+                            {t('aiFeature.title')}
                         </h3>
-                        <p className="text-slate-300 mb-6 text-lg relative z-10">
+                        <p className="text-blue-100 mb-6 text-lg relative z-10">
                             {t('aiFeature.description')}
                         </p>
 
-                        <div className="bg-white/5 rounded-xl p-4 border border-white/10 mt-auto relative z-10 space-y-4">
-                            <div className="bg-slate-800 p-3 rounded-2xl rounded-tr-none self-end ml-8 relative shadow-lg">
-                                <p className="text-sm text-slate-200">{t('aiFeature.chatUser')}</p>
+                        <div className="bg-white/10 rounded-xl p-4 border border-white/20 mt-auto relative z-10 space-y-4">
+                            <div className="bg-blue-800/50 p-3 rounded-2xl rounded-tr-none self-end ml-8 relative shadow-sm border border-blue-700/50">
+                                <p className="text-sm text-blue-100">{t('aiFeature.chatUser')}</p>
                             </div>
-                            <div className="bg-purple-600 p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
-                                <p className="text-sm text-white font-medium">{t('aiFeature.chatAi')}</p>
+                            <div className="bg-white p-3 rounded-2xl rounded-tl-none mr-8 shadow-lg">
+                                <p className="text-sm text-blue-900 font-bold">{t('aiFeature.chatAi')}</p>
                             </div>
 
                             <div className="pt-2">
-                                <button className="w-full py-3 rounded-xl bg-white text-slate-900 font-bold hover:bg-slate-100 transition-colors shadow-lg">
+                                <button className="w-full py-3 rounded-xl bg-white text-blue-600 font-bold hover:bg-blue-50 transition-colors shadow-lg">
                                     {t('aiFeature.cta')}
                                 </button>
                             </div>
@@ -136,25 +136,7 @@ export function HowItWorksSection() {
 
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-4">
-                    <div className="relative">
-                        <Image
-                            src="/umarel-mascot.png"
-                            alt="Umarel Mascot"
-                            width={80}
-                            height={80}
-                            className="object-contain hover:scale-110 transition-transform duration-300"
-                        />
-                        {/* Speech Bubble Tail */}
-                        <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200 hidden" />
-                    </div>
-                    <div className="bg-white px-6 py-3 rounded-full shadow-sm border border-stone-200 relative">
-                        <div className="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-stone-200"></div>
-                        <p className="text-stone-600 italic font-medium text-lg relative z-10">
-                            {t('quote')}
-                        </p>
-                    </div>
-                </div>
+
 
             </div>
         </section>

@@ -25,23 +25,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     if (locale === 'es') {
         return {
-            title: "Umarel Argentina - Reformas y Servicios Verificados",
-            description: "Conectá con profesionales verificados y 'abuelos de obra' que aseguran la calidad. Tu dinero protegido hasta que el trabajo esté terminado.",
+            title: "El Entendido - Proyectos Claros",
+            description: "Plataforma de servicios verificados. Definí tu proyecto, dividilo en etapas y pagá solo por resultados.",
             openGraph: {
-                title: "Umarel - Construí con Confianza",
-                description: "El primer mercado de servicios con verificación experta en Argentina.",
+                title: "El Entendido - Tu Proyecto Bien Hecho",
+                description: "Gestión de proyectos y servicios con garantía de calidad.",
                 images: ['/landing/hero-bg.png']
             },
-            icons: {
-                icon: '/umarel-mascot.png',
-                shortcut: '/umarel-mascot.png',
-            }
+            // Using default favicon
         };
     }
 
     return {
-        title: "Umarel - Get things done with wisdom",
-        description: "The marketplace where experienced Umarels help you break down tasks.",
+        title: "El Entendido - Projects Done Right",
+        description: "The marketplace where you define projects in clear stages and pay for results.",
     };
 }
 
@@ -84,22 +81,66 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
+            <head>
+                {/* Meta Pixel Code */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1888420661778370');
+              fbq('track', 'PageView');
+            `,
+                    }}
+                />
+                <noscript>
+                    <img
+                        height="1"
+                        width="1"
+                        style={{ display: 'none' }}
+                        src="https://www.facebook.com/tr?id=1888420661778370&ev=PageView&noscript=1"
+                        alt=""
+                    />
+                </noscript>
+                {/* End Meta Pixel Code */}
+
+                {/* Google Analytics (GA4) */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID" />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-MEASUREMENT_ID');
+            `,
+                    }}
+                />
+            </head>
             <body
                 suppressHydrationWarning
                 className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${caveat.variable} font-sans antialiased min-h-screen flex flex-col`}
             >
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar user={user} />
-                            <main className="flex-grow">
-                                {children}
-                            </main>
-                            <Footer />
+                        <div className="flex flex-col min-h-screen bg-neutral-50 dark:bg-black">
+                            {/* Desktop Container Constraint */}
+                            <div className="w-full max-w-[600px] mx-auto bg-white dark:bg-stone-900 min-h-screen shadow-2xl border-x border-stone-100 dark:border-stone-800 flex flex-col relative">
+                                <Navbar user={user} />
+                                <main className="flex-grow flex flex-col relative">
+                                    {children}
+                                </main>
+                                <Footer />
+                            </div>
                         </div>
                         <Toaster />
                         <WhatsAppButton />
-                        <RoleSelectorDialog />
                     </MarketProvider>
                 </NextIntlClientProvider>
             </body>

@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { MapPin, Link as LinkIcon, Twitter, Linkedin, Github } from 'lucide-react';
+import { MapPin, Link as LinkIcon, Twitter, Linkedin, Github, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 
 import { EditProfileDialog } from './edit-profile-dialog';
@@ -68,6 +68,12 @@ export function ProfileHeader({
                                 </Badge>
                                 {isOwner && (
                                     <>
+                                        <Button variant="outline" size="sm" asChild className="gap-2 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 h-9">
+                                            <Link href="/verify">
+                                                <ShieldAlert className="h-4 w-4" />
+                                                Verificar Identidad
+                                            </Link>
+                                        </Button>
                                         <NotificationSettings />
                                         <EditProfileDialog
                                             userId={userId}
