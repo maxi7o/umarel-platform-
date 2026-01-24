@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             openGraph: {
                 title: "El Entendido - Tu Proyecto Bien Hecho",
                 description: "Gestión de proyectos y servicios con garantía de calidad.",
-                images: ['/landing/hero-bg.png']
+                images: ['https://www.elentendido.ar/slices/slice-thumbnail.png']
             },
             // Using default favicon
         };
