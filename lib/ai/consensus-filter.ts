@@ -1,5 +1,5 @@
 
-import { createGoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { OpenAI } from 'openai';
 
 // Define strict interfaces for the consensus result
