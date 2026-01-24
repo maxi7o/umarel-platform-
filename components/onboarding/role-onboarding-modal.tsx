@@ -35,7 +35,17 @@ export function RoleOnboardingModal() {
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="w-[90%] max-w-[400px] p-0 overflow-hidden bg-transparent border-none shadow-none focus:outline-none">
+            <DialogContent className="w-[85%] max-w-[360px] p-0 overflow-visible bg-transparent border-none shadow-none focus:outline-none">
+
+                {/* Close Button Outside */}
+                <button
+                    onClick={handleClose}
+                    className="absolute -top-10 right-0 p-2 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+                >
+                    <span className="sr-only">Cerrar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+
                 <div className="bg-white dark:bg-stone-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-auto max-h-[85vh] overflow-y-auto">
 
                     {/* Role 1: CLIENT */}
