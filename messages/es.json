@@ -50,12 +50,12 @@
         }
     },
     "nav": {
-        "browse": "Buscar Proyectos",
-        "howto": "Cómo funciona",
+        "browse": "Explorar",
+        "howto": "Filosofía",
         "offerServices": "Soy Profesional",
         "login": "Ingresar",
-        "postNeed": "Publicar Pedido",
-        "dashboard": "Mis Proyectos",
+        "postNeed": "Diseñar Proyecto",
+        "dashboard": "Panel",
         "logout": "Salir",
         "home": "Inicio",
         "roles": "Quién es Quién",
@@ -93,134 +93,134 @@
         ]
     },
     "home": {
-        "heroTitle1": "Acordá. Cumplí.",
-        "heroTitleHighlight": "Cobrá.",
-        "heroSubtitle": "La forma más segura de contratar servicios. El Entendido la CUSTODIA hasta que el trabajo está listo.",
+        "heroTitle1": "Tu Proyecto,",
+        "heroTitleHighlight": "Bien Hecho.",
+        "heroSubtitle": "La plataforma donde la tecnología te ayuda a definir qué necesitás, y expertos verificados lo hacen realidad. Paso a paso.",
         "heroSteps": {
-            "step1": "1. Definí lo que necesitás.",
-            "step2": "2. El Entendido la CUSTODIA.",
-            "step3": "3. Aprobá Etapas Verificables."
+            "step1": "1. La IA ordena tu idea.",
+            "step2": "2. Dividimos en partes.",
+            "step3": "3. Pagás contra avance."
         },
-        "postRequest": "Pedir Presupuesto",
-        "offerServices": "Cotizar un Servicio",
-        "availableIn": "Disponible en CABA y GBA",
-        "watchVideo": "Ver cómo es",
-        "browseServices": "Ver Pedidos",
+        "postRequest": "Empezar Proyecto",
+        "offerServices": "Ofrecer Servicios",
+        "availableIn": "Comunidad de Profesionales",
+        "watchVideo": "Cómo funciona",
+        "browseServices": "Explorar Ofertas",
         "originLabel": "La Idea",
-        "originQuote": "Nos inspiramos en ese vecino que sabe de todo y mira las obras para asegurarse de que nadie meta la pata.",
-        "originSource": "— El Origen",
-        "rolesTitle": "Cómo nos organizamos",
-        "rolesSubtitle": "Tres roles simples para que todo salga bien.",
-        "roleClientTitle": "El Cliente (Vos)",
-        "roleClientDesc": "Tenés algo para arreglar o construir. Querés que quede bien y no te cobren cualquier cosa.",
-        "roleClientBenefit1": "Plata protegida",
-        "roleClientBenefit2": "Cero estrés",
-        "roleClientAction": "Empezar",
+        "originQuote": "La calidad no es un accidente. Es el resultado de la intención clara y la ejecución honesta.",
+        "originSource": "— Filosofía El Entendido",
+        "rolesTitle": "Cómo funciona el sistema",
+        "rolesSubtitle": "Roles claros para resultados seguros.",
+        "roleClientTitle": "El Cliente",
+        "roleClientDesc": "Usá nuestra tecnología para explicar lo que necesitás. Hacelo por etapas y mantené siempre el control de tu presupuesto.",
+        "roleClientBenefit1": "Claridad total",
+        "roleClientBenefit2": "A tu ritmo",
+        "roleClientAction": "Crear Proyecto",
         "roleUmarelTitle": "El Entendido",
-        "roleUmarelBadge": "Tu aliado",
-        "roleUmarelDesc": "Alguien que sabe mucho del tema. Mira los presupuestos y las fotos para decirte si está todo OK.",
-        "roleUmarelBenefit1": "Ganá por saber",
-        "roleUmarelBenefit2": "Ayudá a otros",
+        "roleUmarelBadge": "Confianza",
+        "roleUmarelDesc": "Expertos que ayudan a revisar que todo esté bien. Aportan su saber para cuidar la calidad de la comunidad.",
+        "roleUmarelBenefit1": "Reconocimiento",
+        "roleUmarelBenefit2": "Ingresos Extra",
         "roleUmarelAction": "Tengo experiencia",
         "roleProviderTitle": "El Profesional",
-        "roleProviderDesc": "Plomeros, electricistas, albañiles. Gente de oficio que quiere trabajar tranquila y cobrar seguro.",
-        "roleProviderBenefit1": "Pagos asegurados",
-        "roleProviderBenefit2": "Mostrá tu calidad",
-        "roleProviderAction": "Quiero trabajar",
+        "roleProviderDesc": "Gente talentosa que quiere trabajar en serio. Sin burocracia, mostrando su valor real en cada trabajo.",
+        "roleProviderBenefit1": "Crecimiento Real",
+        "roleProviderBenefit2": "Cobro Seguro",
+        "roleProviderAction": "Ofrecer Servicio",
         "soon": "Pronto",
-        "prop1Title": "Ayuda Experta",
-        "prop1Desc": "No estás solo. El Entendido te ayuda a ver si el presupuesto es lógico.",
-        "prop2Title": "Paso a paso",
-        "prop2Desc": "Dividimos los trabajos grandes en partes chicas. Así es más fácil controlar.",
-        "prop3Title": "Pago Seguro",
-        "prop3Desc": "La plata espera en Mercado Pago. El profesional sabe que tenés la plata, vos no la soltás hasta ver el trabajo hecho.",
+        "prop1Title": "Asistente Inteligente",
+        "prop1Desc": "No hace falta saber términos técnicos. Contanos tu idea y la organizamos en un plan claro.",
+        "prop2Title": "Hacelo por Partes",
+        "prop2Desc": "Dividí el trabajo en etapas (Slices). Si la primera sale bien, seguís. Si no, frenás. Vos tenés el control.",
+        "prop3Title": "Evidencia Real",
+        "prop3Desc": "Acá se paga cuando se ve el trabajo terminado. Fotos, videos y validación real.",
         "steps": {
-            "trustedBy": "Protegido por Mercado Pago",
+            "trustedBy": "Plataforma Segura",
             "stage1": {
-                "title": "El Pedido",
-                "desc": "Decinos qué necesitás."
+                "title": "Tu Idea",
+                "desc": "Definimos el plan."
             },
             "stage2": {
-                "title": "Reservá con Seguridad",
-                "badge": "Custodia Segura",
-                "desc": "El dinero queda en CUSTODIA. Nadie lo toca hasta que vos das el OK."
+                "title": "Por Etapas",
+                "badge": "Tu Control",
+                "desc": "Aprobás paso a paso."
             },
             "stage3": {
-                "title": "Etapas Verificables",
-                "desc": "Se paga paso a paso. Solo cuando ves la evidencia del trabajo hecho."
+                "title": "Resultado",
+                "desc": "Calidad asegurada."
             },
             "floater": {
-                "title": "Pago Protegido",
-                "desc": "Reserva segura"
+                "title": "Garantía",
+                "desc": "Tranquilidad total"
             }
         },
         "valueProp": {
-            "badge": "Por qué elegirnos",
-            "title": "Confianza de verdad",
-            "subtitle": "Un sistema pensado para que nadie desconfíe de nadie.",
+            "badge": "Propuesta",
+            "title": "Simple. Seguro. Justo.",
+            "subtitle": "Eliminamos los problemas de siempre para que puedas enfocarte en el resultado.",
             "card1": {
-                "title": "Sin sorpresas",
-                "desc": "El precio se cierra antes. La plata se reserva antes. Las reglas están claras."
+                "title": "Paz Mental",
+                "desc": "Al trabajar por etapas, eliminás el riesgo de 'clavarte' con un proyecto grande."
             },
             "card2": {
-                "badge": "Ranking",
-                "title": "Buena Reputación",
-                "desc": "Los puntos 'Aura' muestran quién cumple. Si tenés buen puntaje, conseguís mejores trabajos."
+                "badge": "Calidad",
+                "title": "Reputación Real",
+                "desc": "Los buenos profesionales suben de nivel. El sistema premia al que cumple."
             },
             "card3": {
-                "title": "Tecnología Fácil",
-                "desc": "Hablale a nuestra IA como si fuera un audio de WhatsApp y te armamos el pedido técnico."
+                "title": "Tecnología Útil",
+                "desc": "Usamos IA para traducir 'lo que quiero' a 'lo que hay que hacer'. Sin confusiones."
             },
-            "manifesto": "Leer más"
+            "manifesto": "Ver Misión"
         }
     },
     "landing": {
         "concept": {
-            "title": "El Factor Entendido",
-            "subtitle": "Tu experto de confianza",
-            "description": "Todos necesitamos a alguien que 'la tenga clara' con las obras. Ese es **El Entendido**.",
-            "digital": "En nuestra app, **El Entendido** te ayuda a revisar que no te estén pasando un presupuesto inflado o haciendo un trabajo a medias."
+            "title": "El Entendido",
+            "subtitle": "Experiencia que vale",
+            "description": "El rol que **garantiza la calidad**, aportando su mirada experta para validar el trabajo bien hecho.",
+            "digital": "En nuestra plataforma, transformamos la confianza en un sistema que funciona para todos."
         },
         "hero": {
-            "title": "Arreglá tu casa sin sufrir.",
-            "subtitle1": "La app para contratar reformas seguras —",
-            "subtitle2": "profesionales verificados y pagos protegidos.",
-            "cta": "Empezar Ahora"
+            "title": "Proyectos Reales, Sin Vueltas.",
+            "subtitle1": "La forma moderna de contratar y trabajar —",
+            "subtitle2": "asistida por tecnología, validada por expertos.",
+            "cta": "Empezar Proyecto"
         },
-        "howItWorks": "Pasos",
+        "howItWorks": "Proceso",
         "howItWorksSteps": {
-            "title": "Cómo es el proceso",
-            "subtitle": "Paso a Paso",
+            "title": "Cómo Trabajamos",
+            "subtitle": "Paso a paso",
             "quote": "“Cuentas claras.”",
             "step1": {
-                "title": "1. Pedilo",
-                "desc": "Contale a la app qué necesitás. 'Tengo humedad', 'Quiero pintar'. Nosotros lo traducimos a lenguaje técnico."
+                "title": "1. Definí",
+                "desc": "Contanos tu idea. Nuestro asistente te ayuda a armar un plan de trabajo claro."
             },
             "step2": {
-                "title": "2. Elegí",
-                "desc": "Recibí propuestas. Mirá las calificaciones y elegí al que más confianza te de."
+                "title": "2. Dividí",
+                "desc": "Organizamos el proyecto en 'Slices' (etapas). Es más fácil gestionar montos chicos."
             },
             "step3": {
-                "title": "3. Reservá",
-                "desc": "Poné la plata en reserva. El profesional arranca tranquilo porque sabe que el pago está."
+                "title": "3. Ejecutá",
+                "desc": "El profesional realiza la tarea. Se sube evidencia (fotos/video) de lo hecho."
             },
             "step4": {
-                "title": "4. Aprobá",
-                "desc": "Cuando te muestran que terminaron, liberás el pago. Listo."
+                "title": "4. Validá",
+                "desc": "Aprobás la etapa y liberás el pago. Si querés seguir, activás la siguiente."
             },
             "slicesFeature": {
-                "title": "Hacelo por partes",
-                "description": "Si la obra es grande, la dividimos en 'Fichas'. Pagás por avance, no todo junto.",
-                "exampleTitle": "Ejemplo: Arreglar Techo",
-                "exampleStep1": "1. Visita y diagnóstico ($15k).",
-                "exampleStep2": "2. Materiales y primera mano ($45k).",
-                "exampleStep3": "3. Terminación y prueba ($20k)."
+                "title": "El Poder de las Etapas",
+                "description": "No te comprometas a todo de una. Probá con una primera etapa pequeña. Es tu garantía de satisfacción.",
+                "exampleTitle": "Ejemplo: Un Evento",
+                "exampleStep1": "1. Propuesta y Diseño.",
+                "exampleStep2": "2. Organización.",
+                "exampleStep3": "3. El Día del Evento."
             },
             "aiFeature": {
-                "title": "Asistente Inteligente",
-                "description": "¿No sabés cómo explicarlo? Decímelo en criollo y yo lo escribo en 'idioma obra'.",
-                "chatUser": "👱‍♂️ Tengo una mancha de humedad en el baño.",
-                "chatAi": "🤖 Dale. Lo anoto como: 'Reparación de filtración en losa y pintura antihongo'.",
+                "title": "Asistente IA",
+                "description": "Te ayudamos a estructurar tus pedidos para que los profesionales entiendan exactamente qué necesitás.",
+                "chatUser": "🧠 Quiero organizar una cata de vinos.",
+                "chatAi": "🤖 ¡Genial! Lo podemos dividir en 3 etapas: 1. Selección de Vinos, 2. Compra y Logística, 3. Servicio. ¿Te parece?",
                 "cta": "Probar Asistente"
             }
         },

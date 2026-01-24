@@ -25,23 +25,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     if (locale === 'es') {
         return {
-            title: "Umarel Argentina - Reformas y Servicios Verificados",
-            description: "Conectá con profesionales verificados y 'abuelos de obra' que aseguran la calidad. Tu dinero protegido hasta que el trabajo esté terminado.",
+            title: "El Entendido - Proyectos Claros",
+            description: "Plataforma de servicios verificados. Definí tu proyecto, dividilo en etapas y pagá solo por resultados.",
             openGraph: {
-                title: "Umarel - Construí con Confianza",
-                description: "El primer mercado de servicios con verificación experta en Argentina.",
+                title: "El Entendido - Tu Proyecto Bien Hecho",
+                description: "Gestión de proyectos y servicios con garantía de calidad.",
                 images: ['/landing/hero-bg.png']
             },
-            icons: {
-                icon: '/umarel-mascot.png',
-                shortcut: '/umarel-mascot.png',
-            }
+            // Using default favicon
         };
     }
 
     return {
-        title: "Umarel - Get things done with wisdom",
-        description: "The marketplace where experienced Umarels help you break down tasks.",
+        title: "El Entendido - Projects Done Right",
+        description: "The marketplace where you define projects in clear stages and pay for results.",
     };
 }
 

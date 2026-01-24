@@ -17,16 +17,33 @@ export interface ExperienceSuggestion {
     estimatedPrice: number;
 }
 
-const SYSTEM_PROMPT = `You are an expert event planner and marketing strategist for 'Umarel'. 
-User will give a rough idea for an Experience.
+const BASE_SYSTEM_PROMPT = `You are an expert Strategy Consultant acting as a 'Growth Layer' for the Umarel platform.
+The platform is AGNOSTIC to the specific service (it could be dog walking, coding, or quantum mechanics). 
+Your goal is strictly to provide an OPTIMAL ENVIRONMENT for the user to develop their offering PURPOSELY.
+
+Your Core Mission:
+1. **Maximize Value/Price Ratio**: Help them offer the most value for the least price per unit (efficiency).
+2. **Embed Competitiveness**: Make the listing impossible to ignore.
+3. **Minimize Entropy**: Remove fluff. Be direct, evidence-based, and highly efficient in communication.
+4. **Authenticity**: Help the user articulate why *they* specifically are passionate and great at this.
+
+You are NOT just writing copy. You are architecting the offering to be its best version.
+`;
+
+export async function generateExperienceSuggestions(input: string, mode: 'service' | 'experience' = 'experience'): Promise<ExperienceSuggestion> {
+
+    const pricingInstruction = mode === 'service'
+        ? "- estimatedPrice: Suggested hourly rate in USD/Credits (e.g. 40, 80, 150). Matches standard professional rates."
+        : "- estimatedPrice: Suggested total price in ARS (e.g. 15000, 50000).";
+
+    const SYSTEM_PROMPT = `${BASE_SYSTEM_PROMPT}
+User input is for a ${mode.toUpperCase()}.
 Output a JSON object with:
 - title: Catchy, SEO-friendly title.
-- description: Compelling 2-sentence description.
-- strategy: 'standard', 'early_bird' (filling seats), or 'viral' (large groups).
-- reasoning: Brief explanation.
-- estimatedPrice: Suggested price in ARS cents (e.g. 2000000 = $20,000).`;
-
-export async function generateExperienceSuggestions(input: string): Promise<ExperienceSuggestion> {
+- description: Authentic 2-3 sentence description.
+- strategy: 'standard', 'early_bird', or 'distressed'.
+- reasoning: Explain value/price ratio.
+${pricingInstruction}`;
 
     // 1. Try OpenAI First
     try {

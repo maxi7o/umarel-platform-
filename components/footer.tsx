@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 
 const TAGLINES: Record<string, string> = {
     'en': 'Connecting wisdom with needs.',
@@ -24,16 +23,6 @@ export function Footer() {
     // Extract locale from pathname
     const locale = pathname.split('/')[1] || 'en';
     const tagline = TAGLINES[locale] || TAGLINES['en'];
-
-    // Select a random quote from the localization on mount (client-side only for hydration safety)
-    const [quote, setQuote] = useState<string>('');
-    const quotes = t.raw('quotes') as unknown as string[]; // Access raw array
-
-    useEffect(() => {
-        if (Array.isArray(quotes) && quotes.length > 0) {
-            setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-        }
-    }, []);
 
     return (
         <footer className="bg-slate-50 text-slate-500 py-12 border-t border-slate-200">
@@ -56,12 +45,7 @@ export function Footer() {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
                             </a>
                         </div>
-                        {quote && (
-                            <div className="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
-                                <p className="text-xs text-blue-500 font-bold mb-1">{t('dailyWisdom')}</p>
-                                <p className="text-sm italic text-slate-600">"{quote}"</p>
-                            </div>
-                        )}
+
                     </div>
                     <div>
                         <h4 className="text-slate-900 font-bold mb-4">{t('platform')}</h4>

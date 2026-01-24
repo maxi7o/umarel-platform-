@@ -2,32 +2,32 @@
 
 
 import { useTranslations } from 'next-intl';
-import { PencilLine, HandCoins, Hammer, CheckCircle2 } from 'lucide-react';
+import { Bot, Layers, Zap, ShieldCheck } from 'lucide-react';
 
 export function HowItWorksSection() {
     const t = useTranslations('landing.howItWorksSteps');
 
     const steps = [
         {
-            icon: <PencilLine className="w-6 h-6 text-white" />,
+            icon: <Bot className="w-6 h-6 text-white" />,
             color: "bg-blue-500",
             title: t('step1.title'),
             desc: t('step1.desc')
         },
         {
-            icon: <HandCoins className="w-6 h-6 text-white" />,
+            icon: <Layers className="w-6 h-6 text-white" />,
             color: "bg-indigo-500",
             title: t('step2.title'),
             desc: t('step2.desc')
         },
         {
-            icon: <Hammer className="w-6 h-6 text-white" />,
+            icon: <Zap className="w-6 h-6 text-white" />,
             color: "bg-orange-500",
             title: t('step3.title'),
             desc: t('step3.desc')
         },
         {
-            icon: <CheckCircle2 className="w-6 h-6 text-white" />,
+            icon: <ShieldCheck className="w-6 h-6 text-white" />,
             color: "bg-green-500",
             title: t('step4.title'),
             desc: t('step4.desc')
@@ -136,13 +136,7 @@ export function HowItWorksSection() {
 
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-4">
-                    <div className="bg-white px-6 py-3 rounded-full shadow-sm border border-stone-200 relative">
-                        <p className="text-slate-500 italic font-medium text-lg relative z-10">
-                            {t('quote')}
-                        </p>
-                    </div>
-                </div>
+
 
             </div>
         </section>
