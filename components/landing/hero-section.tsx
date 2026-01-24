@@ -107,7 +107,7 @@ export function HeroSection() {
                         <div className="flex flex-col items-center text-center space-y-4">
                             <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-2 shadow-inner">
                                 <Image
-                                    src="https://img.icons8.com/color/96/mercado-pago.png"
+                                    src="https://cdn.worldvectorlogo.com/logos/mercadopago.svg"
                                     alt="Mercado Pago"
                                     width={48}
                                     height={48}
