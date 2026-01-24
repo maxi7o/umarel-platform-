@@ -7,11 +7,13 @@ import { CommentThread } from './comment-thread';
 import { SliceKanban } from './slice-kanban';
 import { QuoteBuilder } from './quote-builder';
 import { ChangeProposalCard } from './change-proposal-card';
-import { MessageSquare, KanbanSquare, Activity, LayoutList } from 'lucide-react';
+import { MessageSquare, KanbanSquare, Activity, LayoutList, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { CurrencyDisplay } from '@/components/currency-display';
 import { useTranslations } from 'next-intl';
 import { ConnectorTimeline } from '@/components/contract/connector-timeline';
+import { QuoteEvaluationView } from '@/components/interaction/quote-evaluation-view';
+import { StickyNoteButton } from '@/components/interaction/sticky-note-button';
 import { cn } from '@/lib/utils';
 
 interface RequestInteractionLayoutProps {
@@ -39,6 +41,41 @@ export function RequestInteractionLayout({
     const [quotes, setQuotes] = useState(initialQuotes);
     const [proposals, setProposals] = useState(initialProposals);
     const [viewMode, setViewMode] = useState<'board' | 'timeline'>('timeline');
+    const [selectedQuote, setSelectedQuote] = useState<any | null>(null);
+    const [quoteFeedbacks, setQuoteFeedbacks] = useState<any[]>([]);
+
+    const handleQuoteSelect = async (quote: any) => {
+        if (selectedQuote?.id === quote.id) {
+            setSelectedQuote(null); // Deselect
+            setQuoteFeedbacks([]);
+            return;
+        }
+        setSelectedQuote(quote);
+        // Mock fetching opinions for now (Replace with real API call)
+        // In real app: fetch(`/api/quotes/${quote.id}/feedback`)
+        setQuoteFeedbacks([
+            {
+                id: 'f1',
+                authorName: 'Umarel Expert',
+                authorAvatar: '',
+                content: 'Price seems reasonable for 3 days work.',
+                sentiment: 'positive',
+                isVerified: true,
+                createdAt: new Date().toISOString()
+            }
+        ]);
+        toast.info("Opened evaluation view", { description: "Review expert opinions alongside the quote." });
+    };
+
+    const handleAcceptQuote = async () => {
+        toast.success("Quote Accepted!", { description: "Proceeding to contract creation." });
+        // Trigger acceptance logic
+    };
+
+    const handleRejectQuote = async () => {
+        toast.error("Quote Rejected");
+        setSelectedQuote(null);
+    };
 
     const [isDemo, setIsDemo] = useState(false);
     useEffect(() => {
@@ -140,60 +177,84 @@ export function RequestInteractionLayout({
                 {/* LEFT: The Work Area (Focus Mode) */}
                 <div className="space-y-8">
 
-                    {/* View Toggle & Title */}
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-semibold text-stone-800 flex items-center gap-2">
-                            {viewMode === 'timeline' ? <LayoutList className="w-5 h-5 text-blue-600" /> : <KanbanSquare className="w-5 h-5 text-blue-600" />}
-                            {t('tabs.slices')}
-                        </h3>
-                        <div className="flex bg-stone-100 p-1 rounded-lg border border-stone-200">
-                            <button
-                                onClick={() => setViewMode('timeline')}
-                                className={cn(
-                                    "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
-                                    viewMode === 'timeline' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
-                                )}
-                            >
-                                <LayoutList size={16} />
-                                Timeline
-                            </button>
-                            <button
-                                onClick={() => setViewMode('board')}
-                                className={cn(
-                                    "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
-                                    viewMode === 'board' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
-                                )}
-                            >
-                                <KanbanSquare size={16} />
-                                Board
-                            </button>
+                    {selectedQuote ? (
+                        <div className="animate-in slide-in-from-right duration-300">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-xl font-semibold text-stone-800 flex items-center gap-2">
+                                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                                    Evaluate Proposal
+                                </h3>
+                                <button className="text-sm text-stone-500 hover:text-stone-800 underline" onClick={() => setSelectedQuote(null)}>
+                                    Close Evaluation
+                                </button>
+                            </div>
+                            <QuoteEvaluationView
+                                quote={selectedQuote}
+                                feedbacks={quoteFeedbacks}
+                                onAccept={handleAcceptQuote}
+                                onReject={handleRejectQuote}
+                            />
                         </div>
-                    </div>
+                    ) : (
+                        <>
+                            {/* View Toggle & Title */}
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-xl font-semibold text-stone-800 flex items-center gap-2">
+                                    {viewMode === 'timeline' ? <LayoutList className="w-5 h-5 text-blue-600" /> : <KanbanSquare className="w-5 h-5 text-blue-600" />}
+                                    {t('tabs.slices')}
+                                </h3>
+                                <div className="flex bg-stone-100 p-1 rounded-lg border border-stone-200">
+                                    <button
+                                        onClick={() => setViewMode('timeline')}
+                                        className={cn(
+                                            "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
+                                            viewMode === 'timeline' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
+                                        )}
+                                    >
+                                        <LayoutList size={16} />
+                                        Timeline
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('board')}
+                                        className={cn(
+                                            "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
+                                            viewMode === 'board' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
+                                        )}
+                                    >
+                                        <KanbanSquare size={16} />
+                                        Board
+                                    </button>
+                                </div>
+                            </div>
 
-                    <div className="min-h-[400px]">
-                        {viewMode === 'timeline' ? (
-                            <ConnectorTimeline
-                                slices={slices}
-                                onApprove={handleApproveSlice}
-                                isOwner={isOwner}
-                            />
-                        ) : (
-                            <SliceKanban
-                                slices={slices}
-                                onSliceUpdated={handleSliceUpdated}
-                                isOwner={isOwner}
-                                currentUserId={currentUser?.id}
-                                requestId={request.id}
-                            />
-                        )}
-                    </div>
+                            <div className="min-h-[400px]">
+                                {viewMode === 'timeline' ? (
+                                    <ConnectorTimeline
+                                        slices={slices}
+                                        onApprove={handleApproveSlice}
+                                        isOwner={isOwner}
+                                    />
+                                ) : (
+                                    <SliceKanban
+                                        slices={slices}
+                                        onSliceUpdated={handleSliceUpdated}
+                                        isOwner={isOwner}
+                                        currentUserId={currentUser?.id}
+                                        requestId={request.id}
+                                    />
+                                )}
+                            </div>
+                        </>
+                    )}
 
-                    <CommentThread
-                        comments={comments}
-                        currentUser={currentUser}
-                        requestId={request.id}
-                        onCommentAdded={handleCommentAdded}
-                    />
+                    {!selectedQuote && (
+                        <CommentThread
+                            comments={comments}
+                            currentUser={currentUser}
+                            requestId={request.id}
+                            onCommentAdded={handleCommentAdded}
+                        />
+                    )}
                 </div>
 
                 {/* RIGHT: Sidebar (Tools & Context) */}
@@ -213,7 +274,11 @@ export function RequestInteractionLayout({
                                 {t('tabs.quotes') || 'Received Bids'}
                             </h3>
                             {quotes.map((quote: any) => (
-                                <Card key={quote.id} className="bg-white border-stone-200 shadow-sm hover:shadow-md transition-shadow">
+                                <Card
+                                    key={quote.id}
+                                    className={`bg-white border-stone-200 shadow-sm hover:shadow-md transition-all cursor-pointer ${selectedQuote?.id === quote.id ? 'ring-2 ring-blue-500' : ''}`}
+                                    onClick={() => handleQuoteSelect(quote)}
+                                >
                                     <div className="p-4">
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
@@ -234,28 +299,25 @@ export function RequestInteractionLayout({
                                                 "{quote.message}"
                                             </p>
                                         )}
-                                        {/* Actions (Only for Owner) */}
-                                        {isOwner && quote.status === 'pending' && (
-                                            <div className="grid grid-cols-2 gap-2 mt-2">
-                                                <button
-                                                    className="text-xs bg-stone-100 hover:bg-stone-200 text-stone-700 py-1.5 rounded"
-                                                    onClick={() => toast.info("Chat feature coming soon")}
-                                                >
-                                                    Chat
-                                                </button>
-                                                <button
-                                                    className="text-xs bg-stone-900 hover:bg-black text-white py-1.5 rounded"
-                                                    onClick={() => toast.info("Acceptance flow coming soon")}
-                                                >
-                                                    Accept
-                                                </button>
+                                        <div className="flex justify-between items-center mt-2">
+                                            <div className="text-xs text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                                                Click to Evaluate
                                             </div>
-                                        )}
+                                            {/* Allow Entendidos to verify quotes directly from list */}
+                                            <div onClick={(e) => e.stopPropagation()}>
+                                                <StickyNoteButton
+                                                    targetId={quote.id}
+                                                    targetType="quote"
+                                                    initialCount={0}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </Card>
                             ))}
                         </div>
                     )}
+
 
                     {/* Change Proposals */}
                     {proposals.length > 0 ? (

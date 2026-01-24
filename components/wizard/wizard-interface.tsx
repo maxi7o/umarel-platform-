@@ -62,7 +62,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         currentQuestion: 'Pregunta actual',
         nextQuestion: 'Siguiente pregunta',
         skip: 'Saltar',
-        skipWizard: 'Saltar asistente y publicar',
+        skipWizard: 'Publicar Solicitud',
         share: 'Compartir para pedir consejo',
         shareCopied: '¡Copiado!',
         consultantPlaceholder: 'Deja un consejo útil para el dueño del proyecto...',
@@ -83,7 +83,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         currentQuestion: 'Current question',
         nextQuestion: 'Next question',
         skip: 'Skip',
-        skipWizard: 'Skip assistant and publish',
+        skipWizard: 'Publish Request',
         share: 'Share for Advice',
         shareCopied: 'Copied!',
         consultantPlaceholder: 'Leave helpful advice for the project owner...',
@@ -331,9 +331,9 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
     const handleSkipWizard = () => setIsSkipDialogOpen(true);
     const confirmSkip = () => {
         if (isGuest) {
-            window.location.href = `/${locale}/login?callbackUrl=/${locale}/wizard/${sliceId}`;
+            window.location.href = `/${locale}/login?callbackUrl=/${locale}/requests/${requestId}`;
         } else {
-            window.location.href = `/${locale}/browse`;
+            window.location.href = `/${locale}/requests/${requestId}`;
         }
     };
 
@@ -359,7 +359,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                     </div>
                     <div className="flex items-center">
                         {!isConsultant && (
-                            <Button onClick={handleSkipWizard} variant="outline">
+                            <Button onClick={handleSkipWizard} className="bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-lg shadow-orange-200" size="lg">
                                 {t.skipWizard} →
                             </Button>
                         )}
@@ -635,7 +635,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                         <DialogTitle>
                             {isGuest
                                 ? (locale === 'es' ? 'Guarda tu progreso' : 'Save your progress')
-                                : (locale === 'es' ? '¿Estás seguro de saltar?' : 'Are you sure you want to skip?')
+                                : (locale === 'es' ? '¿Publicar Solicitud?' : 'Publish Request?')
                             }
                         </DialogTitle>
                         <DialogDescription>
@@ -644,19 +644,19 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                                     ? 'Crea una cuenta gratis ahora para guardar este proyecto y recibir presupuestos de expertos.'
                                     : 'Create a free account now to save this project and receive quotes from experts.')
                                 : (locale === 'es'
-                                    ? 'El Asistente Umarel te ayuda a ahorrar hasta un 30% definiendo mejor tu pedido. Si saltas ahora, publicarás la solicitud tal como está.'
-                                    : 'The Umarel Assistant helps you save up to 30% by better defining your request. If you skip now, you will publish the request as is.')
+                                    ? 'Tu solicitud será visible para profesionales de inmediato. Siempre puedes editar las etapas después.'
+                                    : 'Your request will be visible to professionals immediately. You can always edit the stages later.')
                             }
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="gap-2 sm:gap-0">
                         <Button variant="outline" onClick={() => setIsSkipDialogOpen(false)}>
-                            {locale === 'es' ? 'Volver al Asistente' : 'Back to Wizard'}
+                            {locale === 'es' ? 'Seguir editando' : 'Keep editing'}
                         </Button>
-                        <Button variant="destructive" onClick={confirmSkip}>
+                        <Button className="bg-orange-600 hover:bg-orange-700 text-white border-0" onClick={confirmSkip}>
                             {isGuest
                                 ? (locale === 'es' ? 'Registrarse y Publicar' : 'Sign Up & Publish')
-                                : (locale === 'es' ? 'Saltar y Publicar' : 'Skip and Publish')
+                                : (locale === 'es' ? 'Publicar Ahora' : 'Publish Now')
                             }
                         </Button>
                     </DialogFooter>

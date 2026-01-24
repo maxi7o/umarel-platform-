@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getEffectiveUserId, GUEST_USER_ID, GUEST_COOKIE_NAME } from '@/lib/services/special-users';
 import { cookies } from 'next/headers';
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { users, slices } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export default async function WizardPage({ params }: { params: Promise<{ sliceId: string; locale: string }> }) {
@@ -18,7 +18,11 @@ export default async function WizardPage({ params }: { params: Promise<{ sliceId
     let userName = user?.user_metadata?.full_name || 'User';
     let auraLevel = 'bronze';
 
-    // 2. Fallback to Guest if needed
+    // 2. Fetch Slice to get Request ID
+    const [slice] = await db.select({ requestId: slices.requestId }).from(slices).where(eq(slices.id, resolvedParams.sliceId));
+    const requestId = slice?.requestId || '';
+
+    // 3. Fallback to Guest if needed
     if (!effectiveUserId) {
         // Only treat as Guest if cookie exists or we decide to allow pure anonymous
         // For continuity, we check if they are the valid Guest for this session? 
@@ -48,7 +52,7 @@ export default async function WizardPage({ params }: { params: Promise<{ sliceId
     return (
         <WizardInterface
             sliceId={resolvedParams.sliceId}
-            requestId="request-id" // TODO: Get from slice or context if needed
+            requestId={requestId}
             currentUser={currentUser}
             locale={resolvedParams.locale}
         />

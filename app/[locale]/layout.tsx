@@ -129,16 +129,18 @@ export default async function LocaleLayout({
             >
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar user={user} />
-                            <main className="flex-grow">
-                                {children}
-                            </main>
-                            <Footer />
+                        <div className="flex flex-col min-h-screen bg-neutral-50 dark:bg-black">
+                            {/* Desktop Container Constraint */}
+                            <div className="w-full max-w-[600px] mx-auto bg-white dark:bg-stone-900 min-h-screen shadow-2xl border-x border-stone-100 dark:border-stone-800 flex flex-col relative">
+                                <Navbar user={user} />
+                                <main className="flex-grow flex flex-col relative">
+                                    {children}
+                                </main>
+                                <Footer />
+                            </div>
                         </div>
                         <Toaster />
                         <WhatsAppButton />
-                        <RoleSelectorDialog />
                     </MarketProvider>
                 </NextIntlClientProvider>
             </body>
