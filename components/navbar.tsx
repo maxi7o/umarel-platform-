@@ -48,7 +48,7 @@ export function Navbar({ user }: NavbarProps) {
 
     return (
         <nav className="sticky top-0 z-50 bg-white/80 border-b border-slate-200 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
-            <div className="container mx-auto flex h-16 items-center justify-between px-6">
+            <div className="flex h-16 items-center justify-between px-6 w-full">
 
                 {/* 1. BRAND IDENTITY + EXPLORE */}
                 <div className="flex items-center gap-8">
