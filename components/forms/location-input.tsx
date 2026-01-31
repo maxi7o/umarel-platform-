@@ -192,8 +192,12 @@ export function LocationInput({
                 limit: '50',
                 lang: 'es',
                 lat: '-34.6037', // Bias to Buenos Aires
-                lon: '-58.3816'
+                lon: '-58.3816',
+                bbox: '-76,-56,-53,-21' // Strict bounding box for Argentina region
             });
+
+            // Add slight zoom bias if we wanted to focus on city level
+            // zoom: '12' 
 
             const res = await fetch(`https://photon.komoot.io/api/?${params.toString()}`);
             if (!res.ok) throw new Error('Photon request failed');
