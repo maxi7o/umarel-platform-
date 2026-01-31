@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getMockBrowseResults } from '@/lib/mock-data';
 import { db } from '@/lib/db';
 import { requests, serviceOfferings, users, providerMetrics } from '@/lib/db/schema';
 import { eq, and, or, ilike, desc, gte, lte } from 'drizzle-orm';
@@ -214,78 +215,10 @@ export async function GET(request: Request) {
 
         // --- MOCK DATA INJECTION IF EMPTY (FOR TESTING) ---
         if (results.total === 0) {
-            const mockRequests = [
-                {
-                    id: 'mock-req-1',
-                    title: 'Arreglar Humedad en Techo',
-                    description: 'Tengo una mancha de humedad que crece cada vez que llueve. Necesito reparar e impermeabilizar.',
-                    location: 'Palermo, CABA',
-                    category: 'masonry',
-                    status: 'open',
-                    budget: 150000,
-                    createdAt: new Date().toISOString(),
-                    type: 'request',
-                    featured: true,
-                    user: { id: 'mock-user-1', fullName: 'Juan Pérez' }
-                },
-                {
-                    id: 'mock-req-2',
-                    title: 'Instalación de Aire Acondicionado',
-                    description: 'Compré un split de 3000 frigorías. Necesito instalación básica en un primer piso.',
-                    location: 'Belgrano, CABA',
-                    category: 'electrical',
-                    status: 'open',
-                    budget: 80000,
-                    createdAt: new Date(Date.now() - 86400000).toISOString(),
-                    type: 'request',
-                    featured: false,
-                    user: { id: 'mock-user-2', fullName: 'Ana Gómez' }
-                }
-            ];
+            const { requests, offerings } = getMockBrowseResults();
 
-            const mockOfferings = [
-                {
-                    id: 'mock-off-1',
-                    title: 'Gasista Matriculado - Urgencias',
-                    description: 'Reparaciones de gas, habilitaciones, estufas y calefones. Matrícula al día. Trabajo con garantía.',
-                    location: 'CABA y GBA Norte',
-                    category: 'plumbing',
-                    status: 'active',
-                    hourlyRate: 25000,
-                    createdAt: new Date().toISOString(),
-                    type: 'offering',
-                    featured: true,
-                    provider: {
-                        id: 'mock-prov-1',
-                        fullName: 'Carlos Gas',
-                        avatarUrl: '',
-                        auraPoints: 156
-                    },
-                    metrics: { completionRate: 98, onTimeRate: 95, rating: 4.9 }
-                },
-                {
-                    id: 'mock-off-2',
-                    title: 'Electricista 24hs - Domiciliario',
-                    description: 'Cortocircuitos, cambio de térmicas, cableado nuevo. Atención rápida.',
-                    location: 'Caballito, CABA',
-                    category: 'electrical',
-                    status: 'active',
-                    hourlyRate: 20000,
-                    createdAt: new Date(Date.now() - 172800000).toISOString(),
-                    type: 'offering',
-                    featured: false,
-                    provider: {
-                        id: 'mock-prov-2',
-                        fullName: 'ElectroMax',
-                        avatarUrl: '',
-                        auraPoints: 89
-                    },
-                    metrics: { completionRate: 92, onTimeRate: 88, rating: 4.7 }
-                }
-            ];
-
-            if (type === 'all' || type === 'requests') results.requests = mockRequests;
-            if (type === 'all' || type === 'offerings') results.offerings = mockOfferings;
+            if (type === 'all' || type === 'requests') results.requests = requests;
+            if (type === 'all' || type === 'offerings') results.offerings = offerings;
             results.total = (results.requests?.length || 0) + (results.offerings?.length || 0);
         }
         // --------------------------------------------------
