@@ -33,8 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
                 images: ['https://www.elentendido.ar/slices/slice-thumbnail.png']
             },
             icons: {
-                icon: '/icon',
-                apple: '/apple-icon'
+                icon: '/icon.svg'
             }
         };
     }
@@ -43,8 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         title: "El Entendido - Projects Done Right",
         description: "The marketplace where you define projects in clear stages and pay for results.",
         icons: {
-            icon: '/icon',
-            apple: '/apple-icon'
+            icon: '/icon.svg'
         }
     };
 }
