@@ -1,3 +1,4 @@
+'use client';
 
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
@@ -129,6 +130,13 @@ export function LocationInput({
     const [results, setResults] = useState<NominatimResult[]>([]);
     const [loading, setLoading] = useState(false);
     const [popularSearches, setPopularSearches] = useState<NominatimResult[]>([]);
+
+    // Sync query with value prop if controlled
+    useEffect(() => {
+        if (value !== undefined) {
+            setQuery(value);
+        }
+    }, [value]);
 
     // Ref to track the timeout and prevent heavy fetches
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);

@@ -144,7 +144,7 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                                 placeholder="Ciudad o Dirección..."
                                 required
                                 className="border-0 shadow-none focus-visible:ring-0 text-lg"
-                                defaultValue={formData.location}
+                                value={formData.location}
                                 onChange={(displayName, structured) => {
                                     setFormData({ ...formData, location: displayName });
                                 }}
