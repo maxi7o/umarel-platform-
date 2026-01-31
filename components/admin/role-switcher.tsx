@@ -121,6 +121,14 @@ export function RoleSwitcher() {
             avatar: '👷',
         },
         {
+            id: 'umarel',
+            name: 'Mario Entendido',
+            icon: <Shield className="h-5 w-5" />,
+            color: 'bg-amber-500',
+            description: 'Audita y opina sobre presupuestos',
+            avatar: '👴',
+        },
+        {
             id: 'admin',
             name: 'Admin Sistema',
             icon: <Shield className="h-5 w-5" />,
@@ -180,8 +188,8 @@ export function RoleSwitcher() {
                         <Card
                             key={persona.id}
                             className={`cursor-pointer transition-all hover:shadow-lg ${currentSwitch.impersonatedRole === persona.id
-                                    ? 'ring-2 ring-orange-500 bg-orange-50'
-                                    : 'hover:border-orange-300'
+                                ? 'ring-2 ring-orange-500 bg-orange-50'
+                                : 'hover:border-orange-300'
                                 }`}
                             onClick={() => switchRole(persona.id as any)}
                         >
