@@ -7,13 +7,6 @@ import { Button } from '@/components/ui/button';
 import { MapPin, Loader2, X, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { LocationCache } from '@/lib/location-cache';
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 
@@ -310,57 +303,59 @@ export function LocationInput({
                 </div>
             </PopoverTrigger>
             <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[300px]" align="start" onOpenAutoFocus={(e) => e.preventDefault()}>
-                <Command shouldFilter={false} className="border-none">
-                    <CommandList>
-                        {loading && (
-                            <CommandItem disabled className='flex justify-center py-4 bg-stone-50'>
-                                <Loader2 className="h-4 w-4 animate-spin mr-2 text-orange-500" />
-                                <span className="text-stone-500">Buscando en Argentina...</span>
-                            </CommandItem>
-                        )}
-                        {!loading && results.length === 0 && query.length >= 3 && (
-                            <CommandEmpty className='py-4 text-center text-sm text-stone-500'>
-                                No hay resultados en Argentina.
-                            </CommandEmpty>
-                        )}
-                        {!loading && query.length < 3 && popularSearches.length > 0 && (
-                            <CommandGroup heading="Búsquedas populares">
-                                {popularSearches.map((result) => (
-                                    <CommandItem
-                                        key={result.place_id}
-                                        value={result.place_id.toString()}
-                                        onSelect={() => handleSelect(result)}
-                                        className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900 data-[disabled]:pointer-events-auto data-[disabled]:opacity-100"
-                                    >
-                                        <Clock className="mr-3 h-4 w-4 shrink-0 text-stone-400 mt-0.5" />
-                                        <div className="flex flex-col overflow-hidden">
-                                            <span className="truncate font-medium text-stone-800">{result.display_name.split(',')[0]}</span>
-                                            <span className="truncate text-xs text-stone-500 mt-0.5">
-                                                {result.display_name.split(',').slice(1).join(',').trim()}
-                                            </span>
-                                        </div>
-                                    </CommandItem>
-                                ))}
-                            </CommandGroup>
-                        )}
-                        {!loading && results.map((result) => (
-                            <CommandItem
-                                key={result.place_id}
-                                value={result.place_id.toString()}
-                                onSelect={() => handleSelect(result)}
-                                className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900 data-[disabled]:pointer-events-auto data-[disabled]:opacity-100"
-                            >
-                                <MapPin className="mr-3 h-4 w-4 shrink-0 text-orange-500/70 mt-0.5" />
-                                <div className="flex flex-col overflow-hidden">
-                                    <span className="truncate font-medium text-stone-800">{result.display_name.split(',')[0]}</span>
-                                    <span className="truncate text-xs text-stone-500 mt-0.5">
-                                        {result.display_name.split(',').slice(1).join(',').trim()}
-                                    </span>
-                                </div>
-                            </CommandItem>
-                        ))}
-                    </CommandList>
-                </Command>
+                <div className="max-h-[300px] overflow-y-auto overflow-x-hidden p-1">
+                    {loading && (
+                        <div className="flex justify-center items-center py-4 bg-stone-50 text-sm">
+                            <Loader2 className="h-4 w-4 animate-spin mr-2 text-orange-500" />
+                            <span className="text-stone-500">Buscando en Argentina...</span>
+                        </div>
+                    )}
+
+                    {!loading && results.length === 0 && query.length >= 3 && (
+                        <div className="py-4 text-center text-sm text-stone-500">
+                            No hay resultados en Argentina.
+                        </div>
+                    )}
+
+                    {!loading && query.length < 3 && popularSearches.length > 0 && (
+                        <div>
+                            <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground text-stone-400 uppercase tracking-wider">Búsquedas populares</div>
+                            {popularSearches.map((result) => (
+                                <button
+                                    key={result.place_id}
+                                    onClick={() => handleSelect(result)}
+                                    type="button"
+                                    className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-orange-50 hover:text-orange-900 transition-colors"
+                                >
+                                    <Clock className="mr-3 h-4 w-4 shrink-0 text-stone-400 mt-0.5" />
+                                    <div className="flex flex-col overflow-hidden">
+                                        <span className="truncate font-medium text-stone-800">{result.display_name.split(',')[0]}</span>
+                                        <span className="truncate text-xs text-stone-500 mt-0.5">
+                                            {result.display_name.split(',').slice(1).join(',').trim()}
+                                        </span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {!loading && results.map((result) => (
+                        <button
+                            key={result.place_id}
+                            onClick={() => handleSelect(result)}
+                            type="button"
+                            className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-orange-50 hover:text-orange-900 transition-colors"
+                        >
+                            <MapPin className="mr-3 h-4 w-4 shrink-0 text-orange-500/70 mt-0.5" />
+                            <div className="flex flex-col overflow-hidden">
+                                <span className="truncate font-medium text-stone-800">{result.display_name.split(',')[0]}</span>
+                                <span className="truncate text-xs text-stone-500 mt-0.5">
+                                    {result.display_name.split(',').slice(1).join(',').trim()}
+                                </span>
+                            </div>
+                        </button>
+                    ))}
+                </div>
             </PopoverContent>
         </Popover>
     );
