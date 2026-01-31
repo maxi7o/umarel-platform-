@@ -1,10 +1,8 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, User, Hammer, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, User, Hammer, CheckCircle2, Bot, DollarSign, MapPin, Eye, TrendingUp, Users, ShieldCheck, Layers, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function HeroSection() {
@@ -45,19 +43,13 @@ export function HeroSection() {
                         {t('heroSubtitle')}
                     </p>
 
-                    {/* Main CTAs */}
+                    {/* Main CTAs - Single CTA now */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                         <Link href="/requests/create">
                             <Button size="lg" className="w-full sm:w-auto min-h-[3.5rem] h-auto py-3 px-8 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-xl shadow-blue-200 transition-all hover:scale-105">
                                 {t('postRequest')}
                                 <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                             </Button>
-                        </Link>
-
-                        <Link href="/create-offering">
-                            <button className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 min-h-[3.5rem] h-auto py-3 rounded-full border-2 border-slate-200 bg-white hover:bg-slate-50 transition-all font-bold text-slate-700 shadow-sm">
-                                <span>{t('offerServices')}</span>
-                            </button>
                         </Link>
                     </div>
 
@@ -74,7 +66,7 @@ export function HeroSection() {
                     </div>
                 </motion.div>
 
-                {/* Three Roles Section - Integrated */}
+                {/* Three Roles Section - STREAMLINED */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -93,31 +85,28 @@ export function HeroSection() {
                     <div className="grid md:grid-cols-3 gap-6">
                         {/* Role 1: CLIENT */}
                         <Link href="/requests/create">
-                            <div className="group bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 p-6 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl">
+                            <div className="group bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 p-6 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center">
-                                        <User className="w-6 h-6 text-white" />
+                                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                                        <User className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Cliente</h3>
+                                    <h3 className="text-xl font-bold text-slate-900">Tenés un proyecto</h3>
                                 </div>
-                                <p className="text-slate-600 text-sm mb-4 flex-grow">
-                                    Tenés un proyecto o reparación para realizar.
-                                </p>
-                                <ul className="space-y-2">
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                        Pagá contra avance de obra
+                                <ul className="space-y-3 mb-4 flex-grow">
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <Bot className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <span>Definición con IA</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                        Definición técnica con IA
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <Layers className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <span>Pagá contra avance</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                        Dinero protegido en garantía
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <ShieldCheck className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <span>Dinero en garantía</span>
                                     </li>
                                 </ul>
-                                <div className="mt-4 flex items-center text-blue-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-blue-600 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Empezar proyecto</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
@@ -126,31 +115,28 @@ export function HeroSection() {
 
                         {/* Role 2: PROVIDER */}
                         <Link href="/create-offering">
-                            <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl">
+                            <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center">
-                                        <Hammer className="w-6 h-6 text-white" />
+                                    <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0">
+                                        <Hammer className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Profesional</h3>
+                                    <h3 className="text-xl font-bold text-slate-900">Ofrecés servicios</h3>
                                 </div>
-                                <p className="text-slate-600 text-sm mb-4 flex-grow">
-                                    Ofrecés servicios de construcción o mantenimiento.
-                                </p>
-                                <ul className="space-y-2">
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                                        Cobro liberado al cumplir
+                                <ul className="space-y-3 mb-4 flex-grow">
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <DollarSign className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <span>Cobro por etapas cumplidas</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                                        Sin visitas en vano
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <MapPin className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <span>Sin visitas en vano</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                                        Tu reputación es tu activo
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <Star className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <span>Reputación pública</span>
                                     </li>
                                 </ul>
-                                <div className="mt-4 flex items-center text-orange-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-orange-600 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Ofrecer servicios</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
@@ -159,31 +145,28 @@ export function HeroSection() {
 
                         {/* Role 3: ENTENDIDO */}
                         <Link href="/browse">
-                            <div className="group bg-gradient-to-br from-yellow-50 to-white hover:from-yellow-100 hover:to-yellow-50 p-6 rounded-3xl border-2 border-yellow-100 hover:border-yellow-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl">
+                            <div className="group bg-gradient-to-br from-yellow-50 to-white hover:from-yellow-100 hover:to-yellow-50 p-6 rounded-3xl border-2 border-yellow-100 hover:border-yellow-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center">
-                                        <CheckCircle2 className="w-6 h-6 text-white" />
+                                    <div className="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center flex-shrink-0">
+                                        <CheckCircle2 className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Entendido</h3>
+                                    <h3 className="text-xl font-bold text-slate-900">Tenés experiencia</h3>
                                 </div>
-                                <p className="text-slate-600 text-sm mb-4 flex-grow">
-                                    Tenés experiencia técnica y querés opinar.
-                                </p>
-                                <ul className="space-y-2">
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-                                        Monetizá tu experiencia
+                                <ul className="space-y-3 mb-4 flex-grow">
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <Eye className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <span>Validá presupuestos y avances</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-                                        Validación por pares
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <TrendingUp className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <span>Monetizá tu conocimiento</span>
                                     </li>
-                                    <li className="flex items-center gap-2 text-sm text-slate-700">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-                                        Participación flexible
+                                    <li className="flex items-start gap-3 text-sm text-slate-700">
+                                        <Users className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <span>Validación por pares</span>
                                     </li>
                                 </ul>
-                                <div className="mt-4 flex items-center text-yellow-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-yellow-600 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Ver oportunidades</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>

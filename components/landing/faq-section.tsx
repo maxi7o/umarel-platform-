@@ -6,19 +6,19 @@ export function FaqSection() {
     const faqs = [
         {
             q: "¿Qué es un Entendido?",
-            a: "Es un experto verificado que revisa presupuestos y fotos de obra para asegurar que el trabajo se haga bien y a precio justo. Ganan cuando su opinión aporta valor real al proyecto."
+            a: "Experto verificado que revisa presupuestos y avances para asegurar calidad y precio justo."
         },
         {
             q: "¿Cómo funciona el pago seguro?",
-            a: "Tu dinero queda protegido en Mercado Pago. Solo se libera al profesional cuando aprobás cada etapa del proyecto. Pagás contra avance real de obra."
+            a: "Dinero protegido en Mercado Pago. Se libera solo al aprobar cada etapa."
         },
         {
             q: "¿Tiene costo usar la plataforma?",
-            a: "Publicar proyectos es gratis. Los montos que ves en la plataforma son siempre finales, sin sorpresas. Todo está incluido: verificación, pago seguro y validación."
+            a: "Publicar es gratis. Todo incluido: verificación, pago seguro y validación."
         },
         {
             q: "¿Operan en todo el país?",
-            a: "Por ahora estamos enfocados en CABA y GBA. Pronto llegaremos a las principales ciudades del interior."
+            a: "Por ahora CABA y GBA. Pronto más ciudades."
         }
     ];
 

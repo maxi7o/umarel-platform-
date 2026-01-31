@@ -70,62 +70,32 @@ export function HowItWorksSection() {
 
                 </div>
 
-                {/* Slices & AI Explanation - Simplified */}
-                <div className="mt-24 max-w-4xl mx-auto">
-                    <div className="grid md:grid-cols-2 gap-8">
+                {/* AI Explanation - Simplified & Centered */}
+                <div className="mt-20 max-w-3xl mx-auto">
+                    {/* AI ASSISTANT */}
+                    <div className="bg-gradient-to-br from-indigo-600 to-blue-600 rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl">
+                        {/* Bg Effect */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
-                        {/* 1. SLICES EXPLANATION */}
-                        <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border-2 border-blue-100">
-                            <h3 className="text-2xl font-bold font-outfit text-slate-900 mb-4">
-                                {t('slicesFeature.title')}
-                            </h3>
-                            <p className="text-slate-600 mb-6 leading-relaxed">
-                                {t('slicesFeature.description')}
-                            </p>
-
-                            <div className="bg-white rounded-xl p-5 border border-blue-200">
-                                <p className="font-bold text-slate-800 mb-3 text-sm uppercase tracking-wide">
-                                    {t('slicesFeature.exampleTitle')}
-                                </p>
-                                <ul className="space-y-3">
-                                    <li className="flex items-center gap-3 text-sm font-medium text-slate-700 bg-blue-50 p-3 rounded-lg">
-                                        <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">1</div>
-                                        {t('slicesFeature.exampleStep1')}
-                                    </li>
-                                    <li className="flex items-center gap-3 text-sm font-medium text-slate-700 bg-blue-50 p-3 rounded-lg">
-                                        <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">2</div>
-                                        {t('slicesFeature.exampleStep2')}
-                                    </li>
-                                    <li className="flex items-center gap-3 text-sm font-medium text-slate-400 bg-slate-50 p-3 rounded-lg border border-dashed border-slate-300">
-                                        <div className="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-bold">3</div>
-                                        {t('slicesFeature.exampleStep3')}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* 2. AI ASSISTANT */}
-                        <div className="bg-gradient-to-br from-indigo-600 to-blue-600 rounded-3xl p-8 text-white relative overflow-hidden">
-                            {/* Bg Effect */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-
-                            <h3 className="text-2xl font-bold font-outfit mb-4 relative z-10">
+                        <div className="text-center mb-8">
+                            <h3 className="text-2xl font-bold font-outfit mb-3 relative z-10">
                                 {t('aiFeature.title')}
                             </h3>
-                            <p className="text-blue-100 mb-6 leading-relaxed relative z-10">
+                            <p className="text-blue-100 relative z-10 font-medium text-lg max-w-lg mx-auto">
                                 {t('aiFeature.description')}
                             </p>
-
-                            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 relative z-10 space-y-4">
-                                <div className="bg-blue-800/50 p-3 rounded-2xl rounded-tr-none shadow-sm border border-blue-700/50">
-                                    <p className="text-sm text-blue-100">{t('aiFeature.chatUser')}</p>
-                                </div>
-                                <div className="bg-white p-3 rounded-2xl rounded-tl-none shadow-lg">
-                                    <p className="text-sm text-blue-900 font-medium">{t('aiFeature.chatAi')}</p>
-                                </div>
-                            </div>
                         </div>
 
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 relative z-10 space-y-4 shadow-inner max-w-xl mx-auto">
+                            <div className="bg-blue-800/60 p-4 rounded-2xl rounded-tr-none shadow-sm border border-blue-700/50 flex items-start gap-4">
+                                <span className="text-xl mt-1">🧠</span>
+                                <p className="text-sm text-blue-50 font-medium leading-relaxed italic">"{t('aiFeature.chatUser')}"</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-lg flex items-start gap-4">
+                                <span className="text-xl mt-1">🤖</span>
+                                <p className="text-sm text-blue-900 font-bold leading-relaxed">{t('aiFeature.chatAi')}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -118,13 +118,13 @@
     "home": {
         "heroTitle1": "Tu Proyecto,",
         "heroTitleHighlight": "Bien Hecho.",
-        "heroSubtitle": "La plataforma donde la tecnología te ayuda a definir qué necesitás, y expertos verificados lo hacen realidad. Paso a paso.",
+        "heroSubtitle": "Definí con IA → Etapas seguras → Pagá solo lo aprobado con Mercado Pago.",
         "heroSteps": {
             "step1": "1. La IA ordena tu idea.",
             "step2": "2. Dividimos en partes.",
             "step3": "3. Pagás contra avance."
         },
-        "postRequest": "Empezar Proyecto",
+        "postRequest": "Empezar proyecto (gratis)",
         "offerServices": "Ofrecer Servicios",
         "availableIn": "Comunidad de Profesionales",
         "watchVideo": "Cómo funciona",
@@ -241,7 +241,7 @@
             },
             "aiFeature": {
                 "title": "Asistente IA",
-                "description": "Te ayudamos a estructurar tus pedidos para que los profesionales entiendan exactamente qué necesitás.",
+                "description": "Así te ayuda la IA a estructurar tu idea en etapas claras.",
                 "chatUser": "🧠 Quiero organizar una cata de vinos.",
                 "chatAi": "🤖 ¡Genial! Lo podemos dividir en 3 etapas: 1. Selección de Vinos, 2. Compra y Logística, 3. Servicio. ¿Te parece?",
                 "cta": "Probar Asistente"

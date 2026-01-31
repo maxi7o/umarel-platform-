@@ -4,32 +4,18 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-const TAGLINES: Record<string, string> = {
-    'en': 'Connecting wisdom with needs.',
-    'it': 'Collegare la saggezza con i bisogni.',
-    'es': 'Conectando sabiduría con necesidades.',
-    'fr': 'Connecter la sagesse aux besoins.',
-    'de': 'Weisheit mit Bedürfnissen verbinden.',
-    'pt': 'Conectando sabedoria com necessidades.',
-    'ja': '知恵とニーズをつなぐ。',
-    'nl': 'Wijsheid verbinden met behoeften.',
-    'sv': 'Koppla visdom till behov.',
-};
-
 export function Footer() {
-    const t = useTranslations('footer');
-    const pathname = usePathname();
-
-    // Extract locale from pathname
-    const locale = pathname.split('/')[1] || 'en';
-    const tagline = TAGLINES[locale] || TAGLINES['en'];
-
     return (
         <footer className="bg-slate-50 text-slate-500 py-8 border-t border-slate-200 mt-auto">
             <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium">
-                <div className="flex items-center gap-4">
-                    <span className="font-outfit text-slate-900 font-bold">El Entendido</span>
-                    <span className="text-slate-400">© 2026</span>
+                <div className="flex flex-col gap-1 items-start">
+                    <div className="flex items-center gap-4">
+                        <span className="font-outfit text-slate-900 font-bold">El Entendido</span>
+                        <span className="text-slate-400">© 2026</span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 hidden md:block">
+                        Proyectos claros. Pagos seguros con Mercado Pago. Sin costo para publicar.
+                    </p>
                 </div>
 
                 <div className="flex items-center gap-6">
@@ -43,6 +29,12 @@ export function Footer() {
                         Soporte
                     </Link>
                 </div>
+            </div>
+            {/* Mobile Tagline */}
+            <div className="container mx-auto px-6 md:hidden text-center mt-4">
+                <p className="text-[10px] text-slate-400">
+                    Proyectos claros. Pagos seguros con Mercado Pago. Sin costo para publicar.
+                </p>
             </div>
         </footer>
     );
