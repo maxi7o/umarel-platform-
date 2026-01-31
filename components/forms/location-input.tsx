@@ -281,6 +281,7 @@ export function LocationInput({
                         onChange={(e) => {
                             const val = e.target.value;
                             setQuery(val);
+                            if (onChange) onChange(val, undefined);
                             handleSearch(val);
                             if (!open && val.length >= 3) setOpen(true);
                             if (val === '') handleClear();
