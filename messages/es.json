@@ -54,7 +54,7 @@
         "howto": "Filosofía",
         "offerServices": "Soy Profesional",
         "login": "Ingresar",
-        "postNeed": "Diseñar Proyecto",
+        "postNeed": "Proyectá",
         "dashboard": "Panel",
         "logout": "Salir",
         "home": "Inicio",
@@ -380,8 +380,8 @@
         "signIn": "Entrar",
         "signUp": "Registrarme",
         "agreeToTerms": "Acepto los {terms} y la {privacy}",
-        "termsLink": "Términos",
-        "privacyLink": "Privacidad"
+        "termsLink": "Términos y Condiciones",
+        "privacyLink": "Política de Privacidad"
     },
     "createRequest": {
         "title": "Nuevo Pedido",

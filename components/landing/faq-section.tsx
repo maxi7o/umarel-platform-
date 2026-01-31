@@ -6,7 +6,7 @@ export function FaqSection() {
     const faqs = [
         {
             q: "¿Qué es un Entendido?",
-            a: "Es un experto verificado que revisa presupuestos y fotos de obra para asegurar que el trabajo se haga bien y a precio justo. Ganan un porcentaje por cada proyecto que ayudan a validar."
+            a: "Es un experto verificado que revisa presupuestos y fotos de obra para asegurar que el trabajo se haga bien y a precio justo. Ganan cuando su opinión aporta valor real al proyecto."
         },
         {
             q: "¿Cómo funciona el pago seguro?",
@@ -14,7 +14,7 @@ export function FaqSection() {
         },
         {
             q: "¿Tiene costo usar la plataforma?",
-            a: "Publicar proyectos es gratis. Solo cobramos una comisión del 15% al momento de contratar, que ya está incluida en los montos que ves. Esto cubre la verificación, el pago seguro y la validación por Entendidos."
+            a: "Publicar proyectos es gratis. Los montos que ves en la plataforma son siempre finales, sin sorpresas. Todo está incluido: verificación, pago seguro y validación."
         },
         {
             q: "¿Operan en todo el país?",
