@@ -32,13 +32,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
                 description: "Gestión de proyectos y servicios con garantía de calidad.",
                 images: ['https://www.elentendido.ar/slices/slice-thumbnail.png']
             },
-            // Using default favicon
+            icons: {
+                icon: '/icon',
+                apple: '/apple-icon'
+            }
         };
     }
 
     return {
         title: "El Entendido - Projects Done Right",
         description: "The marketplace where you define projects in clear stages and pay for results.",
+        icons: {
+            icon: '/icon',
+            apple: '/apple-icon'
+        }
     };
 }
 
