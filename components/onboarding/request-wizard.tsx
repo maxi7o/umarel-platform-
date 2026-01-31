@@ -145,16 +145,10 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                                 required
                                 className="border-0 shadow-none focus-visible:ring-0 text-lg"
                                 defaultValue={formData.location}
-                            // We need to wire this up to update state. currently LocationInput relies on internal state + hidden input usually?
-                            // Assuming standard LocationInput behavior, we might need to wrap or modify it to accept onChange/onSelect.
-                            // For now, assuming it updates a hidden input we can grab, OR we pass a callback if supported.
-                            // Let's assume standard input behavior for prototype:
-                            // onChange={(val) => setFormData({...formData, location: val})}
-                            // NOTE: LocationInput prop interface might need checking.
+                                onChange={(displayName, structured) => {
+                                    setFormData({ ...formData, location: displayName });
+                                }}
                             />
-                            {/* Hack bridging: LocationInput usually updates a hidden input named 'location'. 
-                                We might need to listen to it or use a ref. 
-                                For this prototype, let's assume specific implementation later or use a controlled input wrapper.*/}
                         </div>
 
                         <div className="flex gap-4">

@@ -1,4 +1,3 @@
-'use client';
 
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
@@ -16,6 +15,7 @@ import {
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
+
 interface LocationInputProps {
     value?: string;
     defaultValue?: string;
@@ -26,11 +26,93 @@ interface LocationInputProps {
     name?: string;
 }
 
-interface NominatimResult {
+export interface NominatimResult {
     place_id: number;
     lat: string;
     lon: string;
     display_name: string;
+}
+
+// Exported for testing
+export function processLocationResults(features: any[]): NominatimResult[] {
+    // Priority areas in CABA and GBA (most populated neighborhoods/municipalities)
+    const priorityAreas = [
+        // CABA neighborhoods
+        'palermo', 'recoleta', 'belgrano', 'caballito', 'villa crespo', 'almagro',
+        'flores', 'villa urquiza', 'núñez', 'colegiales', 'san telmo', 'puerto madero',
+        'retiro', 'once', 'balvanera', 'boedo', 'parque patricios', 'villa devoto',
+        // GBA municipalities (most populated)
+        'la matanza', 'lomas de zamora', 'quilmes', 'lanús', 'san martín',
+        'tres de febrero', 'san isidro', 'vicente lópez', 'avellaneda', 'morón',
+        'san miguel', 'tigre', 'malvinas argentinas', 'hurlingham', 'ituzaingó',
+        'josé c. paz', 'san fernando', 'esteban echeverría', 'florencio varela',
+        'berazategui', 'almirante brown', 'merlo', 'moreno', 'general san martín'
+    ];
+
+    return features
+        .map((f: any) => {
+            const displayName = [
+                f.properties.name,
+                f.properties.street,
+                f.properties.city,
+                f.properties.state,
+                f.properties.country
+            ].filter(Boolean).join(', ');
+
+            // Calculate relevance score
+            let score = 0;
+            const lowerDisplay = displayName.toLowerCase();
+
+            // Boost if it's in priority areas
+            for (const area of priorityAreas) {
+                if (lowerDisplay.includes(area)) {
+                    score += 100;
+                    break;
+                }
+            }
+
+            // Boost CABA results
+            if (lowerDisplay.includes('ciudad autónoma de buenos aires') ||
+                lowerDisplay.includes('caba') ||
+                lowerDisplay.includes('capital federal')) {
+                score += 50;
+            }
+
+            // Boost GBA results
+            if (lowerDisplay.includes('buenos aires') && !lowerDisplay.includes('ciudad')) {
+                score += 30;
+            }
+
+            // Boost by OSM type (city > town > suburb > street)
+            const osmType = f.properties.type || '';
+            if (osmType === 'city') score += 40;
+            else if (osmType === 'town') score += 30;
+            else if (osmType === 'suburb' || osmType === 'neighbourhood') score += 20;
+            else if (osmType === 'residential') score += 10;
+
+            // Distance penalty (further from center = lower score)
+            const lat = f.geometry.coordinates[1];
+            const lon = f.geometry.coordinates[0];
+            const distance = Math.sqrt(
+                Math.pow(lat - (-34.6037), 2) +
+                Math.pow(lon - (-58.3816), 2)
+            );
+            score -= distance * 10;
+
+            return {
+                place_id: f.properties.osm_id,
+                lat: lat.toString(),
+                lon: lon.toString(),
+                display_name: displayName,
+                score
+            };
+        })
+        .filter((v: any, i: number, a: any[]) =>
+            a.findIndex((t: any) => t.display_name === v.display_name) === i
+        )
+        .sort((a: any, b: any) => b.score - a.score) // Sort by score descending
+        .slice(0, 8) // Take top 8 results
+        .map(({ score, ...rest }) => rest); // Remove score from final results
 }
 
 export function LocationInput({
@@ -116,24 +198,7 @@ export function LocationInput({
             if (!res.ok) throw new Error('Photon request failed');
 
             const data = await res.json();
-
-            return data.features
-                .map((f: any) => ({
-                    place_id: f.properties.osm_id,
-                    lat: f.geometry.coordinates[1].toString(),
-                    lon: f.geometry.coordinates[0].toString(),
-                    display_name: [
-                        f.properties.name,
-                        f.properties.street,
-                        f.properties.city,
-                        f.properties.state,
-                        f.properties.country
-                    ].filter(Boolean).join(', ')
-                }))
-                .filter((v: any, i: number, a: any[]) =>
-                    a.findIndex((t: any) => t.display_name === v.display_name) === i
-                )
-                .slice(0, 5);
+            return processLocationResults(data.features);
         } catch (e) {
             console.error('Photon fetch error:', e);
             return [];
