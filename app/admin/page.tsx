@@ -4,6 +4,9 @@ import { count, eq, sum } from "drizzle-orm"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DollarSign, Users, AlertTriangle, Activity } from "lucide-react"
 
+// Force dynamic rendering - don't try to build this at build time
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
     // Parallel data fetching
     const [userCount] = await db.select({ value: count() }).from(users)

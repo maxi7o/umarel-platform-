@@ -3,6 +3,8 @@ import { getDisputes } from '../actions';
 import { redirect } from 'next/navigation';
 import { AIAnalysisButton } from '@/components/admin/ai-analysis-button';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDisputesPage() {
     const disputes = await getDisputes();
 
