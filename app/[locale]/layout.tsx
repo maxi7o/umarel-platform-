@@ -34,6 +34,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             },
             icons: {
                 icon: '/icon.svg'
+            },
+            verification: {
+                other: {
+                    'facebook-domain-verification': 'japaa9urij6uagxze4jmi2djjvx4jt'
+                }
             }
         };
     }
@@ -43,6 +48,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         description: "The marketplace where you define projects in clear stages and pay for results.",
         icons: {
             icon: '/icon.svg'
+        },
+        verification: {
+            other: {
+                'facebook-domain-verification': 'japaa9urij6uagxze4jmi2djjvx4jt'
+            }
         }
     };
 }
