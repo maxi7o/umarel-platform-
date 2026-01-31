@@ -117,7 +117,7 @@ export function Navbar({ user }: NavbarProps) {
                                 <Link href="/requests/create">
                                     <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 whitespace-nowrap text-sm sm:text-base px-3 sm:px-4">
                                         <span className="hidden sm:inline">{t('postNeed')}</span>
-                                        <span className="sm:hidden">Diseñar</span>
+                                        <span className="sm:hidden">Proyectá</span>
                                     </Button>
                                 </Link>
                             </div>
