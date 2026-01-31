@@ -379,7 +379,7 @@
         "password": "Clave",
         "signIn": "Entrar",
         "signUp": "Registrarme",
-        "agreeToTerms": "Acepto los {terms} y la {privacy}",
+        "agreeToTerms": "Acepto los <terms>Términos y Condiciones</terms> y la <privacy>Política de Privacidad</privacy>",
         "termsLink": "Términos y Condiciones",
         "privacyLink": "Política de Privacidad"
     },
