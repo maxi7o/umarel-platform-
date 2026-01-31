@@ -1,0 +1,503 @@
+/**
+ * Marketing & Growth Metrics Service
+ * 
+ * Tracks acquisition, activation, retention, revenue, and referral metrics
+ * Implements AARRR (Pirate Metrics) framework + CAC/LTV analysis
+ */
+
+import { db } from '@/lib/db';
+import { users, transactions, slices, requests } from '@/lib/db/schema';
+import { sql, count, sum, avg, and, gte, lte, eq, desc } from 'drizzle-orm';
+
+export interface MarketingMetrics {
+    acquisition: AcquisitionMetrics;
+    activation: ActivationMetrics;
+    retention: RetentionMetrics;
+    revenue: RevenueMetrics;
+    referral: ReferralMetrics;
+    unitEconomics: UnitEconomicsMetrics;
+    timestamp: Date;
+}
+
+// ============================================================================
+// ACQUISITION - How users find you
+// ============================================================================
+
+export interface AcquisitionMetrics {
+    // User Acquisition
+    newUsers: number;
+    newUsersGrowthRate: number; // % month-over-month
+
+    // Channel Performance
+    channelBreakdown: ChannelMetric[];
+
+    // Cost Metrics
+    totalMarketingSpend: number; // in cents (ARS)
+    costPerAcquisition: number; // CAC - cost to acquire one user
+    costPerClick: number; // CPC
+    costPerImpression: number; // CPM / 1000
+
+    // Conversion Funnel
+    websiteVisitors: number;
+    signupRate: number; // % of visitors who sign up
+    landingPageConversionRate: number;
+}
+
+export interface ChannelMetric {
+    channel: string; // 'organic', 'paid_social', 'referral', 'direct'
+    users: number;
+    cost: number;
+    cac: number;
+    conversionRate: number;
+}
+
+async function getAcquisitionMetrics(startDate: Date, endDate: Date): Promise<AcquisitionMetrics> {
+    // New users in period
+    const [newUsersData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            and(
+                gte(users.createdAt, startDate),
+                lte(users.createdAt, endDate)
+            )
+        );
+
+    // Previous period for growth rate
+    const previousStart = new Date(startDate.getTime() - (endDate.getTime() - startDate.getTime()));
+    const [previousUsersData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            and(
+                gte(users.createdAt, previousStart),
+                lte(users.createdAt, startDate)
+            )
+        );
+
+    const newUsers = Number(newUsersData?.total || 0);
+    const previousUsers = Number(previousUsersData?.total || 1);
+    const growthRate = ((newUsers - previousUsers) / previousUsers) * 100;
+
+    // Marketing spend (hardcoded for now - integrate with ad platforms later)
+    const totalMarketingSpend = 50000000; // $500,000 ARS/month
+    const cac = newUsers > 0 ? totalMarketingSpend / newUsers : 0;
+
+    // Channel breakdown (TODO: Track UTM parameters in user table)
+    const channelBreakdown: ChannelMetric[] = [
+        {
+            channel: 'organic',
+            users: Math.floor(newUsers * 0.4),
+            cost: 0,
+            cac: 0,
+            conversionRate: 3.5,
+        },
+        {
+            channel: 'paid_social',
+            users: Math.floor(newUsers * 0.3),
+            cost: totalMarketingSpend * 0.6,
+            cac: (totalMarketingSpend * 0.6) / Math.floor(newUsers * 0.3),
+            conversionRate: 2.1,
+        },
+        {
+            channel: 'referral',
+            users: Math.floor(newUsers * 0.2),
+            cost: totalMarketingSpend * 0.1,
+            cac: (totalMarketingSpend * 0.1) / Math.floor(newUsers * 0.2),
+            conversionRate: 8.5,
+        },
+        {
+            channel: 'direct',
+            users: Math.floor(newUsers * 0.1),
+            cost: 0,
+            cac: 0,
+            conversionRate: 5.2,
+        },
+    ];
+
+    return {
+        newUsers,
+        newUsersGrowthRate: growthRate,
+        channelBreakdown,
+        totalMarketingSpend,
+        costPerAcquisition: cac,
+        costPerClick: 15000, // $150 ARS - TODO: Get from ad platforms
+        costPerImpression: 500, // $5 ARS per 1000 impressions
+        websiteVisitors: newUsers * 30, // Assuming 3.3% conversion rate
+        signupRate: 3.3,
+        landingPageConversionRate: 4.2,
+    };
+}
+
+// ============================================================================
+// ACTIVATION - First user experience
+// ============================================================================
+
+export interface ActivationMetrics {
+    // Activation Events
+    usersWhoPostedRequest: number;
+    usersWhoCreatedOffering: number;
+    usersWhoCompletedProfile: number;
+    usersWhoMadeFirstTransaction: number;
+
+    // Activation Rate
+    activationRate: number; // % of users who complete key action
+    timeToActivation: number; // Hours from signup to first action
+
+    // Onboarding
+    onboardingCompletionRate: number;
+    averageOnboardingTime: number; // Minutes
+}
+
+async function getActivationMetrics(startDate: Date, endDate: Date): Promise<ActivationMetrics> {
+    // Users who posted a request
+    const [requestersData] = await db
+        .select({
+            total: count(),
+        })
+        .from(requests)
+        .innerJoin(users, eq(requests.userId, users.id))
+        .where(
+            and(
+                gte(users.createdAt, startDate),
+                lte(users.createdAt, endDate)
+            )
+        );
+
+    // Users who made first transaction
+    const [transactorsData] = await db
+        .select({
+            total: count(),
+        })
+        .from(transactions)
+        .innerJoin(users, eq(transactions.userId, users.id))
+        .where(
+            and(
+                gte(users.createdAt, startDate),
+                lte(users.createdAt, endDate)
+            )
+        );
+
+    // Total new users in period
+    const [newUsersData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            and(
+                gte(users.createdAt, startDate),
+                lte(users.createdAt, endDate)
+            )
+        );
+
+    const requesters = Number(requestersData?.total || 0);
+    const transactors = Number(transactorsData?.total || 0);
+    const newUsers = Number(newUsersData?.total || 1);
+
+    return {
+        usersWhoPostedRequest: requesters,
+        usersWhoCreatedOffering: Math.floor(newUsers * 0.15), // TODO: Track offerings
+        usersWhoCompletedProfile: Math.floor(newUsers * 0.6),
+        usersWhoMadeFirstTransaction: transactors,
+        activationRate: (transactors / newUsers) * 100,
+        timeToActivation: 48, // TODO: Calculate from user data
+        onboardingCompletionRate: 65,
+        averageOnboardingTime: 8, // Minutes
+    };
+}
+
+// ============================================================================
+// RETENTION - Users coming back
+// ============================================================================
+
+export interface RetentionMetrics {
+    // Cohort Retention
+    day1Retention: number; // % of users active day after signup
+    day7Retention: number;
+    day30Retention: number;
+
+    // Engagement
+    dailyActiveUsers: number; // DAU
+    weeklyActiveUsers: number; // WAU
+    monthlyActiveUsers: number; // MAU
+    stickinessRatio: number; // DAU/MAU
+
+    // Churn
+    churnRate: number; // % of users who stopped using
+    reactivationRate: number; // % of churned users who came back
+}
+
+async function getRetentionMetrics(): Promise<RetentionMetrics> {
+    // DAU - users active in last 24h
+    const [dauData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            sql`${users.lastActiveAt} > NOW() - INTERVAL '1 day'`
+        );
+
+    // WAU - users active in last 7 days
+    const [wauData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            sql`${users.lastActiveAt} > NOW() - INTERVAL '7 days'`
+        );
+
+    // MAU - users active in last 30 days
+    const [mauData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users)
+        .where(
+            sql`${users.lastActiveAt} > NOW() - INTERVAL '30 days'`
+        );
+
+    const dau = Number(dauData?.total || 0);
+    const wau = Number(wauData?.total || 0);
+    const mau = Number(mauData?.total || 1);
+
+    return {
+        day1Retention: 45, // TODO: Calculate from cohort analysis
+        day7Retention: 30,
+        day30Retention: 20,
+        dailyActiveUsers: dau,
+        weeklyActiveUsers: wau,
+        monthlyActiveUsers: mau,
+        stickinessRatio: (dau / mau) * 100,
+        churnRate: 15, // TODO: Calculate from inactive users
+        reactivationRate: 8,
+    };
+}
+
+// ============================================================================
+// REVENUE - Monetization metrics
+// ============================================================================
+
+export interface RevenueMetrics {
+    // Revenue
+    totalRevenue: number; // in cents
+    averageRevenuePerUser: number; // ARPU
+    averageRevenuePerPayingUser: number; // ARPPU
+
+    // Transaction Metrics
+    totalTransactions: number;
+    averageTransactionValue: number;
+    revenuePerTransaction: number; // Platform fee per transaction
+
+    // Growth
+    revenueGrowthRate: number; // % month-over-month
+    transactionGrowthRate: number;
+}
+
+async function getRevenueMetrics(startDate: Date, endDate: Date): Promise<RevenueMetrics> {
+    // Revenue in period
+    const [revenueData] = await db
+        .select({
+            totalRevenue: sum(transactions.platformFee),
+            totalTransactions: count(),
+            avgTransactionValue: avg(transactions.amount),
+        })
+        .from(transactions)
+        .where(
+            and(
+                gte(transactions.createdAt, startDate),
+                lte(transactions.createdAt, endDate)
+            )
+        );
+
+    // Previous period
+    const previousStart = new Date(startDate.getTime() - (endDate.getTime() - startDate.getTime()));
+    const [previousRevenueData] = await db
+        .select({
+            totalRevenue: sum(transactions.platformFee),
+            totalTransactions: count(),
+        })
+        .from(transactions)
+        .where(
+            and(
+                gte(transactions.createdAt, previousStart),
+                lte(transactions.createdAt, startDate)
+            )
+        );
+
+    // Total users
+    const [usersData] = await db
+        .select({
+            total: count(),
+        })
+        .from(users);
+
+    // Paying users (users with at least one transaction)
+    const [payingUsersData] = await db
+        .select({
+            total: sql<number>`COUNT(DISTINCT ${transactions.userId})`,
+        })
+        .from(transactions);
+
+    const totalRevenue = Number(revenueData?.totalRevenue || 0);
+    const previousRevenue = Number(previousRevenueData?.totalRevenue || 1);
+    const totalTransactions = Number(revenueData?.totalTransactions || 0);
+    const previousTransactions = Number(previousRevenueData?.totalTransactions || 1);
+    const totalUsers = Number(usersData?.total || 1);
+    const payingUsers = Number(payingUsersData?.total || 1);
+
+    return {
+        totalRevenue,
+        averageRevenuePerUser: totalRevenue / totalUsers,
+        averageRevenuePerPayingUser: totalRevenue / payingUsers,
+        totalTransactions,
+        averageTransactionValue: Number(revenueData?.avgTransactionValue || 0),
+        revenuePerTransaction: totalTransactions > 0 ? totalRevenue / totalTransactions : 0,
+        revenueGrowthRate: ((totalRevenue - previousRevenue) / previousRevenue) * 100,
+        transactionGrowthRate: ((totalTransactions - previousTransactions) / previousTransactions) * 100,
+    };
+}
+
+// ============================================================================
+// REFERRAL - Viral growth
+// ============================================================================
+
+export interface ReferralMetrics {
+    // Referral Program
+    totalReferrals: number;
+    referralConversionRate: number; // % of referred users who sign up
+    viralCoefficient: number; // K-factor (users referred per user)
+
+    // Organic Growth
+    organicGrowthRate: number; // % of users from non-paid channels
+    wordOfMouthScore: number; // Based on NPS and referrals
+}
+
+async function getReferralMetrics(): Promise<ReferralMetrics> {
+    // TODO: Add referral tracking to user table
+    return {
+        totalReferrals: 150,
+        referralConversionRate: 35,
+        viralCoefficient: 0.8, // Each user brings 0.8 users (need >1 for viral growth)
+        organicGrowthRate: 40,
+        wordOfMouthScore: 65,
+    };
+}
+
+// ============================================================================
+// UNIT ECONOMICS - The most important metrics for sustainability
+// ============================================================================
+
+export interface UnitEconomicsMetrics {
+    // Customer Acquisition Cost (CAC)
+    cac: number; // Cost to acquire one customer
+    cacByChannel: ChannelMetric[];
+
+    // Customer Lifetime Value (LTV)
+    ltv: number; // Total revenue expected from a customer
+    averageCustomerLifespan: number; // Months
+    averageMonthlyRevenue: number; // Per customer
+
+    // LTV:CAC Ratio
+    ltvCacRatio: number; // Should be > 3 for healthy business
+
+    // Payback Period
+    paybackPeriod: number; // Months to recover CAC
+
+    // Transaction Economics
+    costPerTransaction: number; // All costs per transaction
+    revenuePerTransaction: number; // Platform fee
+    marginPerTransaction: number; // Profit per transaction
+
+    // Blended Metrics
+    blendedCAC: number; // Across all channels
+    blendedLTV: number; // Across all user types
+}
+
+async function getUnitEconomicsMetrics(
+    acquisitionMetrics: AcquisitionMetrics,
+    revenueMetrics: RevenueMetrics,
+    retentionMetrics: RetentionMetrics
+): Promise<UnitEconomicsMetrics> {
+    // CAC from acquisition metrics
+    const cac = acquisitionMetrics.costPerAcquisition;
+
+    // Calculate LTV
+    // LTV = ARPU × Average Customer Lifespan
+    // Average lifespan = 1 / Churn Rate
+    const churnRate = retentionMetrics.churnRate / 100;
+    const averageLifespanMonths = churnRate > 0 ? 1 / churnRate : 12;
+    const monthlyRevenue = revenueMetrics.averageRevenuePerPayingUser;
+    const ltv = monthlyRevenue * averageLifespanMonths;
+
+    // LTV:CAC Ratio
+    const ltvCacRatio = cac > 0 ? ltv / cac : 0;
+
+    // Payback Period (months to recover CAC)
+    const paybackPeriod = monthlyRevenue > 0 ? cac / monthlyRevenue : 0;
+
+    // Transaction Economics
+    const revenuePerTransaction = revenueMetrics.revenuePerTransaction;
+
+    // Cost per transaction includes:
+    // - Payment processing (2.5%)
+    // - Customer support ($50 ARS per transaction)
+    // - Infrastructure ($20 ARS per transaction)
+    const avgTransactionValue = revenueMetrics.averageTransactionValue;
+    const paymentProcessingCost = avgTransactionValue * 0.025;
+    const supportCost = 5000; // $50 ARS
+    const infraCost = 2000; // $20 ARS
+    const costPerTransaction = paymentProcessingCost + supportCost + infraCost;
+
+    const marginPerTransaction = revenuePerTransaction - costPerTransaction;
+
+    return {
+        cac,
+        cacByChannel: acquisitionMetrics.channelBreakdown,
+        ltv,
+        averageCustomerLifespan: averageLifespanMonths,
+        averageMonthlyRevenue: monthlyRevenue,
+        ltvCacRatio,
+        paybackPeriod,
+        costPerTransaction,
+        revenuePerTransaction,
+        marginPerTransaction,
+        blendedCAC: cac,
+        blendedLTV: ltv,
+    };
+}
+
+// ============================================================================
+// MAIN EXPORT FUNCTION
+// ============================================================================
+
+export async function getMarketingMetrics(
+    startDate: Date = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+    endDate: Date = new Date()
+): Promise<MarketingMetrics> {
+    const [acquisition, activation, retention, revenue, referral] = await Promise.all([
+        getAcquisitionMetrics(startDate, endDate),
+        getActivationMetrics(startDate, endDate),
+        getRetentionMetrics(),
+        getRevenueMetrics(startDate, endDate),
+        getReferralMetrics(),
+    ]);
+
+    const unitEconomics = await getUnitEconomicsMetrics(acquisition, revenue, retention);
+
+    return {
+        acquisition,
+        activation,
+        retention,
+        revenue,
+        referral,
+        unitEconomics,
+        timestamp: new Date(),
+    };
+}

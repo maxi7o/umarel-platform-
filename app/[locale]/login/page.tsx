@@ -114,13 +114,13 @@ function LoginForm() {
                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                             >
                                 {t.rich('login.agreeToTerms', {
-                                    terms: (chunks) => <a href="/terms" className="underline hover:text-orange-600">{chunks}</a>,
-                                    privacy: (chunks) => <a href="/privacy" className="underline hover:text-orange-600">{chunks}</a>
+                                    terms: (chunks) => <a href="/legal/terms" className="underline hover:text-blue-600 transition-colors">{chunks}</a>,
+                                    privacy: (chunks) => <a href="/legal/privacy" className="underline hover:text-blue-600 transition-colors">{chunks}</a>
                                 })}
                             </label>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Button formAction={login} className="w-full bg-orange-600 hover:bg-orange-700">{t("login.signIn")}</Button>
+                            <Button formAction={login} className="w-full bg-blue-600 hover:bg-blue-700">{t("login.signIn")}</Button>
                             <Button formAction={signup} variant="outline" className="w-full">{t("login.signUp")}</Button>
                         </div>
                     </form>
