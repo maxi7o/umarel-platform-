@@ -4,8 +4,9 @@ import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { MapPin, Loader2, X } from 'lucide-react';
+import { MapPin, Loader2, X, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { LocationCache } from '@/lib/location-cache';
 import {
     Command,
     CommandEmpty,
@@ -45,11 +46,18 @@ export function LocationInput({
     const [query, setQuery] = useState(value || defaultValue || '');
     const [results, setResults] = useState<NominatimResult[]>([]);
     const [loading, setLoading] = useState(false);
+    const [popularSearches, setPopularSearches] = useState<NominatimResult[]>([]);
 
     // Ref to track the timeout and prevent heavy fetches
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
-    const handleSearch = (term: string) => {
+    // Load popular searches on mount
+    useEffect(() => {
+        const popular = LocationCache.getPopular(5);
+        setPopularSearches(popular.map(p => p.result));
+    }, []);
+
+    const handleSearch = async (term: string) => {
         if (searchTimeout.current) clearTimeout(searchTimeout.current);
 
         if (term.length < 3) {
@@ -58,51 +66,114 @@ export function LocationInput({
             return;
         }
 
+        // Check cache first
+        const cached = LocationCache.get(term);
+        if (cached) {
+            console.log('📦 Cache hit for:', term);
+            setResults([cached]);
+            return;
+        }
+
         setLoading(true);
         searchTimeout.current = setTimeout(async () => {
             try {
-                // Switch to Photon (Komoot) for true Autocomplete
-                // Fetch 50 results to ensure we catch local ones even if Spain/Mexico results rank higher globally
-                const params = new URLSearchParams({
-                    q: term,
-                    limit: '50',
-                    lang: 'es',
-                    lat: '-34.6037', // Bias to Buenos Aires
-                    lon: '-58.3816'
-                });
+                // Try Photon first (primary, faster)
+                let validResults = await fetchFromPhoton(term);
 
-                const res = await fetch(`https://photon.komoot.io/api/?${params.toString()}`);
-                if (res.ok) {
-                    const data = await res.json();
+                // Fallback to Nominatim if Photon fails or returns no results
+                if (validResults.length === 0) {
+                    console.log('🔄 Falling back to Nominatim...');
+                    validResults = await fetchFromNominatim(term);
+                }
 
-                    const validResults: NominatimResult[] = data.features
-                        // Relaxed Filter: Prioritize Argentina but allow others if close?
-                        // Actually, for now let's just accept what Photon returns since we biased with lat/lon.
-                        // Or check for "Argentina" string in properties loosely.
-                        .map((f: any) => ({
-                            place_id: f.properties.osm_id,
-                            lat: f.geometry.coordinates[1].toString(),
-                            lon: f.geometry.coordinates[0].toString(),
-                            display_name: [
-                                f.properties.name,
-                                f.properties.street,
-                                f.properties.city,
-                                f.properties.state,
-                                f.properties.country
-                            ].filter(Boolean).join(', ')
-                        }))
-                        // Deduplicate by name
-                        .filter((v: any, i: number, a: any[]) => a.findIndex((t: any) => t.display_name === v.display_name) === i)
-                        .slice(0, 5);
+                setResults(validResults);
 
-                    setResults(validResults);
+                // Cache the first result if we got any
+                if (validResults.length > 0) {
+                    LocationCache.set(term, validResults[0]);
                 }
             } catch (e) {
-                console.error("Location search failed", e);
+                console.error("Location search failed on all endpoints", e);
+                setResults([]);
             } finally {
                 setLoading(false);
             }
-        }, 300); // 300ms is enough for Photon (it is fast)
+        }, 300);
+    };
+
+    // Fetch from Photon (Komoot) - Primary endpoint
+    const fetchFromPhoton = async (term: string): Promise<NominatimResult[]> => {
+        try {
+            const params = new URLSearchParams({
+                q: term,
+                limit: '50',
+                lang: 'es',
+                lat: '-34.6037', // Bias to Buenos Aires
+                lon: '-58.3816'
+            });
+
+            const res = await fetch(`https://photon.komoot.io/api/?${params.toString()}`);
+            if (!res.ok) throw new Error('Photon request failed');
+
+            const data = await res.json();
+
+            return data.features
+                .map((f: any) => ({
+                    place_id: f.properties.osm_id,
+                    lat: f.geometry.coordinates[1].toString(),
+                    lon: f.geometry.coordinates[0].toString(),
+                    display_name: [
+                        f.properties.name,
+                        f.properties.street,
+                        f.properties.city,
+                        f.properties.state,
+                        f.properties.country
+                    ].filter(Boolean).join(', ')
+                }))
+                .filter((v: any, i: number, a: any[]) =>
+                    a.findIndex((t: any) => t.display_name === v.display_name) === i
+                )
+                .slice(0, 5);
+        } catch (e) {
+            console.error('Photon fetch error:', e);
+            return [];
+        }
+    };
+
+    // Fetch from Nominatim (OSM) - Fallback endpoint
+    const fetchFromNominatim = async (term: string): Promise<NominatimResult[]> => {
+        try {
+            const params = new URLSearchParams({
+                q: term,
+                format: 'json',
+                limit: '5',
+                countrycodes: 'ar', // Argentina only
+                'accept-language': 'es'
+            });
+
+            const res = await fetch(
+                `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+                {
+                    headers: {
+                        'User-Agent': 'ElEntendido/1.0' // Required by Nominatim usage policy
+                    }
+                }
+            );
+
+            if (!res.ok) throw new Error('Nominatim request failed');
+
+            const data = await res.json();
+
+            return data.map((item: any) => ({
+                place_id: item.place_id,
+                lat: item.lat,
+                lon: item.lon,
+                display_name: item.display_name
+            }));
+        } catch (e) {
+            console.error('Nominatim fetch error:', e);
+            return [];
+        }
     };
 
     const handleSelect = (result: NominatimResult) => {
@@ -177,6 +248,26 @@ export function LocationInput({
                             <CommandEmpty className='py-4 text-center text-sm text-stone-500'>
                                 No hay resultados en Argentina.
                             </CommandEmpty>
+                        )}
+                        {!loading && query.length < 3 && popularSearches.length > 0 && (
+                            <CommandGroup heading="Búsquedas populares">
+                                {popularSearches.map((result) => (
+                                    <CommandItem
+                                        key={result.place_id}
+                                        value={result.place_id.toString()}
+                                        onSelect={() => handleSelect(result)}
+                                        className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900"
+                                    >
+                                        <Clock className="mr-3 h-4 w-4 shrink-0 text-stone-400 mt-0.5" />
+                                        <div className="flex flex-col overflow-hidden">
+                                            <span className="truncate font-medium text-stone-800">{result.display_name.split(',')[0]}</span>
+                                            <span className="truncate text-xs text-stone-500 mt-0.5">
+                                                {result.display_name.split(',').slice(1).join(',').trim()}
+                                            </span>
+                                        </div>
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
                         )}
                         {!loading && results.map((result) => (
                             <CommandItem

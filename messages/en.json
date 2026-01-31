@@ -362,7 +362,7 @@
         "signIn": "Sign In",
         "signUp": "Sign Up",
         "agreeToTerms": "I agree to the {terms} and {privacy}",
-        "termsLink": "Terms of Service",
+        "termsLink": "Terms and Conditions",
         "privacyLink": "Privacy Policy"
     },
     "createRequest": {
