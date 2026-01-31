@@ -329,7 +329,7 @@ export function LocationInput({
                                         key={result.place_id}
                                         value={result.place_id.toString()}
                                         onSelect={() => handleSelect(result)}
-                                        className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900"
+                                        className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900 data-[disabled]:pointer-events-auto data-[disabled]:opacity-100"
                                     >
                                         <Clock className="mr-3 h-4 w-4 shrink-0 text-stone-400 mt-0.5" />
                                         <div className="flex flex-col overflow-hidden">
@@ -347,7 +347,7 @@ export function LocationInput({
                                 key={result.place_id}
                                 value={result.place_id.toString()}
                                 onSelect={() => handleSelect(result)}
-                                className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900"
+                                className="cursor-pointer py-3 px-4 aria-selected:bg-orange-50 aria-selected:text-orange-900 data-[disabled]:pointer-events-auto data-[disabled]:opacity-100"
                             >
                                 <MapPin className="mr-3 h-4 w-4 shrink-0 text-orange-500/70 mt-0.5" />
                                 <div className="flex flex-col overflow-hidden">
