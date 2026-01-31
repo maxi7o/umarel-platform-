@@ -196,16 +196,20 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                             <span className="text-sm">Subir fotos (Opcional)</span>
                         </div>
 
-                        <div className="flex gap-4">
-                            <Button variant="ghost" onClick={handleBack} className="w-full">
-                                <ArrowLeft className="mr-2 w-4 h-4" /> Volver
-                            </Button>
+                        <div className="flex flex-col sm:flex-row gap-4 pb-12">
                             <Button
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="w-full bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-900/20"
+                                className="w-full bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-900/20 order-1 sm:order-2 h-12 text-lg"
                             >
                                 {isSubmitting ? "Publicando..." : "Publicar Pedido"}
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                onClick={handleBack}
+                                className="w-full order-2 sm:order-1 h-12"
+                            >
+                                <ArrowLeft className="mr-2 w-4 h-4" /> Volver
                             </Button>
                         </div>
                         <p className="text-xs text-center text-slate-400 mt-4">
