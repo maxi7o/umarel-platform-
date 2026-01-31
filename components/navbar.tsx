@@ -114,7 +114,12 @@ export function Navbar({ user }: NavbarProps) {
                                         {t('login')}
                                     </Button>
                                 </Link>
-                                <Link href="/requests/create">
+                                <Link href="/audit" className="hidden sm:block">
+                                    <Button variant="ghost" className="text-stone-600 hover:text-amber-700 hover:bg-amber-50 font-medium border border-transparent hover:border-amber-200">
+                                        🧐 {t('opine')}
+                                    </Button>
+                                </Link>
+                                <Link href="/start">
                                     <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 whitespace-nowrap text-sm sm:text-base px-3 sm:px-4">
                                         <span className="hidden sm:inline">{t('postNeed')}</span>
                                         <span className="sm:hidden">Proyectá</span>

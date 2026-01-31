@@ -64,7 +64,30 @@
         "faq": "Preguntas",
         "roleSeek": "Contratar",
         "roleCreate": "Trabajar",
-        "roleVerify": "Auditar"
+        "roleVerify": "Auditar",
+        "opine": "Opiná"
+    },
+    "start": {
+        "title": "¿Qué querés hacer hoy?",
+        "subtitle": "Elegí tu camino en El Entendido.",
+        "request": {
+            "title": "Tengo un Proyecto",
+            "desc": "Quiero remodelar, arreglar o construir algo.",
+            "cta": "Publicar Solicitud"
+        },
+        "offering": {
+            "title": "Soy Profesional",
+            "desc": "Quiero ofrecer mis servicios y trabajar.",
+            "cta": "Crear Perfil"
+        }
+    },
+    "audit": {
+        "title": "Centro de Opinión",
+        "subtitle": "Ayudá a la comunidad revisando precios y trabajos.",
+        "requests": "Pedidos",
+        "quotes": "Presupuestos",
+        "offerings": "Perfiles",
+        "empty": "No hay nada para revisar por ahora."
     },
     "footer": {
         "platform": "Plataforma",
