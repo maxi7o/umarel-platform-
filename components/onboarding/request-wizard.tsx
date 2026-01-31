@@ -151,12 +151,20 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                             />
                         </div>
 
-                        <div className="flex gap-4">
-                            <Button variant="ghost" onClick={handleBack} className="w-full">
-                                <ArrowLeft className="mr-2 w-4 h-4" /> Volver
+                        <div className="flex flex-col sm:flex-row gap-4 pb-12">
+                            <Button
+                                onClick={handleNext}
+                                className="w-full bg-slate-900 text-white order-1 sm:order-2 h-12 text-lg"
+                                disabled={!formData.location}
+                            >
+                                Siguiente <ArrowRight className="ml-2 w-4 h-4" />
                             </Button>
-                            <Button onClick={handleNext} className="w-full bg-slate-900 text-white">
-                                Siguiente
+                            <Button
+                                variant="ghost"
+                                onClick={handleBack}
+                                className="w-full order-2 sm:order-1 h-12"
+                            >
+                                <ArrowLeft className="mr-2 w-4 h-4" /> Volver
                             </Button>
                         </div>
                     </motion.div>
