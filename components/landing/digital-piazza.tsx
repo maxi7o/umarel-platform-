@@ -62,7 +62,7 @@ export function DigitalPiazza() {
                     <div className="mt-4 flex items-center justify-center gap-3 text-sm text-stone-400">
                         <span className="flex items-center gap-1">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            12 Umarels Active
+                            12 Entendidos Activos
                         </span>
                         <span>•</span>
                         <span>Buenos Aires Region</span>

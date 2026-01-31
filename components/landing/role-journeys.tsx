@@ -149,14 +149,14 @@ export function RoleJourneys() {
 
                     <div className="order-1 lg:order-2 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-sm font-bold">
-                            <ShieldCheck size={14} /> El Umarel
+                            <ShieldCheck size={14} /> El Entendido
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
                             No venimos a juzgar. <br />
                             <span className="text-purple-600">Venimos a pensar con vos.</span>
                         </h2>
                         <p className="text-lg text-stone-600 leading-relaxed">
-                            Un Umarel no es un inspector que te busca el pelo al huevo.
+                            Un Entendido no es un inspector que te busca el pelo al huevo.
                             Es alguien con experiencia que te ayuda a que no se te escape nada.
                             Pensamos juntos para que el trabajo salga bien de una.
                         </p>

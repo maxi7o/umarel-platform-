@@ -285,7 +285,7 @@ export function LocationBadge() {
                     <div className="space-y-2">
                         <h4 className="font-medium text-sm leading-none">Wrong location?</h4>
                         <p className="text-xs text-muted-foreground">
-                            Enter your city manually to find local Umarels.
+                            Enter your city manually to find local Entendidos.
                         </p>
                     </div>
                     <LocationInput
