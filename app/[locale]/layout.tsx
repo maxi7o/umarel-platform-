@@ -14,9 +14,10 @@ import { RoleSelectorDialog } from '@/components/dialogs/role-selector-dialog';
 import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
 
+import { Instrument_Serif, Caveat } from "next/font/google";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-import { Instrument_Serif, Caveat } from "next/font/google";
 const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"], variable: "--font-serif" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-hand" });
 
