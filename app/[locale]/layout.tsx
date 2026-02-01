@@ -146,9 +146,9 @@ export default async function LocaleLayout({
                 <NextIntlClientProvider messages={messages}>
                     <MarketProvider>
                         <div className="flex flex-col min-h-screen bg-neutral-50 dark:bg-black overflow-x-hidden w-full">
+                            <Navbar user={user} />
                             {/* Desktop Container Constraint */}
                             <div className="w-full max-w-[600px] mx-auto bg-white dark:bg-stone-900 min-h-screen shadow-2xl border-x border-stone-100 dark:border-stone-800 flex flex-col relative overflow-x-hidden">
-                                <Navbar user={user} />
                                 <main className="flex-grow flex flex-col relative w-full overflow-x-hidden">
                                     {children}
                                 </main>
