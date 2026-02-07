@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hammer, HardHat } from 'lucide-react';
+import { Lightbulb, Rocket } from 'lucide-react';
 
 export default function ConstructionPage() {
     return (
@@ -7,10 +7,10 @@ export default function ConstructionPage() {
             <div className="bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-700 max-w-md w-full">
                 <div className="flex justify-center gap-4 mb-8">
                     <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                        <HardHat className="w-8 h-8 text-slate-900" />
+                        <Lightbulb className="w-8 h-8 text-slate-900" />
                     </div>
                     <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                        <Hammer className="w-8 h-8 text-white" />
+                        <Rocket className="w-8 h-8 text-white" />
                     </div>
                 </div>
 
@@ -20,10 +20,10 @@ export default function ConstructionPage() {
                 <div className="w-16 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto mb-6 rounded-full"></div>
 
                 <p className="text-xl text-slate-300 mb-2">
-                    Sitio en Construcción
+                    Sitio en Desarrollo
                 </p>
                 <p className="text-slate-500 text-sm mb-8">
-                    Estamos preparando algo grande.
+                    Estamos construyendo el futuro.
                 </p>
 
                 <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700">

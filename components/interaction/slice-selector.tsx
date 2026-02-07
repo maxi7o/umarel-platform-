@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { Hammer, Paintbrush, Truck, Zap } from 'lucide-react';
+import { Shovel, Paintbrush, Truck, Zap } from 'lucide-react';
 
 interface Slice {
     id: string;
@@ -37,7 +37,7 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
         if (skills.some(s => s.includes('electr'))) return <Zap className="h-4 w-4" />;
         if (skills.some(s => s.includes('paint') || s.includes('pint'))) return <Paintbrush className="h-4 w-4" />;
         if (skills.some(s => s.includes('mov') || s.includes('mud'))) return <Truck className="h-4 w-4" />;
-        return <Hammer className="h-4 w-4" />;
+        return <Shovel className="h-4 w-4" />;
     };
 
     return (

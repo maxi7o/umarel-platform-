@@ -44,11 +44,19 @@ export function getEffectiveRole(user: any, roleSwitch?: RoleSwitch): string {
  * Check if user can switch roles (must be admin)
  */
 export async function canSwitchRoles(userId: string): Promise<boolean> {
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[RoleSwitch] Development mode: allowing role switch for all users');
+        return true;
+    }
+
     const [user] = await db
         .select({ role: users.role })
         .from(users)
         .where(eq(users.id, userId))
         .limit(1);
+
+    console.log(`[RoleSwitch] Checking DB for userId: ${userId}`);
+    console.log(`[RoleSwitch] User found:`, user);
 
     return user?.role === 'admin';
 }
@@ -77,6 +85,13 @@ export const DEMO_PERSONAS = {
         role: 'admin' as const,
         scenario: 'Gestiona la plataforma',
         avatar: '🛡️',
+    },
+    umarel: {
+        name: 'Mario Entendido',
+        email: 'mario.umarel@demo.com',
+        role: 'user' as const,
+        scenario: 'Audita y opina sobre presupuestos',
+        avatar: '👴',
     },
 } as const;
 

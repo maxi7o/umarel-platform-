@@ -9,18 +9,23 @@ export async function POST(request: Request) {
         const { data: { user } } = await supabase.auth.getUser();
 
         if (!user) {
+            console.log('RoleSwitch: No user found in auth');
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
         }
 
+        console.log('RoleSwitch: Checking user', user.id, user.email);
+
         // Check if user can switch roles (must be admin)
         const canSwitch = await canSwitchRoles(user.id);
+        console.log('RoleSwitch: canSwitch result', canSwitch);
+
         if (!canSwitch) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
         const { targetRole } = await request.json();
 
-        if (!targetRole || !['client', 'provider', 'admin'].includes(targetRole)) {
+        if (!targetRole || !['client', 'provider', 'admin', 'umarel'].includes(targetRole)) {
             return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
         }
 

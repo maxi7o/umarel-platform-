@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { User, Hammer, CheckCircle2, MessageCircle, Mic, Image as ImageIcon, Star } from 'lucide-react';
+import { User, Shovel, CheckCircle2, MessageCircle, Mic, Image as ImageIcon, Star } from 'lucide-react';
 
 const DEMOS = [
     {
@@ -17,7 +17,7 @@ const DEMOS = [
     {
         id: 'provider',
         label: 'Soy Profesional',
-        icon: Hammer,
+        icon: Shovel,
         color: 'orange',
         title: 'Trabajá seguro',
         description: 'Encontrá clientes serios y cobrá siempre.'

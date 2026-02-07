@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { CheckCircle2, Circle, Camera, AlertTriangle, MessageSquare, ChevronDown, ChevronUp, Hammer } from "lucide-react";
+import { CheckCircle2, Circle, Camera, AlertTriangle, MessageSquare, ChevronDown, ChevronUp, Shovel } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
@@ -69,7 +69,7 @@ export function SliceWorksheet({ sliceId }: { sliceId: string }) {
                 <div className="flex items-start justify-between mb-4">
                     <div>
                         <h1 className="text-2xl font-bold text-stone-100 flex items-center gap-2">
-                            <Hammer className="w-6 h-6 text-orange-500" />
+                            <Shovel className="w-6 h-6 text-orange-500" />
                             Kitchen Sink Replacement
                         </h1>
                         <p className="text-stone-400 text-sm mt-1">Slice #{sliceId.substring(0, 6)} • Belgrano, CABA</p>

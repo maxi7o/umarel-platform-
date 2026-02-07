@@ -3,7 +3,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Hammer, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Shovel, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface SliceProposalProps {
@@ -29,7 +29,7 @@ export function SliceProposal({ slice, onAccept, isAccepted = false }: SliceProp
             <CardHeader className="pb-2">
                 <div className="flex justify-between items-start gap-2">
                     <CardTitle className="text-base font-semibold flex items-center gap-2">
-                        <Hammer size={16} className={isAccepted ? "text-green-600" : "text-blue-600"} />
+                        <Shovel size={16} className={isAccepted ? "text-green-600" : "text-blue-600"} />
                         {slice.title}
                     </CardTitle>
                     {isAccepted && (

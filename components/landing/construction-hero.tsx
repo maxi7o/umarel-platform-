@@ -3,31 +3,31 @@
 
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { HardHat, Hammer, ArrowRight, Clipboard } from 'lucide-react';
+import { Shovel, Hammer, ArrowRight, Clipboard } from 'lucide-react';
 import Link from 'next/link';
 
 export function ConstructionHero() {
     const t = useTranslations('landing');
 
     return (
-        <section className="relative bg-blueprint min-h-[90vh] flex items-center justify-center overflow-hidden border-b-4 border-primary">
+        <section className="relative bg-slate-50 dark:bg-slate-950 min-h-[90vh] flex items-center justify-center overflow-hidden border-b-4 border-primary">
             {/* Background overlay for better contrast if needed */}
             <div className="absolute inset-0 bg-background/50 dark:bg-background/80 backdrop-blur-[1px]" />
 
-            {/* Construction Accents */}
-            <div className="absolute top-0 left-0 w-full h-8 bg-black/10 flex items-center overflow-hidden">
+            {/* Generalist Accents */}
+            <div className="absolute top-0 left-0 w-full h-8 bg-black/5 flex items-center overflow-hidden">
                 <div className="flex animate-marquee whitespace-nowrap gap-8 text-xs font-mono opacity-50 font-bold uppercase tracking-widest text-primary">
-                    <span>Caution: Men at Work</span>
+                    <span>Idea to Reality</span>
                     <span>///</span>
-                    <span>Safety First</span>
+                    <span>Quality First</span>
                     <span>///</span>
-                    <span>Inspection in Progress</span>
+                    <span>Validation in Progress</span>
                     <span>///</span>
-                    <span>Entendido Watching</span>
+                    <span>Experts Validating</span>
                     <span>///</span>
-                    <span>Caution: Men at Work</span>
+                    <span>Idea to Reality</span>
                     <span>///</span>
-                    <span>Safety First</span>
+                    <span>Quality First</span>
                     <span>///</span>
                 </div>
             </div>
@@ -36,8 +36,8 @@ export function ConstructionHero() {
 
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent font-medium text-sm mb-6 animate-fade-in-up">
-                    <HardHat className="w-4 h-4" />
-                    <span>Construction Season is Open</span>
+                    <Shovel className="w-4 h-4" />
+                    <span>New Opportunities Open</span>
                 </div>
 
                 {/* Main Headline */}
@@ -58,7 +58,7 @@ export function ConstructionHero() {
                         className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg h-14 rounded-xl shadow-xl shadow-primary/20"
                     >
                         <Link href="/post-request">
-                            <Hammer className="mr-2 h-5 w-5" />
+                            <Shovel className="mr-2 h-5 w-5" />
                             {t('cta.postButton')}
                         </Link>
                     </Button>

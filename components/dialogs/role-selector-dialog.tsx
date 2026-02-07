@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { Hammer, Search, Eye } from 'lucide-react'
+import { Shovel, Search, Eye } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
@@ -79,7 +79,7 @@ export function RoleSelectorDialog() {
                             className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-orange-200 hover:shadow-lg transition-all group text-left"
                         >
                             <div className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 group-hover:bg-orange-100 group-hover:text-orange-600">
-                                <Hammer className="w-6 h-6" />
+                                <Shovel className="w-6 h-6" />
                             </div>
                             <div>
                                 <h3 className="font-bold text-slate-900 group-hover:text-orange-600">Ofrezco mis servicios</h3>

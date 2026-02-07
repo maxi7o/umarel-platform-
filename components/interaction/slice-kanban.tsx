@@ -9,7 +9,7 @@ import { DisputeActions } from '@/components/payments/dispute-actions';
 
 import { SubmitEvidenceDialog } from '@/components/interaction/submit-evidence-dialog';
 import { AcceptDialog } from '@/components/interaction/accept-dialog';
-import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Hammer } from 'lucide-react';
+import { AlertCircle, CheckCircle2, CircleDashed, GripHorizontal, Shovel } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';

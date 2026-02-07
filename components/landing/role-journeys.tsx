@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, DollarSign, Search, ShieldCheck, HardHat, Glasses } from 'lucide-react';
+import { CheckCircle2, DollarSign, Search, ShieldCheck, Shovel, Glasses } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function RoleJourneys() {
@@ -81,7 +81,7 @@ export function RoleJourneys() {
                 <div id="creator" className="grid lg:grid-cols-2 gap-16 items-center mb-32">
                     <div className="space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-bold">
-                            <HardHat size={14} /> El Solucionador
+                            <Shovel size={14} /> El Solucionador
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
                             Solo ocupate de trabajar. <br />

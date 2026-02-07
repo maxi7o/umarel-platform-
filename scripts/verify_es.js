@@ -1,15 +1,13 @@
 
 const fs = require('fs');
-const file = process.argv[2] || 'messages/es.json';
 
-console.log('Checking', file);
 try {
-    const raw = fs.readFileSync(file, 'utf8');
+    const raw = fs.readFileSync('messages/es.json', 'utf8');
     try {
         JSON.parse(raw);
-        console.log('✅ Valid');
+        console.log('✅ es.json is valid');
     } catch (e) {
-        console.error('❌ INVALID:', e.message);
+        console.error('❌ es.json is INVALID:', e.message);
         const match = e.message.match(/position (\d+)/);
         if (match) {
             const pos = parseInt(match[1]);

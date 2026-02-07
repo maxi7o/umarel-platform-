@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, User, Hammer, CheckCircle2, Bot, DollarSign, MapPin, Eye, TrendingUp, Users, ShieldCheck, Layers, Star } from 'lucide-react';
+import { ArrowRight, User, Shovel, CheckCircle2, Bot, DollarSign, MapPin, Eye, TrendingUp, Users, ShieldCheck, Layers, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function HeroSection() {
@@ -120,7 +120,7 @@ export function HeroSection() {
                             <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0">
-                                        <Hammer className="w-5 h-5 text-white" />
+                                        <Shovel className="w-5 h-5 text-white" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900">Ofrecés servicios</h3>
                                 </div>

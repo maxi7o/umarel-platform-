@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Construction, HardHat, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Shovel, MapPin, AlertTriangle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function BachesCampaignPage() {
@@ -10,7 +10,7 @@ export default function BachesCampaignPage() {
             <header className="bg-orange-500 text-white py-12 px-4 text-center">
                 <div className="container mx-auto max-w-2xl">
                     <div className="mx-auto bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <HardHat className="h-10 w-10 text-white" />
+                        <MapPin className="h-10 w-10 text-white" />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
                         Vemos el problema. <br />
@@ -23,7 +23,7 @@ export default function BachesCampaignPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button asChild size="lg" className="bg-slate-900 text-white hover:bg-slate-800 text-lg py-6 px-8 rounded-full shadow-xl">
                             <Link href="/create-request?category=repairs&description=Arreglo%20de%20Bache%20o%20Vereda">
-                                <Construction className="mr-2 h-5 w-5" />
+                                <Shovel className="mr-2 h-5 w-5" />
                                 Publicar Arreglo
                             </Link>
                         </Button>
@@ -45,7 +45,7 @@ export default function BachesCampaignPage() {
                                 </div>
                                 {/* Diagonal "Inspected" Tape */}
                                 <div className="absolute top-6 -right-12 bg-orange-500 text-white text-xs font-bold py-1 px-12 transform rotate-45 shadow-sm">
-                                    INSPECTED BY UMAREL
+                                    VALIDADO POR EXPERTO
                                 </div>
                             </div>
                         </div>
