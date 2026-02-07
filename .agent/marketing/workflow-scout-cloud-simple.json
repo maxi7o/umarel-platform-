@@ -1,0 +1,179 @@
+{
+    "name": "Scout Agent - Cloud Simple (No Telegram)",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "minutes": 4
+                        }
+                    ]
+                }
+            },
+            "id": "7d9f3b21-4a5c-4b9a-8c3d-1e1f2a3b4c5d",
+            "name": "Schedule (4h)",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                460,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://api.apify.com/v2/acts/apify~instagram-hashtag-scraper/run-sync-get-dataset-items",
+                "method": "POST",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "hashtags",
+                            "value": "[\"reformas\", \"albañil\", \"plomero\", \"humedad\", \"filtraciones\"]"
+                        },
+                        {
+                            "name": "resultsLimit",
+                            "value": 20
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "a1b2c3d4-e5f6-4789-8012-34567890abcdef",
+            "name": "Apify - Instagram",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.1,
+            "position": [
+                680,
+                340
+            ],
+            "credentials": {
+                "httpHeaderAuth": {
+                    "id": "YOUR_APIFY_CREDENTIAL_ID",
+                    "name": "Apify Token"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "resource": "chat",
+                "model": "gpt-4o",
+                "messages": {
+                    "values": [
+                        {
+                            "content": "Analiza este post de Instagram y dime si es un LEAD buscando servicios de construcción/reparación.\n\nPost: {{ $json.caption }}\n\nFormato JSON:\n{\n  \"intent_score\": (0-10, 10 es 'Busco albañil urgente', 0 es 'Miren mi obra'),\n  \"reasoning\": \"breve explicación\",\n  \"suggested_reply\": \"respuesta corta y profesional ofreciendo ayuda\"\n}"
+                        }
+                    ]
+                },
+                "jsonOutput": true
+            },
+            "id": "b2c3d4e5-f6g7-4890-9123-4567890abcde",
+            "name": "OpenAI - Analyze",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                900,
+                340
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "YOUR_OPENAI_CREDENTIAL_ID",
+                    "name": "OpenAI Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "number": [
+                        {
+                            "value1": "={{ $json.intent_score }}",
+                            "operation": "largerEqual",
+                            "value2": 7
+                        }
+                    ]
+                }
+            },
+            "id": "c3d4e5f6-g7h8-4901-0123-567890abcdef",
+            "name": "High Intent?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1120,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "executeQuery",
+                "query": "INSERT INTO scout_leads (source, external_id, post_url, post_content, author_username, intent_score, intent_reasoning, suggested_reply, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'pending_review') ON CONFLICT (source, external_id) DO NOTHING;",
+                "additionalFields": {
+                    "queryParams": "instagram,{{ $json.id }},{{ $json.url }},{{ $json.caption }},{{ $json.ownerUsername }},{{ $json.intent_score }},{{ $json.reasoning }},{{ $json.suggested_reply }}"
+                }
+            },
+            "id": "d4e5f6g7-h8i9-5012-1234-67890abcdef1",
+            "name": "Save to DB",
+            "type": "n8n-nodes-base.postgres",
+            "typeVersion": 2.3,
+            "position": [
+                1340,
+                240
+            ],
+            "credentials": {
+                "postgres": {
+                    "id": "YOUR_POSTGRES_CREDENTIAL_ID",
+                    "name": "Supabase DB"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Schedule (4h)": {
+            "main": [
+                [
+                    {
+                        "node": "Apify - Instagram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Apify - Instagram": {
+            "main": [
+                [
+                    {
+                        "node": "OpenAI - Analyze",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "OpenAI - Analyze": {
+            "main": [
+                [
+                    {
+                        "node": "High Intent?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "High Intent?": {
+            "main": [
+                [
+                    {
+                        "node": "Save to DB",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

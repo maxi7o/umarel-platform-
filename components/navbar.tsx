@@ -79,6 +79,18 @@ export function Navbar({ user }: NavbarProps) {
                             <NotificationBell />
                         </div>
 
+                        {user && (
+                            <Link href="/requests/create-universal">
+                                <Button size="sm" className="hidden sm:flex bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md border-0">
+                                    <PlusCircle className="mr-2 h-4 w-4" />
+                                    Nuevo Proyecto
+                                </Button>
+                                <Button size="icon" variant="ghost" className="sm:hidden text-blue-600">
+                                    <PlusCircle className="h-6 w-6" />
+                                </Button>
+                            </Link>
+                        )}
+
                         {user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>

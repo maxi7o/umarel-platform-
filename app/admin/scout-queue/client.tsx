@@ -11,20 +11,20 @@ import { toast } from 'sonner';
 interface Lead {
     id: string;
     created_at: string;
-    platform: string;
+    source: string; // Changed from platform
     post_url: string;
     post_content: string;
-    username: string;
+    author_username: string; // Changed from username
     intent_score: number;
-    analysis_reason: string;
+    intent_reasoning: string; // Changed from analysis_reason
     suggested_reply: string;
-    status: 'pending' | 'approved' | 'rejected' | 'posted';
+    status: 'pending_review' | 'approved' | 'rejected' | 'posted'; // Updated status enum
 }
 
 export default function ScoutQueueClient() {
     const [leads, setLeads] = useState<Lead[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('pending');
+    const [activeTab, setActiveTab] = useState('pending_review'); // DB status default
 
     useEffect(() => {
         fetchLeads();
@@ -33,7 +33,9 @@ export default function ScoutQueueClient() {
     const fetchLeads = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/admin/scout/queue?status=${activeTab}`);
+            // Map tab "pending" to DB "pending_review" for UX simplicity
+            const statusQuery = activeTab === 'pending' ? 'pending_review' : activeTab;
+            const response = await fetch(`/api/admin/scout/queue?status=${statusQuery}`);
             const data = await response.json();
             setLeads(data);
         } catch (error) {
@@ -52,7 +54,8 @@ export default function ScoutQueueClient() {
                 body: JSON.stringify({ status })
             });
             toast.success(`Lead ${status}`);
-            fetchLeads();
+            // Optimistic update or refetch
+            setLeads(leads.filter(l => l.id !== leadId));
         } catch (error) {
             toast.error('Failed to update lead');
         }
@@ -112,17 +115,17 @@ export default function ScoutQueueClient() {
                                         <div className="flex justify-between items-start">
                                             <div className="space-y-2">
                                                 <div className="flex items-center gap-2">
-                                                    <Badge className={getPlatformBadge(lead.platform)}>
-                                                        {lead.platform}
+                                                    <Badge className={getPlatformBadge(lead.source)}>
+                                                        {lead.source}
                                                     </Badge>
                                                     <Badge variant="outline" className={getScoreBadge(lead.intent_score)}>
                                                         Score: {lead.intent_score}/10
                                                     </Badge>
                                                     <span className="text-sm text-slate-500">
-                                                        @{lead.username}
+                                                        @{lead.author_username}
                                                     </span>
                                                 </div>
-                                                <CardTitle className="text-lg">{lead.analysis_reason}</CardTitle>
+                                                <CardTitle className="text-lg">{lead.intent_reasoning}</CardTitle>
                                             </div>
                                             <a
                                                 href={lead.post_url}
@@ -157,7 +160,7 @@ export default function ScoutQueueClient() {
                                             </div>
                                         )}
 
-                                        {lead.status === 'pending' && (
+                                        {lead.status === 'pending_review' && (
                                             <div className="flex gap-2 justify-end">
                                                 <Button
                                                     variant="outline"

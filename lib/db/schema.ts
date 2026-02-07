@@ -3,7 +3,7 @@ import { relations } from 'drizzle-orm';
 
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 export const requestStatusEnum = pgEnum('request_status', ['open', 'in_progress', 'completed']);
-export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'completed', 'approved_by_client', 'paid', 'disputed']);
+export const sliceStatusEnum = pgEnum('slice_status', ['proposed', 'accepted', 'completed', 'approved_by_client', 'paid', 'disputed', 'draft', 'active', 'full', 'cancelled']);
 export const quoteStatusEnum = pgEnum('quote_status', ['pending', 'accepted', 'rejected']);
 export const transactionStatusEnum = pgEnum('transaction_status', ['pending', 'completed', 'confirmed', 'disputed']);
 export const bidStatusEnum = pgEnum('bid_status', ['pending', 'accepted', 'rejected']);
@@ -59,7 +59,8 @@ export const refundStatusEnum = pgEnum('refund_status', ['none', 'requested', 'a
 
 export const slices = pgTable('slices', {
     id: uuid('id').primaryKey().defaultRandom(),
-    requestId: uuid('request_id').references(() => requests.id).notNull(),
+    requestId: uuid('request_id').references(() => requests.id), // Now optional (can be null for Experience slices)
+    experienceId: uuid('experience_id').references(() => experiences.id), // Added for Universal Slicing
     creatorId: uuid('creator_id').references(() => users.id).notNull(),
     assignedProviderId: uuid('assigned_provider_id').references(() => users.id),
     title: text('title').notNull(),
@@ -70,9 +71,26 @@ export const slices = pgTable('slices', {
     marketPriceMin: integer('market_price_min'), // in cents
     marketPriceMax: integer('market_price_max'), // in cents
     finalPrice: integer('final_price'), // Agreed price in cents (set when accepted)
-    status: sliceStatusEnum('status').default('proposed'),
+    status: sliceStatusEnum('status').default('proposed'), // Now supports 'draft', 'active', etc.
     isAiGenerated: boolean('is_ai_generated').default(false),
     dependencies: jsonb('dependencies'), // Array of slice IDs
+
+    // Universal Slicing Fields (Experiences & Services)
+    sliceType: text('slice_type').default('standard'), // 'standard', 'optional', 'premium'
+    maxCapacity: integer('max_capacity'), // NULL for services (unlimited/single), Value for experiences
+    currentBookings: integer('current_bookings').default(0),
+    waitlistEnabled: boolean('waitlist_enabled').default(false),
+
+    // Timing & Activation
+    activationType: text('activation_type').default('manual'), // 'auto', 'manual'
+    activationTime: timestamp('activation_time'),
+    decisionWindowMinutes: integer('decision_window_minutes'),
+    durationMinutes: integer('duration_minutes'),
+
+    // Pricing Configuration
+    pricingType: text('pricing_type').default('fixed'), // 'fixed', 'dynamic', 'included'
+    priceCents: integer('price_cents').default(0), // Base or extra price
+    emoji: text('emoji').default('🔨'),
 
     // V2: Strict Criteria & Evidence
     acceptanceCriteria: jsonb('acceptance_criteria').$type<{ id: string, description: string, requiredEvidenceType: 'photo' | 'video' | 'file' }[]>(),
@@ -104,6 +122,26 @@ export const slices = pgTable('slices', {
     paidAt: timestamp('paid_at'),
     disputedAt: timestamp('disputed_at'),
     createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const sliceBookings = pgTable('slice_bookings', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    sliceId: uuid('slice_id').references(() => slices.id).notNull(), // Link to the slice
+    userId: uuid('user_id').references(() => users.id).notNull(), // The user booking the slice
+    experienceId: uuid('experience_id').references(() => experiences.id), // Denormalized for easier querying
+
+    bookingStatus: text('booking_status').default('pending'), // 'pending', 'confirmed', 'cancelled', 'waitlist'
+    pricePaidCents: integer('price_paid_cents').default(0),
+
+    bookedAt: timestamp('booked_at').defaultNow(),
+    confirmedAt: timestamp('confirmed_at'),
+    expiresAt: timestamp('expires_at'), // Payment expiration
+
+    checkInStatus: text('check_in_status').default('pending'), // 'pending', 'checked_in', 'no_show'
+    checkInAt: timestamp('check_in_at'),
+
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
 });
 
 export const quotes = pgTable('quotes', {
@@ -618,8 +656,40 @@ export const contractsRelations = relations(contracts, ({ one }) => ({
 }));
 
 // ============================================
-// EXPERIENCES & DYNAMIC PRICING TABLES
+// MARKET INTELLIGENCE (SCOUT AGENT)
 // ============================================
+
+export const scoutLeadStatusEnum = pgEnum('scout_lead_status', ['pending_review', 'approved', 'rejected', 'auto_posted', 'posted_manually', 'failed']);
+export const scoutSourceEnum = pgEnum('scout_source', ['instagram', 'facebook', 'twitter', 'linkedin', 'other']);
+
+export const scoutLeads = pgTable('scout_leads', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    source: scoutSourceEnum('source').notNull(),
+    externalId: text('external_id').notNull(), // ID of the post on the platform
+    postUrl: text('post_url').notNull(),
+    postContent: text('post_content').notNull(),
+    authorName: text('author_name'),
+    authorUsername: text('author_username'),
+
+    // AI Analysis
+    intentScore: integer('intent_score').notNull(), // 0-10
+    intentReasoning: text('intent_reasoning'),
+    suggestedReply: text('suggested_reply'),
+
+    // Status & Workflow
+    status: scoutLeadStatusEnum('status').default('pending_review'),
+    reviewedAt: timestamp('reviewed_at'),
+    reviewedBy: uuid('reviewed_by').references(() => users.id),
+    postedAt: timestamp('posted_at'),
+
+    // Metadata
+    keywordsMatched: text('keywords_matched').array(), // Tags found (e.g. #reformas)
+    rawData: jsonb('raw_data'), // Full payload from Apify/Scraper
+
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 
 export const experienceStatusEnum = pgEnum('experience_status', ['scheduled', 'confirmed', 'cancelled', 'completed']);
 export const participantStatusEnum = pgEnum('participant_status', ['joined', 'refunded', 'attended']);
