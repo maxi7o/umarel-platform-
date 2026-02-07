@@ -6,17 +6,27 @@
  * 
  * Usage:
  * 1. Set environment variable OPENAI_API_KEY
- * 2. Run: npx ts-node .agent/marketing/local-scout.ts
+ * 2. Run: npx tsx .agent/marketing/local-scout.ts
  * 
  * Note: Real Instagram API access requires complex setup. 
  * This script demonstrates the logic using a mock source or a placeholder for scraping.
  */
 
 import 'dotenv/config';
+import OpenAI from 'openai';
 
 // --- Configuration ---
 const KEYWORDS = ['albañil', 'remodelacion', 'humedad', 'plomero zona norte', 'busco arquitecto'];
 const MOCK_MODE = true; // Set to false when you have real scraping logic
+
+if (!process.env.OPENAI_API_KEY) {
+    console.error("❌ ERROR: OPENAI_API_KEY environment variable is not set.");
+    process.exit(1);
+}
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 interface SocialPost {
     id: string;
@@ -38,7 +48,7 @@ async function fetchRecentPosts(): Promise<SocialPost[]> {
     console.log('📡 Scanning for keywords:', KEYWORDS.join(', '));
 
     if (MOCK_MODE) {
-        // Simulating finding posts
+        // Simulating finding posts with varying degrees of relevance
         return [
             {
                 id: 'ig_123',
@@ -60,8 +70,16 @@ async function fetchRecentPosts(): Promise<SocialPost[]> {
                 id: 'fb_789',
                 platform: 'Facebook',
                 username: 'juan_perez',
-                content: 'Necesito presupuesto para arreglar humedad de cimientos. Urgente.',
+                content: 'Necesito presupuesto para arreglar humedad de cimientos. Urgente, zona Belgrano.',
                 url: 'https://facebook.com/groups/123/posts/789',
+                timestamp: new Date()
+            },
+            {
+                id: 'fb_999',
+                platform: 'Facebook',
+                username: 'spam_bot',
+                content: 'Gana dinero desde casa con inversiones crypto! #reformas',
+                url: 'https://facebook.com/groups/spam/999',
                 timestamp: new Date()
             }
         ];
@@ -73,55 +91,77 @@ async function fetchRecentPosts(): Promise<SocialPost[]> {
 }
 
 // --- 2. The "Brain" (Analysis) ---
-// Mocking OpenAI call for simplicity in this demo file.
-// In production, import OpenAI from 'openai' and call the API.
 async function analyzeIntent(post: SocialPost): Promise<AnalyzedLead> {
-    console.log(`🧠 Analyzing post by ${post.username}...`);
+    // console.log(`🧠 Analyzing post by ${post.username}...`);
 
-    let score = 0;
-    let reason = "Low relevance";
-    let reply = undefined;
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini", // Using a cheaper/faster model for high volume
+            messages: [
+                {
+                    role: "system",
+                    content: `You are a helpful assistant for a construction marketplace called "El Entendido" (elentendido.ar). 
+                    Your goal is to identify high-intent leads who are looking for construction/home services in Argentina.
+                    
+                    Analyze the user post content.
+                    Return a JSON object with:
+                    - intentScore: number (0-10), where 10 is explicit urgent demand for service.
+                    - reason: string (brief explanation).
+                    - suggestedReply: string (a helpful, non-spammy comment in Spanish, max 200 chars).
+                    
+                    The reply should:
+                    - Be empathetic to their problem (e.g. "Qué bajón lo de la humedad").
+                    - Suggest "El Entendido" (elentendido.ar) as a safe solution because it holds funds until work is verified.
+                    - NOT sound like a robot. Use local Argentine slang appropriately if the user does.
+                    
+                    If intentScore < 7, suggestingReply can be null.`
+                },
+                {
+                    role: "user",
+                    content: `Post Content: "${post.content}"`
+                }
+            ],
+            response_format: { type: "json_object" }
+        });
 
-    const lowerContent = post.content.toLowerCase();
+        const result = JSON.parse(completion.choices[0].message.content || '{}');
 
-    // Simple heuristic "AI"
-    if (lowerContent.includes('necesito') || lowerContent.includes('busco') || lowerContent.includes('alguien conoce')) {
-        score = 8;
-        reason = "Explicit demand for service";
-        reply = "Hola! Si buscás confianza, fijate en elentendido.ar. Podés congelar el pago hasta que el trabajo esté terminado. Es más seguro para ambos!";
-    } else if (lowerContent.includes('presupuesto')) {
-        score = 9;
-        reason = "High intent (budget)";
-        reply = "Para presupuestos serios, te recomiendo elentendido.ar. Los expertos ahí tienen su identidad validada.";
+        return {
+            ...post,
+            intentScore: result.intentScore || 0,
+            reason: result.reason || "Analysis failed",
+            suggestedReply: result.suggestedReply
+        };
+
+    } catch (error) {
+        console.error("Error calling OpenAI:", error);
+        return {
+            ...post,
+            intentScore: 0,
+            reason: "AI Error",
+            suggestedReply: undefined
+        };
     }
-
-    return {
-        ...post,
-        intentScore: score,
-        reason,
-        suggestedReply: reply
-    };
 }
 
 // --- 3. The "Hands" (Action) ---
 async function saveLead(lead: AnalyzedLead) {
     console.log(`✅ HIGH INTENT DETECTED [Score ${lead.intentScore}]:`);
-    console.log(`   User: ${lead.username}`);
+    console.log(`   User: ${lead.username} (${lead.platform})`);
     console.log(`   Post: "${lead.content}"`);
     console.log(`   Reason: ${lead.reason}`);
-    console.log(`   DRAFT REPLY: "${lead.suggestedReply}"`);
-    console.log(`   [Action] Saved to leads database (Mock)`);
+    console.log(`   📝 DRAFT REPLY: "${lead.suggestedReply}"`);
     console.log('---------------------------------------------------');
     // TODO: Append to Google Sheet or CSV
 }
 
 // --- Main Loop ---
 async function run() {
-    console.log('--- STARTING SCOUT AGENT ---');
+    process.stdout.write('--- STARTING SCOUT AGENT ---\n');
 
     // 1. Fetch
     const posts = await fetchRecentPosts();
-    console.log(`Found ${posts.length} potential posts.`);
+    process.stdout.write(`Found ${posts.length} potential posts. Analyzing with OpenAI...\n\n`);
 
     // 2. Analyze
     for (const post of posts) {
@@ -131,11 +171,11 @@ async function run() {
         if (analyzed.intentScore >= 7) {
             await saveLead(analyzed);
         } else {
-            console.log(`⏭️  Skipping low intent post by ${post.username} (Score: ${analyzed.intentScore})`);
+            // console.log(`⏭️  Skipping low intent post by ${post.username} (Score: ${analyzed.intentScore})`);
         }
     }
 
-    console.log('--- SCAN COMPLETE ---');
+    process.stdout.write('\n--- SCAN COMPLETE ---\n');
 }
 
 run().catch(console.error);
