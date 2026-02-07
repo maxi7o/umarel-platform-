@@ -1,0 +1,299 @@
+{
+    "name": "Scout Agent - Full Automation",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Schedule Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "id": "schedule-trigger",
+            "webhookId": "",
+            "credentials": {},
+            "disabled": false,
+            "notes": "Runs every 4 hours"
+        },
+        {
+            "parameters": {
+                "actorId": "apify/instagram-hashtag-scraper",
+                "hashtags": [
+                    "reformas",
+                    "albañil",
+                    "plomero",
+                    "remodelacion",
+                    "obraencasa"
+                ],
+                "resultsLimit": 50
+            },
+            "name": "Apify Instagram Scraper",
+            "type": "n8n-nodes-base.apify",
+            "typeVersion": 1,
+            "position": [
+                450,
+                200
+            ],
+            "id": "apify-instagram"
+        },
+        {
+            "parameters": {
+                "actorId": "apify/facebook-groups-scraper",
+                "groupUrls": [
+                    "https://www.facebook.com/groups/example"
+                ],
+                "resultsLimit": 30
+            },
+            "name": "Apify Facebook Scraper",
+            "type": "n8n-nodes-base.apify",
+            "typeVersion": 1,
+            "position": [
+                450,
+                400
+            ],
+            "id": "apify-facebook"
+        },
+        {
+            "parameters": {
+                "functionCode": "// Merge Instagram and Facebook results\nconst allPosts = [];\n\nfor (const item of items) {\n  if (item.json.platform === 'instagram') {\n    allPosts.push({\n      platform: 'instagram',\n      post_url: item.json.url,\n      post_content: item.json.caption || '',\n      username: item.json.ownerUsername,\n      user_profile_url: `https://instagram.com/${item.json.ownerUsername}`\n    });\n  } else if (item.json.platform === 'facebook') {\n    allPosts.push({\n      platform: 'facebook',\n      post_url: item.json.url,\n      post_content: item.json.text || '',\n      username: item.json.author,\n      user_profile_url: item.json.authorUrl\n    });\n  }\n}\n\nreturn allPosts.map(post => ({ json: post }));"
+            },
+            "name": "Merge & Transform",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ],
+            "id": "merge-transform"
+        },
+        {
+            "parameters": {
+                "operation": "executeQuery",
+                "query": "SELECT post_url FROM scout_leads WHERE post_url = '{{ $json.post_url }}'"
+            },
+            "name": "Check if Exists",
+            "type": "n8n-nodes-base.supabase",
+            "typeVersion": 1,
+            "position": [
+                850,
+                300
+            ],
+            "id": "check-exists"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "number": [
+                        {
+                            "value1": "={{ $json.length }}",
+                            "operation": "equal",
+                            "value2": 0
+                        }
+                    ]
+                }
+            },
+            "name": "If New Post",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1050,
+                300
+            ],
+            "id": "if-new"
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o-mini",
+                "messages": {
+                    "values": [
+                        {
+                            "role": "system",
+                            "content": "You are analyzing social media posts for a construction marketplace. Return JSON with: intentScore (0-10), reason, suggestedReply (Spanish, max 200 chars). High scores mean urgent service demand."
+                        },
+                        {
+                            "role": "user",
+                            "content": "Post: {{ $json.post_content }}"
+                        }
+                    ]
+                },
+                "responseFormat": "json_object"
+            },
+            "name": "OpenAI Analysis",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                1250,
+                200
+            ],
+            "id": "openai-analysis"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "number": [
+                        {
+                            "value1": "={{ $json.intentScore }}",
+                            "operation": "largerEqual",
+                            "value2": 7
+                        }
+                    ]
+                }
+            },
+            "name": "If High Intent",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                1450,
+                200
+            ],
+            "id": "if-high-intent"
+        },
+        {
+            "parameters": {
+                "operation": "insert",
+                "table": "scout_leads",
+                "data": {
+                    "platform": "={{ $json.platform }}",
+                    "post_url": "={{ $json.post_url }}",
+                    "post_content": "={{ $json.post_content }}",
+                    "username": "={{ $json.username }}",
+                    "user_profile_url": "={{ $json.user_profile_url }}",
+                    "intent_score": "={{ $json.intentScore }}",
+                    "analysis_reason": "={{ $json.reason }}",
+                    "suggested_reply": "={{ $json.suggestedReply }}"
+                }
+            },
+            "name": "Insert to Supabase",
+            "type": "n8n-nodes-base.supabase",
+            "typeVersion": 1,
+            "position": [
+                1650,
+                150
+            ],
+            "id": "insert-supabase"
+        },
+        {
+            "parameters": {
+                "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+                "text": "🚨 New High-Intent Lead!\n\nScore: {{ $json.intentScore }}/10\nPlatform: {{ $json.platform }}\nUser: {{ $json.username }}\n\nPost: {{ $json.post_content.substring(0, 100) }}...\n\nReview at: https://elentendido.ar/admin/scout-queue"
+            },
+            "name": "Telegram Notification",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1,
+            "position": [
+                1650,
+                250
+            ],
+            "id": "telegram-notify"
+        }
+    ],
+    "connections": {
+        "Schedule Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Apify Instagram Scraper",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Apify Facebook Scraper",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Apify Instagram Scraper": {
+            "main": [
+                [
+                    {
+                        "node": "Merge & Transform",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Apify Facebook Scraper": {
+            "main": [
+                [
+                    {
+                        "node": "Merge & Transform",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Merge & Transform": {
+            "main": [
+                [
+                    {
+                        "node": "Check if Exists",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check if Exists": {
+            "main": [
+                [
+                    {
+                        "node": "If New Post",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If New Post": {
+            "main": [
+                [
+                    {
+                        "node": "OpenAI Analysis",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "OpenAI Analysis": {
+            "main": [
+                [
+                    {
+                        "node": "If High Intent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "If High Intent": {
+            "main": [
+                [
+                    {
+                        "node": "Insert to Supabase",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Telegram Notification",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "staticData": null,
+    "tags": [],
+    "triggerCount": 1,
+    "updatedAt": "2026-02-07T12:00:00.000Z",
+    "versionId": "1"
+}
