@@ -122,21 +122,64 @@ export function Navbar({ user }: NavbarProps) {
                         ) : (
                             <div className="flex items-center gap-2 sm:gap-3">
                                 <Link href="/login" className="hidden sm:block">
-                                    <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                                    <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium">
                                         {t('login')}
                                     </Button>
                                 </Link>
+
+                                {/* Opiná */}
                                 <Link href="/audit" className="hidden sm:block">
-                                    <Button variant="ghost" className="text-stone-600 hover:text-amber-700 hover:bg-amber-50 font-medium border border-transparent hover:border-amber-200">
-                                        🧐 {t('opine')}
+                                    <Button variant="outline" className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 border-slate-200 font-medium transition-colors">
+                                        🧐 Opiná
                                     </Button>
                                 </Link>
-                                <Link href="/start">
-                                    <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 whitespace-nowrap text-sm sm:text-base px-3 sm:px-4">
-                                        <span className="hidden sm:inline">{t('postNeed')}</span>
-                                        <span className="sm:hidden">Proyectá</span>
+
+                                {/* Cotizá - New Button */}
+                                <Link href="/quote" className="hidden sm:block">
+                                    <Button variant="outline" className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 border-slate-200 font-medium transition-colors">
+                                        ⚡ Cotizá
                                     </Button>
                                 </Link>
+
+                                {/* Creá - Dropdown for Unauthenticated Users */}
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="outline" className="bg-white hover:bg-slate-50 text-slate-900 border-slate-200 shadow-sm font-medium gap-1 hidden sm:flex">
+                                            <PlusCircle className="h-4 w-4 text-blue-600" />
+                                            Creá
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end" className="w-56 bg-white border-slate-200 shadow-xl p-1">
+                                        <DropdownMenuLabel className="text-xs text-slate-500 font-normal px-2 py-1.5">
+                                            ¿Qué querés publicar?
+                                        </DropdownMenuLabel>
+                                        <Link href="/requests/create-universal">
+                                            <DropdownMenuItem className="cursor-pointer py-2.5 px-2 focus:bg-slate-50 rounded-sm">
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="font-medium text-slate-900 flex items-center gap-2">
+                                                        🏗️ Proyecto
+                                                    </span>
+                                                    <span className="text-xs text-slate-500 pl-6">
+                                                        Necesito un servicio (Demand)
+                                                    </span>
+                                                </div>
+                                            </DropdownMenuItem>
+                                        </Link>
+                                        <DropdownMenuSeparator className="bg-slate-100 my-1" />
+                                        <Link href="/experiences/create">
+                                            <DropdownMenuItem className="cursor-pointer py-2.5 px-2 focus:bg-slate-50 rounded-sm">
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="font-medium text-slate-900 flex items-center gap-2">
+                                                        🎨 Experiencia
+                                                    </span>
+                                                    <span className="text-xs text-slate-500 pl-6">
+                                                        Ofrezco un servicio (Listing)
+                                                    </span>
+                                                </div>
+                                            </DropdownMenuItem>
+                                        </Link>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         )}
 
