@@ -2,7 +2,7 @@ import { PaymentStrategy } from './strategy';
 import { preference as defaultPreference, payment } from '@/lib/mercadopago';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import { db } from '@/lib/db';
-import { userWallets } from '@/lib/db/schema';
+import { userWallets, users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export class MercadoPagoAdapter implements PaymentStrategy {
@@ -23,6 +23,10 @@ export class MercadoPagoAdapter implements PaymentStrategy {
                 console.warn(`[MercadoPagoAdapter] Warning: Provider ${payeeId} has not connected MercadoPago. Using Platform account (funds will stay in Platform).`);
             }
 
+            // Fetch Payer's Email
+            const [payer] = await db.select({ email: users.email }).from(users).where(eq(users.id, payerId));
+            const payerEmail = payer?.email || 'guest_payer@elentendido.ar';
+
             const result = await preferenceClient.create({
                 body: {
                     items: [
@@ -35,8 +39,7 @@ export class MercadoPagoAdapter implements PaymentStrategy {
                         }
                     ],
                     payer: {
-                        // In real app, we'd map our user ID to an email or customer ID
-                        email: 'test_user_123@test.com'
+                        email: payerEmail
                     },
                     external_reference: escrowId,
                     metadata: {
