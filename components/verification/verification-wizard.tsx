@@ -89,7 +89,7 @@ export function VerificationWizard() {
 
     const StepIndicator = ({ current, total }: { current: number, total: number }) => (
         <div className="flex gap-2 mb-8 justify-center">
-            {[1, 2, 3].map((num) => (
+            {[1, 2, 3, 4, 5].map((num) => (
                 <div
                     key={num}
                     className={`h-2 rounded-full transition-all duration-300 ${num <= current ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'
@@ -164,7 +164,7 @@ export function VerificationWizard() {
                             exit={{ opacity: 0, x: -20 }}
                         >
                             <div className="flex gap-2 mb-8 justify-center">
-                                {[1, 2, 3, 4].map((num) => (
+                                {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
                                         className={`h-2 rounded-full transition-all duration-300 ${num <= 1 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
