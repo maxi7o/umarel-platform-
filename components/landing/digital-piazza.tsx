@@ -1,12 +1,17 @@
 "use client"
-
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
 
 export function DigitalPiazza() {
     const t = useTranslations('landing');
+    const [activeCount, setActiveCount] = useState(12);
+
+    useEffect(() => {
+        setActiveCount(Math.floor(Math.random() * (50 - 15 + 1)) + 15);
+    }, []);
 
     return (
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-stone-50 dark:bg-stone-950 selection:bg-orange-200 selection:text-orange-900">
