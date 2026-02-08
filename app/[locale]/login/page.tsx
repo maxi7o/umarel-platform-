@@ -25,7 +25,7 @@ function LoginForm() {
 
     // SVG Logos for better branding
     const GoogleLogo = () => (
-        <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" role="img" viewBox="0 0 48 48">
+        <svg className="mr-3 h-5 w-5" aria-hidden="true" focusable="false" role="img" viewBox="0 0 48 48">
             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
             <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
             <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z" />
@@ -35,14 +35,14 @@ function LoginForm() {
     )
 
     const MercadoPagoLogo = () => (
-        <svg className="mr-2 h-5 w-5" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="mr-2 h-6 w-6" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="256" cy="256" r="256" fill="#009ee3" />
             <path d="M366.5 321.4l-68.5-35.9-4.8 4.8 68.5 35.9 4.8-4.8zm-221 0l68.5-35.9 4.8 4.8-68.5 35.9-4.8-4.8zm110.5-26.6l-47.5-66.4-7.9 7.9 47.5 66.4 7.9-7.9zm0 0l47.5-66.4 7.9 7.9-47.5 66.4-7.9 7.9zm0-56.1c-16.1 0-29.2-13.1-29.2-29.2s13.1-29.2 29.2-29.2 29.2 13.1 29.2 29.2-13.1 29.2-29.2 29.2z" fill="white" />
         </svg>
     )
 
     const FacebookLogo = () => (
-        <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
+        <svg className="mr-2 h-6 w-6" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
         </svg>
     )
@@ -50,22 +50,22 @@ function LoginForm() {
     const SSOButtons = () => (
         <div className="grid gap-3">
             <form action={signInWithGoogle} className="w-full">
-                <Button variant="outline" className="w-full h-11 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold relative group shadow-sm transition-all hover:border-slate-300 rounded-xl" type="submit">
-                    <div className="absolute left-4">
+                <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold relative group shadow-sm transition-all hover:border-slate-300 rounded-xl" type="submit">
+                    <div className="absolute left-4 flex items-center justify-center">
                         <GoogleLogo />
                     </div>
-                    <span>Google</span>
+                    <span>Continuar con Google</span>
                 </Button>
             </form>
             <div className="grid grid-cols-2 gap-3">
                 <form action={signInWithFacebook} className="w-full">
-                    <Button variant="outline" className="w-full h-11 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
+                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
                         <FacebookLogo />
                         Facebook
                     </Button>
                 </form>
                 <form action={signInWithMercadoPago} className="w-full">
-                    <Button variant="outline" className="w-full h-11 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
+                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
                         <MercadoPagoLogo />
                         Mercado Pago
                     </Button>
