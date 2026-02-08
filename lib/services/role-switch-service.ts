@@ -40,23 +40,26 @@ export function getEffectiveRole(user: any, roleSwitch?: RoleSwitch): string {
     return user.role || 'user';
 }
 
+const ADMIN_EMAILS = ['admin@elentendido.ar', 'maxi7o@gmail.com'];
+
 /**
  * Check if user can switch roles (must be admin)
  */
 export async function canSwitchRoles(userId: string): Promise<boolean> {
     if (process.env.NODE_ENV === 'development') {
-        console.log('[RoleSwitch] Development mode: allowing role switch for all users');
         return true;
     }
 
     const [user] = await db
-        .select({ role: users.role })
+        .select({
+            role: users.role,
+            email: users.email
+        })
         .from(users)
         .where(eq(users.id, userId))
         .limit(1);
 
-    console.log(`[RoleSwitch] Checking DB for userId: ${userId}`);
-    console.log(`[RoleSwitch] User found:`, user);
+    if (user?.email && ADMIN_EMAILS.includes(user.email)) return true;
 
     return user?.role === 'admin';
 }

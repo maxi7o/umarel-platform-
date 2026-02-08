@@ -4,7 +4,7 @@ import { Link as I18nLink } from '@/i18n/routing'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search } from 'lucide-react'
+import { LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search, ShieldAlert, TestTube } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -30,16 +30,17 @@ interface NavbarProps {
     user?: User | null
 }
 
+const ADMIN_EMAILS = ['admin@elentendido.ar', 'maxi7o@gmail.com'];
+
 export function Navbar({ user }: NavbarProps) {
     const t = useTranslations('nav')
-    // Fallback for guide title from guide namespace if key missing in nav
-    const tGuide = useTranslations('guide.title').length > 0 ? "How it Works" : "How it Works";
-
     const pathname = usePathname()
     const params = useParams()
     const currentLocale = params.locale as string
     const router = useRouter()
     const supabase = createClient()
+
+    const isAdmin = user?.email && ADMIN_EMAILS.includes(user.email);
 
     const handleSignOut = async () => {
         await supabase.auth.signOut()
@@ -106,6 +107,24 @@ export function Navbar({ user }: NavbarProps) {
                                             {t('dashboard')}
                                         </DropdownMenuItem>
                                     </Link>
+                                    <DropdownMenuSeparator className="bg-slate-100" />
+                                    {isAdmin && (
+                                        <>
+                                            <DropdownMenuSeparator className="bg-slate-100" />
+                                            <Link href="/admin/dashboard">
+                                                <DropdownMenuItem className="cursor-pointer py-2 font-bold text-orange-700 focus:bg-orange-50 focus:text-orange-800">
+                                                    <ShieldAlert className="mr-2 h-4 w-4" />
+                                                    Admin Panel
+                                                </DropdownMenuItem>
+                                            </Link>
+                                            <Link href="/admin/testing">
+                                                <DropdownMenuItem className="cursor-pointer py-2 text-stone-500 focus:bg-stone-50">
+                                                    <TestTube className="mr-2 h-4 w-4" />
+                                                    Test Lab (Roles)
+                                                </DropdownMenuItem>
+                                            </Link>
+                                        </>
+                                    )}
                                     <DropdownMenuSeparator className="bg-slate-100" />
                                     <DropdownMenuItem onClick={handleSignOut} className="text-stone-900 focus:text-stone-900 focus:bg-stone-50 cursor-pointer py-2">
                                         <LogOut className="mr-2 h-4 w-4" />

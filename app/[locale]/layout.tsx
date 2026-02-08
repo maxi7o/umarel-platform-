@@ -13,6 +13,8 @@ import { RoleSelectorDialog } from '@/components/dialogs/role-selector-dialog';
 
 import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { RoleImpersonationBar } from '@/components/dev/role-impersonation-bar';
 
 // Swiss Brutalism Typography Stack
 const inter = Inter({
@@ -103,6 +105,10 @@ export default async function LocaleLayout({
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
+    const cookieStore = await cookies();
+    const roleSwitchCookie = cookieStore.get('role_switch');
+    const roleInfo = roleSwitchCookie ? JSON.parse(roleSwitchCookie.value) : null;
+
     if (user) {
         // User is logged in
     }
@@ -169,6 +175,7 @@ export default async function LocaleLayout({
                         </div>
                         <Toaster />
                         <WhatsAppButton />
+                        {roleInfo && <RoleImpersonationBar info={roleInfo} />}
                     </MarketProvider>
                 </NextIntlClientProvider>
             </body>
