@@ -52,19 +52,19 @@ export async function DisputesContent() {
         <div className="space-y-4">
             <div className="flex items-center gap-2 mb-4">
                 <Gavel className="h-5 w-5 text-stone-900" />
-                <h2 className="text-xl font-bold">Casos Abiertos</h2>
+                <h2 className="text-xl font-bold">Casos Abiertos (Tribunal)</h2>
             </div>
 
             <div className="rounded-md border bg-white shadow-sm">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Case ID</TableHead>
-                            <TableHead>Context / User Conflict</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Amount</TableHead>
-                            <TableHead>Time Active</TableHead>
-                            <TableHead className="text-right">Action</TableHead>
+                            <TableHead>ID Caso</TableHead>
+                            <TableHead>Contexto / Conflicto</TableHead>
+                            <TableHead>Estado</TableHead>
+                            <TableHead>Monto</TableHead>
+                            <TableHead>Tiempo Activo</TableHead>
+                            <TableHead className="text-right">Acción</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -82,7 +82,7 @@ export async function DisputesContent() {
                                             <ShieldAlert className="h-8 w-8 text-green-600 opacity-50" />
                                         </div>
                                         <p className="font-medium text-stone-900">No hay disputas activas.</p>
-                                        <p className="text-xs">La paz reina en Umarel.</p>
+                                        <p className="text-xs">La paz reina en El Entendido.</p>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -95,7 +95,7 @@ export async function DisputesContent() {
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <span className="font-medium text-slate-900 truncate max-w-[200px]">
-                                                {dispute.requestTitle || 'Untitled Job'}
+                                                {dispute.requestTitle || 'Trabajo Sin Título'}
                                             </span>
                                             <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
                                                 <User className="h-3 w-3" />
@@ -107,14 +107,14 @@ export async function DisputesContent() {
                                     </TableCell>
                                     <TableCell>
                                         <Badge variant={dispute.status === 'disputed' ? 'destructive' : 'outline'} className="uppercase text-[10px]">
-                                            {dispute.status === 'disputed' ? 'Disputed' : dispute.refundStatus}
+                                            {dispute.status === 'disputed' ? 'En Disputa' : dispute.refundStatus}
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="font-bold font-mono">
                                         ${(dispute.amount || 0) / 100}
                                     </TableCell>
                                     <TableCell className="text-slate-500 text-xs">
-                                        {dispute.disputedAt ? formatDistanceToNow(new Date(dispute.disputedAt), { addSuffix: true }) : '-'}
+                                        {dispute.disputedAt ? formatDistanceToNow(new Date(dispute.disputedAt), { addSuffix: true, locale: undefined }) : '-'}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <Link href={`/admin/disputes/${dispute.id}`}>

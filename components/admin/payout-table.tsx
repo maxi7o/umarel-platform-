@@ -28,7 +28,7 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
     const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
 
     const handleExecute = async () => {
-        if (!confirm('Are you sure you want to distribute these funds to user wallets? This action cannot be undone.')) return;
+        if (!confirm('¿Estás seguro de que querés distribuir estos fondos a las billeteras de los usuarios? Esta acción no se puede deshacer.')) return;
 
         setIsExecuting(true);
         setResult(null);
@@ -40,10 +40,10 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
 
             const data = await res.json();
 
-            if (!res.ok) throw new Error(data.error || 'Failed to execute payouts');
+            if (!res.ok) throw new Error(data.error || 'Falló la ejecución de pagos');
 
-            setResult({ success: true, message: `Successfully distributed $${(data.totalDistributed / 100).toFixed(2)} to ${data.count} users.` });
-            router.refresh(); // Refresh to clear list if logic dictates (though API keeps calculating for last 7 days, so list might remain until window shifts)
+            setResult({ success: true, message: `Se distribuyeron con éxito $${(data.totalDistributed / 100).toFixed(2)} a ${data.count} usuarios.` });
+            router.refresh();
 
         } catch (error: any) {
             setResult({ success: false, message: error.message });
@@ -53,9 +53,9 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
     };
 
     const formatCurrency = (cents: number) => {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('es-AR', {
             style: 'currency',
-            currency: 'USD', // or ARS
+            currency: 'ARS',
         }).format(cents / 100);
     };
 
@@ -64,32 +64,32 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
             <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Pool</CardTitle>
+                        <CardTitle className="text-sm font-medium">Pozo Total</CardTitle>
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{formatCurrency(initialData.totalPool)}</div>
-                        <p className="text-xs text-muted-foreground">Available from released escrows (3%)</p>
+                        <p className="text-xs text-muted-foreground">Disponible de garantías liberadas (3%)</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Contribution</CardTitle>
+                        <CardTitle className="text-sm font-medium">Contribución Total</CardTitle>
                         <div className="h-4 w-4 text-muted-foreground">⚡️</div>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{initialData.totalScore} pts</div>
-                        <p className="text-xs text-muted-foreground">Aggregate community score</p>
+                        <p className="text-xs text-muted-foreground">Puntaje comunitario agregado</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Recipients</CardTitle>
+                        <CardTitle className="text-sm font-medium">Destinatarios</CardTitle>
                         <div className="h-4 w-4 text-muted-foreground">👥</div>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{initialData.payouts.length}</div>
-                        <p className="text-xs text-muted-foreground">Active contributors</p>
+                        <p className="text-xs text-muted-foreground">Contribuyentes activos</p>
                     </CardContent>
                 </Card>
             </div>
@@ -105,8 +105,8 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <div>
-                            <CardTitle>Distribution Preview</CardTitle>
-                            <CardDescription>Review allocations before execution.</CardDescription>
+                            <CardTitle>Vista Previa de Distribución</CardTitle>
+                            <CardDescription>Revisá las asignaciones antes de ejecutar.</CardDescription>
                         </div>
                         <Button
                             onClick={handleExecute}
@@ -116,10 +116,10 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
                             {isExecuting ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Processing...
+                                    Procesando...
                                 </>
                             ) : (
-                                'Execute Distribution'
+                                'Ejecutar Distribución'
                             )}
                         </Button>
                     </div>
@@ -128,17 +128,17 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>User</TableHead>
-                                <TableHead>Score</TableHead>
-                                <TableHead>Share (%)</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
+                                <TableHead>Usuario</TableHead>
+                                <TableHead>Puntaje</TableHead>
+                                <TableHead>Cuota (%)</TableHead>
+                                <TableHead className="text-right">Monto</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {initialData.payouts.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={4} className="text-center h-24 text-muted-foreground">
-                                        No active contributors found for this period.
+                                        No se encontraron contribuyentes activos para este período.
                                     </TableCell>
                                 </TableRow>
                             ) : (

@@ -8,6 +8,7 @@ import { OverviewPanel } from '@/components/admin/overview-panel';
 /* Import server components directly - Next.js App Router allows this in Server Components */
 import { DisputesContent, getDisputeCount } from '@/components/admin/disputes-content';
 import { PayoutsContent, getPendingPayoutCount } from '@/components/admin/payouts-content';
+import { N8nPanel } from '@/components/admin/n8n-panel';
 
 /* Ensure dynamic rendering for real-time admin data */
 export const dynamic = 'force-dynamic';
@@ -66,6 +67,7 @@ export default async function AdminDashboardPage() {
                 overviewContent={<OverviewPanel />}
                 disputesContent={<DisputesContent />}
                 payoutsContent={<PayoutsContent />}
+                brainContent={<N8nPanel />}
                 disputeCount={disputeCount}
                 pendingPayoutCount={payoutCount}
             />

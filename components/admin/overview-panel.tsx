@@ -79,48 +79,48 @@ export function OverviewPanel() {
         return <div className="flex h-64 items-center justify-center"><Loader2 className="animate-spin h-8 w-8 text-orange-500" /></div>;
     }
 
-    if (!data) return <div>Error loading dashboard</div>;
+    if (!data) return <div>Error cargando el panel</div>;
 
     return (
         <div className="space-y-8">
             <div className="flex justify-end">
-                <Button variant="outline" size="sm" onClick={fetchPreview}>Refresh Data</Button>
+                <Button variant="outline" size="sm" onClick={fetchPreview}>Actualizar Datos</Button>
             </div>
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
                 <Card className="bg-gradient-to-br from-orange-50 to-white border-stone-300">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-medium text-stone-900">Yesterday's Pool (3%)</CardTitle>
+                        <CardTitle className="text-sm font-medium text-stone-900">Pozo Acumulado (3%)</CardTitle>
                         <DollarSign className="h-4 w-4 text-stone-900" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold text-orange-900">
                             {format.number(data.totalPool / 100, { style: 'currency', currency: 'ARS' })}
                         </div>
-                        <p className="text-xs text-stone-900/80 mt-1">Ready for distribution</p>
+                        <p className="text-xs text-stone-900/80 mt-1">Listo para distribuir / Ayer</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-medium">Active Contributors</CardTitle>
+                        <CardTitle className="text-sm font-medium">Contribuyentes Activos</CardTitle>
                         <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold">{data.payouts.length}</div>
-                        <p className="text-xs text-muted-foreground mt-1">Users with helpful comments (24h)</p>
+                        <p className="text-xs text-muted-foreground mt-1">Usuarios con aportes útiles (24h)</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-medium">Total Savings Impact</CardTitle>
+                        <CardTitle className="text-sm font-medium">Impacto Total (Ahorro)</CardTitle>
                         <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold">{data.totalScore}</div>
-                        <p className="text-xs text-muted-foreground mt-1">Aggregate value created in 24h</p>
+                        <p className="text-xs text-muted-foreground mt-1">Valor agregado en 24h</p>
                     </CardContent>
                 </Card>
             </div>
@@ -130,8 +130,8 @@ export function OverviewPanel() {
                 <CardHeader>
                     <div className="flex justify-between items-center">
                         <div>
-                            <CardTitle>Daily Payout Preview</CardTitle>
-                            <CardDescription>Review distribution before executing</CardDescription>
+                            <CardTitle>Previsualización de Pago Diario</CardTitle>
+                            <CardDescription>Revisá la distribución antes de ejecutar.</CardDescription>
                         </div>
                         {data.totalPool > 0 ? (
                             <Button
@@ -140,11 +140,11 @@ export function OverviewPanel() {
                                 className="bg-stone-900 hover:bg-stone-800 text-white font-bold"
                             >
                                 {executing ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : '💸'}
-                                Run Daily Payout
+                                Ejecutar Pago Diario
                             </Button>
                         ) : (
                             <Button disabled variant="secondary">
-                                No Funds to Distribute
+                                Sin Fondos para Distribuir
                             </Button>
                         )}
                     </div>
@@ -153,17 +153,17 @@ export function OverviewPanel() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>User</TableHead>
-                                <TableHead className="text-right">Impact Score</TableHead>
-                                <TableHead className="text-right">Share %</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
+                                <TableHead>Usuario</TableHead>
+                                <TableHead className="text-right">Puntaje Impacto</TableHead>
+                                <TableHead className="text-right">% Participación</TableHead>
+                                <TableHead className="text-right">Monto</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {data.payouts.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                                        No active contributors found for this period.
+                                        No se encontraron contribuyentes activos en este período.
                                     </TableCell>
                                 </TableRow>
                             ) : (
@@ -191,13 +191,13 @@ export function OverviewPanel() {
             <div className="bg-stone-50 border border-stone-300 p-4 rounded-lg flex items-start gap-4">
                 <AlertTriangle className="h-5 w-5 text-stone-900 shrink-0 mt-0.5" />
                 <div>
-                    <h4 className="font-bold text-yellow-800 text-sm">How this works</h4>
+                    <h4 className="font-bold text-yellow-800 text-sm">¿Cómo funciona esto?</h4>
                     <p className="text-stone-900 text-sm mt-1">
-                        The "Total Pool" comes from the 3% community fee on all <strong>released</strong> slices in the last 24 hours.
+                        El "Pozo Acumulado" viene del 3% de tarifa comunitaria sobre todos los hitos <strong>liberados</strong> en las últimas 24 horas.
                         <br />
-                        When you click "Run Daily Payout", this amount is distributed to the top 50 contributors above as <strong>Wallet Credit</strong>.
+                        Al hacer clic en "Ejecutar Pago Diario", este monto se distribuye entre los 50 mejores contribuyentes listados arriba como <strong>Crédito en Billetera</strong>.
                         <br />
-                        Note: This cron job usually runs automatically at 00:00 UTC. This button allows manual triggering.
+                        Nota: Este proceso suele correr automáticamente a las 00:00 UTC. Este botón permite dispararlo manualmente si fuese necesario.
                     </p>
                 </div>
             </div>
