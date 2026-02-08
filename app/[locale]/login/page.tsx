@@ -147,7 +147,7 @@ function LoginForm() {
                                     window.location.href = `/login?error=${encodeURIComponent(error.message)}`;
                                 } else {
                                     // Success
-                                    window.location.href = '/';
+                                    window.location.href = '/wallet';
                                 }
                             }} className="space-y-4">
                                 <div className="space-y-2">
