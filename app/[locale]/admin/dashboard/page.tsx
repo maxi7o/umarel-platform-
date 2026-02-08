@@ -85,7 +85,7 @@ export default function AdminDashboard() {
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-3xl font-bold font-heading">Admin Dashboard 🦉</h1>
-                    <p className="text-muted-foreground">Manage the Umarel Ecosystem & Dividends</p>
+                    <p className="text-muted-foreground">Panel de Control: El Entendido & Dividendos</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" onClick={fetchPreview}>Refresh</Button>

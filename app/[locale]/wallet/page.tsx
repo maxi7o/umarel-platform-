@@ -121,7 +121,7 @@ export default async function WalletPage() {
         <div className="container mx-auto max-w-4xl py-8 px-4 space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-2">Mi Billetera Umarel</h1>
+                <h1 className="text-3xl font-bold tracking-tight mb-2">Mi Billetera</h1>
                 <p className="text-muted-foreground">Gestiona tus ganancias y tu reputación en la obra.</p>
             </div>
 
