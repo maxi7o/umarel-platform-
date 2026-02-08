@@ -1,8 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
-import { slices, users, requests } from '@/lib/db/schema';
+import { slices, requests } from '@/lib/db/schema';
 import { eq, or, desc } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
 import {
     Table,
     TableBody,
@@ -17,36 +15,7 @@ import { ShieldAlert, Eye, User, Gavel } from 'lucide-react';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 
-export const dynamic = 'force-dynamic';
-
-const ADMIN_EMAILS = ['admin@elentendido.ar'];
-
-export default async function AdminDisputesPage() {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) redirect('/login');
-
-    // Admin Access Check (Allowlist + DB Fallback)
-    const isSuperAdmin = user.email && ADMIN_EMAILS.includes(user.email);
-    let isAdmin = isSuperAdmin;
-
-    if (!isSuperAdmin) {
-        try {
-            const [dbUser] = await db.select().from(users).where(eq(users.id, user.id));
-            if (dbUser?.role === 'admin') {
-                isAdmin = true;
-            }
-        } catch (e) {
-            console.error("DB Admin Check Failed:", e);
-        }
-    }
-
-    if (!isAdmin) {
-        redirect('/');
-    }
-
-    // Fetch Disputed Slices
+export async function DisputesContent() {
     let disputeList: any[] = [];
     let errorMsg = null;
 
@@ -80,21 +49,10 @@ export default async function AdminDisputesPage() {
     }
 
     return (
-        <div className="container mx-auto py-10 space-y-8">
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3">
-                    <Gavel className="h-8 w-8 text-stone-900" />
-                    <h1 className="text-3xl font-bold tracking-tight">Dispute Tribunal</h1>
-                </div>
-                <p className="text-muted-foreground">
-                    Adjudicate conflicts between Clients and Providers.
-                </p>
-                {/* Admin Badge */}
-                <div className="mt-2">
-                    <Badge variant="outline" className="text-xs bg-stone-100">
-                        Admin Mode: {isSuperAdmin ? 'SuperAdmin' : 'Role-Based'}
-                    </Badge>
-                </div>
+        <div className="space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+                <Gavel className="h-5 w-5 text-stone-900" />
+                <h2 className="text-xl font-bold">Casos Abiertos</h2>
             </div>
 
             <div className="rounded-md border bg-white shadow-sm">
@@ -102,10 +60,10 @@ export default async function AdminDisputesPage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Case ID</TableHead>
-                            <TableHead>Context</TableHead>
+                            <TableHead>Context / User Conflict</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Amount</TableHead>
-                            <TableHead>Last Update</TableHead>
+                            <TableHead>Time Active</TableHead>
                             <TableHead className="text-right">Action</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -113,15 +71,18 @@ export default async function AdminDisputesPage() {
                         {errorMsg ? (
                             <TableRow>
                                 <TableCell colSpan={6} className="text-center h-32 text-red-500 font-medium">
-                                    {errorMsg}
+                                    Error de Conexión: {errorMsg}
                                 </TableCell>
                             </TableRow>
                         ) : disputeList.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center h-32 text-slate-500">
-                                    <div className="flex flex-col items-center gap-2">
-                                        <ShieldAlert className="h-8 w-8 opacity-20" />
-                                        <p>No active disputes. Peace reigns in Umarel.</p>
+                                <TableCell colSpan={6} className="text-center h-48 text-slate-500">
+                                    <div className="flex flex-col items-center gap-3">
+                                        <div className="bg-green-50 p-4 rounded-full">
+                                            <ShieldAlert className="h-8 w-8 text-green-600 opacity-50" />
+                                        </div>
+                                        <p className="font-medium text-stone-900">No hay disputas activas.</p>
+                                        <p className="text-xs">La paz reina en Umarel.</p>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -129,37 +90,37 @@ export default async function AdminDisputesPage() {
                             disputeList.map((dispute) => (
                                 <TableRow key={dispute.id}>
                                     <TableCell className="font-mono text-xs text-slate-500">
-                                        {dispute.id.substring(0, 8)}...
+                                        {dispute.id.substring(0, 8)}
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex flex-col">
-                                            <span className="font-medium text-slate-900">
+                                            <span className="font-medium text-slate-900 truncate max-w-[200px]">
                                                 {dispute.requestTitle || 'Untitled Job'}
                                             </span>
-                                            <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
+                                            <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
                                                 <User className="h-3 w-3" />
-                                                <span>Client: {dispute.creatorId.substring(0, 6)}...</span>
-                                                <span>vs</span>
-                                                <span>Provider: {dispute.assignedProviderId?.substring(0, 6) || 'None'}</span>
+                                                <span className="bg-blue-50 text-blue-700 px-1 rounded">C: {dispute.creatorId.substring(0, 4)}</span>
+                                                <span className="text-stone-300">vs</span>
+                                                <span className="bg-orange-50 text-orange-700 px-1 rounded">P: {dispute.assignedProviderId?.substring(0, 4)}</span>
                                             </div>
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Badge variant={dispute.status === 'disputed' ? 'destructive' : 'outline'}>
+                                        <Badge variant={dispute.status === 'disputed' ? 'destructive' : 'outline'} className="uppercase text-[10px]">
                                             {dispute.status === 'disputed' ? 'Disputed' : dispute.refundStatus}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell className="font-bold">
+                                    <TableCell className="font-bold font-mono">
                                         ${(dispute.amount || 0) / 100}
                                     </TableCell>
-                                    <TableCell className="text-slate-500 text-sm">
+                                    <TableCell className="text-slate-500 text-xs">
                                         {dispute.disputedAt ? formatDistanceToNow(new Date(dispute.disputedAt), { addSuffix: true }) : '-'}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <Link href={`/admin/disputes/${dispute.id}`}>
-                                            <Button size="sm" variant="outline">
-                                                <Eye className="h-4 w-4 mr-2" />
-                                                Review Case
+                                            <Button size="sm" variant="outline" className="h-8 text-xs">
+                                                <Eye className="h-3 w-3 mr-2" />
+                                                Revisar
                                             </Button>
                                         </Link>
                                     </TableCell>
@@ -171,4 +132,22 @@ export default async function AdminDisputesPage() {
             </div>
         </div>
     );
+}
+
+export async function getDisputeCount() {
+    try {
+        const results = await db
+            .select({ id: slices.id })
+            .from(slices)
+            .where(
+                or(
+                    eq(slices.status, 'disputed'),
+                    eq(slices.refundStatus, 'disputed'),
+                    eq(slices.refundStatus, 'requested')
+                )
+            );
+        return results.length;
+    } catch (e) {
+        return 0;
+    }
 }
