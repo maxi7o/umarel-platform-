@@ -144,7 +144,7 @@ export function VerificationWizard() {
                             <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600">
                                 <ShieldCheck size={40} />
                             </div>
-                            <h2 className="text-2xl font-bold font-outfit text-slate-900 mb-4">{t('title')}</h2>
+                            <h2 className="text-2xl font-bold font-archivo text-slate-900 mb-4">{t('title')}</h2>
                             <p className="text-slate-500 mb-8 leading-relaxed">
                                 {t('subtitle')}
                             </p>

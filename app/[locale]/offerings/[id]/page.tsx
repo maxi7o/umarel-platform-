@@ -79,7 +79,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                                 {formatDate(offering.createdAt || new Date(), 'UTC')}
                             </span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold font-outfit text-gray-900 mb-4">
+                        <h1 className="text-3xl md:text-4xl font-bold font-archivo text-gray-900 mb-4">
                             {offering.title as string}
                         </h1>
                         <div className="flex items-center gap-2 text-muted-foreground">

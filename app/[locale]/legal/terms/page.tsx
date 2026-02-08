@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 export default async function TermsPage() {
     return (
         <div className="container mx-auto max-w-4xl py-12 px-6">
-            <h1 className="text-4xl font-bold font-outfit mb-8">Términos y Condiciones (El Entendido)</h1>
+            <h1 className="text-4xl font-bold font-archivo mb-8">Términos y Condiciones (El Entendido)</h1>
             <p className="text-sm text-muted-foreground mb-8">Última actualización: Enero 2026 - Versión 2.1 (Agnostic Layer)</p>
 
             <div className="prose prose-stone max-w-none">

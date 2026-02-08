@@ -33,7 +33,7 @@ export function UmarelBrief() {
                             <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold tracking-wider uppercase rounded-full mb-4">
                                 {t('subtitle')}
                             </span>
-                            <h2 className="text-3xl md:text-4xl font-bold font-outfit text-stone-900 leading-tight">
+                            <h2 className="text-3xl md:text-4xl font-bold font-archivo text-stone-900 leading-tight">
                                 {t('title')}
                             </h2>
                         </div>

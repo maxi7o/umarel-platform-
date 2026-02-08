@@ -16,7 +16,7 @@ export function UmarelQuote() {
     if (!quote) return null
 
     return (
-        <div className="text-center py-4 text-muted-foreground italic font-outfit">
+        <div className="text-center py-4 text-muted-foreground italic font-archivo">
             &quot;{quote}&quot; 👴🏻
         </div>
     )

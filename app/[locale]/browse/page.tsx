@@ -106,7 +106,7 @@ export default function BrowsePage() {
 
                 <div className="container mx-auto max-w-7xl px-6 relative z-10">
                     <div className="max-w-3xl mx-auto text-center mb-10">
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-50 mb-4 font-outfit">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-50 mb-4 font-archivo">
                             {t('title') || "Explore the Ecosystem"}
                         </h1>
                         <p className="text-lg text-stone-500 dark:text-stone-400 font-light">

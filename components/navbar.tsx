@@ -57,7 +57,7 @@ export function Navbar({ user }: NavbarProps) {
                             <div className="relative h-7 w-7 sm:h-8 sm:w-8 text-blue-600 transition-transform group-hover:rotate-12 duration-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" /><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" /><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" /></svg>
                             </div>
-                            <span className="font-outfit font-bold text-lg sm:text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                            <span className="font-archivo font-bold text-lg sm:text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
                                 El Entendido
                             </span>
                         </Link>
@@ -188,7 +188,7 @@ export function Navbar({ user }: NavbarProps) {
                                 </SheetTrigger>
                                 <SheetContent side="right" className="bg-white border-slate-200 text-slate-900">
                                     <SheetHeader>
-                                        <SheetTitle className="text-left text-slate-900 font-outfit text-2xl">El Entendido</SheetTitle>
+                                        <SheetTitle className="text-left text-slate-900 font-archivo text-2xl">El Entendido</SheetTitle>
                                     </SheetHeader>
                                     <div className="flex flex-col gap-2 mt-8">
                                         <Link href="/browse" className="px-4 py-3 rounded-lg hover:bg-slate-50 text-lg font-medium transition-colors flex items-center justify-between">

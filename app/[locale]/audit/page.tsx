@@ -15,7 +15,7 @@ export default function AuditHubPage() {
                 <div className="inline-flex items-center gap-2 bg-amber-100/50 text-amber-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 border border-amber-200">
                     <span className="text-lg">🧐</span> Solo para Entendidos
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold font-outfit text-stone-900 mb-4 tracking-tight">
+                <h1 className="text-4xl md:text-5xl font-bold font-archivo text-stone-900 mb-4 tracking-tight">
                     {t('title')}
                 </h1>
                 <p className="text-xl text-stone-600 max-w-2xl mx-auto">

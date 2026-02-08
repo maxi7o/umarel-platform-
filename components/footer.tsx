@@ -10,7 +10,7 @@ export function Footer() {
             <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium">
                 <div className="flex flex-col gap-1 items-start">
                     <div className="flex items-center gap-4">
-                        <span className="font-outfit text-slate-900 font-bold">El Entendido</span>
+                        <span className="font-archivo text-slate-900 font-bold">El Entendido</span>
                         <span className="text-slate-400">© 2026</span>
                     </div>
                     <p className="text-[10px] text-slate-400 hidden md:block">

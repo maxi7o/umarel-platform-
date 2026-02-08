@@ -14,7 +14,7 @@ export default function ConstructionPage() {
                     </div>
                 </div>
 
-                <h1 className="text-3xl font-bold text-white mb-4 font-outfit">
+                <h1 className="text-3xl font-bold text-white mb-4 font-archivo">
                     Umarel.org
                 </h1>
                 <div className="w-16 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto mb-6 rounded-full"></div>

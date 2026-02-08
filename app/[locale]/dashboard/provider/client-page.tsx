@@ -46,7 +46,7 @@ export function ProviderDashboardClient({ opportunities, stats, offerings = [] }
         <div className="container py-10 space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold font-outfit">{t("dashboard.provider.title")}</h1>
+                    <h1 className="text-3xl font-bold font-archivo">{t("dashboard.provider.title")}</h1>
                     <p className="text-muted-foreground mt-2">{t("dashboard.provider.subtitle")}</p>
                 </div>
                 <div className="flex gap-2">

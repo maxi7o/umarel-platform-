@@ -36,7 +36,7 @@ export default function GuidePage() {
 
                 {/* Hero */}
                 <div className="text-center space-y-4">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 font-outfit">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 font-archivo">
                         {t('title')}
                     </h1>
                     <p className="text-xl text-stone-600 max-w-2xl mx-auto">

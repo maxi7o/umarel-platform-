@@ -50,7 +50,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
                             <AvatarFallback>{user.fullName[0]}</AvatarFallback>
                         </Avatar>
                         <div className="text-center md:text-left space-y-2 flex-1">
-                            <h1 className="text-3xl font-bold font-outfit">{user.fullName}</h1>
+                            <h1 className="text-3xl font-bold font-archivo">{user.fullName}</h1>
                             <div className="flex items-center justify-center md:justify-start gap-2">
                                 <Badge variant="secondary" className="bg-orange-100 text-orange-800">
                                     {rank.title}
@@ -60,7 +60,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
                         </div>
                         <div className="text-center md:text-right p-4 bg-white/50 rounded-lg backdrop-blur-sm">
                             <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">{t("profile.auraPoints")}</div>
-                            <div className="text-4xl font-bold text-orange-600 font-outfit">{user.auraPoints}</div>
+                            <div className="text-4xl font-bold text-orange-600 font-archivo">{user.auraPoints}</div>
                         </div>
                     </div>
                 </CardContent>

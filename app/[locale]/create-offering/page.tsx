@@ -11,7 +11,7 @@ export default function CreateOfferingPage() {
     return (
         <div className="container mx-auto max-w-3xl py-10 px-6">
             <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold font-outfit mb-2">{t('pageTitle')}</h1>
+                <h1 className="text-3xl font-bold font-archivo mb-2">{t('pageTitle')}</h1>
                 <p className="text-muted-foreground max-w-lg mx-auto">
                     {t('pageSubtitle')}
                 </p>

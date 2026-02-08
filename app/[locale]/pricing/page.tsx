@@ -14,7 +14,7 @@ export default function PricingPage() {
         <div className="container mx-auto max-w-6xl px-6 py-16">
             {/* Hero Section */}
             <div className="text-center mb-16">
-                <h1 className="text-5xl font-bold font-outfit mb-4">
+                <h1 className="text-5xl font-bold font-archivo mb-4">
                     Simple, Honest Pricing
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

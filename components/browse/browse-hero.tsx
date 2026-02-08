@@ -23,7 +23,7 @@ export function BrowseHero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-outfit mb-6 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-archivo mb-6 tracking-tight">
                         {t('heroTitle') || "Encontrá el Servicio Perfecto"} <span className="text-orange-400">.</span>
                     </h1>
                     <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-light leading-relaxed">

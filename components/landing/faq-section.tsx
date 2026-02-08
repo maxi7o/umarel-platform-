@@ -25,7 +25,7 @@ export function FaqSection() {
     return (
         <section id="faq" className="py-24 bg-stone-50">
             <div className="container mx-auto px-6 max-w-3xl">
-                <h2 className="text-3xl font-bold text-center mb-12 text-slate-900 font-outfit">Preguntas Frecuentes</h2>
+                <h2 className="text-3xl font-bold text-center mb-12 text-slate-900 font-archivo">Preguntas Frecuentes</h2>
 
                 {/* Fallback to simple details/summary if accordion missing, 
             but usually accordion is standardized. I'll use simple details for robustness 

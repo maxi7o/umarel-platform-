@@ -44,7 +44,7 @@ export function RoleJourneys() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
                             <Search size={14} /> ¿Tenés un problema?
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
+                        <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             No hace falta que <br />
                             <span className="text-blue-600">lo tengas claro hoy.</span>
                         </h2>
@@ -83,7 +83,7 @@ export function RoleJourneys() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-bold">
                             <Shovel size={14} /> El Solucionador
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
+                        <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             Solo ocupate de trabajar. <br />
                             <span className="text-orange-600">La plata está segura.</span>
                         </h2>
@@ -151,7 +151,7 @@ export function RoleJourneys() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-sm font-bold">
                             <ShieldCheck size={14} /> El Entendido
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold font-outfit text-slate-900">
+                        <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             No venimos a juzgar. <br />
                             <span className="text-purple-600">Venimos a pensar con vos.</span>
                         </h2>

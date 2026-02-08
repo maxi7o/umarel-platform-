@@ -34,7 +34,7 @@ export function HeroSection() {
                         </span>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-900 font-outfit leading-[1.1] mb-6">
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-900 font-archivo leading-[1.1] mb-6">
                         {t('heroTitle1')} <br />
                         <span className="text-blue-600">
                             {t('heroTitleHighlight')}
@@ -76,7 +76,7 @@ export function HeroSection() {
                     className="max-w-5xl mx-auto"
                 >
                     <div className="text-center mb-10">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-outfit mb-3">
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-archivo mb-3">
                             Tres Roles, Una Plataforma
                         </h2>
                         <p className="text-lg text-slate-600">

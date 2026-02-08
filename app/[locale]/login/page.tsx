@@ -75,7 +75,7 @@ function LoginForm() {
     )
 
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-slate-50 py-12 px-4 font-outfit">
+        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-slate-50 py-12 px-4 font-archivo">
             <Card className="w-full max-w-[440px] shadow-2xl border-white/40 bg-white/80 backdrop-blur-xl overflow-hidden ring-1 ring-slate-100 rounded-3xl">
                 <div className="p-8 text-center pb-4">
                     <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-serif">

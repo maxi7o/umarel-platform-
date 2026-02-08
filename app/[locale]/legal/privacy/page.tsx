@@ -1,7 +1,7 @@
 export default function PrivacyPage() {
     return (
         <div className="container mx-auto max-w-4xl py-12 px-6">
-            <h1 className="text-4xl font-bold font-outfit mb-8">Política de Privacidad</h1>
+            <h1 className="text-4xl font-bold font-archivo mb-8">Política de Privacidad</h1>
             <p className="text-sm text-muted-foreground mb-8">Última actualización: Enero 2026 - Cumplimiento Ley 25.326 (Argentina)</p>
 
             <div className="prose prose-stone max-w-none">

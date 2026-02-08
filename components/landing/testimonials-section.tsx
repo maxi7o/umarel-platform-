@@ -33,7 +33,7 @@ export function TestimonialsSection() {
             <div className="container mx-auto px-6">
 
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-outfit mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-archivo mb-4">
                         Lo que dicen nuestros vecinos
                     </h2>
                     <p className="text-stone-500 text-lg">

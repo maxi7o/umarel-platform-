@@ -157,7 +157,7 @@ export function RequestInteractionLayout({
                                 👤 {request.user?.fullName || 'Unknown Client'}
                             </span>
                         </div>
-                        <h2 className="text-3xl font-bold font-outfit text-stone-900 tracking-tight">
+                        <h2 className="text-3xl font-bold font-archivo text-stone-900 tracking-tight">
                             {request.title}
                         </h2>
                     </div>

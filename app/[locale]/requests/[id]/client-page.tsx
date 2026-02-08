@@ -43,7 +43,7 @@ export function RequestDetailClient({ request, requestSlices, requestId }: Reque
             <div className="space-y-4">
                 <div className="flex items-start justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold font-outfit">{request.title}</h1>
+                        <h1 className="text-3xl font-bold font-archivo">{request.title}</h1>
                         <div className="flex items-center gap-4 text-muted-foreground mt-2">
                             <div className="flex items-center gap-1">
                                 <MapPin className="h-4 w-4" />

@@ -50,7 +50,7 @@ export function RoleOnboardingModal() {
 
                     {/* Header */}
                     <div className="bg-stone-50 dark:bg-stone-800 p-5 border-b border-stone-100 dark:border-stone-700 text-center">
-                        <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100 font-outfit">
+                        <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100 font-archivo">
                             Tres Roles, Una Plataforma Única
                         </h2>
                     </div>

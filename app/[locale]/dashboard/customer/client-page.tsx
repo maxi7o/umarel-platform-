@@ -28,7 +28,7 @@ export function CustomerDashboardClient({ myRequests }: CustomerDashboardClientP
         <div className="container py-10 space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold font-outfit">{t("dashboard.customer.title")}</h1>
+                    <h1 className="text-3xl font-bold font-archivo">{t("dashboard.customer.title")}</h1>
                     <p className="text-muted-foreground mt-2">{t("dashboard.customer.subtitle")}</p>
                 </div>
                 <Link href="/requests/create">

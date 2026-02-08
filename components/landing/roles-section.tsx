@@ -11,7 +11,7 @@ export function RolesSection() {
         <section id="roles" className="py-24 bg-white relative overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
                 <div className="text-center max-w-2xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold font-outfit mb-4 text-slate-900">{t('rolesTitle')}</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold font-archivo mb-4 text-slate-900">{t('rolesTitle')}</h2>
                     <p className="text-lg text-stone-500">{t('rolesSubtitle')}</p>
                 </div>
 
@@ -22,7 +22,7 @@ export function RolesSection() {
                         <div className="h-16 w-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <Lightbulb className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-3 font-outfit text-slate-900">{t('roleClientTitle')}</h3>
+                        <h3 className="text-2xl font-bold mb-3 font-archivo text-slate-900">{t('roleClientTitle')}</h3>
                         <p className="text-stone-600 mb-8 leading-relaxed">
                             {t('roleClientDesc')}
                         </p>
@@ -40,7 +40,7 @@ export function RolesSection() {
                         <div className="h-16 w-16 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/20">
                             <Eye className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-3 font-outfit text-white">{t('roleUmarelTitle')}</h3>
+                        <h3 className="text-2xl font-bold mb-3 font-archivo text-white">{t('roleUmarelTitle')}</h3>
                         <p className="text-green-50 mb-8 leading-relaxed">
                             {t('roleUmarelDesc')}
                         </p>
@@ -58,7 +58,7 @@ export function RolesSection() {
                         <div className="h-16 w-16 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <Briefcase className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-3 font-outfit text-slate-900">{t('roleProviderTitle')}</h3>
+                        <h3 className="text-2xl font-bold mb-3 font-archivo text-slate-900">{t('roleProviderTitle')}</h3>
                         <p className="text-stone-600 mb-8 leading-relaxed">
                             {t('roleProviderDesc')}
                         </p>

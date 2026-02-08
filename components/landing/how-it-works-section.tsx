@@ -39,7 +39,7 @@ export function HowItWorksSection() {
 
                 <div className="text-center mb-16">
                     <span className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2 block">{t('subtitle')}</span>
-                    <h2 className="text-3xl md:text-5xl font-bold text-slate-900 font-outfit">
+                    <h2 className="text-3xl md:text-5xl font-bold text-slate-900 font-archivo">
                         {t('title')}
                     </h2>
                 </div>
@@ -78,7 +78,7 @@ export function HowItWorksSection() {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
                         <div className="text-center mb-8">
-                            <h3 className="text-2xl font-bold font-outfit mb-3 relative z-10">
+                            <h3 className="text-2xl font-bold font-archivo mb-3 relative z-10">
                                 {t('aiFeature.title')}
                             </h3>
                             <p className="text-blue-100 relative z-10 font-medium text-lg max-w-lg mx-auto">

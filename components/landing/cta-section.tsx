@@ -12,7 +12,7 @@ export function CtaSection() {
             <div className="absolute bottom-0 left-0 w-1/3 h-full bg-white/10 blur-3xl rounded-full" />
 
             <div className="container mx-auto px-6 relative z-10 text-center">
-                <h2 className="text-3xl md:text-5xl font-bold text-white font-outfit mb-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-white font-archivo mb-6">
                     Empezá a trabajar sin vueltas.
                 </h2>
                 <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-10">

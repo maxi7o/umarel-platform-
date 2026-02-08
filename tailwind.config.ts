@@ -20,10 +20,8 @@ const config = {
         },
         extend: {
             fontFamily: {
-                sans: ["var(--font-outfit)", "ui-sans-serif", "system-ui"],
-                serif: ["var(--font-serif)", "ui-serif", "Georgia"],
-                hand: ["var(--font-hand)", "cursive"],
-                display: ["var(--font-serif)", "serif"],
+                sans: ["var(--font-archivo)", "ui-sans-serif", "system-ui"],
+                mono: ["var(--font-mono)", "ui-monospace", "monospace"],
             },
             colors: {
                 border: "hsl(var(--border))",

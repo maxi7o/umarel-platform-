@@ -41,7 +41,7 @@ export default async function DisputePage({ params }: { params: { id: string } }
         <div className="min-h-screen bg-slate-50 py-12">
             <div className="container max-w-5xl mx-auto px-4">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-900 font-outfit">CASE #{dispute.id.slice(0, 8)}</h1>
+                    <h1 className="text-3xl font-bold text-slate-900 font-archivo">CASE #{dispute.id.slice(0, 8)}</h1>
                     <p className="text-slate-500">
                         {contract ? (contract.snapshotJson as any).sliceTitle : 'Unknown Task'}
                     </p>

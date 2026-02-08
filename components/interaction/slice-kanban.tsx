@@ -130,7 +130,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                             <CardHeader className="p-4 pb-3 pl-5">
                                                 <div className="flex justify-between items-start gap-2">
                                                     <div className="space-y-1">
-                                                        <CardTitle className="text-sm font-bold font-outfit leading-tight text-stone-900">
+                                                        <CardTitle className="text-sm font-bold font-archivo leading-tight text-stone-900">
                                                             {slice.title}
                                                         </CardTitle>
                                                         {slice.isAiGenerated && (

@@ -12,7 +12,7 @@ export default function StartPage() {
     return (
         <div className="container mx-auto max-w-5xl px-4 py-16 flex flex-col items-center justify-center min-h-[80vh]">
             <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold font-outfit text-stone-900 mb-4 tracking-tight">
+                <h1 className="text-4xl md:text-5xl font-bold font-archivo text-stone-900 mb-4 tracking-tight">
                     {t('title')}
                 </h1>
                 <p className="text-xl text-stone-600 max-w-2xl mx-auto">
