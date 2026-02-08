@@ -84,93 +84,93 @@ export function HeroSection() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-3 gap-4">
                         {/* Role 1: CLIENT */}
                         <Link href="/requests/create">
-                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
-                                        <User className="w-5 h-5 text-white" />
+                            <div className="group bg-white hover:bg-stone-50 p-5 rounded-2xl border border-stone-200 hover:border-stone-300 transition-all cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <div className="w-8 h-8 rounded-lg bg-stone-900 flex items-center justify-center flex-shrink-0">
+                                        <User className="w-4 h-4 text-white" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Querés solicitar un servicio</h3>
+                                    <h3 className="text-base font-bold text-stone-900">Querés solicitar un servicio</h3>
                                 </div>
-                                <ul className="space-y-3 mb-4 flex-grow">
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Bot className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                <ul className="space-y-2 mb-3">
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Definición con IA</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Layers className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Pagá contra avance</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <ShieldCheck className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Dinero en garantía</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
-                                    <span>Empezar proyecto</span>
-                                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="flex items-center text-stone-900 font-medium text-xs group-hover:gap-1 transition-all">
+                                    <span>Empezar</span>
+                                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                             </div>
                         </Link>
 
                         {/* Role 2: PROVIDER */}
                         <Link href="/create-offering">
-                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
-                                        <Shovel className="w-5 h-5 text-white" />
+                            <div className="group bg-white hover:bg-stone-50 p-5 rounded-2xl border border-stone-200 hover:border-stone-300 transition-all cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <div className="w-8 h-8 rounded-lg bg-stone-900 flex items-center justify-center flex-shrink-0">
+                                        <Shovel className="w-4 h-4 text-white" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Ofrecés servicios</h3>
+                                    <h3 className="text-base font-bold text-stone-900">Ofrecés servicios</h3>
                                 </div>
-                                <ul className="space-y-3 mb-4 flex-grow">
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <DollarSign className="w-5 h-5 text-stone-900 flex-shrink-0" />
-                                        <span>Cobro por etapas cumplidas</span>
+                                <ul className="space-y-2 mb-3">
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
+                                        <span>Cobro por etapas</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <MapPin className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Sin visitas en vano</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Star className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Reputación pública</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
-                                    <span>Ofrecer servicios</span>
-                                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="flex items-center text-stone-900 font-medium text-xs group-hover:gap-1 transition-all">
+                                    <span>Ofrecer</span>
+                                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                             </div>
                         </Link>
 
                         {/* Role 3: ENTENDIDO */}
                         <Link href="/browse">
-                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
-                                        <CheckCircle2 className="w-5 h-5 text-white" />
+                            <div className="group bg-white hover:bg-stone-50 p-5 rounded-2xl border border-stone-200 hover:border-stone-300 transition-all cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-0.5">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <div className="w-8 h-8 rounded-lg bg-stone-900 flex items-center justify-center flex-shrink-0">
+                                        <CheckCircle2 className="w-4 h-4 text-white" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Tenés experiencia</h3>
+                                    <h3 className="text-base font-bold text-stone-900">Tenés experiencia</h3>
                                 </div>
-                                <ul className="space-y-3 mb-4 flex-grow">
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Eye className="w-5 h-5 text-stone-900 flex-shrink-0" />
-                                        <span>Validá presupuestos y avances</span>
+                                <ul className="space-y-2 mb-3">
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
+                                        <span>Validá presupuestos</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <TrendingUp className="w-5 h-5 text-stone-900 flex-shrink-0" />
-                                        <span>Monetizá tu conocimiento</span>
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
+                                        <span>Monetizá conocimiento</span>
                                     </li>
-                                    <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Users className="w-5 h-5 text-stone-900 flex-shrink-0" />
+                                    <li className="flex items-center gap-2 text-xs text-slate-600">
+                                        <div className="w-1 h-1 rounded-full bg-stone-400" />
                                         <span>Validación por pares</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
-                                    <span>Ver oportunidades</span>
-                                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="flex items-center text-stone-900 font-medium text-xs group-hover:gap-1 transition-all">
+                                    <span>Explorar</span>
+                                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                             </div>
                         </Link>
