@@ -157,7 +157,7 @@ function LoginForm() {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        placeholder="ej. admin@elentendido.ar"
+                                        placeholder="tu@email.com"
                                         className="h-12 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         required
                                     />
