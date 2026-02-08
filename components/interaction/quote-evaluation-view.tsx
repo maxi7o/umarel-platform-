@@ -7,10 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from '@/components/ui/button';
-import { Check, X, MessageSquare, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Check, X, MessageSquare, AlertTriangle, ShieldCheck, FileText, Download } from 'lucide-react';
 import { formatCurrency } from "@/lib/utils";
 import { format } from 'date-fns';
 import { useTranslations } from 'next-intl';
+import jsPDF from 'jspdf';
 
 // Types (Move to shared types ideally)
 interface Quote {
@@ -40,12 +41,93 @@ interface Feedback {
 interface QuoteEvaluationViewProps {
     quote: Quote;
     feedbacks: Feedback[]; // Pre-fetched feedback
+    requestTitle?: string; // Added for PDF context
+    requestLocation?: string; // Added for PDF context
     onAccept: () => void;
     onReject: () => void;
 }
 
-export function QuoteEvaluationView({ quote, feedbacks, onAccept, onReject }: QuoteEvaluationViewProps) {
+export function QuoteEvaluationView({ quote, feedbacks, requestTitle = "Proyecto Sin Título", requestLocation, onAccept, onReject }: QuoteEvaluationViewProps) {
     const t = useTranslations(); // Assumes configured, fallback handled if missing keys
+
+    const handleExportPdf = () => {
+        const doc = new jsPDF();
+
+        // --- HEADER ---
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.setTextColor(40, 40, 40); // Dark Grey
+        doc.text("Presupuesto / Cotización", 20, 20);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100); // Light Grey
+        doc.text("Generado por El Entendido - Plataforma de Transparencia", 20, 26);
+
+        doc.setDrawColor(200, 200, 200);
+        doc.line(20, 32, 190, 32);
+
+        // --- PROJECT INFO ---
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Detalles del Proyecto", 20, 42);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(`Título: ${requestTitle}`, 20, 48);
+        if (requestLocation) doc.text(`Ubicación: ${requestLocation}`, 20, 54);
+
+        // --- PROVIDER INFO ---
+        doc.setFont("helvetica", "bold");
+        doc.text("Proveedor Verificado", 120, 42);
+
+        doc.setFont("helvetica", "normal");
+        doc.text(`Nombre: ${quote.provider.fullName}`, 120, 48);
+        doc.text(`Nivel de Aura: ${quote.provider.auraPoints}`, 120, 54); // Could add visual stars later?
+
+        doc.line(20, 62, 190, 62);
+
+        // --- QUOTE CONTENT ---
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text("Propuesta Técnica y Económica", 20, 72);
+
+        const splitText = doc.splitTextToSize(quote.message || "Sin descripción detallada.", 170);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(splitText, 20, 80);
+
+        // --- TOTAL ---
+        let yPos = 80 + (splitText.length * 5) + 20;
+
+        // Draw a box for the total
+        doc.setFillColor(245, 247, 250); // Light blueish/grey
+        doc.rect(110, yPos - 10, 80, 20, 'F');
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        const totalString = `Total: ${formatCurrency(quote.amount / 100, quote.currency)}`;
+        doc.text(totalString, 185, yPos + 3, { align: "right" });
+
+        // --- FOOTER / TRANSPARENCY PITCH ---
+        // This is key for the User's request about procurement managers
+        const pageHeight = doc.internal.pageSize.height;
+
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150);
+
+        const footerText1 = "Este documento certifica una cotización gestionada a través de El Entendido.";
+        const footerText2 = "Usar nuestra plataforma garantiza transparencia, trazabilidad y reduce riesgos en la contratación.";
+        const footerText3 = "Visita elentendido.ar para verificar este proveedor y acceder a beneficios de gestión.";
+
+        doc.text(footerText1, 105, pageHeight - 20, { align: "center" });
+        doc.text(footerText2, 105, pageHeight - 16, { align: "center" });
+        doc.text(footerText3, 105, pageHeight - 12, { align: "center" });
+
+        doc.save(`Presupuesto_${requestTitle.substring(0, 10).replace(/\s/g, '_')}_${quote.provider.fullName.split(' ')[0]}.pdf`);
+    };
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full">
@@ -81,7 +163,17 @@ export function QuoteEvaluationView({ quote, feedbacks, onAccept, onReject }: Qu
                             {quote.message}
                         </div>
 
-                        <div className="mt-8 flex gap-3 justify-end">
+                        <div className="mt-8 flex gap-3 justify-end items-center">
+                            <Button
+                                variant="outline"
+                                className="text-slate-600 hover:bg-slate-50 border-slate-200 gap-2 mr-auto"
+                                onClick={handleExportPdf}
+                                title="Descargar orden de compra lista para presentar"
+                            >
+                                <FileText className="w-4 h-4 text-slate-500" />
+                                Exportar PDF
+                            </Button>
+
                             <Button variant="outline" className="text-red-600 hover:bg-red-50 border-red-100" onClick={onReject}>
                                 <X className="w-4 h-4 mr-2" /> Reject
                             </Button>

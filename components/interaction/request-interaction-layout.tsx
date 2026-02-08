@@ -191,6 +191,8 @@ export function RequestInteractionLayout({
                             <QuoteEvaluationView
                                 quote={selectedQuote}
                                 feedbacks={quoteFeedbacks}
+                                requestTitle={request.title} // Pass project context
+                                requestLocation={request.location}
                                 onAccept={handleAcceptQuote}
                                 onReject={handleRejectQuote}
                             />

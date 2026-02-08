@@ -49,24 +49,24 @@ export async function GET(
         // --- CLAIMING LOGIC ---
         // If the slice is owned by Guest, but now we have a Real User, 
         // we transfer ownership (Claiming the project).
-        if (originalSlice.creatorId === GUEST_USER_ID && effectiveUserId !== GUEST_USER_ID) {
+        if (originalSlice.creatorId === GUEST_USER_ID && effectiveUserId !== GUEST_USER_ID && originalSlice.requestId) {
             console.log(`User ${effectiveUserId} claiming guest slice ${sliceId}`);
 
             await db.transaction(async (tx) => {
                 // 1. Update Request Owner
                 await tx.update(requests)
                     .set({ userId: effectiveUserId })
-                    .where(eq(requests.id, originalSlice.requestId));
+                    .where(eq(requests.id, originalSlice.requestId!));
 
                 // 2. Update Slice Owner (and siblings if any - assuming context is Request)
                 await tx.update(slices)
                     .set({ creatorId: effectiveUserId })
-                    .where(eq(slices.requestId, originalSlice.requestId));
+                    .where(eq(slices.requestId, originalSlice.requestId!));
 
                 // 3. Update Message History Owner
                 // We need to find all cards for this request first
                 const relatedCards = await tx.query.sliceCards.findMany({
-                    where: eq(sliceCards.requestId, originalSlice.requestId)
+                    where: eq(sliceCards.requestId, originalSlice.requestId!)
                 });
 
                 for (const card of relatedCards) {
@@ -90,15 +90,18 @@ export async function GET(
         // 2. If no card exists, create (This part happens if wizard visited first time)
         let requestId = originalSlice.requestId;
 
+        if (!requestId) {
+            return NextResponse.json({ error: 'Slice has no associated request' }, { status: 400 });
+        }
+
         if (!primaryCard) {
             [primaryCard] = await db.insert(sliceCards).values({
                 sliceId: originalSlice.id,
-                requestId: originalSlice.requestId,
+                requestId: requestId, // Already verified as non-null above
                 title: originalSlice.title,
                 description: originalSlice.description,
-                finalPrice: originalSlice.finalPrice,
-                currency: 'ARS',
-                skills: [],
+                finalPrice: originalSlice.finalPrice ?? null,
+                currency: 'ARS' as const,
             }).returning();
         } else {
             requestId = primaryCard.requestId;

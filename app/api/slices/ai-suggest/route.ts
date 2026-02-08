@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 // Instead of complex logic here, we just forward the context to n8n.
 export async function POST(req: NextRequest) {
     try {
-        const supabase = createClient();
+        const supabase = await createClient();
         const { data: { user } } = await supabase.auth.getUser();
 
         if (!user) {

@@ -9,7 +9,7 @@ import { eq } from 'drizzle-orm';
 async function calculateUmarelRewards(sliceId: string, transactionAmount: number) {
     // Get the slice and its request
     const [slice] = await db.select().from(slices).where(eq(slices.id, sliceId));
-    if (!slice) return [];
+    if (!slice || !slice.requestId) return [];
 
     // Get all questions for this request
     const requestQuestions = await db

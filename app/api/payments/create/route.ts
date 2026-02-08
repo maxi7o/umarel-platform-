@@ -27,10 +27,18 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
         }
 
+        if (!slice.requestId) {
+            return NextResponse.json({ error: 'Slice has no associated request' }, { status: 400 });
+        }
+
         const [request] = await db
             .select({ userId: requests.userId })
             .from(requests)
             .where(eq(requests.id, slice.requestId));
+
+        if (!request) {
+            return NextResponse.json({ error: 'Request not found' }, { status: 404 });
+        }
 
         // Payer is the Client (Request owner)
         const payerId = request.userId;

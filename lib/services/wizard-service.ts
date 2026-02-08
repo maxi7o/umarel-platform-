@@ -30,6 +30,10 @@ export async function handleWizardMessage(
 
     const requestId = originalSlice.requestId;
 
+    if (!requestId) {
+        throw new Error('Slice has no associated request');
+    }
+
     // 2. Ensure initial slice card exists for this slice
     let primaryCard = await db.query.sliceCards.findFirst({
         where: eq(sliceCards.sliceId, sliceId),
@@ -38,12 +42,11 @@ export async function handleWizardMessage(
     if (!primaryCard) {
         [primaryCard] = await db.insert(sliceCards).values({
             sliceId: originalSlice.id,
-            requestId: originalSlice.requestId,
+            requestId: requestId, // Now guaranteed to be non-null
             title: originalSlice.title,
             description: originalSlice.description,
-            finalPrice: originalSlice.finalPrice,
-            currency: 'ARS',
-            skills: [],
+            finalPrice: originalSlice.finalPrice ?? null,
+            currency: 'ARS' as const,
         }).returning();
     }
 

@@ -23,6 +23,10 @@ export async function raiseDispute(sliceId: string, userId: string, reason: stri
         throw new DisputeError("Slice not found.");
     }
 
+    if (!slice.requestId) {
+        throw new DisputeError("Slice has no associated request.");
+    }
+
     // 1b. Fetch Request for Authorization Check
     const request = await db.query.requests.findFirst({
         where: eq(requests.id, slice.requestId),

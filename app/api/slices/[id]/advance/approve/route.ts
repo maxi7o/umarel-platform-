@@ -24,10 +24,18 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
         if (!slice) return NextResponse.json({ error: 'Slice not found' }, { status: 404 });
 
+        if (!slice.requestId) {
+            return NextResponse.json({ error: 'Slice has no associated request' }, { status: 400 });
+        }
+
         const [request] = await db
             .select()
             .from(requests)
             .where(eq(requests.id, slice.requestId));
+
+        if (!request) {
+            return NextResponse.json({ error: 'Request not found' }, { status: 404 });
+        }
 
         // 2. Verify Client Ownership
         if (request.userId !== user.id) {

@@ -65,8 +65,8 @@ export async function analyzeDisputeAction(escrowId: string) {
         // 2. Call AI
         const analysis = await analyzeDispute({
             disputeId: payment.id,
-            requestTitle: payment.slice.request.title,
-            requestDescription: payment.slice.request.description,
+            requestTitle: payment.slice.request?.title || 'Unknown Request',
+            requestDescription: payment.slice.request?.description || 'No description',
             sliceTitle: payment.slice.title,
             sliceDescription: payment.slice.description,
             evidenceUrls: evidenceUrls,

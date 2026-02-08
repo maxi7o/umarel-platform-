@@ -81,14 +81,14 @@ export async function POST(
             return NextResponse.json({ error: 'Payment provider blocked release' }, { status: 400 });
         }
 
-        // Get helpful comments marked by client
-        const helpfulComments = await db.query.comments.findMany({
+        // Get helpful comments marked by client (only if slice has a request)
+        const helpfulComments = slice.requestId ? await db.query.comments.findMany({
             where: and(
                 eq(comments.requestId, slice.requestId),
                 eq(comments.isMarkedHelpful, true),
                 eq(comments.markedHelpfulBy, clientId)
             ),
-        });
+        }) : [];
 
         // Distribute community rewards (3%)
         if (helpfulComments.length > 0) {

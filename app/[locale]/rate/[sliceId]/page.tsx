@@ -14,7 +14,7 @@ export default async function RateServicePage({
         where: eq(slices.id, params.sliceId),
     });
 
-    if (!slice || !slice.assignedProviderId) {
+    if (!slice || !slice.assignedProviderId || !slice.requestId) {
         notFound();
     }
 
