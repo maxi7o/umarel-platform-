@@ -54,7 +54,7 @@ export function MaterialAdvanceAction({
 
     if (status === 'approved') {
         return (
-            <div className="flex items-center gap-2 text-green-700 bg-green-50 p-3 rounded-lg border border-green-200">
+            <div className="flex items-center gap-2 text-stone-900 bg-stone-50 p-3 rounded-lg border border-stone-300">
                 <CheckCircle2 size={18} />
                 <span className="text-sm font-medium">Acopio de Materiales Liberado ({currency} {advanceAmount.toLocaleString()})</span>
             </div>

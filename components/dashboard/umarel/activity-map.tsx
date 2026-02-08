@@ -26,7 +26,7 @@ export function ActivityMap({ zones }: { zones: ActivityZone[] }) {
                         <div className="flex items-center gap-4">
                             <div className={`
                                 w-2 h-2 rounded-full ring-4 
-                                ${zone.intensity === 'high' ? 'bg-red-500 ring-red-100' :
+                                ${zone.intensity === 'high' ? 'bg-stone-900 ring-red-100' :
                                     zone.intensity === 'medium' ? 'bg-orange-500 ring-orange-100' : 'bg-stone-900 ring-yellow-100'}
                             `} />
                             <div>

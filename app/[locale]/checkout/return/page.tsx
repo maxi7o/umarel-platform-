@@ -24,7 +24,7 @@ export default async function ReturnPage({
 
     if (!session || session.status === 'open') {
         return (
-            <div className="container mx-auto py-20 text-center text-red-600">
+            <div className="container mx-auto py-20 text-center text-stone-900">
                 <p>Payment did not succeed or session is invalid. Please try again.</p>
             </div>
         );
@@ -33,7 +33,7 @@ export default async function ReturnPage({
     if (session.status === 'complete') {
         return (
             <div className="container mx-auto py-20 text-center">
-                <h2 className="text-2xl font-bold text-green-600 mb-4">Success!</h2>
+                <h2 className="text-2xl font-bold text-stone-900 mb-4">Success!</h2>
                 <p className="mb-4">
                     Thank you for your purchase. Your payment reference is: <span className="font-mono">{session.id}</span>
                 </p>

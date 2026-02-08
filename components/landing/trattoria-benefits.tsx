@@ -13,7 +13,7 @@ export function TrattoriaBenefits() {
             title: t('escrowProtection.title'),
             description: t('escrowProtection.description'),
             color: 'from-[#D62828] to-[#B91C1C]',
-            bgColor: 'bg-red-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: Heart,
@@ -21,7 +21,7 @@ export function TrattoriaBenefits() {
             title: t('dailyDividends.title'),
             description: t('dailyDividends.description'),
             color: 'from-[#52B788] to-[#40916C]',
-            bgColor: 'bg-green-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: Sparkles,
@@ -53,7 +53,7 @@ export function TrattoriaBenefits() {
             title: t('proofOfArrival.title'),
             description: t('proofOfArrival.description'),
             color: 'from-[#52B788] to-[#2D6A4F]',
-            bgColor: 'bg-emerald-50',
+            bgColor: 'bg-stone-900',
         },
         {
             icon: TrendingUp,
@@ -61,7 +61,7 @@ export function TrattoriaBenefits() {
             title: t('fairPricingBenefit.title'),
             description: t('fairPricingBenefit.description'),
             color: 'from-[#D62828] to-[#9D0208]',
-            bgColor: 'bg-red-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: Clock,

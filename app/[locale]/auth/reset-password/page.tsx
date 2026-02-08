@@ -60,13 +60,13 @@ export default function ResetPasswordPage() {
                 </CardHeader>
                 <CardContent className="p-8 pt-4 space-y-6">
                     {error && (
-                        <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl flex items-start gap-3 border border-red-100">
+                        <div className="bg-stone-50 text-stone-900 text-sm p-4 rounded-xl flex items-start gap-3 border border-stone-200">
                             <AlertCircle className="h-5 w-5 mt-0.5 shrink-0" />
                             <p className="leading-snug font-medium">{error}</p>
                         </div>
                     )}
                     {message && (
-                        <div className="bg-emerald-50 text-emerald-600 text-sm p-4 rounded-xl flex items-start gap-3 border border-emerald-100">
+                        <div className="bg-stone-900 text-stone-900 text-sm p-4 rounded-xl flex items-start gap-3 border border-emerald-100">
                             <CheckCircle2 className="h-5 w-5 mt-0.5 shrink-0" />
                             <p className="leading-snug font-medium">{message}</p>
                         </div>

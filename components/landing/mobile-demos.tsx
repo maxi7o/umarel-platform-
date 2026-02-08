@@ -244,12 +244,12 @@ function UmarelDemo() {
                         {approved && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
-                                className="absolute inset-0 bg-green-500/20 backdrop-blur-sm flex flex-col items-center justify-center text-green-700"
+                                className="absolute inset-0 bg-stone-900/20 backdrop-blur-sm flex flex-col items-center justify-center text-stone-900"
                             >
                                 <div className="bg-white p-4 rounded-full shadow-lg mb-2">
                                     <CheckCircle2 size={40} className="text-white fill-green-600" />
                                 </div>
-                                <span className="font-bold bg-white px-3 py-1 rounded-full text-xs shadow-sm text-green-700">Aprobado</span>
+                                <span className="font-bold bg-white px-3 py-1 rounded-full text-xs shadow-sm text-stone-900">Aprobado</span>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -258,10 +258,10 @@ function UmarelDemo() {
                 <div className="space-y-3">
                     <p className="text-sm font-bold text-slate-700">Tu opinión:</p>
                     <div className="flex gap-2">
-                        <Button variant="outline" className={`rounded-full border-slate-200 ${approved ? 'opacity-50' : 'hover:bg-red-50 hover:text-red-500'}`}>
+                        <Button variant="outline" className={`rounded-full border-slate-200 ${approved ? 'opacity-50' : 'hover:bg-stone-50 hover:text-stone-900'}`}>
                             Rechazar
                         </Button>
-                        <Button className={`flex-1 rounded-full bg-green-600 hover:bg-green-700 text-white ${approved ? 'ring-2 ring-offset-2 ring-green-500' : ''}`} onClick={() => setApproved(true)}>
+                        <Button className={`flex-1 rounded-full bg-stone-900 hover:bg-stone-800 text-white ${approved ? 'ring-2 ring-offset-2 ring-green-500' : ''}`} onClick={() => setApproved(true)}>
                             Aprobar Trabajo
                         </Button>
                     </div>

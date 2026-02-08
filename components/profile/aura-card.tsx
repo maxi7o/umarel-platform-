@@ -83,12 +83,12 @@ export function AuraCard({ points, level, totalSavings, weeklyScore = 0 }: AuraC
                         </p>
                     </div>
 
-                    <div className="bg-green-50 p-3 rounded-lg border border-green-100 dark:bg-green-900/20 dark:border-green-800">
-                        <div className="flex items-center gap-1.5 text-green-700 dark:text-green-400 mb-1">
+                    <div className="bg-stone-50 p-3 rounded-lg border border-stone-200 dark:bg-green-900/20 dark:border-green-800">
+                        <div className="flex items-center gap-1.5 text-stone-900 dark:text-green-400 mb-1">
                             <TrendingUp className="h-4 w-4" />
                             <span className="text-xs font-medium">Weekly Score</span>
                         </div>
-                        <p className="text-lg font-bold text-green-800 dark:text-green-300">
+                        <p className="text-lg font-bold text-stone-900 dark:text-green-300">
                             {weeklyScore} pts
                         </p>
                     </div>

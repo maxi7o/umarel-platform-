@@ -23,17 +23,17 @@ export function SliceProposal({ slice, onAccept, isAccepted = false }: SliceProp
         <Card className={cn(
             "w-full max-w-sm mt-2 border-2 transition-all",
             isAccepted
-                ? "bg-green-50 border-green-200 dark:bg-green-900/10 dark:border-green-800"
+                ? "bg-stone-50 border-stone-300 dark:bg-green-900/10 dark:border-green-800"
                 : "bg-white border-stone-200 dark:bg-gray-800 dark:border-blue-900"
         )}>
             <CardHeader className="pb-2">
                 <div className="flex justify-between items-start gap-2">
                     <CardTitle className="text-base font-semibold flex items-center gap-2">
-                        <Shovel size={16} className={isAccepted ? "text-green-600" : "text-stone-900"} />
+                        <Shovel size={16} className={isAccepted ? "text-stone-900" : "text-stone-900"} />
                         {slice.title}
                     </CardTitle>
                     {isAccepted && (
-                        <Badge variant="secondary" className="bg-green-100 text-green-700">Accepted</Badge>
+                        <Badge variant="secondary" className="bg-stone-100 text-stone-900">Accepted</Badge>
                     )}
                 </div>
             </CardHeader>

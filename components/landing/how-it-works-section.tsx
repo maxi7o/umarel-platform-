@@ -27,7 +27,7 @@ export function HowItWorksSection() {
         },
         {
             icon: <ShieldCheck className="w-6 h-6 text-white" />,
-            color: "bg-green-500",
+            color: "bg-stone-900",
             title: t('step4.title'),
             desc: t('step4.desc')
         }

@@ -26,7 +26,7 @@ export default function GuidePage() {
             key: 'umarel',
             icon: ShieldCheck,
             color: 'text-green-500',
-            bg: 'bg-green-50 border-green-100'
+            bg: 'bg-stone-50 border-stone-200'
         }
     ];
 

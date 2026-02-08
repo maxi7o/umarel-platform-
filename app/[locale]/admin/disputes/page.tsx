@@ -61,7 +61,7 @@ export default async function AdminDisputesPage() {
         <div className="container mx-auto py-10 space-y-8">
             <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-3">
-                    <Gavel className="h-8 w-8 text-red-600" />
+                    <Gavel className="h-8 w-8 text-stone-900" />
                     <h1 className="text-3xl font-bold tracking-tight">Dispute Tribunal</h1>
                 </div>
                 <p className="text-muted-foreground">

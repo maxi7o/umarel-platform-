@@ -10,10 +10,10 @@ export default function PaymentFailurePage({
 }) {
     return (
         <div className="container mx-auto max-w-2xl px-6 py-20">
-            <Card className="border-2 border-red-500/20 bg-red-50/50 dark:bg-red-950/20">
+            <Card className="border-2 border-red-500/20 bg-stone-50/50 dark:bg-red-950/20">
                 <CardContent className="pt-12 pb-12 text-center">
                     <div className="flex justify-center mb-6">
-                        <div className="p-4 bg-red-600 rounded-full">
+                        <div className="p-4 bg-stone-900 rounded-full">
                             <XCircle className="h-12 w-12 text-white" />
                         </div>
                     </div>

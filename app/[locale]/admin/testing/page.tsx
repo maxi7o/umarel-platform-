@@ -96,7 +96,7 @@ export default function TestingPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Users className="h-5 w-5 text-green-600" />
+                            <Users className="h-5 w-5 text-stone-900" />
                             Datos de Prueba
                         </CardTitle>
                         <CardDescription>
@@ -161,7 +161,7 @@ export default function TestingPage() {
                     <div className="grid md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <h4 className="font-semibold flex items-center gap-2">
-                                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                                <CheckCircle2 className="h-4 w-4 text-stone-900" />
                                 Mejores Prácticas
                             </h4>
                             <ul className="text-sm space-y-1 text-stone-700">
@@ -203,7 +203,7 @@ function TestScenario({
 }) {
     const roleColors: Record<string, string> = {
         client: 'bg-stone-100 text-stone-900',
-        provider: 'bg-green-100 text-green-800',
+        provider: 'bg-stone-100 text-stone-900',
         admin: 'bg-stone-100 text-purple-800',
     };
 

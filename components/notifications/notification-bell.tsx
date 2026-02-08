@@ -59,7 +59,7 @@ export function NotificationBell() {
                 <Button variant="ghost" size="icon" className="relative">
                     <Bell className="h-5 w-5" />
                     {unreadCount > 0 && (
-                        <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-background" />
+                        <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-stone-900 border-2 border-background" />
                     )}
                 </Button>
             </PopoverTrigger>

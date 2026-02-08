@@ -41,7 +41,7 @@ export function StatsHeader({ auraPoints, auraLevel, totalEarnings, impactScore 
 
             {/* Earnings Card */}
             <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex items-center gap-4">
-                <div className="p-4 rounded-full bg-green-100 text-green-800 border border-green-200">
+                <div className="p-4 rounded-full bg-stone-100 text-stone-900 border border-stone-300">
                     <Wallet className="w-8 h-8" />
                 </div>
                 <div>

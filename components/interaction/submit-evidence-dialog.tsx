@@ -140,7 +140,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
-                            <ShieldCheck className="text-green-600" />
+                            <ShieldCheck className="text-stone-900" />
                             {t('title')}
                         </DialogTitle>
                         <DialogDescription>
@@ -152,7 +152,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                         {/* Progress Bar */}
                         <div className="w-full bg-stone-100 rounded-full h-2">
                             <div
-                                className="bg-green-500 h-2 rounded-full transition-all duration-500 ease-out"
+                                className="bg-stone-900 h-2 rounded-full transition-all duration-500 ease-out"
                                 style={{ width: `${progress}%` }}
                             ></div>
                         </div>
@@ -164,7 +164,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                     key={criterion.id}
                                     className={cn(
                                         "border rounded-lg p-4 transition-colors",
-                                        criterion.isFulfilled ? "border-green-200 bg-green-50" : "border-stone-200"
+                                        criterion.isFulfilled ? "border-stone-300 bg-stone-50" : "border-stone-200"
                                     )}
                                 >
                                     <div className="flex items-start justify-between gap-4">
@@ -173,7 +173,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                                 <Badge variant="outline" className="h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px]">
                                                     {index + 1}
                                                 </Badge>
-                                                <Label className={cn("text-base font-medium", criterion.isFulfilled && "text-green-800")}>
+                                                <Label className={cn("text-base font-medium", criterion.isFulfilled && "text-stone-900")}>
                                                     {criterion.description}
                                                 </Label>
                                             </div>
@@ -187,12 +187,12 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                                 <div className="flex items-center gap-2">
                                                     {criterion.evidenceUrl && (
                                                         criterion.requiredEvidenceType === 'video' ? (
-                                                            <video src={criterion.evidenceUrl} className="w-10 h-10 rounded object-cover border border-green-200" />
+                                                            <video src={criterion.evidenceUrl} className="w-10 h-10 rounded object-cover border border-stone-300" />
                                                         ) : (
-                                                            <img src={criterion.evidenceUrl} alt="Proof" className="w-10 h-10 rounded object-cover border border-green-200" />
+                                                            <img src={criterion.evidenceUrl} alt="Proof" className="w-10 h-10 rounded object-cover border border-stone-300" />
                                                         )
                                                     )}
-                                                    <Button size="icon" variant="ghost" className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100">
+                                                    <Button size="icon" variant="ghost" className="h-8 w-8 text-stone-900 hover:text-stone-900 hover:bg-stone-100">
                                                         <CheckCircle2 size={18} />
                                                     </Button>
                                                 </div>
@@ -250,7 +250,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                         <Button
                             onClick={handleSubmit}
                             disabled={progress < 100 || submitting}
-                            className={cn("w-full sm:w-auto", progress < 100 ? "opacity-50" : "bg-green-600 hover:bg-green-700")}
+                            className={cn("w-full sm:w-auto", progress < 100 ? "opacity-50" : "bg-stone-900 hover:bg-stone-800")}
                         >
                             {submitting ? (
                                 <>

@@ -24,7 +24,7 @@ export function TheStash({ balance, currency }: TheStashProps) {
         <Card className="border-stone-200 dark:border-stone-700 shadow-sm h-full">
             <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-bold flex items-center gap-2 text-stone-700 dark:text-stone-300">
-                    <Wallet className="h-5 w-5 text-green-600" />
+                    <Wallet className="h-5 w-5 text-stone-900" />
                     {t('stash')}
                 </CardTitle>
             </CardHeader>

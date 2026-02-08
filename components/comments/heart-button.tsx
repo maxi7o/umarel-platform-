@@ -53,7 +53,7 @@ export function HeartButton({
             disabled={isLoading}
             className={cn(
                 'gap-1.5',
-                isHearted && 'text-red-500 hover:text-red-600'
+                isHearted && 'text-stone-900 hover:text-stone-900'
             )}
         >
             <Heart

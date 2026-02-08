@@ -43,7 +43,7 @@ export function QualityReview({ contributions }: { contributions: Contribution[]
 
                             <div className="flex items-center gap-6">
                                 {item.savingsGenerated > 0 && (
-                                    <div className="flex items-center gap-2 text-green-600 font-bold bg-green-50 px-3 py-1 rounded-full text-sm border border-green-100">
+                                    <div className="flex items-center gap-2 text-stone-900 font-bold bg-stone-50 px-3 py-1 rounded-full text-sm border border-stone-200">
                                         <DollarSign className="w-4 h-4" />
                                         ${(item.savingsGenerated / 100).toLocaleString()} Saved
                                     </div>

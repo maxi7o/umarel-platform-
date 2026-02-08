@@ -182,19 +182,19 @@ export default function SeedPage() {
                         )}
 
                         {result && (
-                            <div className={`p-4 rounded-lg ${result.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+                            <div className={`p-4 rounded-lg ${result.success ? 'bg-stone-50 border border-stone-300' : 'bg-stone-50 border border-stone-300'}`}>
                                 <div className="flex items-start gap-3">
                                     {result.success ? (
-                                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                                        <CheckCircle className="h-5 w-5 text-stone-900 mt-0.5" />
                                     ) : (
-                                        <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
+                                        <AlertCircle className="h-5 w-5 text-stone-900 mt-0.5" />
                                     )}
                                     <div>
-                                        <p className={`font-medium ${result.success ? 'text-green-900' : 'text-red-900'}`}>
+                                        <p className={`font-medium ${result.success ? 'text-green-900' : 'text-stone-900'}`}>
                                             {result.message}
                                         </p>
                                         {result.success && result.count && (
-                                            <p className="text-sm text-green-700 mt-1">
+                                            <p className="text-sm text-stone-900 mt-1">
                                                 Los pedidos ya están disponibles en /browse
                                             </p>
                                         )}

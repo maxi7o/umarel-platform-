@@ -52,7 +52,7 @@ export default function ScoutClient() {
     };
 
     const getScoreColor = (score: number) => {
-        if (score >= 8) return 'bg-green-100 text-green-800 border-green-200';
+        if (score >= 8) return 'bg-stone-100 text-stone-900 border-stone-300';
         if (score >= 5) return 'bg-stone-100 text-yellow-800 border-stone-300';
         return 'bg-slate-100 text-slate-800 border-slate-200';
     };
@@ -121,7 +121,7 @@ export default function ScoutClient() {
                                         className="absolute top-2 right-2 text-slate-400 hover:text-slate-900"
                                         onClick={copyReply}
                                     >
-                                        {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+                                        {copied ? <Check className="h-4 w-4 text-stone-900" /> : <Copy className="h-4 w-4" />}
                                     </Button>
                                 </div>
                                 <p className="text-xs text-slate-400 mt-2 text-right">

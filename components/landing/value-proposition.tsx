@@ -26,10 +26,10 @@ export function ValueProposition() {
                 <div className="grid md:grid-cols-3 gap-8">
                     {/* 1. Escrow Protection */}
                     <Card className="bg-white rounded-3xl border-none shadow-xl shadow-stone-200/50 overflow-hidden relative group">
-                        <div className="absolute top-0 left-0 w-full h-2 bg-green-500" />
+                        <div className="absolute top-0 left-0 w-full h-2 bg-stone-900" />
                         <CardContent className="p-8 space-y-6">
-                            <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Shield className="h-8 w-8 text-green-600" />
+                            <div className="w-16 h-16 rounded-2xl bg-stone-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Shield className="h-8 w-8 text-stone-900" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-bold text-stone-900 mb-2">{t('card1.title')}</h3>

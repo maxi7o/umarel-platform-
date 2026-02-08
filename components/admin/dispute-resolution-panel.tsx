@@ -54,10 +54,10 @@ export function DisputeResolutionPanel({ sliceId }: { sliceId: string }) {
                     <RadioGroupItem value="refund_client" id="r_client" className="peer sr-only" />
                     <Label
                         htmlFor="r_client"
-                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-red-600 peer-data-[state=checked]:bg-red-50 [&:has([data-state=checked])]:border-primary cursor-pointer"
+                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-red-600 peer-data-[state=checked]:bg-stone-50 [&:has([data-state=checked])]:border-primary cursor-pointer"
                     >
-                        <ShieldAlert className="mb-3 h-6 w-6 text-red-600" />
-                        <span className="font-bold text-red-900">Refund Client</span>
+                        <ShieldAlert className="mb-3 h-6 w-6 text-stone-900" />
+                        <span className="font-bold text-stone-900">Refund Client</span>
                         <span className="text-xs text-center text-slate-500 mt-1">Return 100% of escrow to Client's wallet/card.</span>
                     </Label>
                 </div>
@@ -66,9 +66,9 @@ export function DisputeResolutionPanel({ sliceId }: { sliceId: string }) {
                     <RadioGroupItem value="release_provider" id="r_provider" className="peer sr-only" />
                     <Label
                         htmlFor="r_provider"
-                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-green-600 peer-data-[state=checked]:bg-green-50 [&:has([data-state=checked])]:border-primary cursor-pointer"
+                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-green-600 peer-data-[state=checked]:bg-stone-50 [&:has([data-state=checked])]:border-primary cursor-pointer"
                     >
-                        <ShieldCheck className="mb-3 h-6 w-6 text-green-600" />
+                        <ShieldCheck className="mb-3 h-6 w-6 text-stone-900" />
                         <span className="font-bold text-green-900">Pay Provider</span>
                         <span className="text-xs text-center text-slate-500 mt-1">Overrule dispute. Release funds to Provider account.</span>
                     </Label>
@@ -86,7 +86,7 @@ export function DisputeResolutionPanel({ sliceId }: { sliceId: string }) {
 
             <Button
                 onClick={handleResolve}
-                className={`w-full py-6 text-lg font-bold shadow-lg ${verdict === 'refund_client' ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}
+                className={`w-full py-6 text-lg font-bold shadow-lg ${verdict === 'refund_client' ? 'bg-stone-900 hover:bg-stone-800' : 'bg-stone-900 hover:bg-stone-800'}`}
                 disabled={isSubmitting}
             >
                 {isSubmitting ? <Loader2 className="animate-spin mr-2" /> : <Gavel className="mr-2" />}

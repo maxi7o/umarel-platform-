@@ -567,7 +567,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                                 <SelectItem value="standard">Standard (Fixed)</SelectItem>
                                                 <SelectItem value="distressed">
                                                     <div className="flex items-center gap-2">
-                                                        <TrendingDown className="w-4 h-4 text-green-600" />
+                                                        <TrendingDown className="w-4 h-4 text-stone-900" />
                                                         <span>Distressed (Last Minute Drop)</span>
                                                     </div>
                                                 </SelectItem>

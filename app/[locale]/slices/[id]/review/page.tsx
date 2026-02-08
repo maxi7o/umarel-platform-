@@ -67,11 +67,11 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
                 )}
 
                 {slice.status === 'paid' && (
-                    <div className="p-6 bg-green-50 dark:bg-green-900/10 border border-green-200 rounded-lg text-center">
-                        <h3 className="text-green-800 dark:text-green-400 font-semibold text-lg">
+                    <div className="p-6 bg-stone-50 dark:bg-green-900/10 border border-stone-300 rounded-lg text-center">
+                        <h3 className="text-stone-900 dark:text-green-400 font-semibold text-lg">
                             ¡Gracias! El pago ha sido liberado.
                         </h3>
-                        <p className="text-sm text-green-700 dark:text-green-500 mt-2">
+                        <p className="text-sm text-stone-900 dark:text-green-500 mt-2">
                             Tu satisfacción ayuda a construir el Aura de la comunidad.
                         </p>
                     </div>

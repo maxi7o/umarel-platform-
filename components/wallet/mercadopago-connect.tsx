@@ -30,7 +30,7 @@ export function MercadoPagoConnect({ isConnected }: MercadoPagoConnectProps) {
             </CardHeader>
             <CardContent>
                 {isConnected ? (
-                    <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-2 rounded-md border border-green-100">
+                    <div className="flex items-center gap-2 text-stone-900 bg-stone-50 px-4 py-2 rounded-md border border-stone-200">
                         <CheckCircle2 className="h-5 w-5" />
                         <span className="font-medium">Cuenta Conectada</span>
                     </div>

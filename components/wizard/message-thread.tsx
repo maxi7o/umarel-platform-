@@ -94,7 +94,7 @@ export function MessageThread({ messages, currentUserId, sessionId }: MessageThr
                                         onClick={() => handleHeart(message.id)}
                                         className={cn(
                                             "gap-1.5",
-                                            heartedMessages.has(message.id) && "text-red-500"
+                                            heartedMessages.has(message.id) && "text-stone-900"
                                         )}
                                     >
                                         <Heart
@@ -107,7 +107,7 @@ export function MessageThread({ messages, currentUserId, sessionId }: MessageThr
                                     </Button>
 
                                     {message.isMarkedHelpful && (
-                                        <span className="text-xs text-green-600 font-semibold">
+                                        <span className="text-xs text-stone-900 font-semibold">
                                             ✓ Marked Helpful
                                         </span>
                                     )}

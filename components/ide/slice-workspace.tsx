@@ -153,9 +153,9 @@ function renderMockContent(mode: IdeMode) {
                         </div>
                         <div className="flex items-center gap-8 mt-2 pt-2 border-t border-dashed min-w-[200px] justify-between">
                             <span className="font-semibold">You Receive</span>
-                            <span className="text-2xl font-bold text-green-600">$85.500</span>
+                            <span className="text-2xl font-bold text-stone-900">$85.500</span>
                         </div>
-                        <Button className="mt-4 w-full sm:w-auto bg-green-600 hover:bg-green-700">
+                        <Button className="mt-4 w-full sm:w-auto bg-stone-900 hover:bg-stone-800">
                             Submit Proposal <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                     </div>
@@ -203,7 +203,7 @@ function SliceCard({ title, status, type, description }: { title: string, status
             <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
                     <Badge variant="secondary" className="text-[10px] font-normal">{type}</Badge>
-                    <Badge variant="outline" className={`text-[10px] capitalize ${status === 'active' ? 'text-green-600 border-green-200' : 'text-orange-500 border-stone-300'}`}>
+                    <Badge variant="outline" className={`text-[10px] capitalize ${status === 'active' ? 'text-stone-900 border-stone-300' : 'text-orange-500 border-stone-300'}`}>
                         {status}
                     </Badge>
                 </div>
@@ -267,7 +267,7 @@ function EvidenceCard({ title, imgUrl, status, confidence }: { title: string, im
                 <img src={imgUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                     <Button size="sm" variant="destructive" className="h-8"><X className="w-4 h-4 mr-1" /> Reject</Button>
-                    <Button size="sm" className="bg-green-600 hover:bg-green-700 h-8"><Check className="w-4 h-4 mr-1" /> Approve</Button>
+                    <Button size="sm" className="bg-stone-900 hover:bg-stone-800 h-8"><Check className="w-4 h-4 mr-1" /> Approve</Button>
                 </div>
                 <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded backdrop-blur-sm">
                     AI Confidence: {confidence}%

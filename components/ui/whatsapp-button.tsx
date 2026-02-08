@@ -14,7 +14,7 @@ export function WhatsAppButton() {
     return (
         <button
             onClick={handleClick}
-            className="fixed bottom-6 right-4 lg:right-dynamic z-50 flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl shadow-green-900/40 transition-all hover:scale-110 group animate-in fade-in zoom-in duration-500 delay-1000"
+            className="fixed bottom-6 right-4 lg:right-dynamic z-50 flex items-center justify-center w-14 h-14 bg-stone-900 hover:bg-stone-900 rounded-full shadow-2xl shadow-green-900/40 transition-all hover:scale-110 group animate-in fade-in zoom-in duration-500 delay-1000"
             aria-label="Compartir por WhatsApp"
             style={{
                 // Clever trick to keep it inside or near the 600px container on desktop

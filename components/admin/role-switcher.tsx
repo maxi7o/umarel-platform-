@@ -116,7 +116,7 @@ export function RoleSwitcher() {
             id: 'provider',
             name: 'Carlos Proveedor',
             icon: <Briefcase className="h-5 w-5" />,
-            color: 'bg-green-500',
+            color: 'bg-stone-900',
             description: 'Ofrece servicios de construcción',
             avatar: '👷',
         },
@@ -171,7 +171,7 @@ export function RoleSwitcher() {
                             <div className="text-4xl">{currentSwitch.persona.avatar}</div>
                             <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                                    <CheckCircle2 className="h-4 w-4 text-stone-900" />
                                     <span className="font-semibold">Viendo como: {currentSwitch.persona.name}</span>
                                 </div>
                                 <p className="text-sm text-stone-600">{currentSwitch.persona.scenario}</p>

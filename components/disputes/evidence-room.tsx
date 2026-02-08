@@ -36,8 +36,8 @@ export function EvidenceRoom({ disputeId, existingEvidence, userRole, status, ai
                     <Cpu size={12} /> {v.model}
                 </span>
                 <Badge className={
-                    v.decision === 'resolved_release' ? 'bg-emerald-500/20 text-emerald-300 border-none' :
-                        v.decision === 'resolved_refund' ? 'bg-red-500/20 text-red-300 border-none' :
+                    v.decision === 'resolved_release' ? 'bg-stone-900/20 text-stone-900 border-none' :
+                        v.decision === 'resolved_refund' ? 'bg-stone-900/20 text-red-300 border-none' :
                             'bg-stone-900/20 text-yellow-300 border-none'
                 }>
                     {v.decision === 'resolved_release' && 'RELEASE'}
@@ -94,7 +94,7 @@ export function EvidenceRoom({ disputeId, existingEvidence, userRole, status, ai
                         </CardTitle>
                         <div className="flex items-center gap-2 mt-1">
                             <Badge variant="outline" className={
-                                consensus === 'resolved_release' ? 'text-emerald-400 border-emerald-400' :
+                                consensus === 'resolved_release' ? 'text-stone-900 border-emerald-400' :
                                     consensus === 'resolved_refund' ? 'text-red-400 border-red-400' :
                                         'text-yellow-400 border-yellow-400'
                             }>
@@ -121,7 +121,7 @@ export function EvidenceRoom({ disputeId, existingEvidence, userRole, status, ai
 
                     {!isResolved && userRole === 'admin' && (
                         <CardFooter className="border-t border-white/10 pt-4 flex gap-2">
-                            <Button variant="outline" className="text-emerald-400 border-emerald-900 hover:bg-emerald-900/20 flex-1">
+                            <Button variant="outline" className="text-stone-900 border-emerald-900 hover:bg-stone-900/20 flex-1">
                                 Accept Release
                             </Button>
                             <Button variant="outline" className="text-red-400 border-red-900 hover:bg-red-900/20 flex-1">

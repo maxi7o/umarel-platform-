@@ -20,43 +20,43 @@ export default function PricingPage() {
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     We only charge <span className="font-bold text-primary">15%</span> when the job is done and you approve it.
                     <br />
-                    Everything else is <span className="font-bold text-green-600">100% free forever</span>.
+                    Everything else is <span className="font-bold text-stone-900">100% free forever</span>.
                 </p>
             </div>
 
             {/* Free Features */}
-            <Card className="mb-12 border-2 border-green-500/20 bg-green-50/50 dark:bg-green-950/20">
+            <Card className="mb-12 border-2 border-green-500/20 bg-stone-50/50 dark:bg-green-950/20">
                 <CardHeader>
                     <CardTitle className="text-2xl flex items-center gap-2">
-                        <CheckCircle2 className="h-6 w-6 text-green-600" />
+                        <CheckCircle2 className="h-6 w-6 text-stone-900" />
                         Always Free
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid md:grid-cols-2 gap-4">
                         <div className="flex items-start gap-3">
-                            <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
+                            <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5" />
                             <div>
                                 <p className="font-semibold">Post Requests</p>
                                 <p className="text-sm text-muted-foreground">Describe your project, no limits</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
-                            <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
+                            <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5" />
                             <div>
                                 <p className="font-semibold">Get Quotes</p>
                                 <p className="text-sm text-muted-foreground">Receive unlimited provider quotes</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
-                            <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
+                            <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5" />
                             <div>
                                 <p className="font-semibold">Chat & Contact</p>
                                 <p className="text-sm text-muted-foreground">Message providers directly</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
-                            <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
+                            <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5" />
                             <div>
                                 <p className="font-semibold">Community Help</p>
                                 <p className="text-sm text-muted-foreground">Get expert advice from Umarels</p>
@@ -114,8 +114,8 @@ export default function PricingPage() {
                     <Card className="border-2 border-green-500/20">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-2">
-                                <TrendingDown className="h-8 w-8 text-green-600" />
-                                <span className="text-3xl font-bold text-green-600">6-7%</span>
+                                <TrendingDown className="h-8 w-8 text-stone-900" />
+                                <span className="text-3xl font-bold text-stone-900">6-7%</span>
                             </div>
                             <CardTitle>Platform Revenue</CardTitle>
                         </CardHeader>
@@ -165,7 +165,7 @@ export default function PricingPage() {
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">→ Platform keeps</span>
-                            <span className="font-semibold text-green-600">~$450 ARS (6-7%)</span>
+                            <span className="font-semibold text-stone-900">~$450 ARS (6-7%)</span>
                         </div>
                     </div>
                 </CardContent>
@@ -181,7 +181,7 @@ export default function PricingPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5 shrink-0" />
                         <div>
                             <p className="font-semibold">Escrow Protection</p>
                             <p className="text-sm text-muted-foreground">
@@ -190,7 +190,7 @@ export default function PricingPage() {
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5 shrink-0" />
                         <div>
                             <p className="font-semibold">Multiple Payment Options</p>
                             <p className="text-sm text-muted-foreground">
@@ -199,7 +199,7 @@ export default function PricingPage() {
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-stone-900 mt-0.5 shrink-0" />
                         <div>
                             <p className="font-semibold">No Hidden Fees</p>
                             <p className="text-sm text-muted-foreground">

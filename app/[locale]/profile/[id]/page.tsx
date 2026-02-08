@@ -125,7 +125,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">On-Time Rate</span>
-                                    <span className="font-bold text-green-600">
+                                    <span className="font-bold text-stone-900">
                                         {metrics && metrics.totalSlicesCompleted && metrics.totalSlicesCompleted > 0
                                             ? Math.round(((metrics.totalSlicesOnTime || 0) / metrics.totalSlicesCompleted) * 100)
                                             : 100}%

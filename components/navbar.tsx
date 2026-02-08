@@ -107,7 +107,7 @@ export function Navbar({ user }: NavbarProps) {
                                         </DropdownMenuItem>
                                     </Link>
                                     <DropdownMenuSeparator className="bg-slate-100" />
-                                    <DropdownMenuItem onClick={handleSignOut} className="text-red-500 focus:text-red-600 focus:bg-red-50 cursor-pointer py-2">
+                                    <DropdownMenuItem onClick={handleSignOut} className="text-stone-900 focus:text-stone-900 focus:bg-stone-50 cursor-pointer py-2">
                                         <LogOut className="mr-2 h-4 w-4" />
                                         {t('logout')}
                                     </DropdownMenuItem>

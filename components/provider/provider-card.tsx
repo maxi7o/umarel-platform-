@@ -146,7 +146,7 @@ export function ProviderCard({ provider, metrics, compact = false }: ProviderCar
                                 <TrendingUp className="h-4 w-4" />
                                 <span>Trust Score</span>
                             </div>
-                            <p className="text-2xl font-bold text-green-600">
+                            <p className="text-2xl font-bold text-stone-900">
                                 {Math.round((metrics.completionRate + metrics.onTimeRate + metrics.rating) / 3)}
                             </p>
                         </div>

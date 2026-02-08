@@ -26,7 +26,7 @@ export default async function UmarelDashboardPage() {
     if (!user) {
         // Fallback or redirect if seeded user missing
         return (
-            <div className="p-8 text-red-600">
+            <div className="p-8 text-stone-900">
                 <h2 className="font-bold">User Not Found</h2>
                 <p>Could not find user with ID: {TARGET_ID} or Email: {DEMO_UMAREL_EMAIL}</p>
                 <p className="text-sm mt-2">Please run: <code>npx tsx scripts/seed_demo_dashboard.ts</code></p>

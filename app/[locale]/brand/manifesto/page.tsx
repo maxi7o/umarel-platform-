@@ -117,7 +117,7 @@ export default function ManifestoPage() {
                         <div className="relative bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100/50 backdrop-blur-sm">
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Pagos Semanales</h3>
-                                <div className="flex items-center gap-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-bold">
+                                <div className="flex items-center gap-2 text-stone-900 bg-stone-50 px-3 py-1 rounded-full text-xs font-bold">
                                     <TrendingUp className="w-3 h-3" />
                                     +12% vs sem. ant.
                                 </div>

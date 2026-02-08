@@ -75,7 +75,7 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-transparent"
                     onClick={toggleSave}
                 >
-                    <Heart className={cn("h-5 w-5", isSaved ? "fill-red-500 text-red-500" : "text-muted-foreground")} />
+                    <Heart className={cn("h-5 w-5", isSaved ? "fill-red-500 text-stone-900" : "text-muted-foreground")} />
                 </Button>
                 <CardHeader>
                     <div className="flex items-start justify-between gap-4">
@@ -103,7 +103,7 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
                                     </Badge>
                                 )}
                                 {isRequest && ambiguityScore <= 20 && ambiguityScore > 0 && (
-                                    <Badge variant="outline" className="gap-1 text-green-600 border-green-200 bg-green-50">
+                                    <Badge variant="outline" className="gap-1 text-stone-900 border-stone-300 bg-stone-50">
                                         <ShieldCheck className="h-3 w-3" />
                                         <span>Clear Specs</span>
                                     </Badge>

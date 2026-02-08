@@ -62,7 +62,7 @@ export function ContractCertificate({
                     </p>
                 </div>
                 <div className="flex justify-center items-center gap-2">
-                    <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 px-3 py-1">
+                    <Badge variant="outline" className="bg-stone-900 text-stone-900 border-emerald-200 px-3 py-1">
                         <CheckCircleIcon className="w-3 h-3 mr-1" />
                         Critically Verified
                     </Badge>

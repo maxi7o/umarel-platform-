@@ -57,7 +57,7 @@ function SimulationLogic() {
                 </>
             ) : (
                 <>
-                    <h1 className="text-2xl font-bold text-green-600">Payment Approved!</h1>
+                    <h1 className="text-2xl font-bold text-stone-900">Payment Approved!</h1>
                     <CheckCircle2 className="h-20 w-20 text-green-500" />
                     <p className="text-center text-muted-foreground">Redirecting you back to Umarel...</p>
                 </>

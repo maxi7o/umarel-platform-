@@ -107,7 +107,7 @@ export default async function AdminDisputeDetailPage({ params }: { params: { id:
                     </Card>
 
                     {/* Claims & Evidence */}
-                    <Card className="border-red-100 shadow-sm">
+                    <Card className="border-stone-200 shadow-sm">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-red-700">
                                 <FileText className="h-5 w-5" />
@@ -117,7 +117,7 @@ export default async function AdminDisputeDetailPage({ params }: { params: { id:
                         <CardContent className="space-y-6">
                             <div className="space-y-2">
                                 <h3 className="text-sm font-semibold text-slate-900">Primary Reason</h3>
-                                <div className="bg-red-50 p-3 rounded-md border border-red-100 text-red-900">
+                                <div className="bg-stone-50 p-3 rounded-md border border-stone-200 text-stone-900">
                                     "{disputeReason}"
                                 </div>
                             </div>

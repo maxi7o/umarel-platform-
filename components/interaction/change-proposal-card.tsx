@@ -54,7 +54,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
                         <div key={idx} className="p-3 bg-white dark:bg-black/20 rounded-md border text-sm">
                             {action.type === 'CREATE_CARD' && (
                                 <>
-                                    <div className="font-semibold text-green-600 mb-1">+ New Slice Proposed</div>
+                                    <div className="font-semibold text-stone-900 mb-1">+ New Slice Proposed</div>
                                     <div className="font-medium">{action.data.title}</div>
                                     <div className="text-muted-foreground mt-1">{action.data.description}</div>
                                 </>
@@ -77,7 +77,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
                 {aiImpact && (
                     <div className="flex gap-4 text-xs text-muted-foreground">
                         {aiImpact.estimatedSavings > 0 && (
-                            <div className="flex items-center gap-1 text-green-600 font-medium">
+                            <div className="flex items-center gap-1 text-stone-900 font-medium">
                                 <span>💰 Potential Savings: {formatCurrency(aiImpact.estimatedSavings)}</span>
                             </div>
                         )}
@@ -93,7 +93,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
                     size="sm"
                     onClick={() => handleAction('rejected')}
                     disabled={isProcessing}
-                    className="text-red-900 hover:text-red-700 hover:bg-red-100"
+                    className="text-stone-900 hover:text-red-700 hover:bg-stone-100"
                 >
                     {isProcessing ? <Loader2 className="w-4 h-4 animate-spin" /> : <X className="w-4 h-4 mr-2" />}
                     Reject

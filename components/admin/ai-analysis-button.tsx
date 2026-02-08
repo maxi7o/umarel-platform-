@@ -30,8 +30,8 @@ export function AIAnalysisButton({ escrowId, analysis }: { escrowId: string, ana
                     <Sparkles className="w-4 h-4 text-indigo-600" />
                     AI Recommendation:
                     <span className={
-                        result.recommendation === 'release_to_provider' ? 'text-green-600' :
-                            result.recommendation === 'refund_client' ? 'text-red-600' : 'text-stone-900'
+                        result.recommendation === 'release_to_provider' ? 'text-stone-900' :
+                            result.recommendation === 'refund_client' ? 'text-stone-900' : 'text-stone-900'
                     }>
                         {result.recommendation.replace(/_/g, ' ')}
                     </span>

@@ -99,7 +99,7 @@ export function ApproveAdvanceDialog({ sliceId, amount, evidence, onApproved }: 
                     <Button variant="outline" onClick={() => setIsOpen(false)} disabled={isLoading}>
                         Cancel
                     </Button>
-                    <Button onClick={handleApprove} disabled={isLoading} className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={handleApprove} disabled={isLoading} className="bg-stone-900 hover:bg-stone-800">
                         {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
                         Approve & Release Funds
                     </Button>

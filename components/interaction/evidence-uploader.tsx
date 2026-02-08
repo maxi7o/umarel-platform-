@@ -113,7 +113,7 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
         <Card className="max-w-md mx-auto shadow-lg border-stone-200 dark:border-stone-800">
             <CardHeader className="bg-stone-50 dark:bg-stone-900 border-b">
                 <CardTitle className="flex items-center gap-2">
-                    <CheckCircle className="text-green-600" />
+                    <CheckCircle className="text-stone-900" />
                     Completar: {sliceTitle}
                 </CardTitle>
             </CardHeader>
@@ -126,7 +126,7 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
                             <div className="relative z-10">
                                 <img src={preview} alt="Evidence" className="max-h-64 object-contain" />
                                 {locationData && (
-                                    <div className="absolute bottom-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                    <div className="absolute bottom-2 right-2 bg-stone-900 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
                                         <CheckCircle className="h-3 w-3" />
                                         <span>Ubicación Verificada</span>
                                     </div>
@@ -176,7 +176,7 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
 
                     <Button
                         type="submit"
-                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                        className="w-full bg-stone-900 hover:bg-stone-800 text-white"
                         disabled={!file || isUploading}
                     >
                         {isUploading ? <Loader2 className="mr-2 animate-spin" /> : "Enviar para Revisión"}

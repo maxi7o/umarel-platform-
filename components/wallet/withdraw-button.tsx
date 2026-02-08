@@ -138,9 +138,9 @@ export function WithdrawButton({ balance, canWithdraw, onSuccess }: WithdrawButt
                         </div>
 
                         {error && (
-                            <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                            <div className="bg-stone-50 dark:bg-red-950/20 border border-stone-300 dark:border-red-800 rounded-lg p-3">
                                 <div className="flex items-start gap-2">
-                                    <AlertCircle className="h-4 w-4 text-red-600 mt-0.5 shrink-0" />
+                                    <AlertCircle className="h-4 w-4 text-stone-900 mt-0.5 shrink-0" />
                                     <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
                                 </div>
                             </div>

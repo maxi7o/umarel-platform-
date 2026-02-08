@@ -25,7 +25,7 @@ export function ImpactFeed({ contributions }: ImpactFeedProps) {
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'risk_mitigation': return <ShieldAlert className="h-5 w-5 text-red-500" />;
+            case 'risk_mitigation': return <ShieldAlert className="h-5 w-5 text-stone-900" />;
             case 'savings': return <PiggyBank className="h-5 w-5 text-green-500" />;
             case 'quality': return <BadgeCheck className="h-5 w-5 text-blue-500" />;
             default: return <Flame className="h-5 w-5 text-orange-500" />;

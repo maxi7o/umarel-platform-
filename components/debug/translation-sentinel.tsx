@@ -65,7 +65,7 @@ export function TranslationSentinel() {
     if (issues === 0) return null;
 
     return (
-        <div className="fixed bottom-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full shadow-lg z-[9999] text-xs font-bold animate-pulse flex items-center gap-2 pointer-events-none">
+        <div className="fixed bottom-4 right-4 bg-stone-900 text-white px-4 py-2 rounded-full shadow-lg z-[9999] text-xs font-bold animate-pulse flex items-center gap-2 pointer-events-none">
             <span>🛡️ Translation Sentinel:</span>
             <span>{issues} potential issues detected</span>
         </div>

@@ -46,14 +46,14 @@ export default function AuditHubPage() {
                 <Link href="/browse?type=requests" className="group">
                     <Card className="h-full hover:shadow-lg hover:border-amber-400 transition-all cursor-pointer border-2 border-stone-200 bg-white">
                         <CardContent className="p-6 flex flex-col items-center text-center h-full">
-                            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <FileSearch className="w-8 h-8 text-emerald-600" />
+                            <div className="w-16 h-16 bg-stone-900 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <FileSearch className="w-8 h-8 text-stone-900" />
                             </div>
                             <h3 className="text-xl font-bold text-stone-900 mb-2">{t('quotes')}</h3>
                             <p className="text-stone-500 text-sm mb-6 flex-grow">
                                 Entrá a los pedidos y opiná sobre los presupuestos recibidos.
                             </p>
-                            <Button variant="ghost" className="text-emerald-600 hover:bg-emerald-50 w-full group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                            <Button variant="ghost" className="text-stone-900 hover:bg-stone-900 w-full group-hover:bg-stone-900 group-hover:text-white transition-all">
                                 Auditar <ArrowRight className="ml-2 w-4 h-4" />
                             </Button>
                         </CardContent>

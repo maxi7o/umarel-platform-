@@ -383,7 +383,7 @@ export function VerificationWizard() {
                                 <Button
                                     disabled={!images.selfie || isSubmitting}
                                     onClick={handleSubmit}
-                                    className="flex-1 bg-green-600 hover:bg-green-700"
+                                    className="flex-1 bg-stone-900 hover:bg-stone-800"
                                 >
                                     {isSubmitting ? t('submitting') : t('submit')}
                                 </Button>
@@ -399,8 +399,8 @@ export function VerificationWizard() {
                             animate={{ opacity: 1, scale: 1 }}
                             className="text-center py-12"
                         >
-                            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
-                                <CheckCircle2 className="w-12 h-12 text-green-600" />
+                            <div className="w-24 h-24 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
+                                <CheckCircle2 className="w-12 h-12 text-stone-900" />
                             </div>
                             <h2 className="text-2xl font-bold text-slate-900 mb-4">{t('successTitle')}</h2>
                             <p className="text-slate-500 mb-8 max-w-xs mx-auto">

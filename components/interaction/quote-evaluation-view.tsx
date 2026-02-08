@@ -174,7 +174,7 @@ export function QuoteEvaluationView({ quote, feedbacks, requestTitle = "Proyecto
                                 Exportar PDF
                             </Button>
 
-                            <Button variant="outline" className="text-red-600 hover:bg-red-50 border-red-100" onClick={onReject}>
+                            <Button variant="outline" className="text-stone-900 hover:bg-stone-50 border-stone-200" onClick={onReject}>
                                 <X className="w-4 h-4 mr-2" /> Reject
                             </Button>
                             <Button className="bg-stone-900 hover:bg-stone-800 text-white shadow-md shadow-stone-300" onClick={onAccept}>
@@ -216,7 +216,7 @@ export function QuoteEvaluationView({ quote, feedbacks, requestTitle = "Proyecto
                                                 <p className="text-[10px] text-slate-400">{format(new Date(fb.createdAt), 'MMM d, HH:mm')}</p>
                                             </div>
                                             {fb.isVerified && (
-                                                <div title="AI Verified Safe" className="bg-green-100 text-green-700 p-0.5 rounded-full">
+                                                <div title="AI Verified Safe" className="bg-stone-100 text-stone-900 p-0.5 rounded-full">
                                                     <CheckCircle2 className="w-3 h-3" />
                                                 </div>
                                             )}

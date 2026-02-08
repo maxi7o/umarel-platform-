@@ -52,7 +52,7 @@ export default async function DisputePage({ params }: { params: { id: string } }
                     <div className="lg:col-span-2 space-y-6">
                         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                             <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                <span className="w-2 h-2 rounded-full bg-stone-900 animate-pulse"></span>
                                 Live Evidence Room
                             </h2>
                             <EvidenceRoom

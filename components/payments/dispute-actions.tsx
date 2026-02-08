@@ -69,7 +69,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
             return (
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
-                        <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                        <Button variant="ghost" size="sm" className="text-stone-900 hover:text-red-700 hover:bg-stone-50">
                             <AlertCircle className="w-4 h-4 mr-1" />
                             Stop Release (Dispute)
                         </Button>
@@ -112,7 +112,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
                                 />
                             </div>
 
-                            <Button onClick={handleSubmitDispute} className="w-full bg-red-600 hover:bg-red-700">
+                            <Button onClick={handleSubmitDispute} className="w-full bg-stone-900 hover:bg-stone-800">
                                 <ShieldAlert className="w-4 h-4 mr-2" />
                                 Submit Claim
                             </Button>
@@ -149,7 +149,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
                         <p className="text-sm text-stone-600">The client is requesting a refund.</p>
 
                         <div className="grid grid-cols-2 gap-4 mt-4">
-                            <Button onClick={() => handleRespond('accept')} variant="outline" className="border-green-500 text-green-700 hover:bg-green-50">
+                            <Button onClick={() => handleRespond('accept')} variant="outline" className="border-green-500 text-stone-900 hover:bg-stone-50">
                                 Accept (Refund)
                             </Button>
                             <div className="space-y-2">
@@ -167,10 +167,10 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
 
     // Common Status Badges
     if (refundStatus === 'approved') {
-        return <span className="text-green-600 text-xs font-bold flex items-center gap-1"><ShieldCheck size={12} /> Refunded</span>;
+        return <span className="text-stone-900 text-xs font-bold flex items-center gap-1"><ShieldCheck size={12} /> Refunded</span>;
     }
     if (refundStatus === 'disputed' || refundStatus === 'open' || sliceStatus === 'disputed') {
-        return <span className="text-red-600 text-xs font-bold flex items-center gap-1"><ShieldAlert size={12} /> Disputed</span>;
+        return <span className="text-stone-900 text-xs font-bold flex items-center gap-1"><ShieldAlert size={12} /> Disputed</span>;
     }
 
     return null;

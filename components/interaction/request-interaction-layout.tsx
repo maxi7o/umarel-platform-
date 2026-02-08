@@ -289,7 +289,7 @@ export function RequestInteractionLayout({
                                                 </div>
                                                 <div className="text-xs text-stone-500 flex items-center gap-1">
                                                     {quote.provider?.fullName || 'Provider'}
-                                                    {quote.isGuest && <Badge variant="secondary" className="text-[10px] h-4 px-1 bg-green-100 text-green-700">Guest</Badge>}
+                                                    {quote.isGuest && <Badge variant="secondary" className="text-[10px] h-4 px-1 bg-stone-100 text-stone-900">Guest</Badge>}
                                                 </div>
                                             </div>
                                             <Badge variant={quote.status === 'accepted' ? 'default' : 'outline'} className="capitalize">

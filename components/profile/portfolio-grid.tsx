@@ -45,7 +45,7 @@ export function PortfolioGrid({ items }: PortfolioGridProps) {
                         </AspectRatio>
 
                         {item.isVerified && (
-                            <Badge className="absolute top-2 right-2 bg-green-500/90 hover:bg-green-500 backdrop-blur-sm gap-1">
+                            <Badge className="absolute top-2 right-2 bg-stone-900/90 hover:bg-stone-900 backdrop-blur-sm gap-1">
                                 <ShieldCheck className="h-3 w-3" />
                                 Verified
                             </Badge>

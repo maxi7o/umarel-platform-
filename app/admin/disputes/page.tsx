@@ -37,8 +37,8 @@ export default async function AdminDisputesPage() {
                                 </td>
                                 <td className="px-6 py-4 text-sm font-medium space-y-2">
                                     <div className="flex space-x-2">
-                                        <button className="text-green-600 hover:text-green-900">Resolve (Pay)</button>
-                                        <button className="text-red-600 hover:text-red-900">Refund Client</button>
+                                        <button className="text-stone-900 hover:text-green-900">Resolve (Pay)</button>
+                                        <button className="text-stone-900 hover:text-stone-900">Refund Client</button>
                                     </div>
                                     <AIAnalysisButton escrowId={dispute.id} analysis={dispute.aiAnalysis} />
                                 </td>

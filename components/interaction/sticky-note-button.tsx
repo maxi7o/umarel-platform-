@@ -85,7 +85,7 @@ export function StickyNoteButton({ targetId, targetType, initialCount = 0, onFee
                     <StickyNote className="w-4 h-4" />
                     <span className="text-xs font-medium">Opinar</span>
                     {initialCount > 0 && (
-                        <Badge variant="secondary" className="ml-1 h-5 min-w-[1.25rem] px-1 text-[10px] bg-stone-100 text-stone-900 group-hover:bg-yellow-200">
+                        <Badge variant="secondary" className="ml-1 h-5 min-w-[1.25rem] px-1 text-[10px] bg-stone-100 text-stone-900 group-hover:bg-stone-200">
                             {initialCount}
                         </Badge>
                     )}
@@ -120,7 +120,7 @@ export function StickyNoteButton({ targetId, targetType, initialCount = 0, onFee
                                 type="button"
                                 variant="outline"
                                 size="sm"
-                                className={`h-8 gap-2 ${isRecording ? 'items-center border-red-500 text-red-500 bg-red-50' : ''}`}
+                                className={`h-8 gap-2 ${isRecording ? 'items-center border-red-500 text-stone-900 bg-stone-50' : ''}`}
                                 onClick={() => setIsRecording(!isRecording)}
                             >
                                 <Mic className={`w-3 h-3 ${isRecording ? 'animate-pulse' : ''}`} />

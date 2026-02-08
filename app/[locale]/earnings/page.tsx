@@ -69,12 +69,12 @@ export default async function ProviderEarningsPage() {
                 <Card className="border-2 border-green-500/20">
                     <CardHeader>
                         <CardTitle className="text-base flex items-center gap-2">
-                            <DollarSign className="h-5 w-5 text-green-600" />
+                            <DollarSign className="h-5 w-5 text-stone-900" />
                             Released This Month
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-green-600">
+                        <p className="text-3xl font-bold text-stone-900">
                             {formatARS(releasedThisMonth)}
                         </p>
                         <p className="text-sm text-muted-foreground mt-1">Payments received</p>
@@ -119,7 +119,7 @@ export default async function ProviderEarningsPage() {
                                             <p className="text-lg font-bold">{formatARS(payment.sliceAmount)}</p>
                                             <span
                                                 className={`text-xs px-2.5 py-1 rounded-full font-semibold ${payment.status === 'released'
-                                                    ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+                                                    ? 'bg-stone-100 text-stone-900 dark:bg-green-900 dark:text-green-300'
                                                     : payment.status === 'in_escrow'
                                                         ? 'bg-stone-100 text-stone-900 dark:bg-orange-900 dark:text-orange-300'
                                                         : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
@@ -138,7 +138,7 @@ export default async function ProviderEarningsPage() {
                                     </div>
                                     {payment.releasedAt && (
                                         <div className="text-right">
-                                            <p className="text-sm font-semibold text-green-600">✓ Released</p>
+                                            <p className="text-sm font-semibold text-stone-900">✓ Released</p>
                                             <p className="text-xs text-muted-foreground">
                                                 {new Date(payment.releasedAt).toLocaleDateString('es-AR')}
                                             </p>

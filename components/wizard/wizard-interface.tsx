@@ -380,8 +380,8 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
 
             {/* Guest Bid Call-to-Action (Visible in Consultant Mode / Share Page) */}
             {isConsultant && sliceCards.length > 0 && (
-                <div className="bg-green-50 dark:bg-green-900/20 px-6 py-3 border-b border-green-200 dark:border-green-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="text-sm text-green-800 dark:text-green-200">
+                <div className="bg-stone-50 dark:bg-green-900/20 px-6 py-3 border-b border-stone-300 dark:border-green-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="text-sm text-stone-900 dark:text-green-200">
                         <span className="font-bold block md:inline">👋 {locale === 'es' ? '¿Sos profesional?' : 'Are you a pro?'}</span>
                         <span className="opacity-90"> {locale === 'es' ? 'Pasá un presupuesto rápido sin registrarte.' : 'Submit a quick bid without signing up.'}</span>
                     </div>

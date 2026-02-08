@@ -110,7 +110,7 @@ export function AiAssistantPanel({
                         <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
                             <span className="text-2xl">👴</span>
                         </div>
-                        <div className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <div className="absolute -bottom-1 -right-1 bg-stone-900 w-3 h-3 rounded-full border-2 border-white"></div>
                     </div>
                     <div>
                         <h3 className="font-bold text-sm">El Entendido</h3>

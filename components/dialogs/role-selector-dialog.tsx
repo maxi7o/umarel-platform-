@@ -78,7 +78,7 @@ export function RoleSelectorDialog() {
                             onClick={() => handleSelect('provider')}
                             className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-stone-300 hover:shadow-lg transition-all group text-left"
                         >
-                            <div className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 group-hover:bg-stone-100 group-hover:text-stone-900">
+                            <div className="h-12 w-12 rounded-full bg-stone-100 text-stone-900 flex items-center justify-center mr-4 group-hover:bg-stone-100 group-hover:text-stone-900">
                                 <Shovel className="w-6 h-6" />
                             </div>
                             <div>

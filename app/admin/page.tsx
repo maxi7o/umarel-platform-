@@ -55,7 +55,7 @@ export default async function AdminDashboardPage() {
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="shadow-sm border-slate-200">
-                        <Activity className="mr-2 h-4 w-4 text-emerald-500" /> System Online
+                        <Activity className="mr-2 h-4 w-4 text-stone-900" /> System Online
                     </Button>
                 </div>
             </div>
@@ -87,22 +87,22 @@ export default async function AdminDashboardPage() {
                 <Card className="border-none shadow-md bg-gradient-to-br from-red-500/10 to-transparent">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-bold text-red-800">Conflict Tribunal</CardTitle>
-                        <Scale className="h-5 w-5 text-red-500" />
+                        <Scale className="h-5 w-5 text-stone-900" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-black text-red-600">{disputeCount.value}</div>
-                        <p className="text-xs text-red-600/60 font-medium">Disputas abiertas</p>
+                        <div className="text-3xl font-black text-stone-900">{disputeCount.value}</div>
+                        <p className="text-xs text-stone-900/60 font-medium">Disputas abiertas</p>
                     </CardContent>
                 </Card>
 
                 <Card className="border-none shadow-md bg-gradient-to-br from-emerald-500/10 to-transparent">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-bold text-emerald-800">Escrow Total</CardTitle>
-                        <Building2 className="h-5 w-5 text-emerald-500" />
+                        <CardTitle className="text-sm font-bold text-stone-900">Escrow Total</CardTitle>
+                        <Building2 className="h-5 w-5 text-stone-900" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-black text-emerald-600">$12,450</div>
-                        <p className="text-xs text-emerald-600/60 font-medium">ARS en custodia</p>
+                        <div className="text-3xl font-black text-stone-900">$12,450</div>
+                        <p className="text-xs text-stone-900/60 font-medium">ARS en custodia</p>
                     </CardContent>
                 </Card>
             </div>
@@ -150,7 +150,7 @@ export default async function AdminDashboardPage() {
                     <div className="p-6 bg-slate-900 rounded-3xl text-white shadow-xl relative overflow-hidden">
                         <div className="relative z-10">
                             <h4 className="text-xl font-bold mb-2 flex items-center gap-2">
-                                <Activity className="h-5 w-5 text-emerald-400" />
+                                <Activity className="h-5 w-5 text-stone-900" />
                                 Growth & A/B Tests
                             </h4>
                             <p className="text-slate-400 text-sm mb-6 max-w-md">
@@ -162,7 +162,7 @@ export default async function AdminDashboardPage() {
                                     <div className="text-xs text-slate-500 uppercase font-bold mb-1">Referral Boost</div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-xl font-bold">2.5x Aura</span>
-                                        <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-none">Active</Badge>
+                                        <Badge variant="secondary" className="bg-stone-900/20 text-stone-900 border-none">Active</Badge>
                                     </div>
                                 </div>
                                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
@@ -174,7 +174,7 @@ export default async function AdminDashboardPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl opacity-50"></div>
+                        <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-stone-900/10 rounded-full blur-3xl opacity-50"></div>
                         <div className="absolute bottom-[-20%] left-[-10%] w-64 h-64 bg-blue-500/10 rounded-full blur-3xl opacity-50"></div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export default async function AdminDashboardPage() {
                                 </div>
                             </div>
                             <div className="p-3 bg-slate-50 rounded-xl flex items-center gap-3">
-                                <div className="p-2 bg-emerald-100 rounded-lg"><Users className="h-4 w-4 text-emerald-600" /></div>
+                                <div className="p-2 bg-stone-900 rounded-lg"><Users className="h-4 w-4 text-stone-900" /></div>
                                 <div className="text-sm">
                                     <p className="font-bold text-slate-800">Last Citizen Joined</p>
                                     <p className="text-xs text-slate-500">2 minutes ago</p>

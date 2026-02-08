@@ -73,7 +73,7 @@ export function FeedCard({ item }: { item: FeedItem }) {
 
             <CardFooter className="p-3 border-t flex justify-between items-center bg-neutral-50/50 dark:bg-neutral-900/50">
                 <div className="flex gap-4">
-                    <Button variant="ghost" size="sm" className="gap-1.5 text-red-500 hover:text-red-600 hover:bg-red-50">
+                    <Button variant="ghost" size="sm" className="gap-1.5 text-stone-900 hover:text-stone-900 hover:bg-stone-50">
                         <Heart className="h-4 w-4" />
                         <span className="text-xs font-medium">{item.stats.likes}</span>
                     </Button>

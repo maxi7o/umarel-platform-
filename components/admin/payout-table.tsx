@@ -95,7 +95,7 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
             </div>
 
             {result && (
-                <div className={`p-4 rounded-md flex items-center gap-2 ${result.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                <div className={`p-4 rounded-md flex items-center gap-2 ${result.success ? 'bg-stone-50 text-stone-900' : 'bg-stone-50 text-red-700'}`}>
                     {result.success ? <CheckCircle className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
                     <p>{result.message}</p>
                 </div>
@@ -111,7 +111,7 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
                         <Button
                             onClick={handleExecute}
                             disabled={isExecuting || initialData.payouts.length === 0}
-                            className="bg-green-600 hover:bg-green-700 text-white"
+                            className="bg-stone-900 hover:bg-stone-800 text-white"
                         >
                             {isExecuting ? (
                                 <>
@@ -149,7 +149,7 @@ export function PayoutTable({ initialData }: { initialData: PayoutPreview }) {
                                         <TableCell>
                                             <Badge variant="outline">{payout.percentage}</Badge>
                                         </TableCell>
-                                        <TableCell className="text-right font-bold text-green-600">
+                                        <TableCell className="text-right font-bold text-stone-900">
                                             {formatCurrency(payout.amount)}
                                         </TableCell>
                                     </TableRow>

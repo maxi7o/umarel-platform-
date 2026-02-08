@@ -113,7 +113,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                     const isClear = ambiguity < 30 && ambiguity > 0;
 
                                     const cardBorderColor = isVague ? "border-stone-300 hover:border-stone-300" :
-                                        isClear ? "border-green-200 hover:border-green-300" :
+                                        isClear ? "border-stone-300 hover:border-green-300" :
                                             "border-stone-200 hover:border-stone-300";
 
                                     return (
@@ -247,7 +247,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                                 </div>
                                                             )}
                                                             {(slice.materialAdvanceStatus === 'released' || slice.materialAdvanceStatus === 'approved') && (
-                                                                <div className="text-xs text-green-600 bg-green-50 p-2 rounded border border-green-100 text-center">
+                                                                <div className="text-xs text-stone-900 bg-stone-50 p-2 rounded border border-stone-200 text-center">
                                                                     ✓ Material Advance Released
                                                                 </div>
                                                             )}
@@ -264,7 +264,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                                 >
                                                                     <Button
                                                                         size="sm"
-                                                                        className="h-8 text-xs w-full bg-green-600 hover:bg-green-700 text-white shadow-sm transition-all"
+                                                                        className="h-8 text-xs w-full bg-stone-900 hover:bg-stone-800 text-white shadow-sm transition-all"
                                                                     >
                                                                         <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
                                                                         Verify & Completed
@@ -277,7 +277,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                     {col.id === 'completed' && isOwner && (slice.escrow?.status !== 'released') && (
                                                         <Button
                                                             size="sm"
-                                                            className="h-8 text-xs w-full bg-green-600 hover:bg-green-700 text-white shadow-sm"
+                                                            className="h-8 text-xs w-full bg-stone-900 hover:bg-stone-800 text-white shadow-sm"
                                                             onClick={async () => {
                                                                 if (!confirm('Release funds to provider? This is final.')) return;
                                                                 try {

@@ -55,7 +55,7 @@ export function ReferralDialog({ trigger }: { trigger?: React.ReactNode }) {
                             <div className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 font-mono truncate">
                                 {shareLink}
                             </div>
-                            <Button size="icon" variant="outline" onClick={handleCopy} className={copied ? "text-green-600 border-green-200 bg-green-50" : ""}>
+                            <Button size="icon" variant="outline" onClick={handleCopy} className={copied ? "text-stone-900 border-stone-300 bg-stone-50" : ""}>
                                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                             </Button>
                         </div>

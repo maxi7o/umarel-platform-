@@ -105,7 +105,7 @@ export default async function AdminLaunchPage() {
                     <CardContent>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className={`text-2xl font-bold ${payoutRecord?.distributed ? 'text-green-600' : 'text-stone-900'}`}>
+                                <p className={`text-2xl font-bold ${payoutRecord?.distributed ? 'text-stone-900' : 'text-stone-900'}`}>
                                     {payoutRecord?.distributed ? 'Distributed' : 'Pending'}
                                 </p>
                                 {payoutRecord && (

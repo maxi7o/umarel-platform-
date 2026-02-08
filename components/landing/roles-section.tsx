@@ -36,7 +36,7 @@ export function RolesSection() {
                     </div>
 
                     {/* Entendido (ex-Umarel) */}
-                    <div className="group relative bg-green-600 p-8 rounded-[2rem] border border-green-500 shadow-2xl shadow-green-900/20 hover:shadow-green-900/30 transition-all duration-300 hover:-translate-y-2 -mt-4 lg:-mt-8">
+                    <div className="group relative bg-stone-900 p-8 rounded-[2rem] border border-green-500 shadow-2xl shadow-green-900/20 hover:shadow-green-900/30 transition-all duration-300 hover:-translate-y-2 -mt-4 lg:-mt-8">
                         <div className="h-16 w-16 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/20">
                             <Eye className="w-8 h-8" />
                         </div>

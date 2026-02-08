@@ -68,7 +68,7 @@ export function GuestBidDialog({ sliceId, sliceTitle, onBidSubmitted }: GuestBid
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-green-600 hover:bg-green-700 text-white shadow-md font-bold text-lg px-8 py-6 h-auto w-full md:w-auto mt-4 md:mt-0 animate-pulse">
+                <Button className="bg-stone-900 hover:bg-stone-800 text-white shadow-md font-bold text-lg px-8 py-6 h-auto w-full md:w-auto mt-4 md:mt-0 animate-pulse">
                     <DollarSign className="w-5 h-5 mr-2" />
                     Pasar Presupuesto Ahora
                 </Button>
@@ -122,7 +122,7 @@ export function GuestBidDialog({ sliceId, sliceTitle, onBidSubmitted }: GuestBid
                 </div>
 
                 <DialogFooter>
-                    <Button onClick={handleSubmit} disabled={isLoading} className="w-full bg-green-600 hover:bg-green-700 text-lg">
+                    <Button onClick={handleSubmit} disabled={isLoading} className="w-full bg-stone-900 hover:bg-stone-800 text-lg">
                         {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Send className="w-4 h-4 mr-2" />}
                         Enviar Propuesta
                     </Button>

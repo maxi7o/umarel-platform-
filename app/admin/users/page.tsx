@@ -81,7 +81,7 @@ export default async function AdminUsersPage() {
                                 <TableCell className="text-right">
                                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                         <span className="sr-only">Open menu</span>
-                                        <ShieldAlert className="h-4 w-4 text-slate-400 hover:text-red-500" />
+                                        <ShieldAlert className="h-4 w-4 text-slate-400 hover:text-stone-900" />
                                     </Button>
                                 </TableCell>
                             </TableRow>

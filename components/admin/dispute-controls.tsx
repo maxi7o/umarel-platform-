@@ -36,11 +36,11 @@ export function AdminDisputeControls({ disputeId, status }: { disputeId: string,
 
     if (isResolved) {
         return (
-            <Card className="border-green-200 bg-green-50">
+            <Card className="border-stone-300 bg-stone-50">
                 <CardHeader className="flex flex-row items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    <CheckCircle2 className="h-5 w-5 text-stone-900" />
                     <div>
-                        <CardTitle className="text-green-800">Case Closed</CardTitle>
+                        <CardTitle className="text-stone-900">Case Closed</CardTitle>
                         <CardDescription>This dispute has been resolved.</CardDescription>
                     </div>
                 </CardHeader>
@@ -49,13 +49,13 @@ export function AdminDisputeControls({ disputeId, status }: { disputeId: string,
     }
 
     return (
-        <Card className="border-red-200 bg-red-50 dark:bg-red-950/10">
+        <Card className="border-stone-300 bg-stone-50 dark:bg-red-950/10">
             <CardHeader>
                 <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
                     <Gavel className="h-5 w-5" />
                     <CardTitle>Supreme Court Override</CardTitle>
                 </div>
-                <CardDescription className="text-red-600/80">
+                <CardDescription className="text-stone-900/80">
                     Emergency Power: Force a binding logic bypass. This action overrides AI and Jury.
                 </CardDescription>
             </CardHeader>
@@ -72,7 +72,7 @@ export function AdminDisputeControls({ disputeId, status }: { disputeId: string,
                         variant="destructive"
                         onClick={() => handleOverride('refund')}
                         disabled={isProcessing}
-                        className="bg-red-600 hover:bg-red-700"
+                        className="bg-stone-900 hover:bg-stone-800"
                     >
                         Force REFUND (Client Wins)
                     </Button>
@@ -86,7 +86,7 @@ export function AdminDisputeControls({ disputeId, status }: { disputeId: string,
                     </Button>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-red-600 mt-2">
+                <div className="flex items-center gap-2 text-xs text-stone-900 mt-2">
                     <AlertTriangle className="h-3 w-3" />
                     <span>Warning: Executes immediate ledger entry and Reputation penalty.</span>
                 </div>

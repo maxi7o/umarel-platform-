@@ -45,7 +45,7 @@ export function PriceBreakdown({ totalAmount, role, currency = 'ARS' }: PriceBre
                 <span className="font-mono">{formatMoney(totalAmount)}</span>
             </div>
 
-            <div className="flex justify-between items-center font-bold text-green-600 text-base pt-2 border-t border-stone-200">
+            <div className="flex justify-between items-center font-bold text-stone-900 text-base pt-2 border-t border-stone-200">
                 <span>Usted Recibe (Aprox)</span>
                 <span className="font-mono">{formatMoney(approximateNet)}</span>
             </div>

@@ -142,7 +142,7 @@ export default function AdminDashboard() {
                             <Button
                                 onClick={handleExecute}
                                 disabled={executing}
-                                className="bg-green-600 hover:bg-green-700 text-white font-bold"
+                                className="bg-stone-900 hover:bg-stone-800 text-white font-bold"
                             >
                                 {executing ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : '💸'}
                                 Run Daily Payout
@@ -181,7 +181,7 @@ export default function AdminDashboard() {
                                             </Badge>
                                         </TableCell>
                                         <TableCell className="text-right text-muted-foreground">{payout.percentage}</TableCell>
-                                        <TableCell className="text-right font-bold text-green-600">
+                                        <TableCell className="text-right font-bold text-stone-900">
                                             {format.number(payout.amount / 100, { style: 'currency', currency: 'ARS' })}
                                         </TableCell>
                                     </TableRow>

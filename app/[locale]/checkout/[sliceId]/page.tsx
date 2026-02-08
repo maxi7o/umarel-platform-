@@ -95,10 +95,10 @@ export default async function CheckoutPage({ params }: { params: { sliceId: stri
                     </Card>
 
                     {/* Protection Info */}
-                    <Card className="mt-4 bg-green-50/50 dark:bg-green-950/20 border-green-500/20">
+                    <Card className="mt-4 bg-stone-50/50 dark:bg-green-950/20 border-green-500/20">
                         <CardContent className="pt-6">
                             <div className="flex items-start gap-3">
-                                <Shield className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
+                                <Shield className="h-5 w-5 text-stone-900 mt-0.5 shrink-0" />
                                 <div>
                                     <p className="font-semibold text-sm mb-1">Escrow Protection</p>
                                     <p className="text-xs text-muted-foreground">

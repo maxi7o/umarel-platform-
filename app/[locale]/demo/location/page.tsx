@@ -46,19 +46,19 @@ export default function LocationDemoPage() {
                         </CardHeader>
                         <CardContent className="space-y-2 text-sm">
                             <div className="flex items-start gap-2">
-                                <span className="text-green-600 font-bold">✓</span>
+                                <span className="text-stone-900 font-bold">✓</span>
                                 <span>Búsqueda con caché (las búsquedas populares se guardan)</span>
                             </div>
                             <div className="flex items-start gap-2">
-                                <span className="text-green-600 font-bold">✓</span>
+                                <span className="text-stone-900 font-bold">✓</span>
                                 <span>Fallback automático: Photon → Nominatim</span>
                             </div>
                             <div className="flex items-start gap-2">
-                                <span className="text-green-600 font-bold">✓</span>
+                                <span className="text-stone-900 font-bold">✓</span>
                                 <span>Mapa interactivo con marcador arrastrable</span>
                             </div>
                             <div className="flex items-start gap-2">
-                                <span className="text-green-600 font-bold">✓</span>
+                                <span className="text-stone-900 font-bold">✓</span>
                                 <span>100% gratuito, sin límites de uso</span>
                             </div>
                         </CardContent>

@@ -207,8 +207,8 @@ export function AIInterviewer({ experienceId, experienceTitle, initialQuestions,
                             className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t p-6 shadow-2xl z-10"
                         >
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="bg-green-100 p-2 rounded-full">
-                                    <CheckCircle2 className="w-6 h-6 text-green-600" />
+                                <div className="bg-stone-100 p-2 rounded-full">
+                                    <CheckCircle2 className="w-6 h-6 text-stone-900" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-stone-900">You're all set!</h4>

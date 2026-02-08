@@ -70,7 +70,7 @@ export function ProfileHeader({
                                 </Badge>
 
                                 {biometricStatus === 'verified' ? (
-                                    <Badge variant="outline" className="px-3 py-1 font-bold border-2 border-green-200 text-green-700 bg-green-50 gap-1.5 shadow-sm">
+                                    <Badge variant="outline" className="px-3 py-1 font-bold border-2 border-stone-300 text-stone-900 bg-stone-50 gap-1.5 shadow-sm">
                                         <ShieldAlert className="h-3.5 w-3.5 fill-green-700/10" />
                                         Identidad Validada
                                     </Badge>

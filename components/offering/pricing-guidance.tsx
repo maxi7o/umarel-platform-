@@ -46,7 +46,7 @@ export function PricingGuidance({ category, currentPrice, currency = '$' }: Pric
     if (!category) return null;
 
     const stats = [
-        { label: 'Entry Level', value: data.min, color: 'bg-green-500' },
+        { label: 'Entry Level', value: data.min, color: 'bg-stone-900' },
         { label: 'Market Avg', value: data.avg, color: 'bg-blue-500' },
         { label: 'Premium', value: data.max, color: 'bg-purple-500' },
     ];

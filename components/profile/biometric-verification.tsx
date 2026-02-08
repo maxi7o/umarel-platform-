@@ -46,14 +46,14 @@ export function BiometricVerification({
 
     if (isVerified) {
         return (
-            <Card className="border-green-200 bg-green-50/50">
+            <Card className="border-stone-300 bg-stone-50/50">
                 <CardContent className="pt-6 flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                        <CheckCircle className="h-6 w-6 text-green-600" />
+                    <div className="h-12 w-12 rounded-full bg-stone-100 flex items-center justify-center">
+                        <CheckCircle className="h-6 w-6 text-stone-900" />
                     </div>
                     <div>
                         <h4 className="font-bold text-green-900">Identity Verified</h4>
-                        <p className="text-sm text-green-700">Biometric check completed.</p>
+                        <p className="text-sm text-stone-900">Biometric check completed.</p>
                     </div>
                 </CardContent>
             </Card>
@@ -106,10 +106,10 @@ export function BiometricVerification({
 
                 {status === 'success' && (
                     <div className="text-center py-6 space-y-4">
-                        <div className="mx-auto h-24 w-24 rounded-full bg-green-100 flex items-center justify-center">
-                            <CheckCircle className="h-10 w-10 text-green-600" />
+                        <div className="mx-auto h-24 w-24 rounded-full bg-stone-100 flex items-center justify-center">
+                            <CheckCircle className="h-10 w-10 text-stone-900" />
                         </div>
-                        <h3 className="font-bold text-lg text-green-700">Verification Successful!</h3>
+                        <h3 className="font-bold text-lg text-stone-900">Verification Successful!</h3>
                         <p className="text-sm text-slate-500">Your profile is now verified.</p>
                     </div>
                 )}

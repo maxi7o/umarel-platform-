@@ -60,20 +60,20 @@ export default function BachesCampaignPage() {
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <div className="mt-1 bg-green-100 p-1 rounded-full">
-                                        <ArrowRight className="h-4 w-4 text-green-600" />
+                                    <div className="mt-1 bg-stone-100 p-1 rounded-full">
+                                        <ArrowRight className="h-4 w-4 text-stone-900" />
                                     </div>
                                     <p className="text-slate-700"><strong>Presupuestos rápidos:</strong> Subí la foto, recibí ofertas.</p>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <div className="mt-1 bg-green-100 p-1 rounded-full">
-                                        <ArrowRight className="h-4 w-4 text-green-600" />
+                                    <div className="mt-1 bg-stone-100 p-1 rounded-full">
+                                        <ArrowRight className="h-4 w-4 text-stone-900" />
                                     </div>
                                     <p className="text-slate-700"><strong>Gente confiable:</strong> Identidad verificada y reputación real.</p>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <div className="mt-1 bg-green-100 p-1 rounded-full">
-                                        <ArrowRight className="h-4 w-4 text-green-600" />
+                                    <div className="mt-1 bg-stone-100 p-1 rounded-full">
+                                        <ArrowRight className="h-4 w-4 text-stone-900" />
                                     </div>
                                     <p className="text-slate-700"><strong>Pago seguro:</strong> Tu plata se libera cuando el bache desaparece.</p>
                                 </li>

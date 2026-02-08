@@ -67,7 +67,7 @@ export default function ScoutQueueClient() {
     };
 
     const getScoreBadge = (score: number) => {
-        if (score >= 9) return 'bg-green-100 text-green-800 border-green-300';
+        if (score >= 9) return 'bg-stone-100 text-stone-900 border-green-300';
         if (score >= 7) return 'bg-stone-100 text-yellow-800 border-yellow-300';
         return 'bg-slate-100 text-slate-800 border-slate-300';
     };
@@ -165,14 +165,14 @@ export default function ScoutQueueClient() {
                                                 <Button
                                                     variant="outline"
                                                     onClick={() => updateLeadStatus(lead.id, 'rejected')}
-                                                    className="text-red-600 border-red-200 hover:bg-red-50"
+                                                    className="text-stone-900 border-stone-300 hover:bg-stone-50"
                                                 >
                                                     <X className="h-4 w-4 mr-2" />
                                                     Reject
                                                 </Button>
                                                 <Button
                                                     onClick={() => updateLeadStatus(lead.id, 'approved')}
-                                                    className="bg-green-600 hover:bg-green-700"
+                                                    className="bg-stone-900 hover:bg-stone-800"
                                                 >
                                                     <Check className="h-4 w-4 mr-2" />
                                                     Approve

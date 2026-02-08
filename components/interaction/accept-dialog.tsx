@@ -78,7 +78,7 @@ export function AcceptDialog({ slice, children }: AcceptDialogProps) {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <ShieldCheck className="h-5 w-5 text-green-600" />
+                        <ShieldCheck className="h-5 w-5 text-stone-900" />
                         Secure Agreement
                     </DialogTitle>
                     <DialogDescription>
@@ -124,7 +124,7 @@ export function AcceptDialog({ slice, children }: AcceptDialogProps) {
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>Cancel</Button>
-                    <Button onClick={handleAccept} disabled={!accepted || loading} className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={handleAccept} disabled={!accepted || loading} className="bg-stone-900 hover:bg-stone-800">
                         {loading ? <Loader2 className="animate-spin h-4 w-4 mr-2" /> : <Scale className="h-4 w-4 mr-2" />}
                         Confirm & Fund
                     </Button>

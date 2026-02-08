@@ -21,7 +21,7 @@ export function RoleJourneys() {
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
                         <div className="absolute top-10 left-10 bg-white p-4 rounded-2xl shadow-sm max-w-xs animate-pulse">
                             <div className="flex gap-3">
-                                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500"><Search size={20} /></div>
+                                <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-900"><Search size={20} /></div>
                                 <div>
                                     <p className="text-xs text-slate-500">Problema</p>
                                     <p className="font-bold text-slate-800">"Tengo humedad y no sé de dónde viene"</p>
@@ -31,7 +31,7 @@ export function RoleJourneys() {
 
                         <div className="absolute bottom-10 right-10 bg-white p-4 rounded-2xl shadow-lg border-l-4 border-green-500 max-w-xs">
                             <div className="flex gap-3">
-                                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600"><CheckCircle2 size={20} /></div>
+                                <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-900"><CheckCircle2 size={20} /></div>
                                 <div>
                                     <p className="text-xs text-slate-500">Claridad</p>
                                     <p className="font-bold text-slate-800">Diagnóstico claro + 3 presupuestos verificados.</p>
@@ -120,13 +120,13 @@ export function RoleJourneys() {
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent"></div>
 
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-3xl shadow-2xl border border-stone-100 w-64 text-center">
-                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-16 h-16 bg-stone-100 text-stone-900 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <DollarSign size={32} />
                             </div>
                             <p className="text-sm text-stone-500 uppercase tracking-widest font-bold mb-1">Asegurado</p>
                             <p className="text-4xl font-bold text-slate-900 font-mono">$150.000</p>
                             <div className="mt-4 flex gap-2 justify-center">
-                                <div className="w-full h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <div className="w-full h-2 bg-stone-900 rounded-full animate-pulse"></div>
                             </div>
                             <p className="text-xs text-stone-400 mt-2">Esperando tu trabajo</p>
                         </div>
