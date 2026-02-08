@@ -97,121 +97,150 @@ export default function BrowsePage() {
     });
 
     return (
-        <div className="container mx-auto max-w-7xl w-full px-6 md:px-8 lg:px-12 py-10">
-            {/* Header */}
-            <div className="mb-8">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                    <div>
-                        <h1 className="text-3xl font-bold font-outfit mb-2">
-                            {t('title')}
+
+        <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
+            {/* 🌌 Futuristic Command Center Header */}
+            <div className="relative bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 pb-12 pt-16 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/grid-noise.png')] opacity-[0.03]" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="container mx-auto max-w-7xl px-6 relative z-10">
+                    <div className="max-w-3xl mx-auto text-center mb-10">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-50 mb-4 font-outfit">
+                            {t('title') || "Explore the Ecosystem"}
                         </h1>
-                        <p className="text-muted-foreground">
-                            {t('subtitle')}
+                        <p className="text-lg text-stone-500 dark:text-stone-400 font-light">
+                            {t('subtitle') || "Connect with talent, requests, and opportunities in real-time."}
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3">
-                        <div className="relative w-full md:w-64">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                placeholder={t('searchPlaceholder')}
+                    {/* Universal Search Bar */}
+                    <div className="max-w-4xl mx-auto bg-white dark:bg-stone-950 rounded-2xl shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-stone-100 dark:border-stone-800 p-2 flex flex-col md:flex-row gap-2 items-center">
+                        <div className="flex-1 relative w-full">
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-stone-400" />
+                            <input
+                                placeholder={t('searchPlaceholder') || "What are you looking for?"}
                                 value={searchQuery}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-                                className="pl-9"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full h-14 pl-12 pr-4 bg-transparent outline-none text-lg text-stone-900 dark:text-stone-50 placeholder:text-stone-400"
                             />
                         </div>
-                        <LocationSelector
-                            currentLocation={location}
-                            onLocationChange={setLocation}
-                        />
-                        <Link href="/requests/create">
-                            <Button variant="outline">{t('postRequest')}</Button>
-                        </Link>
-                        <Link href="/create-offering">
-                            <Button>{t('offerServices')}</Button>
-                        </Link>
+                        <div className="h-8 w-[1px] bg-stone-200 dark:bg-stone-800 hidden md:block" />
+                        <div className="w-full md:w-auto">
+                            <LocationSelector
+                                currentLocation={location}
+                                onLocationChange={setLocation}
+                            />
+                        </div>
+                        <div className="hidden md:block">
+                            <Button className="h-14 px-8 rounded-xl bg-stone-900 hover:bg-stone-800 text-white shadow-lg font-medium transition-all hover:scale-105">
+                                {t('search') || "Search"}
+                            </Button>
+                        </div>
                     </div>
-                </div>
 
-                {/* Results Summary */}
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>
-                        {t('showing')} {allItems.length} {t('results')}
-                    </span>
-                    {location && location !== 'Virtual' && (
-                        <>
-                            <span>•</span>
-                            <span>{t('in')} {location}</span>
-                        </>
-                    )}
-                    {selectedCategory && (
-                        <>
-                            <span>•</span>
-                            <span className="capitalize">{selectedCategory}</span>
-                        </>
-                    )}
+                    {/* Quick Filters / Pills */}
+                    <div className="flex flex-wrap justify-center gap-2 mt-8">
+                        {['all', 'requests', 'offerings'].map((type) => (
+                            <button
+                                key={type}
+                                onClick={() => setSelectedType(type as any)}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedType === type
+                                    ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-md'
+                                    : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700'
+                                    }`}
+                            >
+                                {t(type === 'all' ? 'allListings' : type === 'requests' ? 'requestsOnly' : 'offeringsOnly') || type.charAt(0).toUpperCase() + type.slice(1)}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                {/* Filters Sidebar */}
-                <aside className="lg:col-span-1">
-                    <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
-                        <BrowseFilters
-                            selectedType={selectedType}
-                            selectedCategory={selectedCategory}
-                            includeVirtual={includeVirtual}
-                            locationData={locationData}
-                            radius={radius}
-                            onTypeChange={setSelectedType}
-                            onCategoryChange={setSelectedCategory}
-                            onVirtualToggle={setIncludeVirtual}
-                            onLocationChange={(data) => {
-                                setLocationData(data);
-                                if (data) setLocation(data.address);
-                                else setLocation('');
-                            }}
-                            onRadiusChange={setRadius}
-                        />
-                    </div>
-                </aside>
-
-                {/* Results Grid */}
-                <main className="lg:col-span-3">
-                    {isLoading ? (
-                        <div className="flex items-center justify-center py-20">
-                            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                        </div>
-                    ) : allItems.length > 0 ? (
-                        <div className="space-y-4">
-                            {allItems.map((item: any) => (
-                                <UnifiedCard
-                                    key={`${item.type}-${item.id}`}
-                                    item={item}
-                                    type={item.type}
+            <div className="container mx-auto max-w-7xl px-6 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    {/* Filters Sidebar - Clean & Sticky */}
+                    <aside className="lg:col-span-3">
+                        <div className="sticky top-24">
+                            <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-100 dark:border-stone-800 p-6 shadow-sm">
+                                <BrowseFilters
+                                    selectedType={selectedType}
+                                    selectedCategory={selectedCategory}
+                                    includeVirtual={includeVirtual}
+                                    locationData={locationData}
+                                    radius={radius}
+                                    onTypeChange={setSelectedType}
+                                    onCategoryChange={setSelectedCategory}
+                                    onVirtualToggle={setIncludeVirtual}
+                                    onLocationChange={(data) => {
+                                        setLocationData(data);
+                                        if (data) setLocation(data.address);
+                                        else setLocation('');
+                                    }}
+                                    onRadiusChange={setRadius}
                                 />
-                            ))}
+                            </div>
                         </div>
-                    ) : (
-                        <div className="text-center py-20 bg-stone-50 rounded-3xl border border-dashed border-stone-200">
-                            <h3 className="text-xl font-bold font-heading text-stone-900 mb-2">
-                                {t('noResultsTitle') || "No hay resultados todavía"}
-                            </h3>
-                            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                                {t('noResultsDesc') || "Sé el primero en esta zona. Publicá lo que necesitás o lo que ofrecés."}
-                            </p>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Button variant="outline" onClick={() => setSelectedCategory(undefined)}>
-                                    {t('clearFilters')}
-                                </Button>
+                    </aside>
+
+                    {/* Results Grid */}
+                    <main className="lg:col-span-9">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
+                                {isLoading ? t('loading') : `${allItems.length} ${t('results')}`}
+                            </h2>
+                            <div className="flex gap-2">
                                 <Link href="/requests/create">
-                                    <Button className="bg-orange-600 hover:bg-orange-700">{t('beFirstToOffer') || "Publicar Pedido"}</Button>
+                                    <Button variant="outline" className="rounded-full border-stone-200 dark:border-stone-700">
+                                        + {t('postRequest')}
+                                    </Button>
+                                </Link>
+                                <Link href="/create-offering">
+                                    <Button className="rounded-full bg-stone-900 text-white hover:bg-stone-800 dark:bg-white dark:text-stone-900">
+                                        + {t('offerServices')}
+                                    </Button>
                                 </Link>
                             </div>
                         </div>
-                    )}
-                </main>
+
+                        {isLoading ? (
+                            <div className="flex flex-col items-center justify-center py-32">
+                                <Loader2 className="h-10 w-10 animate-spin text-stone-300" />
+                                <p className="text-stone-400 mt-4 animate-pulse">Scanning ecosystem...</p>
+                            </div>
+                        ) : allItems.length > 0 ? (
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                                {allItems.map((item: any) => (
+                                    <UnifiedCard
+                                        key={`${item.type}-${item.id}`}
+                                        item={item}
+                                        type={item.type}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-32 bg-white dark:bg-stone-900 rounded-3xl border border-dashed border-stone-200 dark:border-stone-800">
+                                <div className="w-16 h-16 bg-stone-50 dark:bg-stone-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Search className="w-6 h-6 text-stone-400" />
+                                </div>
+                                <h3 className="text-xl font-bold font-heading text-stone-900 dark:text-stone-100 mb-2">
+                                    {t('noResultsTitle') || "No signals found"}
+                                </h3>
+                                <p className="text-stone-500 dark:text-stone-400 mb-8 max-w-md mx-auto">
+                                    {t('noResultsDesc') || "Be the signal in the noise. Start the first project in this frequency."}
+                                </p>
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                    <Button variant="ghost" onClick={() => setSelectedCategory(undefined)}>
+                                        {t('clearFilters')}
+                                    </Button>
+                                    <Link href="/requests/create">
+                                        <Button className="bg-stone-900 text-white hover:bg-stone-800 px-8 rounded-full">{t('beFirstToOffer') || "Create Signal"}</Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+                    </main>
+                </div>
             </div>
         </div>
     );

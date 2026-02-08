@@ -40,22 +40,22 @@ export function BrowseFilters({
     const t = useTranslations('filters');
 
     const CATEGORIES = [
-        { id: 'plumbing', label: t('categories.plumbing'), icon: '🔧' },
-        { id: 'electrical', label: t('categories.electrical'), icon: '⚡' },
-        { id: 'carpentry', label: t('categories.carpentry'), icon: '🪚' },
-        { id: 'painting', label: t('categories.painting'), icon: '🎨' },
-        { id: 'cleaning', label: t('categories.cleaning'), icon: '🧹' },
-        { id: 'gardening', label: t('categories.gardening'), icon: '🌱' },
-        { id: 'moving', label: t('categories.moving'), icon: '📦' },
-        { id: 'other', label: t('categories.other'), icon: '🔨' },
+        { id: 'tech', label: t('categories.tech') || "Tech & Digital", icon: '💻' },
+        { id: 'creative', label: t('categories.creative') || "Creative & Design", icon: '🎨' },
+        { id: 'events', label: t('categories.events') || "Events & Staff", icon: '🎉' },
+        { id: 'consulting', label: t('categories.consulting') || "Consulting", icon: '📊' },
+        { id: 'repairs', label: t('categories.repairs') || "Repairs & Maint.", icon: '🔧' },
+        { id: 'logistics', label: t('categories.logistics') || "Logistics", icon: '📦' },
+        { id: 'wellness', label: t('categories.wellness') || "Wellness", icon: '🌿' },
+        { id: 'other', label: t('categories.other') || "Other", icon: '✨' },
     ];
 
     return (
         <div className="space-y-6">
             {/* Location Filter */}
-            <Card>
+            <Card className="border-stone-100 dark:border-stone-800 shadow-sm">
                 <CardHeader>
-                    <CardTitle className="text-base">{t('location')}</CardTitle>
+                    <CardTitle className="text-sm font-medium uppercase tracking-wider text-stone-500">{t('location')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <LocationInput
@@ -66,7 +66,7 @@ export function BrowseFilters({
 
                     {locationData && (
                         <div className="space-y-2">
-                            <div className="flex justify-between text-sm">
+                            <div className="flex justify-between text-sm text-stone-500">
                                 <Label>Radius: {radius}km</Label>
                             </div>
                             <Slider
@@ -74,6 +74,7 @@ export function BrowseFilters({
                                 max={100}
                                 step={5}
                                 onValueChange={(vals) => onRadiusChange(vals[0])}
+                                className="[&>.relative>.absolute]:bg-stone-900"
                             />
                         </div>
                     )}
@@ -83,9 +84,10 @@ export function BrowseFilters({
                             id="virtual"
                             checked={includeVirtual}
                             onCheckedChange={(checked) => onVirtualToggle(checked as boolean)}
+                            className="data-[state=checked]:bg-stone-900 border-stone-300"
                         />
-                        <Label htmlFor="virtual" className="cursor-pointer flex items-center gap-2 text-sm">
-                            <Globe className="h-4 w-4 text-blue-500" />
+                        <Label htmlFor="virtual" className="cursor-pointer flex items-center gap-2 text-sm text-stone-600">
+                            <Globe className="h-4 w-4 text-stone-400" />
                             {t('includeVirtual')}
                         </Label>
                     </div>
@@ -93,44 +95,36 @@ export function BrowseFilters({
             </Card>
 
             {/* Type Filter */}
-            <Card>
+            <Card className="border-stone-100 dark:border-stone-800 shadow-sm">
                 <CardHeader>
-                    <CardTitle className="text-base">{t('show')}</CardTitle>
+                    <CardTitle className="text-sm font-medium uppercase tracking-wider text-stone-500">{t('show')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <RadioGroup value={selectedType} onValueChange={onTypeChange}>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="all" id="all" />
-                            <Label htmlFor="all" className="cursor-pointer">
-                                {t('allListings')}
-                            </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="requests" id="requests" />
-                            <Label htmlFor="requests" className="cursor-pointer">
-                                {t('requestsOnly')}
-                            </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="offerings" id="offerings" />
-                            <Label htmlFor="offerings" className="cursor-pointer">
-                                {t('offeringsOnly')}
-                            </Label>
-                        </div>
+                        {['all', 'requests', 'offerings'].map((type) => (
+                            <div key={type} className="flex items-center space-x-2">
+                                <RadioGroupItem value={type} id={type} className="text-stone-900 border-stone-300" />
+                                <Label htmlFor={type} className="cursor-pointer text-stone-600 font-normal">
+                                    {t(type === 'all' ? 'allListings' : type === 'requests' ? 'requestsOnly' : 'offeringsOnly')}
+                                </Label>
+                            </div>
+                        ))}
                     </RadioGroup>
                 </CardContent>
             </Card>
 
             {/* Category Filter */}
-            <Card>
+            <Card className="border-stone-100 dark:border-stone-800 shadow-sm">
                 <CardHeader>
-                    <CardTitle className="text-base">{t('category')}</CardTitle>
+                    <CardTitle className="text-sm font-medium uppercase tracking-wider text-stone-500">{t('category')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                         <button
                             onClick={() => onCategoryChange(undefined)}
-                            className={`w-full text-left px-3 py-2 rounded-md transition-colors ${!selectedCategory ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'
+                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${!selectedCategory
+                                    ? 'bg-stone-900 text-white font-medium shadow-md'
+                                    : 'text-stone-600 hover:bg-stone-100'
                                 }`}
                         >
                             {t('allCategories')}
@@ -139,12 +133,12 @@ export function BrowseFilters({
                             <button
                                 key={category.id}
                                 onClick={() => onCategoryChange(category.id)}
-                                className={`w-full text-left px-3 py-2 rounded-md transition-colors flex items-center gap-2 ${selectedCategory === category.id
-                                    ? 'bg-primary text-primary-foreground'
-                                    : 'hover:bg-accent'
+                                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-3 ${selectedCategory === category.id
+                                        ? 'bg-stone-900 text-white font-medium shadow-md'
+                                        : 'text-stone-600 hover:bg-stone-100'
                                     }`}
                             >
-                                <span>{category.icon}</span>
+                                <span className="text-base">{category.icon}</span>
                                 <span>{category.label}</span>
                             </button>
                         ))}
