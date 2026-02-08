@@ -6,6 +6,8 @@ import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { PayoutService } from '@/lib/services/payout-service';
 
+const ADMIN_EMAILS = ['admin@elentendido.ar', 'mhamu@umarel.org'];
+
 export async function triggerDailyPayout() {
     try {
         const supabase = await createClient();
@@ -17,7 +19,10 @@ export async function triggerDailyPayout() {
 
         // Check Admin Role
         const [dbUser] = await db.select().from(users).where(eq(users.id, user.id));
-        if (!dbUser || dbUser.role !== 'admin') {
+
+        const isSuperAdmin = user.email && ADMIN_EMAILS.includes(user.email);
+
+        if (!dbUser || (dbUser.role !== 'admin' && !isSuperAdmin)) {
             return { success: false, error: 'Forbidden' };
         }
 
@@ -43,7 +48,10 @@ export async function getDailyPayoutPreview() {
 
         // Check Admin Role
         const [dbUser] = await db.select().from(users).where(eq(users.id, user.id));
-        if (!dbUser || dbUser.role !== 'admin') {
+
+        const isSuperAdmin = user.email && ADMIN_EMAILS.includes(user.email);
+
+        if (!dbUser || (dbUser.role !== 'admin' && !isSuperAdmin)) {
             return { success: false, error: 'Forbidden' };
         }
 
