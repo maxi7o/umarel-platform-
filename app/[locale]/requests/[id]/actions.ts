@@ -8,6 +8,7 @@ import { db } from '@/lib/db';
 import { slices, sliceCards } from '@/lib/db/schema';
 import { openai } from '@/lib/ai/openai';
 import { inArray } from 'drizzle-orm';
+import { ensureUserVerified } from '@/lib/kyc-utils';
 
 export async function submitQuoteAction(formData: FormData) {
     const supabase = await createClient();
@@ -16,6 +17,9 @@ export async function submitQuoteAction(formData: FormData) {
     if (!user) {
         throw new Error('Unauthorized');
     }
+
+    // Mandatory KYC Check
+    await ensureUserVerified(user.id);
 
     const requestId = formData.get('requestId') as string;
     const amount = parseFloat(formData.get('amount') as string);

@@ -62,12 +62,6 @@ export function Navbar({ user }: NavbarProps) {
                             </span>
                         </Link>
 
-                        {/* Desktop Explore Link */}
-                        <div className="hidden lg:block">
-                            <Link href="/browse" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
-                                {t('browse')}
-                            </Link>
-                        </div>
                     </div>
 
                     {/* 2. ACTIONS & PROFILE */}

@@ -24,6 +24,15 @@ export async function POST(
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
+        const { ensureUserVerified } = await import('@/lib/kyc-utils');
+
+        // Mandatory KYC Check for Client
+        try {
+            await ensureUserVerified(user.id);
+        } catch (kycError: any) {
+            return NextResponse.json({ error: kycError.message, code: 'KYC_REQUIRED' }, { status: 403 });
+        }
+
         // 1. Fetch Experience and Current Participant Count
         const [experience] = await db
             .select()
@@ -33,6 +42,16 @@ export async function POST(
 
         if (!experience) {
             return new NextResponse('Experience not found', { status: 404 });
+        }
+
+        // Mandatory KYC Check for Provider
+        try {
+            await ensureUserVerified(experience.providerId);
+        } catch (kycError: any) {
+            return NextResponse.json({
+                error: 'El prestador todavía no ha verificado su identidad. No puedes contratarlo hasta que complete su KYC.',
+                code: 'PROVIDER_KYC_REQUIRED'
+            }, { status: 403 });
         }
 
         // Logic Check: Is it full?

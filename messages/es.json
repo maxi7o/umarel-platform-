@@ -394,7 +394,7 @@
         }
     },
     "login": {
-        "title": "Bienvenido",
+        "title": "Bienvenido/a",
         "subtitle": "Ingresá a tu cuenta",
         "googleButton": "Entrar con Google",
         "or": "O",

@@ -93,14 +93,17 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
                 })
             });
 
-            if (!res.ok) throw new Error("Submission failed");
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || "Submission failed");
+            }
 
             toast.success("Evidencia verificada y subida correctamente.");
             router.refresh();
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            toast.error("Error al subir evidencia.");
+            toast.error(error.message || "Error al subir evidencia.");
         } finally {
             setIsUploading(false);
         }
