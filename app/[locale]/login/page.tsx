@@ -50,7 +50,7 @@ function LoginForm() {
     const SSOButtons = () => (
         <div className="grid gap-3">
             <form action={signInWithGoogle} className="w-full">
-                <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold relative group shadow-sm transition-all hover:border-slate-300 rounded-xl" type="submit">
+                <Button variant="outline" className="w-full h-12 bg-white hover:bg-stone-50 border-stone-200 text-stone-700 font-bold relative group shadow-sm transition-all hover:border-stone-300 rounded-md" type="submit">
                     <div className="absolute left-4 flex items-center justify-center">
                         <GoogleLogo />
                     </div>
@@ -59,13 +59,13 @@ function LoginForm() {
             </form>
             <div className="grid grid-cols-2 gap-3">
                 <form action={signInWithFacebook} className="w-full">
-                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
+                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-stone-50 border-stone-200 text-stone-700 font-bold rounded-md" type="submit">
                         <FacebookLogo />
                         Facebook
                     </Button>
                 </form>
                 <form action={signInWithMercadoPago} className="w-full">
-                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-slate-50 border-slate-200 text-slate-700 font-bold rounded-xl" type="submit">
+                    <Button variant="outline" className="w-full h-12 bg-white hover:bg-stone-50 border-stone-200 text-stone-700 font-bold rounded-md" type="submit">
                         <MercadoPagoLogo />
                         Mercado Pago
                     </Button>
@@ -75,27 +75,27 @@ function LoginForm() {
     )
 
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-slate-50 py-12 px-4 font-archivo">
-            <Card className="w-full max-w-[440px] shadow-2xl border-white/40 bg-white/80 backdrop-blur-xl overflow-hidden ring-1 ring-slate-100 rounded-3xl">
+        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-stone-50 py-12 px-4 font-archivo">
+            <Card className="w-full max-w-[440px] shadow-sm border border-stone-200 bg-white rounded-lg">
                 <div className="p-8 text-center pb-4">
-                    <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-serif">
+                    <h2 className="text-3xl font-extrabold text-stone-900 tracking-tight font-serif">
                         {t("login.title")}
                     </h2>
-                    <p className="text-slate-500 font-medium mt-1.5">{t("login.subtitle")}</p>
+                    <p className="text-stone-500 font-medium mt-1.5">{t("login.subtitle")}</p>
                 </div>
 
                 <Tabs defaultValue="login" className="w-full">
                     <div className="px-8 mb-2">
-                        <TabsList className="grid w-full grid-cols-2 h-12 bg-slate-100/50 p-1 rounded-xl border border-slate-100">
+                        <TabsList className="grid w-full grid-cols-2 h-12 bg-stone-100 p-1 rounded-md border border-stone-200">
                             <TabsTrigger
                                 value="login"
-                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
+                                className="rounded-sm data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-stone-500"
                             >
                                 {t("login.signIn")}
                             </TabsTrigger>
                             <TabsTrigger
                                 value="register"
-                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
+                                className="rounded-sm data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-stone-500"
                             >
                                 {t("login.signUp")}
                             </TabsTrigger>
@@ -104,13 +104,13 @@ function LoginForm() {
 
                     <CardContent className="px-8 pb-8 pt-4 space-y-6">
                         {error && (
-                            <div className="bg-stone-50 text-stone-900 text-sm p-4 rounded-xl flex items-start gap-3 border border-stone-200 animate-in fade-in slide-in-from-top-2">
+                            <div className="bg-stone-50 text-stone-900 text-sm p-4 rounded-md flex items-start gap-3 border border-stone-200 animate-in fade-in slide-in-from-top-2">
                                 <AlertCircle className="h-5 w-5 mt-0.5 shrink-0" />
                                 <p className="leading-snug font-medium">{error}</p>
                             </div>
                         )}
                         {message && (
-                            <div className="bg-stone-900 text-stone-900 text-sm p-4 rounded-xl flex items-start gap-3 border border-emerald-100 animate-in fade-in slide-in-from-top-2">
+                            <div className="bg-stone-900 text-white text-sm p-4 rounded-md flex items-start gap-3 border border-stone-900 animate-in fade-in slide-in-from-top-2">
                                 <CheckCircle2 className="h-5 w-5 mt-0.5 shrink-0" />
                                 <p className="leading-snug font-medium">{message}</p>
                             </div>
@@ -121,29 +121,29 @@ function LoginForm() {
 
                             <div className="relative">
                                 <div className="absolute inset-0 flex items-center">
-                                    <span className="w-full border-t border-slate-100" />
+                                    <span className="w-full border-t border-stone-200" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-white px-3 text-slate-400 font-bold tracking-widest">{t("login.or")}</span>
+                                    <span className="bg-white px-3 text-stone-400 font-bold tracking-widest">{t("login.or")}</span>
                                 </div>
                             </div>
 
                             <form action={login} className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="email" className="text-slate-700 font-bold ml-1">{t("login.email")}</Label>
+                                    <Label htmlFor="email" className="text-stone-900 font-bold ml-1">{t("login.email")}</Label>
                                     <Input
                                         id="email"
                                         name="email"
                                         type="email"
                                         placeholder="ej. mhamu@umarel.org"
-                                        className="h-12 bg-slate-50/50 border-slate-200 focus:bg-white rounded-xl transition-all"
+                                        className="h-12 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         required
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center ml-1">
-                                        <Label htmlFor="password" className="text-slate-700 font-bold">{t("login.password")}</Label>
-                                        <a href="/forgot-password" className="text-xs font-bold text-stone-900 hover:text-stone-900 transition-colors">Olvidé mi clave</a>
+                                        <Label htmlFor="password" className="text-stone-900 font-bold">{t("login.password")}</Label>
+                                        <a href="/forgot-password" className="text-xs font-bold text-stone-900 hover:text-stone-700 transition-colors">Olvidé mi clave</a>
                                     </div>
                                     <div className="relative">
                                         <Input
@@ -151,13 +151,13 @@ function LoginForm() {
                                             name="password"
                                             type={showPassword ? "text" : "password"}
                                             required
-                                            className="h-12 pr-11 bg-slate-50/50 border-slate-200 focus:bg-white rounded-xl transition-all"
+                                            className="h-12 pr-11 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         />
                                         <Button
                                             type="button"
                                             variant="ghost"
                                             size="sm"
-                                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-slate-400 hover:text-slate-600"
+                                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-stone-400 hover:text-stone-600"
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -170,12 +170,12 @@ function LoginForm() {
                                         id="remember"
                                         checked={rememberMe}
                                         onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                                        className="rounded border-slate-300 data-[state=checked]:bg-stone-900"
+                                        className="rounded border-stone-300 data-[state=checked]:bg-stone-900 data-[state=checked]:border-stone-900"
                                     />
-                                    <label htmlFor="remember" className="text-sm font-medium text-slate-500 cursor-pointer select-none">Recordar mi cuenta</label>
+                                    <label htmlFor="remember" className="text-sm font-medium text-stone-500 cursor-pointer select-none">Recordar mi cuenta</label>
                                 </div>
 
-                                <Button className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-xl shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                                <Button className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-md shadow-sm transition-all hover:-translate-y-0.5">
                                     {t("login.signIn")}
                                 </Button>
                             </form>
@@ -186,51 +186,51 @@ function LoginForm() {
 
                             <div className="relative">
                                 <div className="absolute inset-0 flex items-center">
-                                    <span className="w-full border-t border-slate-100" />
+                                    <span className="w-full border-t border-stone-200" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-white px-3 text-slate-400 font-bold tracking-widest">{t("login.or")}</span>
+                                    <span className="bg-white px-3 text-stone-400 font-bold tracking-widest">{t("login.or")}</span>
                                 </div>
                             </div>
 
                             <form action={signup} className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-email" className="text-slate-700 font-bold ml-1">{t("login.email")}</Label>
+                                    <Label htmlFor="reg-email" className="text-stone-900 font-bold ml-1">{t("login.email")}</Label>
                                     <Input
                                         id="reg-email"
                                         name="email"
                                         type="email"
                                         placeholder="tu@email.com"
-                                        className="h-12 bg-slate-50/50 border-slate-200 focus:bg-white rounded-xl transition-all"
+                                        className="h-12 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         required
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-password" className="text-slate-700 font-bold ml-1">{t("login.password")}</Label>
+                                    <Label htmlFor="reg-password" className="text-stone-900 font-bold ml-1">{t("login.password")}</Label>
                                     <div className="relative">
                                         <Input
                                             id="reg-password"
                                             name="password"
                                             type={showPassword ? "text" : "password"}
                                             required
-                                            className="h-12 pr-11 bg-slate-50/50 border-slate-200 focus:bg-white rounded-xl transition-all"
+                                            className="h-12 pr-11 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         />
                                         <Button
                                             type="button"
                                             variant="ghost"
                                             size="sm"
-                                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-slate-400 hover:text-slate-600"
+                                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-stone-400 hover:text-stone-600"
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="flex items-start space-x-3 p-4 bg-slate-50/50 rounded-xl border border-slate-100 focus-within:border-stone-200 transition-colors">
-                                    <Checkbox id="terms" name="terms" required className="mt-1 border-slate-300 data-[state=checked]:bg-stone-900" />
+                                <div className="flex items-start space-x-3 p-4 bg-stone-50 rounded-md border border-stone-100 transition-colors">
+                                    <Checkbox id="terms" name="terms" required className="mt-1 border-stone-300 data-[state=checked]:bg-stone-900 data-[state=checked]:border-stone-900" />
                                     <label
                                         htmlFor="terms"
-                                        className="text-xs text-slate-500 leading-relaxed font-medium"
+                                        className="text-xs text-stone-500 leading-relaxed font-medium"
                                     >
                                         {t.rich('login.agreeToTerms', {
                                             terms: (chunks) => <a href="/legal/terms" className="font-bold text-stone-900 hover:underline">{chunks}</a>,
@@ -238,7 +238,7 @@ function LoginForm() {
                                         })}
                                     </label>
                                 </div>
-                                <Button className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-bold text-base rounded-xl shadow-lg shadow-slate-900/10 hover:shadow-slate-900/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                                <Button className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-md shadow-sm transition-all hover:-translate-y-0.5">
                                     {t("login.signUp")} (Crear Cuenta)
                                 </Button>
                             </form>
