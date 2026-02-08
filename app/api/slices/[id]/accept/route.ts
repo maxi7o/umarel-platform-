@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import { calculatePaymentBreakdown } from '@/lib/payments/calculations';
 
 import { createClient } from '@/lib/supabase/server';
+import { ensureUserVerified } from '@/lib/kyc-utils';
 
 export async function POST(
     request: NextRequest,
@@ -25,6 +26,16 @@ export async function POST(
         // LEGAL: Enforce Arbitration Agreement
         if (arbitrationAccepted !== true) {
             return NextResponse.json({ error: 'You must accept the Dispute Resolution Terms to proceed.' }, { status: 400 });
+        }
+
+        // Enforce KYC on Provider being hired
+        try {
+            await ensureUserVerified(providerId);
+        } catch (error: any) {
+            return NextResponse.json({
+                error: `El profesional seleccionado no ha verificado su identidad (DNI/CBU). No se puede contratar.`,
+                code: 'PROVIDER_KYC_REQUIRED'
+            }, { status: 403 });
         }
 
         const clientId = user.id;

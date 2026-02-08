@@ -2,12 +2,30 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { quotes, quoteItems } from '@/lib/db/schema';
 
+import { createClient } from '@/lib/supabase/server';
+import { ensureUserVerified } from '@/lib/kyc-utils';
+
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        const { requestId, providerId, amount, message, estimatedDeliveryDate, sliceIds } = body;
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!requestId || !providerId || !amount || !sliceIds || !Array.isArray(sliceIds)) {
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        // Enforce KYC
+        try {
+            await ensureUserVerified(user.id);
+        } catch (error: any) {
+            return NextResponse.json({ error: error.message, code: 'KYC_REQUIRED' }, { status: 403 });
+        }
+
+        const body = await request.json();
+        const { requestId, amount, message, estimatedDeliveryDate, sliceIds } = body;
+        const providerId = user.id;
+
+        if (!requestId || !amount || !sliceIds || !Array.isArray(sliceIds)) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }

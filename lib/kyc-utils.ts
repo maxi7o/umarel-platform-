@@ -1,23 +1,25 @@
-import { db } from './db';
-import { users } from './db/schema';
+import { db } from '@/lib/db';
+import { users, userWallets } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 /**
- * Checks if a user has completed the mandatory KYC (Verifik) verification.
+ * Checks if a user has completed the mandatory KYC (Verifik) verification AND has bank details.
  * @param userId UUID of the user
  * @returns boolean
  */
 export async function isUserVerified(userId: string): Promise<boolean> {
-    const [user] = await db.select({
-        biometricStatus: users.biometricStatus
+    const [data] = await db.select({
+        biometricStatus: users.biometricStatus,
+        cbuAlias: userWallets.cbuAlias
     })
         .from(users)
+        .leftJoin(userWallets, eq(users.id, userWallets.userId))
         .where(eq(users.id, userId));
 
-    if (!user) return false;
+    if (!data) return false;
 
-    // In production, this must specifically be 'verified'
-    return user.biometricStatus === 'verified';
+    // Must be verified and have a CBU/Alias for payouts
+    return data.biometricStatus === 'verified' && !!data.cbuAlias;
 }
 
 /**
