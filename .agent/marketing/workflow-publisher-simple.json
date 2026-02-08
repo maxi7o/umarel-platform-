@@ -1,0 +1,52 @@
+{
+    "name": "Publisher Agent - Simple Post Test",
+    "nodes": [
+        {
+            "parameters": {},
+            "id": "trigger-manual",
+            "name": "When clicking 'Execute Workflow'",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [
+                460,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "create",
+                "options": {
+                    "caption": "🤖 Hola Mundo! Este es el primer post automático del Agente Umarel. #AI #Construction #Innovation"
+                },
+                "file": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop"
+            },
+            "id": "node-instagram-publish",
+            "name": "Instagram Publisher",
+            "type": "n8n-nodes-base.instagram",
+            "typeVersion": 1,
+            "position": [
+                700,
+                340
+            ],
+            "credentials": {
+                "facebookGraphApi": {
+                    "id": "YOUR_CREDENTIAL_ID_HERE",
+                    "name": "Meta Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "When clicking 'Execute Workflow'": {
+            "main": [
+                [
+                    {
+                        "node": "Instagram Publisher",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

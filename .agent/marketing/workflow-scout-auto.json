@@ -53,7 +53,7 @@
         },
         {
             "parameters": {
-                "functionCode": "const allPosts = [];\n\nfor (const item of items) {\n  if (item.json.platform === 'instagram') {\n    allPosts.push({\n      platform: 'instagram',\n      post_url: item.json.url,\n      post_content: item.json.caption || '',\n      username: item.json.ownerUsername,\n      user_profile_url: `https://instagram.com/${item.json.ownerUsername}`\n    });\n  } else if (item.json.platform === 'facebook') {\n    allPosts.push({\n      platform: 'facebook',\n      post_url: item.json.url,\n      post_content: item.json.text || '',\n      username: item.json.author,\n      user_profile_url: item.json.authorUrl\n    });\n  }\n}\n\nreturn allPosts.map(post => ({ json: post }));"
+                "functionCode": "const allPosts = [];\n\nfor (const item of items) {\n  const json = item.json;\n  const id = json.id || json.url || Date.now().toString();\n\n  if (json.platform === 'instagram' || json.ownerUsername) {\n    allPosts.push({\n      source: 'instagram',\n      platform: 'instagram',\n      external_id: id,\n      post_url: json.url,\n      post_content: json.caption || '',\n      author_username: json.ownerUsername,\n      user_profile_url: `https://instagram.com/${json.ownerUsername}`,\n      username: json.ownerUsername\n    });\n  } else {\n    allPosts.push({\n      source: 'facebook',\n      platform: 'facebook',\n      external_id: id,\n      post_url: json.url,\n      post_content: json.text || '',\n      author_username: json.author,\n      user_profile_url: json.authorUrl || '',\n      username: json.author\n    });\n  }\n}\n\nreturn allPosts.map(post => ({ json: post }));"
             },
             "name": "Merge & Transform",
             "type": "n8n-nodes-base.function",
@@ -179,13 +179,13 @@
                 "operation": "insert",
                 "table": "scout_leads",
                 "data": {
-                    "platform": "={{ $json.platform }}",
+                    "source": "={{ $json.source }}",
+                    "external_id": "={{ $json.external_id }}",
                     "post_url": "={{ $json.post_url }}",
                     "post_content": "={{ $json.post_content }}",
-                    "username": "={{ $json.username }}",
-                    "user_profile_url": "={{ $json.user_profile_url }}",
+                    "author_username": "={{ $json.author_username }}",
                     "intent_score": "={{ $json.intentScore }}",
-                    "analysis_reason": "={{ $json.reason }}",
+                    "intent_reasoning": "={{ $json.reason }}",
                     "suggested_reply": "={{ $json.suggestedReply }}",
                     "status": "approved"
                 }
@@ -205,15 +205,15 @@
                 "operation": "insert",
                 "table": "scout_leads",
                 "data": {
-                    "platform": "={{ $json.platform }}",
+                    "source": "={{ $json.source }}",
+                    "external_id": "={{ $json.external_id }}",
                     "post_url": "={{ $json.post_url }}",
                     "post_content": "={{ $json.post_content }}",
-                    "username": "={{ $json.username }}",
-                    "user_profile_url": "={{ $json.user_profile_url }}",
+                    "author_username": "={{ $json.author_username }}",
                     "intent_score": "={{ $json.intentScore }}",
-                    "analysis_reason": "={{ $json.reason }}",
+                    "intent_reasoning": "={{ $json.reason }}",
                     "suggested_reply": "={{ $json.suggestedReply }}",
-                    "status": "pending"
+                    "status": "pending_review"
                 }
             },
             "name": "Insert as Pending",
@@ -239,7 +239,7 @@
                         },
                         {
                             "name": "platform",
-                            "value": "={{ $json.platform }}"
+                            "value": "={{ $json.source }}"
                         },
                         {
                             "name": "postUrl",
@@ -265,7 +265,7 @@
         {
             "parameters": {
                 "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
-                "text": "✅ AUTO-POSTED (Score {{ $json.intentScore }}/10)\n\nPlatform: {{ $json.platform }}\nUser: @{{ $json.username }}\n\nReply: {{ $json.suggested_reply }}\n\nView: {{ $json.post_url }}"
+                "text": "✅ AUTO-POSTED (Score {{ $json.intentScore }}/10)\n\nPlatform: {{ $json.source }}\nUser: @{{ $json.author_username }}\n\nReply: {{ $json.suggested_reply }}\n\nView: {{ $json.post_url }}"
             },
             "name": "Notify Auto-Post",
             "type": "n8n-nodes-base.telegram",
@@ -279,7 +279,7 @@
         {
             "parameters": {
                 "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
-                "text": "⏸️ NEEDS REVIEW (Score {{ $json.intentScore }}/10)\n\nPlatform: {{ $json.platform }}\nUser: @{{ $json.username }}\n\nPost: {{ $json.post_content.substring(0, 100) }}...\n\nReview at: https://elentendido.ar/admin/scout-queue"
+                "text": "⏸️ NEEDS REVIEW (Score {{ $json.intentScore }}/10)\n\nPlatform: {{ $json.source }}\nUser: @{{ $json.author_username }}\n\nPost: {{ $json.post_content.substring(0, 100) }}...\n\nReview at: https://elentendido.ar/admin/scout-queue"
             },
             "name": "Notify Manual Review",
             "type": "n8n-nodes-base.telegram",

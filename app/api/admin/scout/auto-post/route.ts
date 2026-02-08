@@ -57,13 +57,13 @@ export async function POST(req: NextRequest) {
         }
 
         // Update lead status
+        // Update lead status
         const { error: updateError } = await supabase
             .from('scout_leads')
             .update({
-                status: 'posted',
+                status: 'auto_posted',
                 posted_at: new Date().toISOString(),
-                reply_text: replyText,
-                engagement_result: postResult
+                raw_data: postResult // Storing engagement result in raw_data
             })
             .eq('id', leadId);
 

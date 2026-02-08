@@ -135,9 +135,10 @@ export function Navbar({ user }: NavbarProps) {
                                 </Link>
 
                                 {/* Cotizá - New Button */}
-                                <Link href="/quote" className="hidden sm:block">
+                                {/* Navegá - Replaces Cotizá */}
+                                <Link href="/browse" className="hidden sm:block">
                                     <Button variant="outline" className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 border-slate-200 font-medium transition-colors">
-                                        ⚡ Cotizá
+                                        🔍 Navegá
                                     </Button>
                                 </Link>
 
