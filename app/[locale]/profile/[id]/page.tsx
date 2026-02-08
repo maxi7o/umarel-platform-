@@ -91,6 +91,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 website={profile?.website || undefined}
                 socialLinks={profile?.socialLinks ? (profile.socialLinks as any) : undefined}
                 auraLevel={user.auraLevel || 'bronze'}
+                biometricStatus={user.biometricStatus || 'none'}
             />
 
             <div className="grid md:grid-cols-3 gap-8">

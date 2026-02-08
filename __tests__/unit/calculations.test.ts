@@ -15,7 +15,7 @@ describe('Payment Calculations', () => {
         const breakdown = calculatePaymentBreakdown(1000000); // 10,000 ARS in cents
 
         // Platform Fee is 15% (Total)
-        expect(breakdown.platformFee).toBe(150000);
+        expect(breakdown.ecosystemFee).toBe(150000);
         // Community Reward is 3%
         expect(breakdown.communityRewardPool).toBe(30000);
         // Revenue is 12%

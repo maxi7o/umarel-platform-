@@ -741,12 +741,15 @@
     "verification": {
         "title": "Verificar Identidad",
         "subtitle": "Para ser Talento, necesitamos validar tu identidad.",
+        "idDetails": "Datos del Documento",
         "steps": {
+            "dni": "Número de DNI",
             "idFront": "Frente del DNI",
             "idBack": "Dorso del DNI",
             "selfie": "Selfie"
         },
         "instructions": {
+            "dni": "Ingresá tu número de DNI sin puntos.",
             "id": "Buscá buena luz. Que se lean todos los datos.",
             "selfie": "Sin anteojos ni gorra. Mirá a la cámara."
         },

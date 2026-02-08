@@ -25,6 +25,7 @@ interface ProfileHeaderProps {
         github?: string;
     };
     auraLevel: string;
+    biometricStatus?: string;
 }
 
 export function ProfileHeader({
@@ -37,7 +38,8 @@ export function ProfileHeader({
     location,
     website,
     socialLinks,
-    auraLevel
+    auraLevel,
+    biometricStatus
 }: ProfileHeaderProps) {
     return (
         <Card className="w-full bg-gradient-to-br from-background to-muted/20 border-border/50">
@@ -66,12 +68,24 @@ export function ProfileHeader({
                                 `}>
                                     {auraLevel} Aura
                                 </Badge>
-                                {isOwner && (
+
+                                {biometricStatus === 'verified' ? (
+                                    <Badge variant="outline" className="px-3 py-1 font-bold border-2 border-green-200 text-green-700 bg-green-50 gap-1.5 shadow-sm">
+                                        <ShieldAlert className="h-3.5 w-3.5 fill-green-700/10" />
+                                        Identidad Validada
+                                    </Badge>
+                                ) : (
+                                    <Badge variant="outline" className="px-3 py-1 font-bold border-2 border-slate-200 text-slate-500 bg-slate-50 opacity-70 gap-1.5">
+                                        Identidad Pendiente
+                                    </Badge>
+                                )}
+
+                                {isOwner && biometricStatus !== 'verified' && (
                                     <>
-                                        <Button variant="outline" size="sm" asChild className="gap-2 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 h-9">
+                                        <Button variant="outline" size="sm" asChild className="gap-2 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 h-9 shadow-sm transition-all hover:scale-105 active:scale-95">
                                             <Link href="/verify">
                                                 <ShieldAlert className="h-4 w-4" />
-                                                Verificar Identidad
+                                                Verificar Ahora
                                             </Link>
                                         </Button>
                                         <NotificationSettings />

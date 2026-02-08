@@ -38,6 +38,15 @@ export const users = pgTable('users', {
     biometricStatus: biometricStatusEnum('biometric_status').default('none'),
     biometricVerifiedAt: timestamp('biometric_verified_at'),
 
+    // DNI Verification (Verifik)
+    dniNumber: text('dni_number'),
+    dniVerifiedAt: timestamp('dni_verified_at'),
+
+    // KYC Documents (Supabase Storage Paths)
+    kycFrontPath: text('kyc_front_path'),
+    kycBackPath: text('kyc_back_path'),
+    kycSelfiePath: text('kyc_selfie_path'),
+
     createdAt: timestamp('created_at').defaultNow(),
 });
 

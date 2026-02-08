@@ -3,14 +3,12 @@
  * Handles all pricing calculations for the 15% fee model
  */
 
-export const PLATFORM_FEE_PERCENTAGE = 0.15; // 15% Total (12% Platform + 3% Community)
-export const COMMUNITY_REWARD_PERCENTAGE = 0.03; // 3% of Project Value
-export const SHAREHOLDER_PERCENTAGE = 0.12; // 12% of Project Value (15% - 3%)
-// Taxes are estimated but NOT deducted from the defined split in this model (User Requirement)
-export const TAXES_AND_FEES_PERCENTAGE = 0.055;
+export const SITE_COMMISSION_PERCENTAGE = 0.12; // 12% for El Entendido operation
+export const CONTRIBUTORS_REWARD_PERCENTAGE = 0.03; // 3% for Umarel value providers
+export const TOTAL_ECOSYSTEM_FEE = 0.15; // Total 15% added to project net value
 
-// 8.5% Buffer for MercadoPago (approx 7% + VAT)
-export const PAYMENT_PROCESSING_PERCENTAGE = 0.085;
+// Processing fees are added ON TOP, not deducted from the 15%
+export const PAYMENT_PROCESSING_PERCENTAGE = 0.085; // 8.5% Buffer for MercadoPago/Gateway
 
 /**
  * Calculate total payment breakdown for a slice
@@ -18,26 +16,21 @@ export const PAYMENT_PROCESSING_PERCENTAGE = 0.085;
  * @returns Object with all payment amounts
  */
 export function calculatePaymentBreakdown(slicePrice: number) {
-    const platformFee = Math.round(slicePrice * PLATFORM_FEE_PERCENTAGE);
-    const subtotal = slicePrice + platformFee;
+    const ecosystemFee = Math.round(slicePrice * TOTAL_ECOSYSTEM_FEE);
+    const subtotal = slicePrice + ecosystemFee;
 
     // Calculate Total Amount such that after MP takes its %, we are left with the Subtotal
-    // Formula: Total = Subtotal / (1 - ProcessingRate)
     const totalAmount = Math.ceil(subtotal / (1 - PAYMENT_PROCESSING_PERCENTAGE));
     const processingFee = totalAmount - subtotal;
 
-    // Split the Platform Fee: 12% Platform, 3% Community
-    const communityRewardPool = Math.round(slicePrice * COMMUNITY_REWARD_PERCENTAGE);
-    const platformRevenue = Math.round(slicePrice * SHAREHOLDER_PERCENTAGE);
-
-    // Taxes are calculated for reference but don't eat into the split logic requested
-    const taxesAndFees = Math.round(slicePrice * TAXES_AND_FEES_PERCENTAGE);
+    // Split the Fee: 12% Site, 3% Contributors
+    const communityRewardPool = Math.round(slicePrice * CONTRIBUTORS_REWARD_PERCENTAGE);
+    const platformRevenue = Math.round(slicePrice * SITE_COMMISSION_PERCENTAGE);
 
     return {
         slicePrice, // Amount provider receives
-        platformFee, // Total 15% fee (markup)
+        ecosystemFee, // Total 15% fee
         communityRewardPool, // 3% for community
-        taxesAndFees,
         platformRevenue, // 12% for shareholders
         processingFee, // ~8.5% Buffer for Gateway
         totalAmount, // What client pays
