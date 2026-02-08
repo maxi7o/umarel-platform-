@@ -128,14 +128,36 @@ function LoginForm() {
                                 </div>
                             </div>
 
-                            <form action={login} className="space-y-4">
+                            <form onSubmit={async (e) => {
+                                e.preventDefault();
+                                const formData = new FormData(e.currentTarget);
+                                const email = formData.get('email') as string;
+                                const password = formData.get('password') as string;
+
+                                // Client-side login to avoid server-side fetch issues
+                                const { createClient } = await import('@/lib/supabase/client');
+                                const supabase = createClient();
+
+                                const { error } = await supabase.auth.signInWithPassword({
+                                    email,
+                                    password
+                                });
+
+                                if (error) {
+                                    // Use window.location to force reload with error param
+                                    window.location.href = `/login?error=${encodeURIComponent(error.message)}`;
+                                } else {
+                                    // Success
+                                    window.location.href = '/';
+                                }
+                            }} className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="email" className="text-stone-900 font-bold ml-1">{t("login.email")}</Label>
                                     <Input
                                         id="email"
                                         name="email"
                                         type="email"
-                                        placeholder="ej. mhamu@umarel.org"
+                                        placeholder="ej. admin@elentendido.ar"
                                         className="h-12 bg-white border-stone-200 focus:border-stone-900 focus:ring-stone-900 rounded-md transition-all"
                                         required
                                     />
@@ -175,7 +197,7 @@ function LoginForm() {
                                     <label htmlFor="remember" className="text-sm font-medium text-stone-500 cursor-pointer select-none">Recordar mi cuenta</label>
                                 </div>
 
-                                <Button className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-md shadow-sm transition-all hover:-translate-y-0.5">
+                                <Button type="submit" className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-md shadow-sm transition-all hover:-translate-y-0.5">
                                     {t("login.signIn")}
                                 </Button>
                             </form>
