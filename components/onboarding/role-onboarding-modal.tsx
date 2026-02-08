@@ -66,7 +66,7 @@ export function RoleOnboardingModal() {
                                     <span className="text-2xl">🏗️</span> Cliente
                                 </h3>
                                 <p className="text-stone-500 dark:text-stone-400 text-xs mt-1 mb-3">
-                                    Tenés un proyecto o reparación para realizar.
+                                    Querés solicitar un servicio.
                                 </p>
                                 <ul className="space-y-2">
                                     <ThinkingPoint text="Pagá contra avance de obra" color="bg-stone-900" />

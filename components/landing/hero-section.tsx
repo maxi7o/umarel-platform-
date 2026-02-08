@@ -87,24 +87,24 @@ export function HeroSection() {
                     <div className="grid md:grid-cols-3 gap-6">
                         {/* Role 1: CLIENT */}
                         <Link href="/requests/create">
-                            <div className="group bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
                                         <User className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Tenés un proyecto</h3>
+                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Querés solicitar un servicio</h3>
                                 </div>
                                 <ul className="space-y-3 mb-4 flex-grow">
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Bot className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <Bot className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Definición con IA</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Layers className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <Layers className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Pagá contra avance</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <ShieldCheck className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                        <ShieldCheck className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Dinero en garantía</span>
                                     </li>
                                 </ul>
@@ -117,24 +117,24 @@ export function HeroSection() {
 
                         {/* Role 2: PROVIDER */}
                         <Link href="/create-offering">
-                            <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
                                         <Shovel className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Ofrecés servicios</h3>
+                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Ofrecés servicios</h3>
                                 </div>
                                 <ul className="space-y-3 mb-4 flex-grow">
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <DollarSign className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <DollarSign className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Cobro por etapas cumplidas</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <MapPin className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <MapPin className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Sin visitas en vano</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Star className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                                        <Star className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Reputación pública</span>
                                     </li>
                                 </ul>
@@ -147,24 +147,24 @@ export function HeroSection() {
 
                         {/* Role 3: ENTENDIDO */}
                         <Link href="/browse">
-                            <div className="group bg-gradient-to-br from-yellow-50 to-white hover:from-yellow-100 hover:to-yellow-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-yellow-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-stone-50 to-white hover:from-stone-100 hover:to-stone-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-900 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
                                         <CheckCircle2 className="w-5 h-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Tenés experiencia</h3>
+                                    <h3 className="text-lg font-bold text-slate-900 leading-tight">Tenés experiencia</h3>
                                 </div>
                                 <ul className="space-y-3 mb-4 flex-grow">
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Eye className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <Eye className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Validá presupuestos y avances</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <TrendingUp className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <TrendingUp className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Monetizá tu conocimiento</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-sm text-slate-700">
-                                        <Users className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                                        <Users className="w-5 h-5 text-stone-900 flex-shrink-0" />
                                         <span>Validación por pares</span>
                                     </li>
                                 </ul>
