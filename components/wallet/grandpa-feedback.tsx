@@ -15,18 +15,18 @@ export function GrandpaFeedback({ auraLevel, auraPoints }: GrandpaFeedbackProps)
 
     // Aura Badge Colors
     const badgeColors = {
-        bronze: "bg-orange-100 text-orange-800 border-orange-200",
+        bronze: "bg-stone-100 text-stone-900 border-stone-300",
         silver: "bg-gray-100 text-gray-800 border-gray-200",
-        gold: "bg-yellow-100 text-yellow-800 border-yellow-200",
-        diamond: "bg-purple-100 text-purple-800 border-purple-200"
+        gold: "bg-stone-100 text-yellow-800 border-stone-300",
+        diamond: "bg-stone-100 text-purple-800 border-stone-300"
     };
 
     return (
-        <Card className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-stone-900 dark:to-orange-950 border-orange-200 dark:border-orange-900 overflow-hidden relative">
+        <Card className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-stone-900 dark:to-orange-950 border-stone-300 dark:border-orange-900 overflow-hidden relative">
             <CardContent className="p-6 flex flex-col md:flex-row items-center gap-6">
                 {/* The Grandpa */}
                 <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
-                    <div className="absolute inset-0 bg-white rounded-full border-4 border-orange-200 shadow-md overflow-hidden">
+                    <div className="absolute inset-0 bg-white rounded-full border-4 border-stone-300 shadow-md overflow-hidden">
                         <Image
                             src="/hero-grandpa.png"
                             alt="Umarel Grandpa"

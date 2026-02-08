@@ -26,7 +26,7 @@ export function AddSliceDialog({ requestId }: { requestId: string }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="gap-2 bg-orange-600 hover:bg-orange-700">
+                <Button className="gap-2 bg-stone-900 hover:bg-stone-800">
                     <PlusCircle className="h-4 w-4" />
                     Add Service Slice
                 </Button>

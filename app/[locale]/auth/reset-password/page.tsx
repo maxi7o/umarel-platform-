@@ -49,8 +49,8 @@ export default function ResetPasswordPage() {
             <Card className="w-full max-w-md shadow-2xl border-white/40 bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden ring-1 ring-slate-100">
                 <CardHeader className="p-8 pb-4 text-center">
                     <div className="mb-4 flex justify-center">
-                        <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
-                            <Lock className="w-6 h-6 text-blue-600" />
+                        <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center">
+                            <Lock className="w-6 h-6 text-stone-900" />
                         </div>
                     </div>
                     <CardTitle className="text-2xl font-bold text-slate-900">Nueva Contraseña</CardTitle>
@@ -97,7 +97,7 @@ export default function ResetPasswordPage() {
                             />
                         </div>
                         <Button
-                            className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 transition-all hover:scale-[1.02]"
+                            className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 transition-all hover:scale-[1.02]"
                             disabled={loading}
                         >
                             {loading ? 'Actualizando...' : 'Actualizar Contraseña'}

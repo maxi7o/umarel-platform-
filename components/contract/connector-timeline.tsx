@@ -69,8 +69,8 @@ export function ConnectorTimeline({ slices, onApprove, isOwner }: ConnectorTimel
                         <div className={cn(
                             "absolute -left-[1.85rem] sm:-left-[2.1rem] w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-4 bg-white dark:bg-slate-950 transition-all z-10",
                             state === 'completed' && "border-teal-500 text-teal-600 dark:border-teal-900 dark:text-teal-400",
-                            state === 'review' && "border-orange-500 text-orange-600 dark:border-orange-500 animate-pulse", // Pulse for attention
-                            state === 'active' && "border-blue-500 text-blue-600 dark:border-blue-700",
+                            state === 'review' && "border-orange-500 text-stone-900 dark:border-orange-500 animate-pulse", // Pulse for attention
+                            state === 'active' && "border-blue-500 text-stone-900 dark:border-blue-700",
                             state === 'locked' && "border-slate-200 text-slate-300 dark:border-slate-800 dark:text-slate-700",
                             state === 'pending' && "border-slate-200 text-slate-400"
                         )}>
@@ -103,8 +103,8 @@ export function ConnectorTimeline({ slices, onApprove, isOwner }: ConnectorTimel
                                             <span className={cn(
                                                 "text-xs font-bold uppercase tracking-wider",
                                                 state === 'completed' ? "text-teal-600 dark:text-teal-400" :
-                                                    state === 'review' ? "text-orange-600 dark:text-orange-400" :
-                                                        state === 'active' ? "text-blue-600 dark:text-blue-400" :
+                                                    state === 'review' ? "text-stone-900 dark:text-orange-400" :
+                                                        state === 'active' ? "text-stone-900 dark:text-blue-400" :
                                                             "text-slate-400"
                                             )}>
                                                 {state === 'completed' ? t('status.paid') :
@@ -139,13 +139,13 @@ export function ConnectorTimeline({ slices, onApprove, isOwner }: ConnectorTimel
 
                                         {/* Show Evidence if review */}
                                         {state === 'review' && (
-                                            <div className="mb-4 bg-orange-50 dark:bg-orange-950/20 p-3 rounded-lg flex items-start gap-3 border border-orange-100 dark:border-orange-900/50">
-                                                <ShieldCheck className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 shrink-0" />
+                                            <div className="mb-4 bg-stone-50 dark:bg-orange-950/20 p-3 rounded-lg flex items-start gap-3 border border-stone-200 dark:border-orange-900/50">
+                                                <ShieldCheck className="w-5 h-5 text-stone-900 dark:text-orange-400 mt-0.5 shrink-0" />
                                                 <div>
-                                                    <p className="text-sm font-medium text-orange-800 dark:text-orange-300">
+                                                    <p className="text-sm font-medium text-stone-900 dark:text-orange-300">
                                                         {t('reviewNames.evidenceReady')}
                                                     </p>
-                                                    <p className="text-xs text-orange-600 dark:text-orange-400/80 mt-0.5">
+                                                    <p className="text-xs text-stone-900 dark:text-orange-400/80 mt-0.5">
                                                         {t('reviewNames.aiVerified')}
                                                     </p>
                                                 </div>
@@ -167,7 +167,7 @@ export function ConnectorTimeline({ slices, onApprove, isOwner }: ConnectorTimel
                                                         e.stopPropagation();
                                                         onApprove(slice.id);
                                                     }}
-                                                    className="bg-orange-600 hover:bg-orange-700 text-white font-medium shadow-lg shadow-orange-500/20 dark:shadow-orange-900/40"
+                                                    className="bg-stone-900 hover:bg-stone-800 text-white font-medium shadow-lg shadow-orange-500/20 dark:shadow-orange-900/40"
                                                 >
                                                     <Banknote className="w-4 h-4 mr-2" />
                                                     {t('actions.releaseFunds')}

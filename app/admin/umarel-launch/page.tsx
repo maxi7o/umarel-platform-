@@ -75,7 +75,7 @@ export default async function AdminLaunchPage() {
                         <CardTitle>Today's Pool (3%)</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-4xl font-bold text-orange-600">
+                        <p className="text-4xl font-bold text-stone-900">
                             ${(todaysPool / 100).toLocaleString('es-AR')}
                         </p>
                         <p className="text-sm text-muted-foreground">
@@ -89,7 +89,7 @@ export default async function AdminLaunchPage() {
                         <CardTitle>Top Contributors</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-4xl font-bold text-blue-600">
+                        <p className="text-4xl font-bold text-stone-900">
                             {topContributors.length}
                         </p>
                         <p className="text-sm text-muted-foreground">
@@ -105,7 +105,7 @@ export default async function AdminLaunchPage() {
                     <CardContent>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className={`text-2xl font-bold ${payoutRecord?.distributed ? 'text-green-600' : 'text-yellow-600'}`}>
+                                <p className={`text-2xl font-bold ${payoutRecord?.distributed ? 'text-green-600' : 'text-stone-900'}`}>
                                     {payoutRecord?.distributed ? 'Distributed' : 'Pending'}
                                 </p>
                                 {payoutRecord && (

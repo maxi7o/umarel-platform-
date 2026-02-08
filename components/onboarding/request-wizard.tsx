@@ -97,11 +97,11 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 placeholder="Ej. Pierde la canilla de la cocina..."
-                                className="text-lg p-6 h-16 shadow-lg border-orange-100 focus:border-orange-500 focus:ring-orange-200"
+                                className="text-lg p-6 h-16 shadow-lg border-stone-200 focus:border-orange-500 focus:ring-orange-200"
                                 autoFocus
                             />
                             <Button
-                                className="absolute right-2 top-2 bottom-2 bg-orange-600 hover:bg-orange-700 aspect-square p-0 w-12 rounded-lg"
+                                className="absolute right-2 top-2 bottom-2 bg-stone-900 hover:bg-stone-800 aspect-square p-0 w-12 rounded-lg"
                                 onClick={handleNext}
                             >
                                 <ArrowRight className="w-6 h-6" />
@@ -115,7 +115,7 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                                     <button
                                         key={tag}
                                         onClick={() => setFormData({ ...formData, title: tag + " " })}
-                                        className="px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 text-sm hover:border-orange-300 hover:bg-orange-50 transition-all hover:scale-105"
+                                        className="px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 text-sm hover:border-stone-300 hover:bg-stone-50 transition-all hover:scale-105"
                                     >
                                         {tag}
                                     </button>
@@ -191,7 +191,7 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                         />
 
                         {/* Photo Upload Placeholder - simplified */}
-                        <div className="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 hover:border-orange-200 cursor-pointer transition-colors group">
+                        <div className="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 hover:border-stone-300 cursor-pointer transition-colors group">
                             <Upload className="w-8 h-8 mb-2 group-hover:text-orange-500" />
                             <span className="text-sm">Subir fotos (Opcional)</span>
                         </div>
@@ -200,7 +200,7 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                             <Button
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="w-full bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-900/20 order-1 sm:order-2 h-12 text-lg"
+                                className="w-full bg-stone-900 hover:bg-stone-800 text-white shadow-lg shadow-stone-900/20 order-1 sm:order-2 h-12 text-lg"
                             >
                                 {isSubmitting ? "Publicando..." : "Publicar Pedido"}
                             </Button>

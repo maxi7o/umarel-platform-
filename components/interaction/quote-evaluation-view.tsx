@@ -177,7 +177,7 @@ export function QuoteEvaluationView({ quote, feedbacks, requestTitle = "Proyecto
                             <Button variant="outline" className="text-red-600 hover:bg-red-50 border-red-100" onClick={onReject}>
                                 <X className="w-4 h-4 mr-2" /> Reject
                             </Button>
-                            <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200" onClick={onAccept}>
+                            <Button className="bg-stone-900 hover:bg-stone-800 text-white shadow-md shadow-stone-300" onClick={onAccept}>
                                 <Check className="w-4 h-4 mr-2" /> Accept Proposal
                             </Button>
                         </div>
@@ -187,29 +187,29 @@ export function QuoteEvaluationView({ quote, feedbacks, requestTitle = "Proyecto
 
             {/* RIGHT: The Entendido Sidebar (Margin Notes) */}
             <div className="md:col-span-1">
-                <div className="bg-yellow-50/50 border border-yellow-100 rounded-xl h-full flex flex-col">
-                    <div className="p-4 border-b border-yellow-100 bg-yellow-50 rounded-t-xl flex items-center justify-between">
+                <div className="bg-stone-50/50 border border-stone-200 rounded-xl h-full flex flex-col">
+                    <div className="p-4 border-b border-stone-200 bg-stone-50 rounded-t-xl flex items-center justify-between">
                         <h3 className="font-semibold text-yellow-800 flex items-center gap-2">
                             <MessageSquare className="w-4 h-4" />
                             Expert Opinions
                         </h3>
-                        <Badge variant="secondary" className="bg-white text-yellow-700 hover:bg-white">{feedbacks.length}</Badge>
+                        <Badge variant="secondary" className="bg-white text-stone-900 hover:bg-white">{feedbacks.length}</Badge>
                     </div>
 
                     <ScrollArea className="flex-1 p-4">
                         <div className="space-y-4">
                             {feedbacks.length === 0 ? (
-                                <div className="text-center py-8 text-yellow-600/60 text-sm italic">
+                                <div className="text-center py-8 text-stone-900/60 text-sm italic">
                                     No opinions yet. <br /> Request a review from the community?
-                                    <Button variant="link" className="text-yellow-700 h-auto p-0 ml-1">Ask now</Button>
+                                    <Button variant="link" className="text-stone-900 h-auto p-0 ml-1">Ask now</Button>
                                 </div>
                             ) : (
                                 feedbacks.map((fb) => (
-                                    <div key={fb.id} className="bg-white p-3 rounded-lg shadow-sm border border-yellow-100/50 hover:shadow-md transition-shadow relative group">
+                                    <div key={fb.id} className="bg-white p-3 rounded-lg shadow-sm border border-stone-200/50 hover:shadow-md transition-shadow relative group">
                                         <div className="flex items-start gap-2 mb-2">
                                             <Avatar className="h-6 w-6">
                                                 <AvatarImage src={fb.authorAvatar} />
-                                                <AvatarFallback className="text-[9px] bg-yellow-100 text-yellow-700">{fb.authorName[0]}</AvatarFallback>
+                                                <AvatarFallback className="text-[9px] bg-stone-100 text-stone-900">{fb.authorName[0]}</AvatarFallback>
                                             </Avatar>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-xs font-bold text-slate-800 truncate">{fb.authorName}</p>

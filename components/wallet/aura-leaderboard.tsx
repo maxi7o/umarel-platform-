@@ -20,10 +20,10 @@ interface AuraLeaderboardProps {
 export function AuraLeaderboard({ users }: AuraLeaderboardProps) {
     const getLevelColor = (level: string) => {
         switch (level) {
-            case 'diamond': return 'text-purple-600 bg-purple-100 dark:bg-purple-900/20';
-            case 'gold': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20';
+            case 'diamond': return 'text-stone-900 bg-stone-100 dark:bg-purple-900/20';
+            case 'gold': return 'text-stone-900 bg-stone-100 dark:bg-yellow-900/20';
             case 'silver': return 'text-gray-600 bg-gray-100 dark:bg-gray-800';
-            default: return 'text-orange-600 bg-orange-100 dark:bg-orange-900/20';
+            default: return 'text-stone-900 bg-stone-100 dark:bg-orange-900/20';
         }
     };
 
@@ -48,9 +48,9 @@ export function AuraLeaderboard({ users }: AuraLeaderboardProps) {
                     {users.map((user, index) => (
                         <div key={user.id} className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${index === 0 ? 'bg-yellow-100 text-yellow-700' :
+                                <div className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${index === 0 ? 'bg-stone-100 text-stone-900' :
                                         index === 1 ? 'bg-gray-100 text-gray-700' :
-                                            index === 2 ? 'bg-orange-100 text-orange-700' :
+                                            index === 2 ? 'bg-stone-100 text-stone-900' :
                                                 'bg-white text-gray-500'
                                     }`}>
                                     {index + 1}

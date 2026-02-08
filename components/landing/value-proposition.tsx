@@ -14,7 +14,7 @@ export function ValueProposition() {
             <div className="container mx-auto px-6 max-w-6xl">
 
                 <div className="text-center mb-16 space-y-4">
-                    <span className="text-orange-600 font-bold uppercase tracking-widest text-xs">{t('badge')}</span>
+                    <span className="text-stone-900 font-bold uppercase tracking-widest text-xs">{t('badge')}</span>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold text-stone-900">
                         {t('title')}
                     </h2>
@@ -47,7 +47,7 @@ export function ValueProposition() {
                         </div>
                         <CardContent className="p-8 space-y-6">
                             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-100 to-amber-50 flex items-center justify-center mb-4">
-                                <Users className="h-10 w-10 text-orange-600" />
+                                <Users className="h-10 w-10 text-stone-900" />
                             </div>
                             <div>
                                 <h3 className="text-3xl font-bold text-stone-900 mb-2 flex items-center gap-2">
@@ -64,8 +64,8 @@ export function ValueProposition() {
                     <Card className="bg-white rounded-3xl border-none shadow-xl shadow-stone-200/50 overflow-hidden relative group">
                         <div className="absolute top-0 left-0 w-full h-2 bg-blue-500" />
                         <CardContent className="p-8 space-y-6">
-                            <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Zap className="h-8 w-8 text-blue-600" />
+                            <div className="w-16 h-16 rounded-2xl bg-stone-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Zap className="h-8 w-8 text-stone-900" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-bold text-stone-900 mb-2">{t('card3.title')}</h3>
@@ -79,7 +79,7 @@ export function ValueProposition() {
 
                 <div className="mt-16 text-center">
                     <Link href="/brand/manifesto">
-                        <Button variant="ghost" className="text-stone-400 hover:text-orange-600 gap-2 font-medium">
+                        <Button variant="ghost" className="text-stone-400 hover:text-stone-900 gap-2 font-medium">
                             {t('manifesto')} <ArrowRight size={16} />
                         </Button>
                     </Link>

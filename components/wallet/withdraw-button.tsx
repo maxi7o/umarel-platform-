@@ -84,7 +84,7 @@ export function WithdrawButton({ balance, canWithdraw, onSuccess }: WithdrawButt
                 size="lg"
                 disabled={!canWithdraw}
                 onClick={() => setShowDialog(true)}
-                className="bg-orange-600 hover:bg-orange-700"
+                className="bg-stone-900 hover:bg-stone-800"
             >
                 <Download className="mr-2 h-5 w-5" />
                 Withdraw
@@ -100,7 +100,7 @@ export function WithdrawButton({ balance, canWithdraw, onSuccess }: WithdrawButt
                     </DialogHeader>
 
                     <div className="space-y-4 py-4">
-                        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div className="bg-stone-50 dark:bg-blue-950/20 border border-stone-300 dark:border-blue-800 rounded-lg p-4">
                             <p className="text-sm">
                                 <strong>Available Balance:</strong> {formatARS(balance)}
                             </p>
@@ -158,7 +158,7 @@ export function WithdrawButton({ balance, canWithdraw, onSuccess }: WithdrawButt
                         <Button
                             onClick={handleWithdraw}
                             disabled={isProcessing}
-                            className="bg-orange-600 hover:bg-orange-700"
+                            className="bg-stone-900 hover:bg-stone-800"
                         >
                             {isProcessing ? 'Processing...' : 'Withdraw'}
                         </Button>

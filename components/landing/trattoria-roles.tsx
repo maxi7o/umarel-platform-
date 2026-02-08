@@ -35,7 +35,7 @@ export function TrattoriaRoles() {
             title: t('roles.umarel.title'),
             description: t('roles.umarel.description'),
             color: 'from-[#E76F51] to-[#D65A3F]',
-            bgColor: 'bg-orange-50',
+            bgColor: 'bg-stone-50',
             illustration: '🦉',
             cta: tTrattoria('rolesCta.umarel'),
             link: '/browse',

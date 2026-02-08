@@ -121,15 +121,15 @@ export function PricingGuidance({ category, currentPrice, currency = '$' }: Pric
                 </div>
 
                 {/* Recommendation Engine */}
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg flex gap-3 items-start">
-                    <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-full mt-0.5">
-                        <Zap className="w-4 h-4 text-blue-700 dark:text-blue-300" />
+                <div className="bg-stone-50 dark:bg-blue-900/20 p-3 rounded-lg flex gap-3 items-start">
+                    <div className="bg-stone-100 dark:bg-blue-800 p-2 rounded-full mt-0.5">
+                        <Zap className="w-4 h-4 text-stone-900 dark:text-blue-300" />
                     </div>
                     <div>
                         <h5 className="text-sm font-semibold text-blue-900 dark:text-blue-100">
                             Maximize your Transaction Volume
                         </h5>
-                        <p className="text-xs text-blue-700 dark:text-blue-200 mt-1">
+                        <p className="text-xs text-stone-900 dark:text-blue-200 mt-1">
                             {!currentPrice ? (
                                 <>Try starting around <span className="font-bold">{currency}{data.recommendedEntry}</span> to get your first 5 reviews quickly.</>
                             ) : currentPrice <= data.recommendedEntry ? (

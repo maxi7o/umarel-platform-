@@ -80,7 +80,7 @@ export function AdminDisputeControls({ disputeId, status }: { disputeId: string,
                         variant="default" // Using default (primary) for Release usually implies success/completion? Or Blue?
                         onClick={() => handleOverride('release')}
                         disabled={isProcessing}
-                        className="bg-blue-600 hover:bg-blue-700"
+                        className="bg-stone-900 hover:bg-stone-800"
                     >
                         Force RELEASE (Provider Wins)
                     </Button>

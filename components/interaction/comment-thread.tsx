@@ -200,13 +200,13 @@ export function CommentThread({
                         key={comment.id}
                         className={cn(
                             "flex gap-3 p-4 rounded-lg",
-                            comment.type === 'prompt' ? "bg-purple-50 dark:bg-purple-900/20 border border-purple-100" : "bg-gray-50 dark:bg-gray-800/50",
-                            comment.isAiGenerated && "bg-blue-50 dark:bg-blue-900/10 border border-blue-100"
+                            comment.type === 'prompt' ? "bg-stone-50 dark:bg-purple-900/20 border border-stone-200" : "bg-gray-50 dark:bg-gray-800/50",
+                            comment.isAiGenerated && "bg-stone-50 dark:bg-blue-900/10 border border-stone-200"
                         )}
                     >
                         <Avatar className="h-8 w-8 mt-1">
                             {comment.isAiGenerated ? (
-                                <AvatarFallback className="bg-blue-600 text-white"><Bot size={16} /></AvatarFallback>
+                                <AvatarFallback className="bg-stone-900 text-white"><Bot size={16} /></AvatarFallback>
                             ) : (
                                 <AvatarFallback><User size={16} /></AvatarFallback>
                             )}
@@ -289,7 +289,7 @@ export function CommentThread({
                         onClick={() => setIsPromptMode(!isPromptMode)}
                         className={cn(
                             "gap-2 transition-colors",
-                            isPromptMode ? "text-purple-600 bg-purple-50" : "text-muted-foreground"
+                            isPromptMode ? "text-stone-900 bg-stone-50" : "text-muted-foreground"
                         )}
                     >
                         <Sparkles size={16} />
@@ -299,7 +299,7 @@ export function CommentThread({
                         size="sm"
                         onClick={handleSubmit}
                         disabled={isLoading || !newComment.trim()}
-                        className={cn(isPromptMode && "bg-purple-600 hover:bg-purple-700")}
+                        className={cn(isPromptMode && "bg-stone-900 hover:bg-stone-800")}
                     >
                         {isLoading ? t('sending') : (
                             <>

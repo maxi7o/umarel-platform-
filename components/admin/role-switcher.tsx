@@ -139,12 +139,12 @@ export function RoleSwitcher() {
     ];
 
     return (
-        <Card className="border-2 border-orange-200 bg-orange-50">
+        <Card className="border-2 border-stone-300 bg-stone-50">
             <CardHeader>
                 <div className="flex items-center justify-between">
                     <div>
                         <CardTitle className="flex items-center gap-2">
-                            <Eye className="h-5 w-5 text-orange-600" />
+                            <Eye className="h-5 w-5 text-stone-900" />
                             Role Switcher (Testing Mode)
                         </CardTitle>
                         <CardDescription>
@@ -166,7 +166,7 @@ export function RoleSwitcher() {
             </CardHeader>
             <CardContent>
                 {currentSwitch.active && currentSwitch.persona && (
-                    <div className="mb-6 p-4 bg-white border-2 border-orange-300 rounded-lg">
+                    <div className="mb-6 p-4 bg-white border-2 border-stone-300 rounded-lg">
                         <div className="flex items-center gap-3">
                             <div className="text-4xl">{currentSwitch.persona.avatar}</div>
                             <div className="flex-1">
@@ -176,7 +176,7 @@ export function RoleSwitcher() {
                                 </div>
                                 <p className="text-sm text-stone-600">{currentSwitch.persona.scenario}</p>
                             </div>
-                            <Badge variant="outline" className="bg-orange-100 text-orange-800 border-orange-300">
+                            <Badge variant="outline" className="bg-stone-100 text-stone-900 border-stone-300">
                                 {currentSwitch.impersonatedRole}
                             </Badge>
                         </div>
@@ -188,8 +188,8 @@ export function RoleSwitcher() {
                         <Card
                             key={persona.id}
                             className={`cursor-pointer transition-all hover:shadow-lg ${currentSwitch.impersonatedRole === persona.id
-                                ? 'ring-2 ring-orange-500 bg-orange-50'
-                                : 'hover:border-orange-300'
+                                ? 'ring-2 ring-orange-500 bg-stone-50'
+                                : 'hover:border-stone-300'
                                 }`}
                             onClick={() => switchRole(persona.id as any)}
                         >
@@ -212,12 +212,12 @@ export function RoleSwitcher() {
                     ))}
                 </div>
 
-                <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="mt-6 p-4 bg-stone-50 border border-stone-300 rounded-lg">
                     <div className="flex gap-2">
-                        <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <AlertCircle className="h-5 w-5 text-stone-900 flex-shrink-0 mt-0.5" />
                         <div className="text-sm text-blue-900">
                             <p className="font-semibold mb-1">Cómo funciona:</p>
-                            <ul className="list-disc list-inside space-y-1 text-blue-800">
+                            <ul className="list-disc list-inside space-y-1 text-stone-900">
                                 <li>Hacé click en un rol para cambiar tu vista</li>
                                 <li>La página se recargará automáticamente</li>
                                 <li>Verás la plataforma como ese usuario vería</li>

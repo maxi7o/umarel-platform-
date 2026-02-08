@@ -36,7 +36,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
     };
 
     return (
-        <Card className="border-orange-200 bg-orange-50/30 dark:bg-orange-950/10 dark:border-orange-800">
+        <Card className="border-stone-300 bg-stone-50/30 dark:bg-orange-950/10 dark:border-orange-800">
             <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                     <CardTitle className="text-base flex items-center gap-2">
@@ -61,7 +61,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
                             )}
                             {action.type === 'UPDATE_CARD' && (
                                 <>
-                                    <div className="font-semibold text-blue-600 mb-1">Update Existing Slice</div>
+                                    <div className="font-semibold text-stone-900 mb-1">Update Existing Slice</div>
                                     {Object.entries(action.updates).map(([key, value]) => (
                                         <div key={key} className="flex gap-2">
                                             <span className="font-medium capitalize">{key}:</span>
@@ -103,7 +103,7 @@ export function ChangeProposalCard({ proposal, onRespond }: ChangeProposalCardPr
                     size="sm"
                     onClick={() => handleAction('accepted')}
                     disabled={isProcessing}
-                    className="bg-orange-600 hover:bg-orange-700 text-white"
+                    className="bg-stone-900 hover:bg-stone-800 text-white"
                 >
                     {isProcessing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
                     Accept & Apply

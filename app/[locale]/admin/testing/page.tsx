@@ -17,7 +17,7 @@ export default function TestingPage() {
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
-                    <TestTube2 className="h-10 w-10 text-orange-600" />
+                    <TestTube2 className="h-10 w-10 text-stone-900" />
                     Testing & QA Suite
                 </h1>
                 <p className="text-stone-600">
@@ -35,7 +35,7 @@ export default function TestingPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <FileText className="h-5 w-5 text-blue-600" />
+                            <FileText className="h-5 w-5 text-stone-900" />
                             Escenarios de Prueba Recomendados
                         </CardTitle>
                         <CardDescription>
@@ -135,12 +135,12 @@ export default function TestingPage() {
                                 </p>
                             </div>
 
-                            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <div className="p-4 bg-stone-50 rounded-lg border border-stone-300">
                                 <h4 className="font-semibold mb-2 text-blue-900">Reset Completo</h4>
                                 <code className="text-xs bg-stone-900 text-green-400 p-2 rounded block mb-2">
                                     npm run db:reset && npm run script scripts/seed_all.ts
                                 </code>
-                                <p className="text-sm text-blue-800">
+                                <p className="text-sm text-stone-900">
                                     ⚠️ Borra todo y regenera datos de prueba
                                 </p>
                             </div>
@@ -150,10 +150,10 @@ export default function TestingPage() {
             </div>
 
             {/* Quick Tips */}
-            <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
+            <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-stone-300">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                        <MessageSquare className="h-5 w-5 text-orange-600" />
+                        <MessageSquare className="h-5 w-5 text-stone-900" />
                         Tips para Testing Efectivo
                     </CardTitle>
                 </CardHeader>
@@ -174,7 +174,7 @@ export default function TestingPage() {
                         </div>
                         <div className="space-y-2">
                             <h4 className="font-semibold flex items-center gap-2">
-                                <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                                <AlertTriangle className="h-4 w-4 text-stone-900" />
                                 Qué Validar
                             </h4>
                             <ul className="text-sm space-y-1 text-stone-700">
@@ -202,9 +202,9 @@ function TestScenario({
     roles: string[];
 }) {
     const roleColors: Record<string, string> = {
-        client: 'bg-blue-100 text-blue-800',
+        client: 'bg-stone-100 text-stone-900',
         provider: 'bg-green-100 text-green-800',
-        admin: 'bg-purple-100 text-purple-800',
+        admin: 'bg-stone-100 text-purple-800',
     };
 
     return (
@@ -226,7 +226,7 @@ function TestScenario({
             <ol className="text-sm space-y-1.5 text-stone-700">
                 {steps.map((step, i) => (
                     <li key={i} className="flex items-start gap-2">
-                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-100 text-orange-800 text-xs flex items-center justify-center font-semibold">
+                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-stone-100 text-stone-900 text-xs flex items-center justify-center font-semibold">
                             {i + 1}
                         </span>
                         <span>{step}</span>

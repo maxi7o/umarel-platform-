@@ -103,7 +103,7 @@ export function ProviderDashboardClient({ opportunities, stats, offerings = [] }
                             <Sparkles className="h-4 w-4 text-orange-500" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-orange-600">
+                            <div className="text-2xl font-bold text-stone-900">
                                 {stats.auraScore} <span className="text-sm font-normal text-muted-foreground">/ 100</span>
                             </div>
                             <p className="text-xs text-muted-foreground">
@@ -126,7 +126,7 @@ export function ProviderDashboardClient({ opportunities, stats, offerings = [] }
                             <Card key={slice.id} className="flex flex-col">
                                 <CardHeader>
                                     <div className="flex justify-between items-start mb-2">
-                                        <Badge variant="secondary" className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                                        <Badge variant="secondary" className="bg-stone-100 text-stone-900 hover:bg-orange-200">
                                             {slice.estimatedEffort}
                                         </Badge>
                                         <Badge variant="outline">{slice.status}</Badge>

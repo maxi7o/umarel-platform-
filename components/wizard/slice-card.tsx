@@ -57,8 +57,8 @@ export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: Sl
 
     const getQualityColor = (level?: string) => {
         switch (level) {
-            case 'premium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'standard': return 'bg-blue-100 text-blue-800 border-blue-200';
+            case 'premium': return 'bg-stone-100 text-yellow-800 border-stone-300';
+            case 'standard': return 'bg-stone-100 text-stone-900 border-stone-300';
             case 'functional': return 'bg-gray-100 text-gray-800 border-gray-200';
             default: return 'bg-stone-100 text-stone-800';
         }
@@ -172,7 +172,7 @@ export function SliceCard({ sliceCard, onUpdate, isLocked, isGuest = false }: Sl
                 )}
 
                 {isGuest && (
-                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs rounded-md text-center">
+                    <div className="mt-4 p-3 bg-stone-50 dark:bg-blue-900/20 text-stone-900 dark:text-blue-200 text-xs rounded-md text-center">
                         Sign up to unlock prices & hiring
                     </div>
                 )}

@@ -19,10 +19,10 @@ export default function QuotePage() {
                     <Card className="h-full border-slate-200 shadow-md hover:shadow-xl hover:border-blue-400 transition-all cursor-pointer relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600" />
                         <CardHeader>
-                            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <HardHat className="h-7 w-7 text-blue-600" />
+                            <div className="w-14 h-14 rounded-full bg-stone-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <HardHat className="h-7 w-7 text-stone-900" />
                             </div>
-                            <CardTitle className="text-2xl group-hover:text-blue-600 transition-colors">Cotizá un Servicio</CardTitle>
+                            <CardTitle className="text-2xl group-hover:text-stone-900 transition-colors">Cotizá un Servicio</CardTitle>
                             <CardDescription className="text-base font-medium text-slate-500">
                                 Para Proveedores y Profesionales
                             </CardDescription>
@@ -42,7 +42,7 @@ export default function QuotePage() {
                                     Enviá propuestas directas
                                 </li>
                             </ul>
-                            <Button className="w-full mt-4 bg-slate-900 group-hover:bg-blue-600 transition-colors">
+                            <Button className="w-full mt-4 bg-slate-900 group-hover:bg-stone-900 transition-colors">
                                 Ver Solicitudes
                             </Button>
                         </CardContent>
@@ -54,10 +54,10 @@ export default function QuotePage() {
                     <Card className="h-full border-slate-200 shadow-md hover:shadow-xl hover:border-amber-400 transition-all cursor-pointer relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
                         <CardHeader>
-                            <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Sparkles className="h-7 w-7 text-amber-600" />
+                            <div className="w-14 h-14 rounded-full bg-stone-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <Sparkles className="h-7 w-7 text-stone-900" />
                             </div>
-                            <CardTitle className="text-2xl group-hover:text-amber-600 transition-colors">Cotizá una Experiencia</CardTitle>
+                            <CardTitle className="text-2xl group-hover:text-stone-900 transition-colors">Cotizá una Experiencia</CardTitle>
                             <CardDescription className="text-base font-medium text-slate-500">
                                 Para Participantes y Entusiastas
                             </CardDescription>

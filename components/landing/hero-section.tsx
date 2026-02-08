@@ -24,19 +24,19 @@ export function HeroSection() {
                     className="text-center mb-16 max-w-4xl mx-auto"
                 >
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 border border-blue-200 mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-stone-100 border border-stone-300 mb-6">
                         <span className="relative flex h-3 w-3">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                         </span>
-                        <span className="text-sm font-bold text-blue-700 tracking-wide uppercase">
+                        <span className="text-sm font-bold text-stone-900 tracking-wide uppercase">
                             {t('availableIn')}
                         </span>
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-900 font-archivo leading-[1.1] mb-6">
                         {t('heroTitle1')} <br />
-                        <span className="text-blue-600">
+                        <span className="text-stone-900">
                             {t('heroTitleHighlight')}
                         </span>
                     </h1>
@@ -48,7 +48,7 @@ export function HeroSection() {
                     {/* Main CTAs - Single CTA now */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                         <Link href="/requests/create">
-                            <Button size="lg" className="w-full sm:w-auto min-h-[3.5rem] h-auto py-3 px-8 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-xl shadow-blue-200 transition-all hover:scale-105">
+                            <Button size="lg" className="w-full sm:w-auto min-h-[3.5rem] h-auto py-3 px-8 text-lg bg-stone-900 hover:bg-stone-800 text-white rounded-full font-bold shadow-xl shadow-stone-300 transition-all hover:scale-105">
                                 {t('postRequest')}
                                 <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                             </Button>
@@ -87,7 +87,7 @@ export function HeroSection() {
                     <div className="grid md:grid-cols-3 gap-6">
                         {/* Role 1: CLIENT */}
                         <Link href="/requests/create">
-                            <div className="group bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 p-6 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
                                         <User className="w-5 h-5 text-white" />
@@ -108,7 +108,7 @@ export function HeroSection() {
                                         <span>Dinero en garantía</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-blue-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Empezar proyecto</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
@@ -117,7 +117,7 @@ export function HeroSection() {
 
                         {/* Role 2: PROVIDER */}
                         <Link href="/create-offering">
-                            <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-orange-50 to-white hover:from-orange-100 hover:to-orange-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-stone-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0">
                                         <Shovel className="w-5 h-5 text-white" />
@@ -138,7 +138,7 @@ export function HeroSection() {
                                         <span>Reputación pública</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-orange-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Ofrecer servicios</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
@@ -147,9 +147,9 @@ export function HeroSection() {
 
                         {/* Role 3: ENTENDIDO */}
                         <Link href="/browse">
-                            <div className="group bg-gradient-to-br from-yellow-50 to-white hover:from-yellow-100 hover:to-yellow-50 p-6 rounded-3xl border-2 border-yellow-100 hover:border-yellow-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
+                            <div className="group bg-gradient-to-br from-yellow-50 to-white hover:from-yellow-100 hover:to-yellow-50 p-6 rounded-3xl border-2 border-stone-200 hover:border-yellow-300 transition-all cursor-pointer h-full flex flex-col shadow-sm hover:shadow-xl text-left">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center flex-shrink-0">
                                         <CheckCircle2 className="w-5 h-5 text-white" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900">Tenés experiencia</h3>
@@ -168,7 +168,7 @@ export function HeroSection() {
                                         <span>Validación por pares</span>
                                     </li>
                                 </ul>
-                                <div className="mt-2 flex items-center text-yellow-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                                <div className="mt-2 flex items-center text-stone-900 font-semibold text-sm group-hover:gap-2 transition-all">
                                     <span>Ver oportunidades</span>
                                     <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>

@@ -114,7 +114,7 @@ export default function CreateExperiencePage() {
                                     size="sm"
                                     onClick={handleAIMagic}
                                     disabled={isGenerating}
-                                    className="text-purple-600 border-purple-200 hover:bg-purple-50"
+                                    className="text-stone-900 border-stone-300 hover:bg-stone-50"
                                 >
                                     {isGenerating ? "Developing..." : "Develop with AI"}
                                 </Button>
@@ -207,13 +207,13 @@ export default function CreateExperiencePage() {
                         </div>
 
                         {strategy === 'early_bird' && (
-                            <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded text-sm">
+                            <div className="p-3 bg-stone-50 dark:bg-blue-950 rounded text-sm">
                                 ℹ️ <strong>Early Bird:</strong> First 30% of tickets will be sold at 20% discount automatically.
                             </div>
                         )}
 
                         {strategy === 'viral' && (
-                            <div className="p-3 bg-purple-50 dark:bg-purple-950 rounded text-sm">
+                            <div className="p-3 bg-stone-50 dark:bg-purple-950 rounded text-sm">
                                 ℹ️ <strong>Viral Pool:</strong> Everyone pays Base Price. If you reach Max Capacity, everyone gets partial refund!
                             </div>
                         )}

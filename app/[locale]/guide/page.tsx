@@ -14,13 +14,13 @@ export default function GuidePage() {
             key: 'seeker',
             icon: Search,
             color: 'text-blue-500',
-            bg: 'bg-blue-50 border-blue-100'
+            bg: 'bg-stone-50 border-stone-200'
         },
         {
             key: 'creator',
             icon: Hammer,
             color: 'text-orange-500',
-            bg: 'bg-orange-50 border-orange-100'
+            bg: 'bg-stone-50 border-stone-200'
         },
         {
             key: 'umarel',
@@ -105,7 +105,7 @@ export default function GuidePage() {
                 {/* CTA */}
                 <div className="text-center py-12">
                     <Link href="/requests/create">
-                        <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6 h-auto rounded-full shadow-lg hover:shadow-xl transition-all">
+                        <Button size="lg" className="bg-stone-900 hover:bg-stone-800 text-white text-lg px-8 py-6 h-auto rounded-full shadow-lg hover:shadow-xl transition-all">
                             {t('cta')}
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>

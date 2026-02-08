@@ -114,7 +114,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-lg flex items-center gap-2">
-                                    <ShieldCheck className="h-5 w-5 text-blue-600" />
+                                    <ShieldCheck className="h-5 w-5 text-stone-900" />
                                     Provider Stats
                                 </CardTitle>
                             </CardHeader>
@@ -133,7 +133,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground">Rating</span>
-                                    <div className="flex items-center gap-1 font-bold text-yellow-600">
+                                    <div className="flex items-center gap-1 font-bold text-stone-900">
                                         <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
                                         {stats.avgRating.toFixed(1)} <span className="text-xs text-muted-foreground font-normal">({stats.totalRatings})</span>
                                     </div>

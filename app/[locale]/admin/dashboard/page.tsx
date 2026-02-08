@@ -94,16 +94,16 @@ export default function AdminDashboard() {
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                <Card className="bg-gradient-to-br from-orange-50 to-white border-orange-200">
+                <Card className="bg-gradient-to-br from-orange-50 to-white border-stone-300">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-medium text-orange-800">Yesterday's Pool (3%)</CardTitle>
-                        <DollarSign className="h-4 w-4 text-orange-600" />
+                        <CardTitle className="text-sm font-medium text-stone-900">Yesterday's Pool (3%)</CardTitle>
+                        <DollarSign className="h-4 w-4 text-stone-900" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold text-orange-900">
                             {format.number(data.totalPool / 100, { style: 'currency', currency: 'ARS' })}
                         </div>
-                        <p className="text-xs text-orange-600/80 mt-1">Ready for distribution</p>
+                        <p className="text-xs text-stone-900/80 mt-1">Ready for distribution</p>
                     </CardContent>
                 </Card>
 
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
                                     <TableRow key={payout.userId}>
                                         <TableCell className="font-medium">{payout.userName}</TableCell>
                                         <TableCell className="text-right">
-                                            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                                            <Badge variant="outline" className="bg-stone-50 text-stone-900 border-stone-300">
                                                 {payout.score} pts
                                             </Badge>
                                         </TableCell>
@@ -193,11 +193,11 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Warning / Notes */}
-            <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg flex items-start gap-4">
-                <AlertTriangle className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+            <div className="bg-stone-50 border border-stone-300 p-4 rounded-lg flex items-start gap-4">
+                <AlertTriangle className="h-5 w-5 text-stone-900 shrink-0 mt-0.5" />
                 <div>
                     <h4 className="font-bold text-yellow-800 text-sm">How this works</h4>
-                    <p className="text-yellow-700 text-sm mt-1">
+                    <p className="text-stone-900 text-sm mt-1">
                         The "Total Pool" comes from the 3% community fee on all <strong>released</strong> slices in the last 24 hours.
                         <br />
                         When you click "Run Daily Payout", this amount is distributed to the top 50 contributors above as <strong>Wallet Credit</strong>.

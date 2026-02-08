@@ -17,7 +17,7 @@ export function ItalianQuotes() {
     ];
 
     return (
-        <section className="bg-orange-600 overflow-hidden py-3 border-y-4 border-stone-900">
+        <section className="bg-stone-900 overflow-hidden py-3 border-y-4 border-stone-900">
             <div className="animate-marquee whitespace-nowrap flex gap-12 items-center">
                 {/* Tripled for seamless loop */}
                 {[...quotes, ...quotes, ...quotes].map((quote, i) => (

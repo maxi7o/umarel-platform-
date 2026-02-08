@@ -54,12 +54,12 @@ export default async function ProviderEarningsPage() {
                 <Card className="border-2 border-orange-500/20">
                     <CardHeader>
                         <CardTitle className="text-base flex items-center gap-2">
-                            <Clock className="h-5 w-5 text-orange-600" />
+                            <Clock className="h-5 w-5 text-stone-900" />
                             Pending in Escrow
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-orange-600">{formatARS(pendingEscrow)}</p>
+                        <p className="text-3xl font-bold text-stone-900">{formatARS(pendingEscrow)}</p>
                         <p className="text-sm text-muted-foreground mt-1">
                             Awaiting client approval
                         </p>
@@ -84,12 +84,12 @@ export default async function ProviderEarningsPage() {
                 <Card className="border-2 border-blue-500/20">
                     <CardHeader>
                         <CardTitle className="text-base flex items-center gap-2">
-                            <CheckCircle2 className="h-5 w-5 text-blue-600" />
+                            <CheckCircle2 className="h-5 w-5 text-stone-900" />
                             Completed Slices
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-blue-600">{completedSlices}</p>
+                        <p className="text-3xl font-bold text-stone-900">{completedSlices}</p>
                         <p className="text-sm text-muted-foreground mt-1">Total approved work</p>
                     </CardContent>
                 </Card>
@@ -121,7 +121,7 @@ export default async function ProviderEarningsPage() {
                                                 className={`text-xs px-2.5 py-1 rounded-full font-semibold ${payment.status === 'released'
                                                     ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
                                                     : payment.status === 'in_escrow'
-                                                        ? 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300'
+                                                        ? 'bg-stone-100 text-stone-900 dark:bg-orange-900 dark:text-orange-300'
                                                         : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
                                                     }`}
                                             >

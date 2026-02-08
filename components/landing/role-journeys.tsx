@@ -16,7 +16,7 @@ export function RoleJourneys() {
 
                 {/* BUSCADOR SECTION */}
                 <div id="seeker" className="grid lg:grid-cols-2 gap-16 items-center mb-32 group">
-                    <div className="order-2 lg:order-1 relative h-[500px] bg-blue-50 rounded-[40px] overflow-hidden border border-blue-100 shadow-xl transition-transform hover:scale-[1.02] duration-500">
+                    <div className="order-2 lg:order-1 relative h-[500px] bg-stone-50 rounded-[40px] overflow-hidden border border-stone-200 shadow-xl transition-transform hover:scale-[1.02] duration-500">
                         {/* Abstract Representation of a messy project becoming clean */}
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
                         <div className="absolute top-10 left-10 bg-white p-4 rounded-2xl shadow-sm max-w-xs animate-pulse">
@@ -41,12 +41,12 @@ export function RoleJourneys() {
                     </div>
 
                     <div className="order-1 lg:order-2 space-y-6">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 text-stone-900 text-sm font-bold">
                             <Search size={14} /> ¿Tenés un problema?
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             No hace falta que <br />
-                            <span className="text-blue-600">lo tengas claro hoy.</span>
+                            <span className="text-stone-900">lo tengas claro hoy.</span>
                         </h2>
                         <p className="text-lg text-stone-600 leading-relaxed">
                             La mayoría llega sin saber por dónde empezar. Y está bien.
@@ -69,7 +69,7 @@ export function RoleJourneys() {
 
                         <div className="pt-4">
                             <Link href="/requests/create">
-                                <Button size="lg" className="rounded-full h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-900/10">
+                                <Button size="lg" className="rounded-full h-12 px-8 bg-stone-900 hover:bg-stone-800 text-white font-bold shadow-lg shadow-blue-900/10">
                                     Contar mi Problema (Sin cargo)
                                 </Button>
                             </Link>
@@ -80,12 +80,12 @@ export function RoleJourneys() {
                 {/* CREADOR SECTION */}
                 <div id="creator" className="grid lg:grid-cols-2 gap-16 items-center mb-32">
                     <div className="space-y-6">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-bold">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 text-stone-900 text-sm font-bold">
                             <Shovel size={14} /> El Solucionador
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             Solo ocupate de trabajar. <br />
-                            <span className="text-orange-600">La plata está segura.</span>
+                            <span className="text-stone-900">La plata está segura.</span>
                         </h2>
                         <p className="text-lg text-stone-600 leading-relaxed">
                             Si sabés arreglar cosas, este es tu lugar.
@@ -108,14 +108,14 @@ export function RoleJourneys() {
 
                         <div className="pt-4">
                             <Link href="/create-offering">
-                                <Button size="lg" className="rounded-full h-12 px-8 bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-lg shadow-orange-900/10">
+                                <Button size="lg" className="rounded-full h-12 px-8 bg-stone-900 hover:bg-stone-800 text-white font-bold shadow-lg shadow-orange-900/10">
                                     Ofrecer Soluciones
                                 </Button>
                             </Link>
                         </div>
                     </div>
 
-                    <div className="relative h-[500px] bg-orange-50 rounded-[40px] overflow-hidden border border-orange-100 shadow-xl transition-transform hover:scale-[1.02] duration-500">
+                    <div className="relative h-[500px] bg-stone-50 rounded-[40px] overflow-hidden border border-stone-200 shadow-xl transition-transform hover:scale-[1.02] duration-500">
                         {/* Abstract Wallet Visual */}
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent"></div>
 
@@ -153,7 +153,7 @@ export function RoleJourneys() {
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold font-archivo text-slate-900">
                             No venimos a juzgar. <br />
-                            <span className="text-purple-600">Venimos a pensar con vos.</span>
+                            <span className="text-stone-900">Venimos a pensar con vos.</span>
                         </h2>
                         <p className="text-lg text-stone-600 leading-relaxed">
                             Un Entendido no es un inspector que te busca el pelo al huevo.

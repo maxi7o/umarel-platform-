@@ -62,7 +62,7 @@ export function Notifications() {
                 <Button variant="ghost" size="icon" className="relative">
                     <Bell className="h-5 w-5" />
                     {unreadCount > 0 && (
-                        <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-orange-600">
+                        <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-stone-900">
                             {unreadCount}
                         </Badge>
                     )}
@@ -79,7 +79,7 @@ export function Notifications() {
                     notifications.map((n) => (
                         <DropdownMenuItem
                             key={n.id}
-                            className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${n.read === 0 ? 'bg-orange-50' : ''}`}
+                            className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${n.read === 0 ? 'bg-stone-50' : ''}`}
                             onClick={() => handleMarkRead(n.id)}
                         >
                             <div className="font-medium">{n.title}</div>

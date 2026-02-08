@@ -66,10 +66,10 @@ export default async function AdminUsersPage() {
                                     <div className="flex items-center gap-2">
                                         {/* Aura Badge logic */}
                                         <Badge variant="outline" className={`
-                                            ${user.auraLevel === 'bronze' ? 'border-orange-200 text-orange-700 bg-orange-50' : ''}
+                                            ${user.auraLevel === 'bronze' ? 'border-stone-300 text-stone-900 bg-stone-50' : ''}
                                             ${user.auraLevel === 'silver' ? 'border-slate-300 text-slate-700 bg-slate-50' : ''}
-                                            ${user.auraLevel === 'gold' ? 'border-yellow-300 text-yellow-700 bg-yellow-50' : ''}
-                                            ${user.auraLevel === 'diamond' ? 'border-blue-300 text-blue-700 bg-blue-50' : ''}
+                                            ${user.auraLevel === 'gold' ? 'border-yellow-300 text-stone-900 bg-stone-50' : ''}
+                                            ${user.auraLevel === 'diamond' ? 'border-stone-300 text-stone-900 bg-stone-50' : ''}
                                         `}>
                                             {user.auraLevel} ({user.auraPoints})
                                         </Badge>

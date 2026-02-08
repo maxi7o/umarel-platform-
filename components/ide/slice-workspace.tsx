@@ -55,7 +55,7 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
 
                 <div className="flex gap-2">
                     {mode === 'REQUEST_CREATION' && (
-                        <Button size="sm" onClick={handleCreateSlice} disabled={isCreating} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+                        <Button size="sm" onClick={handleCreateSlice} disabled={isCreating} className="bg-stone-900 hover:bg-stone-800 text-white shadow-sm">
                             {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
                             Add Slice
                         </Button>
@@ -131,7 +131,7 @@ function renderMockContent(mode: IdeMode) {
         case 'QUOTE_PROPOSAL':
             return (
                 <div className="space-y-6 max-w-3xl mx-auto">
-                    <div className="flex items-center justify-between bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm border border-blue-100">
+                    <div className="flex items-center justify-between bg-stone-50 text-stone-900 px-4 py-2 rounded-lg text-sm border border-stone-200">
                         <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> Estimated Duration: <strong>2 Days</strong></span>
                         <span>Start Recommendation: <strong>Next Monday</strong></span>
                     </div>
@@ -203,11 +203,11 @@ function SliceCard({ title, status, type, description }: { title: string, status
             <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
                     <Badge variant="secondary" className="text-[10px] font-normal">{type}</Badge>
-                    <Badge variant="outline" className={`text-[10px] capitalize ${status === 'active' ? 'text-green-600 border-green-200' : 'text-orange-500 border-orange-200'}`}>
+                    <Badge variant="outline" className={`text-[10px] capitalize ${status === 'active' ? 'text-green-600 border-green-200' : 'text-orange-500 border-stone-300'}`}>
                         {status}
                     </Badge>
                 </div>
-                <h3 className="font-semibold text-base mb-1 group-hover:text-blue-600 transition-colors">{title}</h3>
+                <h3 className="font-semibold text-base mb-1 group-hover:text-stone-900 transition-colors">{title}</h3>
                 {description && <p className="text-xs text-muted-foreground line-clamp-2">{description}</p>}
             </CardContent>
         </Card>

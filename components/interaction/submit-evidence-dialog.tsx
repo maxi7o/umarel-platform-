@@ -202,7 +202,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                                                     <Button
                                                         size="sm"
                                                         variant="outline"
-                                                        className="gap-2 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 border-dashed"
+                                                        className="gap-2 border-stone-300 bg-stone-50 text-stone-900 hover:bg-stone-100 border-dashed"
                                                         onClick={() => {
                                                             setActiveCameraCriterionId(criterion.id);
                                                             setShowCamera(true);
@@ -234,7 +234,7 @@ export function SubmitEvidenceDialog({ sliceId, sliceTitle, acceptanceCriteria =
                         </div>
 
                         {/* AI Advisory */}
-                        <div className="bg-blue-50 text-blue-800 p-3 rounded-lg text-xs flex gap-2 items-start border border-blue-100">
+                        <div className="bg-stone-50 text-stone-900 p-3 rounded-lg text-xs flex gap-2 items-start border border-stone-200">
                             <AlertCircle className="shrink-0 w-4 h-4 mt-0.5" />
                             <div>
                                 {t.rich('guardianWarning', {

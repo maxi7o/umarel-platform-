@@ -51,7 +51,7 @@ export function ApproveAdvanceDialog({ sliceId, amount, evidence, onApproved }: 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button size="sm" variant="secondary" className="w-full bg-amber-100 text-amber-800 hover:bg-amber-200 border border-amber-200">
+                <Button size="sm" variant="secondary" className="w-full bg-stone-100 text-stone-900 hover:bg-amber-200 border border-stone-300">
                     <FileText className="w-4 h-4 mr-2" />
                     Review Advance Request (${amount})
                 </Button>
@@ -83,14 +83,14 @@ export function ApproveAdvanceDialog({ sliceId, amount, evidence, onApproved }: 
                                 <a key={`r-${i}`} href={url} target="_blank" className="flex items-center justify-center aspect-square bg-white border rounded hover:bg-gray-50">
                                     <div className="text-center">
                                         <FileText className="mx-auto h-8 w-8 text-gray-400" />
-                                        <span className="text-xs text-blue-600 underline mt-1 block">Receipt {i + 1}</span>
+                                        <span className="text-xs text-stone-900 underline mt-1 block">Receipt {i + 1}</span>
                                     </div>
                                 </a>
                             ))}
                         </div>
                     </div>
 
-                    <div className="text-xs text-gray-500 bg-yellow-50 p-3 rounded border border-yellow-100">
+                    <div className="text-xs text-gray-500 bg-stone-50 p-3 rounded border border-stone-200">
                         ⚠ By approving, you release ${amount} from escrow immediately to the provider. This cannot be undone.
                     </div>
                 </div>

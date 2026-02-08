@@ -38,7 +38,7 @@ export function HowItWorksSection() {
             <div className="container mx-auto px-6">
 
                 <div className="text-center mb-16">
-                    <span className="text-orange-600 font-bold uppercase tracking-widest text-sm mb-2 block">{t('subtitle')}</span>
+                    <span className="text-stone-900 font-bold uppercase tracking-widest text-sm mb-2 block">{t('subtitle')}</span>
                     <h2 className="text-3xl md:text-5xl font-bold text-slate-900 font-archivo">
                         {t('title')}
                     </h2>

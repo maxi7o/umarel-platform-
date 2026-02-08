@@ -27,7 +27,7 @@ export function ActivityMap({ zones }: { zones: ActivityZone[] }) {
                             <div className={`
                                 w-2 h-2 rounded-full ring-4 
                                 ${zone.intensity === 'high' ? 'bg-red-500 ring-red-100' :
-                                    zone.intensity === 'medium' ? 'bg-orange-500 ring-orange-100' : 'bg-yellow-500 ring-yellow-100'}
+                                    zone.intensity === 'medium' ? 'bg-orange-500 ring-orange-100' : 'bg-stone-900 ring-yellow-100'}
                             `} />
                             <div>
                                 <div className="font-bold text-stone-800">{zone.name}</div>

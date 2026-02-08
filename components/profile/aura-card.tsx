@@ -66,7 +66,7 @@ export function AuraCard({ points, level, totalSavings, weeklyScore = 0 }: AuraC
                         <span className="text-3xl font-bold font-heading text-foreground">{points}</span>
                         <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold">{level} Tier</span>
                     </div>
-                    <Progress value={getLevelProgress(points)} className="h-2 bg-orange-100" />
+                    <Progress value={getLevelProgress(points)} className="h-2 bg-stone-100" />
                     <p className="text-xs text-muted-foreground mt-2 text-right">
                         {getNextLevelText(points)}
                     </p>

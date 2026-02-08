@@ -32,7 +32,7 @@ export function CustomerDashboardClient({ myRequests }: CustomerDashboardClientP
                     <p className="text-muted-foreground mt-2">{t("dashboard.customer.subtitle")}</p>
                 </div>
                 <Link href="/requests/create">
-                    <Button className="gap-2 bg-orange-600 hover:bg-orange-700">
+                    <Button className="gap-2 bg-stone-900 hover:bg-stone-800">
                         <PlusCircle className="h-4 w-4" /> {t("dashboard.customer.postNew")}
                     </Button>
                 </Link>

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function ManifestoPage() {
     return (
-        <div className="min-h-screen bg-[#fffdf5] font-sans selection:bg-orange-100 selection:text-orange-900">
+        <div className="min-h-screen bg-[#fffdf5] font-sans selection:bg-stone-100 selection:text-orange-900">
 
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 container mx-auto px-6 max-w-5xl text-center">
@@ -52,7 +52,7 @@ export default function ManifestoPage() {
                         ].map((item, i) => (
                             <div key={i} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-300 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-md">
                                 <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                                    <item.icon className="w-7 h-7 text-slate-900 group-hover:text-blue-600 transition-colors" />
+                                    <item.icon className="w-7 h-7 text-slate-900 group-hover:text-stone-900 transition-colors" />
                                 </div>
                                 <h3 className="text-2xl font-bold font-heading text-slate-900 mb-4">{item.title}</h3>
                                 <p className="text-slate-500 leading-relaxed font-medium">
@@ -90,7 +90,7 @@ export default function ManifestoPage() {
                             </div>
 
                             {/* Community Fee */}
-                            <div className="flex gap-6 p-4 rounded-2xl bg-blue-50/50 border border-blue-100 hover:bg-blue-50 transition-colors relative overflow-hidden group">
+                            <div className="flex gap-6 p-4 rounded-2xl bg-stone-50/50 border border-stone-200 hover:bg-stone-50 transition-colors relative overflow-hidden group">
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-blue-500/10 transition-colors" />
 
                                 <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex flex-col items-center justify-center text-white shrink-0 shadow-lg shadow-blue-500/20">
@@ -99,12 +99,12 @@ export default function ManifestoPage() {
                                 <div className="relative">
                                     <div className="flex items-center gap-2 mb-1">
                                         <h3 className="text-xl font-bold text-slate-900">Fondo de Expertos</h3>
-                                        <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold uppercase rounded-full tracking-wide">
+                                        <span className="px-2 py-0.5 bg-stone-100 text-stone-900 text-[10px] font-bold uppercase rounded-full tracking-wide">
                                             Participación
                                         </span>
                                     </div>
                                     <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                                        Una porción de cada transacción va al Fondo Comunitario. Premia a quienes auditan, resuelven disputas y mantienen un alto <span className="text-blue-600 font-bold">Aura</span>.
+                                        Una porción de cada transacción va al Fondo Comunitario. Premia a quienes auditan, resuelven disputas y mantienen un alto <span className="text-stone-900 font-bold">Aura</span>.
                                     </p>
                                 </div>
                             </div>
@@ -130,10 +130,10 @@ export default function ManifestoPage() {
                                     { name: 'Sara K.', role: 'Mediadora', aura: 740, share: '$195.00' },
                                     { name: 'David L.', role: 'Observador', aura: 650, share: '$84.30' },
                                 ].map((u, i) => (
-                                    <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-blue-50/50 transition-colors cursor-default group">
+                                    <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-stone-50/50 transition-colors cursor-default group">
                                         <div className="flex items-center gap-4">
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm
-                                                ${i === 0 ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-600'}
+                                                ${i === 0 ? 'bg-stone-100 text-stone-900' : 'bg-slate-200 text-slate-600'}
                                             `}>
                                                 {u.name.charAt(0)}
                                             </div>
@@ -143,7 +143,7 @@ export default function ManifestoPage() {
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <div className="font-mono font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{u.share}</div>
+                                            <div className="font-mono font-bold text-slate-900 group-hover:text-stone-900 transition-colors">{u.share}</div>
                                             <div className="text-[10px] text-slate-400 font-medium flex items-center justify-end gap-1">
                                                 <ShieldCheck className="w-3 h-3" />
                                                 {u.aura} Aura

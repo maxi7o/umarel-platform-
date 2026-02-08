@@ -47,7 +47,7 @@ export function ProfileHeader({
                 <div className="flex flex-col md:flex-row gap-6 items-start">
                     <Avatar className="w-24 h-24 border-4 border-background shadow-lg">
                         <AvatarImage src={avatarUrl} alt={fullName} />
-                        <AvatarFallback className="text-xl bg-orange-100 text-orange-700">
+                        <AvatarFallback className="text-xl bg-stone-100 text-stone-900">
                             {fullName.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
@@ -61,10 +61,10 @@ export function ProfileHeader({
                             <div className="flex items-center gap-2">
                                 <Badge variant="outline" className={`
                                     capitalize px-3 py-1 font-bold border-2
-                                    ${auraLevel === 'gold' ? 'border-yellow-400 text-yellow-600 bg-yellow-50' : ''}
+                                    ${auraLevel === 'gold' ? 'border-yellow-400 text-stone-900 bg-stone-50' : ''}
                                     ${auraLevel === 'silver' ? 'border-slate-300 text-slate-600 bg-slate-50' : ''}
-                                    ${auraLevel === 'bronze' ? 'border-orange-200 text-orange-700 bg-orange-50' : ''}
-                                    ${auraLevel === 'diamond' ? 'border-blue-300 text-blue-600 bg-blue-50' : ''}
+                                    ${auraLevel === 'bronze' ? 'border-stone-300 text-stone-900 bg-stone-50' : ''}
+                                    ${auraLevel === 'diamond' ? 'border-stone-300 text-stone-900 bg-stone-50' : ''}
                                 `}>
                                     {auraLevel} Aura
                                 </Badge>
@@ -82,7 +82,7 @@ export function ProfileHeader({
 
                                 {isOwner && biometricStatus !== 'verified' && (
                                     <>
-                                        <Button variant="outline" size="sm" asChild className="gap-2 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 h-9 shadow-sm transition-all hover:scale-105 active:scale-95">
+                                        <Button variant="outline" size="sm" asChild className="gap-2 border-stone-300 bg-stone-50 text-stone-900 hover:bg-stone-100 h-9 shadow-sm transition-all hover:scale-105 active:scale-95">
                                             <Link href="/verify">
                                                 <ShieldAlert className="h-4 w-4" />
                                                 Verificar Ahora

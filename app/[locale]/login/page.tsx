@@ -89,13 +89,13 @@ function LoginForm() {
                         <TabsList className="grid w-full grid-cols-2 h-12 bg-slate-100/50 p-1 rounded-xl border border-slate-100">
                             <TabsTrigger
                                 value="login"
-                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
+                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
                             >
                                 {t("login.signIn")}
                             </TabsTrigger>
                             <TabsTrigger
                                 value="register"
-                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
+                                className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm font-bold transition-all text-slate-500"
                             >
                                 {t("login.signUp")}
                             </TabsTrigger>
@@ -143,7 +143,7 @@ function LoginForm() {
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center ml-1">
                                         <Label htmlFor="password" className="text-slate-700 font-bold">{t("login.password")}</Label>
-                                        <a href="/forgot-password" className="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors">Olvidé mi clave</a>
+                                        <a href="/forgot-password" className="text-xs font-bold text-stone-900 hover:text-stone-900 transition-colors">Olvidé mi clave</a>
                                     </div>
                                     <div className="relative">
                                         <Input
@@ -170,12 +170,12 @@ function LoginForm() {
                                         id="remember"
                                         checked={rememberMe}
                                         onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                                        className="rounded border-slate-300 data-[state=checked]:bg-blue-600"
+                                        className="rounded border-slate-300 data-[state=checked]:bg-stone-900"
                                     />
                                     <label htmlFor="remember" className="text-sm font-medium text-slate-500 cursor-pointer select-none">Recordar mi cuenta</label>
                                 </div>
 
-                                <Button className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base rounded-xl shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                                <Button className="w-full h-12 bg-stone-900 hover:bg-stone-800 text-white font-bold text-base rounded-xl shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
                                     {t("login.signIn")}
                                 </Button>
                             </form>
@@ -226,15 +226,15 @@ function LoginForm() {
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="flex items-start space-x-3 p-4 bg-slate-50/50 rounded-xl border border-slate-100 focus-within:border-blue-100 transition-colors">
-                                    <Checkbox id="terms" name="terms" required className="mt-1 border-slate-300 data-[state=checked]:bg-blue-600" />
+                                <div className="flex items-start space-x-3 p-4 bg-slate-50/50 rounded-xl border border-slate-100 focus-within:border-stone-200 transition-colors">
+                                    <Checkbox id="terms" name="terms" required className="mt-1 border-slate-300 data-[state=checked]:bg-stone-900" />
                                     <label
                                         htmlFor="terms"
                                         className="text-xs text-slate-500 leading-relaxed font-medium"
                                     >
                                         {t.rich('login.agreeToTerms', {
-                                            terms: (chunks) => <a href="/legal/terms" className="font-bold text-blue-600 hover:underline">{chunks}</a>,
-                                            privacy: (chunks) => <a href="/legal/privacy" className="font-bold text-blue-600 hover:underline">{chunks}</a>
+                                            terms: (chunks) => <a href="/legal/terms" className="font-bold text-stone-900 hover:underline">{chunks}</a>,
+                                            privacy: (chunks) => <a href="/legal/privacy" className="font-bold text-stone-900 hover:underline">{chunks}</a>
                                         })}
                                     </label>
                                 </div>

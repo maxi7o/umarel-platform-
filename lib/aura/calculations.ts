@@ -84,10 +84,10 @@ export function distributeDailyPool(
  */
 export function getAuraBadgeColor(level: AuraLevel): string {
     const colors = {
-        bronze: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
+        bronze: 'bg-stone-100 text-stone-900 dark:bg-orange-900 dark:text-orange-300',
         silver: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-        gold: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300',
-        diamond: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300',
+        gold: 'bg-stone-100 text-stone-900 dark:bg-yellow-900 dark:text-yellow-300',
+        diamond: 'bg-stone-100 text-stone-900 dark:bg-purple-900 dark:text-purple-300',
     };
     return colors[level];
 }

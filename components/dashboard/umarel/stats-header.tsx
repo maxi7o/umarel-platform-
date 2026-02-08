@@ -13,10 +13,10 @@ export function StatsHeader({ auraPoints, auraLevel, totalEarnings, impactScore 
 
     const getBadgeColor = (level: string) => {
         switch (level) {
-            case 'bronze': return 'bg-orange-100 text-orange-800 border-orange-200';
+            case 'bronze': return 'bg-stone-100 text-stone-900 border-stone-300';
             case 'silver': return 'bg-slate-100 text-slate-800 border-slate-200';
-            case 'gold': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'diamond': return 'bg-blue-100 text-blue-800 border-blue-200';
+            case 'gold': return 'bg-stone-100 text-yellow-800 border-stone-300';
+            case 'diamond': return 'bg-stone-100 text-stone-900 border-stone-300';
             default: return 'bg-gray-100 text-gray-800';
         }
     };
@@ -54,7 +54,7 @@ export function StatsHeader({ auraPoints, auraLevel, totalEarnings, impactScore 
 
             {/* Impact Card */}
             <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex items-center gap-4">
-                <div className="p-4 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                <div className="p-4 rounded-full bg-stone-100 text-purple-800 border border-stone-300">
                     <TrendingUp className="w-8 h-8" />
                 </div>
                 <div>

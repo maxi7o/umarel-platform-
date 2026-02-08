@@ -24,12 +24,12 @@ export function SliceProposal({ slice, onAccept, isAccepted = false }: SliceProp
             "w-full max-w-sm mt-2 border-2 transition-all",
             isAccepted
                 ? "bg-green-50 border-green-200 dark:bg-green-900/10 dark:border-green-800"
-                : "bg-white border-blue-100 dark:bg-gray-800 dark:border-blue-900"
+                : "bg-white border-stone-200 dark:bg-gray-800 dark:border-blue-900"
         )}>
             <CardHeader className="pb-2">
                 <div className="flex justify-between items-start gap-2">
                     <CardTitle className="text-base font-semibold flex items-center gap-2">
-                        <Shovel size={16} className={isAccepted ? "text-green-600" : "text-blue-600"} />
+                        <Shovel size={16} className={isAccepted ? "text-green-600" : "text-stone-900"} />
                         {slice.title}
                     </CardTitle>
                     {isAccepted && (
@@ -55,7 +55,7 @@ export function SliceProposal({ slice, onAccept, isAccepted = false }: SliceProp
                 <CardFooter className="pt-0 pb-3">
                     <Button
                         size="sm"
-                        className="w-full gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full gap-2 bg-stone-900 hover:bg-stone-800 text-white"
                         onClick={onAccept}
                     >
                         <CheckCircle2 size={14} />

@@ -29,9 +29,9 @@ export default function AboutPage() {
                     Transformamos "presupuestos en el aire" en **hitos cumplibles y verificables**.
                 </p>
 
-                <div className="bg-blue-50 p-6 rounded-2xl mt-12 border border-blue-100">
+                <div className="bg-stone-50 p-6 rounded-2xl mt-12 border border-stone-200">
                     <h3 className="text-blue-900 font-bold mb-2">Ingeniería de Confianza</h3>
-                    <p className="text-blue-800 m-0">
+                    <p className="text-stone-900 m-0">
                         Usamos tecnología para custodiar los fondos (Escrow) y expertos reales para auditar la ejecución.
                         Esa combinación elimina el riesgo para ambas partes.
                     </p>

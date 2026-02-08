@@ -88,7 +88,7 @@ export function BiometricVerification({
 
                 {status === 'scanning' && (
                     <div className="text-center py-6 space-y-4">
-                        <div className="mx-auto h-24 w-24 rounded-full bg-blue-50 flex items-center justify-center border-4 border-blue-500 border-t-transparent animate-spin">
+                        <div className="mx-auto h-24 w-24 rounded-full bg-stone-50 flex items-center justify-center border-4 border-blue-500 border-t-transparent animate-spin">
                         </div>
                         <p className="font-medium animate-pulse">Scanning face...</p>
                         <p className="text-xs text-slate-400">Please look at the camera</p>
@@ -97,7 +97,7 @@ export function BiometricVerification({
 
                 {status === 'verifying' && (
                     <div className="text-center py-6 space-y-4">
-                        <div className="mx-auto h-24 w-24 rounded-full bg-yellow-50 flex items-center justify-center">
+                        <div className="mx-auto h-24 w-24 rounded-full bg-stone-50 flex items-center justify-center">
                             <ShieldAlert className="h-10 w-10 text-yellow-500 animate-bounce" />
                         </div>
                         <p className="font-medium">Verifying against database...</p>

@@ -97,7 +97,7 @@ export function UnifiedCard({ item, type }: UnifiedCardProps) {
 
                                 {/* Ambiguity Badges (V2 Logic) */}
                                 {isRequest && ambiguityScore > 50 && (
-                                    <Badge variant="destructive" className="gap-1 bg-orange-500 hover:bg-orange-600 animate-pulse">
+                                    <Badge variant="destructive" className="gap-1 bg-orange-500 hover:bg-stone-900 animate-pulse">
                                         <AlertCircle className="h-3 w-3" />
                                         <span>Needs Umarel</span>
                                     </Badge>

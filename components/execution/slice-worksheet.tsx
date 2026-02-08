@@ -184,7 +184,7 @@ export function SliceWorksheet({ sliceId }: { sliceId: string }) {
 
                                     {/* Actions */}
                                     <div className="flex gap-3 pt-2">
-                                        <Button className="flex-1 bg-orange-600 hover:bg-orange-700 text-white" disabled={!isCurrent}>
+                                        <Button className="flex-1 bg-stone-900 hover:bg-stone-800 text-white" disabled={!isCurrent}>
                                             {t('completeStep')}
                                         </Button>
                                         <Button variant="ghost" className="text-stone-400 hover:text-stone-300">

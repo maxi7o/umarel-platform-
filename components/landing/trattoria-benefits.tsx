@@ -29,7 +29,7 @@ export function TrattoriaBenefits() {
             title: t('aiWizard.title'),
             description: t('aiWizard.description'),
             color: 'from-[#E76F51] to-[#D65A3F]',
-            bgColor: 'bg-orange-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: Users,
@@ -37,7 +37,7 @@ export function TrattoriaBenefits() {
             title: t('communityWisdom.title'),
             description: t('communityWisdom.description'),
             color: 'from-[#F4A261] to-[#E89350]',
-            bgColor: 'bg-amber-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: Award,
@@ -45,7 +45,7 @@ export function TrattoriaBenefits() {
             title: t('auraReputation.title'),
             description: t('auraReputation.description'),
             color: 'from-[#8B4513] to-[#6B3410]',
-            bgColor: 'bg-amber-50',
+            bgColor: 'bg-stone-50',
         },
         {
             icon: CheckCircle2,
@@ -69,7 +69,7 @@ export function TrattoriaBenefits() {
             title: t('milestonePayments.title'),
             description: t('milestonePayments.description'),
             color: 'from-[#E76F51] to-[#C85A3E]',
-            bgColor: 'bg-orange-50',
+            bgColor: 'bg-stone-50',
         },
     ];
 

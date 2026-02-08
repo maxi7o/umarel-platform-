@@ -82,9 +82,9 @@ export default function LocationDemoPage() {
                                 }}
                             />
 
-                            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div className="mt-6 p-4 bg-stone-50 border border-stone-300 rounded-lg">
                                 <h4 className="font-semibold text-blue-900 mb-2">💡 Tip</h4>
-                                <p className="text-sm text-blue-800">
+                                <p className="text-sm text-stone-900">
                                     Abrí la consola del navegador para ver los logs de caché y fallback.
                                     Después de buscar algo, volvé a buscarlo y verás "📦 Cache hit".
                                 </p>
@@ -98,14 +98,14 @@ export default function LocationDemoPage() {
                         </CardHeader>
                         <CardContent className="space-y-3 text-sm">
                             <div>
-                                <div className="font-semibold text-orange-600">Primario: Photon (Komoot)</div>
+                                <div className="font-semibold text-stone-900">Primario: Photon (Komoot)</div>
                                 <code className="text-xs bg-stone-100 px-2 py-1 rounded block mt-1">
                                     https://photon.komoot.io/api/
                                 </code>
                                 <p className="text-stone-600 mt-1">Rápido (~100-200ms), sin límites</p>
                             </div>
                             <div>
-                                <div className="font-semibold text-blue-600">Fallback: Nominatim (OSM)</div>
+                                <div className="font-semibold text-stone-900">Fallback: Nominatim (OSM)</div>
                                 <code className="text-xs bg-stone-100 px-2 py-1 rounded block mt-1">
                                     https://nominatim.openstreetmap.org/search
                                 </code>
@@ -160,7 +160,7 @@ export default function LocationDemoPage() {
                 </TabsContent>
             </Tabs>
 
-            <Card className="mt-8 bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200">
+            <Card className="mt-8 bg-gradient-to-br from-orange-50 to-amber-50 border-stone-300">
                 <CardHeader>
                     <CardTitle>🎉 Ventajas vs Google Maps</CardTitle>
                 </CardHeader>

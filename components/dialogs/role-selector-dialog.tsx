@@ -45,7 +45,7 @@ export function RoleSelectorDialog() {
             <DialogContent className="max-w-4xl p-0 bg-transparent border-none shadow-none sm:max-w-4xl overflow-hidden">
                 <div className="bg-white rounded-3xl overflow-hidden shadow-2xl grid md:grid-cols-2">
                     {/* Visual Side */}
-                    <div className="bg-orange-600 p-8 text-white flex flex-col justify-center relative overflow-hidden">
+                    <div className="bg-stone-900 p-8 text-white flex flex-col justify-center relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
                         <div className="relative z-10">
                             <h2 className="text-3xl font-bold font-heading mb-4">¡Hola, vecino! 👋</h2>
@@ -61,13 +61,13 @@ export function RoleSelectorDialog() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => handleSelect('client')}
-                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-orange-200 hover:shadow-lg transition-all group text-left"
+                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-stone-300 hover:shadow-lg transition-all group text-left"
                         >
-                            <div className="h-12 w-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-4 group-hover:bg-orange-100 group-hover:text-orange-600">
+                            <div className="h-12 w-12 rounded-full bg-stone-100 text-stone-900 flex items-center justify-center mr-4 group-hover:bg-stone-100 group-hover:text-stone-900">
                                 <Search className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-slate-900 group-hover:text-orange-600">Tengo un problema</h3>
+                                <h3 className="font-bold text-slate-900 group-hover:text-stone-900">Tengo un problema</h3>
                                 <p className="text-sm text-slate-500">Necesito arreglar algo o contratar un servicio.</p>
                             </div>
                         </motion.button>
@@ -76,13 +76,13 @@ export function RoleSelectorDialog() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => handleSelect('provider')}
-                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-orange-200 hover:shadow-lg transition-all group text-left"
+                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-stone-300 hover:shadow-lg transition-all group text-left"
                         >
-                            <div className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 group-hover:bg-orange-100 group-hover:text-orange-600">
+                            <div className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-4 group-hover:bg-stone-100 group-hover:text-stone-900">
                                 <Shovel className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-slate-900 group-hover:text-orange-600">Ofrezco mis servicios</h3>
+                                <h3 className="font-bold text-slate-900 group-hover:text-stone-900">Ofrezco mis servicios</h3>
                                 <p className="text-sm text-slate-500">Soy profesional y busco trabajos seguros.</p>
                             </div>
                         </motion.button>
@@ -91,13 +91,13 @@ export function RoleSelectorDialog() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => handleSelect('umarel')}
-                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-orange-200 hover:shadow-lg transition-all group text-left"
+                            className="w-full flex items-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-stone-300 hover:shadow-lg transition-all group text-left"
                         >
-                            <div className="h-12 w-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-4 group-hover:bg-orange-100 group-hover:text-orange-600">
+                            <div className="h-12 w-12 rounded-full bg-stone-100 text-stone-900 flex items-center justify-center mr-4 group-hover:bg-stone-100 group-hover:text-stone-900">
                                 <Eye className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-slate-900 group-hover:text-orange-600">Quiero ser Umarel</h3>
+                                <h3 className="font-bold text-slate-900 group-hover:text-stone-900">Quiero ser Umarel</h3>
                                 <p className="text-sm text-slate-500">Tengo experiencia y quiero verificar proyectos.</p>
                             </div>
                         </motion.button>

@@ -63,7 +63,7 @@ export function MaterialAdvanceAction({
 
     if (status === 'pending') {
         return (
-            <div className="flex items-center gap-2 text-amber-700 bg-amber-50 p-3 rounded-lg border border-amber-200">
+            <div className="flex items-center gap-2 text-amber-700 bg-stone-50 p-3 rounded-lg border border-stone-300">
                 <Coins size={18} />
                 <span className="text-sm font-medium">Solicitud de Acopio enviada. Esperando aprobación del cliente.</span>
             </div>
@@ -77,7 +77,7 @@ export function MaterialAdvanceAction({
                     variant="outline"
                     size="sm"
                     onClick={() => setStatus('uploading')}
-                    className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800"
+                    className="w-full border-stone-300 text-stone-900 hover:bg-stone-50 hover:text-stone-900"
                 >
                     <Coins className="mr-2 h-4 w-4" />
                     Solicitar Acopio de Materiales (40%)
@@ -85,16 +85,16 @@ export function MaterialAdvanceAction({
             )}
 
             {status === 'uploading' && (
-                <Card className="p-4 border-dashed border-2 border-blue-200 bg-blue-50/50">
+                <Card className="p-4 border-dashed border-2 border-stone-300 bg-stone-50/50">
                     <h4 className="text-sm font-bold text-blue-900 mb-2">Verificar Materiales en Obra</h4>
-                    <p className="text-xs text-blue-700 mb-4">
+                    <p className="text-xs text-stone-900 mb-4">
                         Para liberar el 40% ({currency} {advanceAmount.toLocaleString()}) por adelantado, subí una foto de los materiales comprados y el ticket.
                     </p>
 
                     <div className="space-y-3">
                         <Button
                             variant="secondary"
-                            className="w-full bg-white text-blue-700 border border-blue-100 shadow-sm"
+                            className="w-full bg-white text-stone-900 border border-stone-200 shadow-sm"
                             onClick={() => {
                                 toast.success("Foto simulada subida");
                                 // Mock evidence additions
@@ -107,7 +107,7 @@ export function MaterialAdvanceAction({
                         </Button>
                         <Button
                             variant="secondary"
-                            className="w-full bg-white text-blue-700 border border-blue-100 shadow-sm"
+                            className="w-full bg-white text-stone-900 border border-stone-200 shadow-sm"
                             onClick={() => {
                                 toast.success("Ticket simulado subido");
                                 const newEvidence = [...(evidence?.receipts || []), "https://picsum.photos/200/300"];
@@ -125,7 +125,7 @@ export function MaterialAdvanceAction({
                             <Button
                                 size="sm"
                                 onClick={handleSendRequest}
-                                className="flex-1 bg-blue-600 text-white"
+                                className="flex-1 bg-stone-900 text-white"
                                 disabled={isRequesting || (!evidence?.photos?.length && !evidence?.receipts?.length)}
                             >
                                 {isRequesting ? 'Enviando...' : 'Enviar Solicitud'}

@@ -52,13 +52,13 @@ export function DigitalPiazza() {
                     <div className="relative p-1 bg-stone-100 dark:bg-stone-900 rounded-2xl ring-1 ring-stone-900/5 dark:ring-white/10 shadow-xl">
                         <div className="flex gap-2">
                             <Link href="/requests/create" className="flex-1">
-                                <Button size="lg" className="w-full h-14 bg-stone-900 dark:bg-white text-stone-50 dark:text-stone-900 hover:bg-orange-600 dark:hover:bg-orange-200 text-lg font-medium font-sans">
+                                <Button size="lg" className="w-full h-14 bg-stone-900 dark:bg-white text-stone-50 dark:text-stone-900 hover:bg-stone-900 dark:hover:bg-orange-200 text-lg font-medium font-sans">
                                     Start a Project
                                     <ArrowRight className="ml-2 w-5 h-5" />
                                 </Button>
                             </Link>
                             <Link href="/browse">
-                                <Button size="lg" variant="ghost" className="h-14 px-6 text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-200">
+                                <Button size="lg" variant="ghost" className="h-14 px-6 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-orange-200">
                                     <MapPin className="w-5 h-5" />
                                 </Button>
                             </Link>

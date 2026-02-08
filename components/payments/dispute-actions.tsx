@@ -124,7 +124,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
 
         if (refundStatus === 'requested') {
             return (
-                <div className="flex items-center gap-2 text-orange-600 text-sm font-medium">
+                <div className="flex items-center gap-2 text-stone-900 text-sm font-medium">
                     <CircleDashed className="w-4 h-4 animate-spin" />
                     Refund Requested
                 </div>
@@ -138,7 +138,7 @@ export function DisputeActions({ sliceId, refundStatus, isClient, isProvider, sl
             return (
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
-                        <Button size="sm" variant="outline" className="border-orange-500 text-orange-600">
+                        <Button size="sm" variant="outline" className="border-orange-500 text-stone-900">
                             Respond to Refund
                         </Button>
                     </DialogTrigger>

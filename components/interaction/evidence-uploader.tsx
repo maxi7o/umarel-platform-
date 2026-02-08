@@ -150,16 +150,16 @@ export function EvidenceUploader({ sliceId, sliceTitle }: EvidenceUploaderProps)
                     </div>
 
                     {/* Challenge Mode Instruction */}
-                    <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-start gap-3">
-                        <ShieldAlert className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                        <div className="text-sm text-orange-800">
+                    <div className="bg-stone-50 border border-stone-300 rounded-lg p-4 flex items-start gap-3">
+                        <ShieldAlert className="h-5 w-5 text-stone-900 mt-0.5 flex-shrink-0" />
+                        <div className="text-sm text-stone-900">
                             <p className="font-bold mb-1">🛡️ Verificación Anti-IA Requerida</p>
                             <p>
                                 Para confirmar que esta foto es real y reciente, escribí el código
-                                <span className="mx-1 px-2 py-0.5 bg-white border border-orange-300 rounded font-mono font-bold text-lg text-black">{challengeCode}</span>
+                                <span className="mx-1 px-2 py-0.5 bg-white border border-stone-300 rounded font-mono font-bold text-lg text-black">{challengeCode}</span>
                                 en un papel e incluilo en la foto.
                             </p>
-                            <p className="text-xs mt-1 text-orange-600/80">
+                            <p className="text-xs mt-1 text-stone-900/80">
                                 Sin este código visible, la evidencia podría ser rechazada.
                             </p>
                         </div>

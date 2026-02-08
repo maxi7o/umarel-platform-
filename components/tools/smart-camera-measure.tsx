@@ -151,7 +151,7 @@ export function SmartCameraMeasure({ onCapture, onClose }: SmartCameraMeasurePro
                 </div>
 
                 {/* Simulated AR Measurement Prompt */}
-                <div className="absolute bottom-32 bg-blue-600/90 text-white text-sm px-6 py-2 rounded-lg animate-pulse">
+                <div className="absolute bottom-32 bg-stone-900/90 text-white text-sm px-6 py-2 rounded-lg animate-pulse">
                     <ScanLine className="inline-block w-4 h-4 mr-2" />
                     Scanning for surfaces...
                 </div>

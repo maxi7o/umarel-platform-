@@ -145,7 +145,7 @@ export function AIInterviewer({ experienceId, experienceTitle, initialQuestions,
 
             <CardHeader className="pb-3 border-b bg-muted/10">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                    <Sparkles className="w-5 h-5 text-purple-600" />
+                    <Sparkles className="w-5 h-5 text-stone-900" />
                     AI Concierge
                 </CardTitle>
             </CardHeader>
@@ -160,9 +160,9 @@ export function AIInterviewer({ experienceId, experienceTitle, initialQuestions,
                                 animate={{ opacity: 1, y: 0 }}
                                 className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                             >
-                                <Avatar className={`w-8 h-8 ${msg.role === 'ai' ? 'bg-purple-100' : 'bg-stone-200'}`}>
+                                <Avatar className={`w-8 h-8 ${msg.role === 'ai' ? 'bg-stone-100' : 'bg-stone-200'}`}>
                                     {msg.role === 'ai' ? (
-                                        <div className="flex items-center justify-center w-full h-full text-purple-600">
+                                        <div className="flex items-center justify-center w-full h-full text-stone-900">
                                             <Sparkles className="w-4 h-4" />
                                         </div>
                                     ) : (
@@ -182,8 +182,8 @@ export function AIInterviewer({ experienceId, experienceTitle, initialQuestions,
 
                         {isTyping && (
                             <div className="flex gap-3">
-                                <Avatar className="w-8 h-8 bg-purple-100">
-                                    <div className="flex items-center justify-center w-full h-full text-purple-600">
+                                <Avatar className="w-8 h-8 bg-stone-100">
+                                    <div className="flex items-center justify-center w-full h-full text-stone-900">
                                         <Sparkles className="w-4 h-4" />
                                     </div>
                                 </Avatar>
@@ -247,7 +247,7 @@ export function AIInterviewer({ experienceId, experienceTitle, initialQuestions,
                         type="submit"
                         size="icon"
                         disabled={!input.trim() || isTyping || isComplete}
-                        className="absolute right-1 top-1 h-8 w-8 bg-purple-600 hover:bg-purple-700"
+                        className="absolute right-1 top-1 h-8 w-8 bg-stone-900 hover:bg-stone-800"
                     >
                         {isTyping ? <Loader2 className="w-4 h-4 animate-spin" /> : <SendHorizontal className="w-4 h-4" />}
                     </Button>

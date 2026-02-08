@@ -71,7 +71,7 @@ export function RotatingQuotes() {
                     <div
                         key={index}
                         className={`h-1.5 rounded-full transition-all ${index === currentIndex
-                            ? 'w-8 bg-orange-600'
+                            ? 'w-8 bg-stone-900'
                             : 'w-1.5 bg-gray-300 dark:bg-gray-600'
                             }`}
                     />

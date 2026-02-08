@@ -181,7 +181,7 @@ export function RequestInteractionLayout({
                         <div className="animate-in slide-in-from-right duration-300">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-xl font-semibold text-stone-800 flex items-center gap-2">
-                                    <ShieldCheck className="w-5 h-5 text-blue-600" />
+                                    <ShieldCheck className="w-5 h-5 text-stone-900" />
                                     Evaluate Proposal
                                 </h3>
                                 <button className="text-sm text-stone-500 hover:text-stone-800 underline" onClick={() => setSelectedQuote(null)}>
@@ -202,7 +202,7 @@ export function RequestInteractionLayout({
                             {/* View Toggle & Title */}
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xl font-semibold text-stone-800 flex items-center gap-2">
-                                    {viewMode === 'timeline' ? <LayoutList className="w-5 h-5 text-blue-600" /> : <KanbanSquare className="w-5 h-5 text-blue-600" />}
+                                    {viewMode === 'timeline' ? <LayoutList className="w-5 h-5 text-stone-900" /> : <KanbanSquare className="w-5 h-5 text-stone-900" />}
                                     {t('tabs.slices')}
                                 </h3>
                                 <div className="flex bg-stone-100 p-1 rounded-lg border border-stone-200">
@@ -210,7 +210,7 @@ export function RequestInteractionLayout({
                                         onClick={() => setViewMode('timeline')}
                                         className={cn(
                                             "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
-                                            viewMode === 'timeline' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
+                                            viewMode === 'timeline' ? "bg-white text-stone-900 shadow-sm" : "text-stone-500 hover:text-stone-700"
                                         )}
                                     >
                                         <LayoutList size={16} />
@@ -220,7 +220,7 @@ export function RequestInteractionLayout({
                                         onClick={() => setViewMode('board')}
                                         className={cn(
                                             "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2",
-                                            viewMode === 'board' ? "bg-white text-blue-700 shadow-sm" : "text-stone-500 hover:text-stone-700"
+                                            viewMode === 'board' ? "bg-white text-stone-900 shadow-sm" : "text-stone-500 hover:text-stone-700"
                                         )}
                                     >
                                         <KanbanSquare size={16} />
@@ -302,7 +302,7 @@ export function RequestInteractionLayout({
                                             </p>
                                         )}
                                         <div className="flex justify-between items-center mt-2">
-                                            <div className="text-xs text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="text-xs text-stone-900 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                                                 Click to Evaluate
                                             </div>
                                             {/* Allow Entendidos to verify quotes directly from list */}
@@ -344,12 +344,12 @@ export function RequestInteractionLayout({
                     )}
 
                     {/* AI Tip / Insight */}
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm text-blue-800">
+                    <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 text-sm text-stone-900">
                         <div className="flex items-start gap-2">
                             <MessageSquare className="w-4 h-4 mt-1 shrink-0" />
                             <div>
                                 <strong>{t('tips.label')}:</strong> {t('tips.text')} <br />
-                                <em className="text-blue-600 block mt-1">"{t('tips.example1')}"</em>
+                                <em className="text-stone-900 block mt-1">"{t('tips.example1')}"</em>
                             </div>
                         </div>
                     </div>

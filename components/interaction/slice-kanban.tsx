@@ -112,7 +112,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                     const isVague = ambiguity > 50;
                                     const isClear = ambiguity < 30 && ambiguity > 0;
 
-                                    const cardBorderColor = isVague ? "border-orange-200 hover:border-orange-300" :
+                                    const cardBorderColor = isVague ? "border-stone-300 hover:border-stone-300" :
                                         isClear ? "border-green-200 hover:border-green-300" :
                                             "border-stone-200 hover:border-stone-300";
 
@@ -120,7 +120,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                         <Card key={slice.id} className={cn(
                                             "bg-white transition-all duration-200 group relative overflow-hidden ring-1 ring-transparent hover:ring-2 hover:ring-stone-100",
                                             cardBorderColor,
-                                            isVague && "bg-orange-50/30"
+                                            isVague && "bg-stone-50/30"
                                         )}>
                                             {/* Status Stripe */}
                                             <div className={cn("absolute left-0 top-0 bottom-0 w-1",
@@ -134,7 +134,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
                                                             {slice.title}
                                                         </CardTitle>
                                                         {slice.isAiGenerated && (
-                                                            <div className="flex items-center gap-1.5 text-[10px] text-purple-600 font-medium">
+                                                            <div className="flex items-center gap-1.5 text-[10px] text-stone-900 font-medium">
                                                                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
                                                                 AI Generated
                                                             </div>
@@ -242,7 +242,7 @@ export function SliceKanban({ slices, requestId, isOwner, currentUserId, onSlice
 
                                                             {/* Status Badges */}
                                                             {slice.materialAdvanceStatus === 'requested' && currentUserId === slice.assignedProviderId && (
-                                                                <div className="text-xs text-amber-600 bg-amber-50 p-2 rounded border border-amber-100 text-center">
+                                                                <div className="text-xs text-stone-900 bg-stone-50 p-2 rounded border border-stone-200 text-center">
                                                                     Advance Requested... Waiting for Client
                                                                 </div>
                                                             )}

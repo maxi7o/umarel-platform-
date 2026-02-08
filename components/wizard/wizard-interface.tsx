@@ -344,7 +344,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
         <div className="h-screen flex flex-col bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
             {/* Header */}
             <div className="border-b bg-white dark:bg-gray-900">
-                <div className="bg-gradient-to-r from-orange-100 to-yellow-100 dark:from-orange-900/20 dark:to-yellow-900/20 px-6 py-2 text-center text-sm font-medium text-orange-800 dark:text-orange-200 border-b border-orange-200 dark:border-orange-800">
+                <div className="bg-gradient-to-r from-orange-100 to-yellow-100 dark:from-orange-900/20 dark:to-yellow-900/20 px-6 py-2 text-center text-sm font-medium text-stone-900 dark:text-orange-200 border-b border-stone-300 dark:border-orange-800">
                     {t.earningsBanner(
                         platformEarnings !== null
                             ? `$${(platformEarnings / 100).toLocaleString(locale === 'es' ? 'es-AR' : 'en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
@@ -359,12 +359,12 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                     </div>
                     <div className="flex items-center">
                         {!isConsultant && (
-                            <Button onClick={handleSkipWizard} className="bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-lg shadow-orange-200" size="lg">
+                            <Button onClick={handleSkipWizard} className="bg-stone-900 hover:bg-stone-800 text-white font-bold shadow-lg shadow-orange-200" size="lg">
                                 {t.skipWizard} →
                             </Button>
                         )}
                         {!isConsultant && (
-                            <Button onClick={handleShare} variant="ghost" className="ml-2 gap-2 text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40">
+                            <Button onClick={handleShare} variant="ghost" className="ml-2 gap-2 text-stone-900 hover:text-stone-900 bg-stone-50 hover:bg-stone-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40">
                                 <Share2 className="w-4 h-4" />
                                 {isCopied ? t.shareCopied : t.share}
                             </Button>
@@ -405,9 +405,9 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                 {/* Left: Message Thread */}
                 <div className={`flex-1 overflow-y-auto p-6 transition-all ${isSliceCardCollapsed ? 'mr-0' : ''}`}>
                     {/* Project Context Header */}
-                    <div className="mb-6 p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800">
+                    <div className="mb-6 p-4 rounded-xl bg-stone-50 dark:bg-blue-900/20 border border-stone-200 dark:border-blue-800">
                         <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            <span className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-blue-400">
                                 {locale === 'es' ? 'Solicitud Original' : 'Original Request'}
                             </span>
                         </div>
@@ -515,11 +515,11 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                                 </button>
 
                                 {/* Current */}
-                                <div className="flex-[2] p-4 rounded-lg border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-lg">
+                                <div className="flex-[2] p-4 rounded-lg border-2 border-blue-500 dark:border-blue-400 bg-stone-50 dark:bg-blue-900/20 shadow-lg">
                                     <div className="flex items-start justify-between gap-3">
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                                <Sparkles className="h-4 w-4 text-stone-900 dark:text-blue-400" />
                                                 <p className="text-xs font-semibold text-blue-900 dark:text-blue-100">{t.currentQuestion}</p>
                                             </div>
                                             <p className="text-base font-medium text-blue-900 dark:text-blue-100">
@@ -653,7 +653,7 @@ export function WizardInterface({ sliceId, requestId, currentUser, locale = 'en'
                         <Button variant="outline" onClick={() => setIsSkipDialogOpen(false)}>
                             {locale === 'es' ? 'Seguir editando' : 'Keep editing'}
                         </Button>
-                        <Button className="bg-orange-600 hover:bg-orange-700 text-white border-0" onClick={confirmSkip}>
+                        <Button className="bg-stone-900 hover:bg-stone-800 text-white border-0" onClick={confirmSkip}>
                             {isGuest
                                 ? (locale === 'es' ? 'Registrarse y Publicar' : 'Sign Up & Publish')
                                 : (locale === 'es' ? 'Publicar Ahora' : 'Publish Now')

@@ -85,16 +85,16 @@ export function ApproveSliceButton({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-muted-foreground">→ Community helpers</span>
-                                    <span className="font-semibold text-orange-600">
+                                    <span className="font-semibold text-stone-900">
                                         {formatARS(communityRewards)}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                        <div className="bg-stone-50 dark:bg-yellow-950/20 border border-stone-300 dark:border-yellow-800 rounded-lg p-4">
                             <div className="flex items-start gap-2">
-                                <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5 shrink-0" />
+                                <AlertCircle className="h-5 w-5 text-stone-900 mt-0.5 shrink-0" />
                                 <div className="text-sm">
                                     <p className="font-semibold text-yellow-900 dark:text-yellow-100 mb-1">
                                         This action is final

@@ -75,7 +75,7 @@ export function NotificationBell() {
                             {notifications.map((n) => (
                                 <div
                                     key={n.id}
-                                    className={`p-4 hover:bg-muted/50 transition-colors cursor-pointer ${n.read === 0 ? 'bg-blue-50/50' : ''}`}
+                                    className={`p-4 hover:bg-muted/50 transition-colors cursor-pointer ${n.read === 0 ? 'bg-stone-50/50' : ''}`}
                                     onClick={() => handleMarkRead(n.id)}
                                 >
                                     <div className="font-medium text-sm">{n.title}</div>

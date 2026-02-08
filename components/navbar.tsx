@@ -54,10 +54,10 @@ export function Navbar({ user }: NavbarProps) {
                     {/* 1. BRAND IDENTITY + EXPLORE */}
                     <div className="flex items-center gap-4 sm:gap-8 flex-shrink-0">
                         <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-                            <div className="relative h-7 w-7 sm:h-8 sm:w-8 text-blue-600 transition-transform group-hover:rotate-12 duration-500">
+                            <div className="relative h-7 w-7 sm:h-8 sm:w-8 text-stone-900 transition-transform group-hover:rotate-12 duration-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" /><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" /><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" /></svg>
                             </div>
-                            <span className="font-archivo font-bold text-lg sm:text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                            <span className="font-archivo font-bold text-lg sm:text-xl tracking-tight text-slate-900 group-hover:text-stone-900 transition-colors whitespace-nowrap">
                                 El Entendido
                             </span>
                         </Link>
@@ -79,7 +79,7 @@ export function Navbar({ user }: NavbarProps) {
                                     <PlusCircle className="mr-2 h-4 w-4" />
                                     Nuevo Proyecto
                                 </Button>
-                                <Button size="icon" variant="ghost" className="sm:hidden text-blue-600">
+                                <Button size="icon" variant="ghost" className="sm:hidden text-stone-900">
                                     <PlusCircle className="h-6 w-6" />
                                 </Button>
                             </Link>
@@ -102,7 +102,7 @@ export function Navbar({ user }: NavbarProps) {
                                     <DropdownMenuSeparator className="bg-slate-100" />
                                     <Link href="/wallet">
                                         <DropdownMenuItem className="focus:bg-slate-50 cursor-pointer py-2">
-                                            <LayoutDashboard className="mr-2 h-4 w-4 text-blue-600" />
+                                            <LayoutDashboard className="mr-2 h-4 w-4 text-stone-900" />
                                             {t('dashboard')}
                                         </DropdownMenuItem>
                                     </Link>
@@ -123,7 +123,7 @@ export function Navbar({ user }: NavbarProps) {
 
                                 {/* Opiná */}
                                 <Link href="/audit" className="hidden sm:block">
-                                    <Button variant="outline" className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 border-slate-200 font-medium transition-colors">
+                                    <Button variant="outline" className="text-slate-700 hover:text-stone-900 hover:bg-stone-50 border-slate-200 font-medium transition-colors">
                                         🧐 Opiná
                                     </Button>
                                 </Link>
@@ -131,7 +131,7 @@ export function Navbar({ user }: NavbarProps) {
                                 {/* Cotizá - New Button */}
                                 {/* Navegá - Replaces Cotizá */}
                                 <Link href="/browse" className="hidden sm:block">
-                                    <Button variant="outline" className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 border-slate-200 font-medium transition-colors">
+                                    <Button variant="outline" className="text-slate-700 hover:text-stone-900 hover:bg-stone-50 border-slate-200 font-medium transition-colors">
                                         🔍 Navegá
                                     </Button>
                                 </Link>
@@ -140,7 +140,7 @@ export function Navbar({ user }: NavbarProps) {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="outline" className="bg-white hover:bg-slate-50 text-slate-900 border-slate-200 shadow-sm font-medium gap-1 hidden sm:flex">
-                                            <PlusCircle className="h-4 w-4 text-blue-600" />
+                                            <PlusCircle className="h-4 w-4 text-stone-900" />
                                             Creá
                                         </Button>
                                     </DropdownMenuTrigger>

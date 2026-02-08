@@ -133,7 +133,7 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                             variant="outline"
                             onClick={handleAutoDraft}
                             disabled={isDrafting || isSubmitting || selectedSlices.length === 0}
-                            className="bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200"
+                            className="bg-stone-50 hover:bg-stone-100 text-stone-900 border-stone-300"
                         >
                             {isDrafting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
                             Auto-Quote
@@ -235,7 +235,7 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                     <Button
                         type="submit"
                         size="lg"
-                        className="bg-orange-600 hover:bg-orange-700 text-white"
+                        className="bg-stone-900 hover:bg-stone-800 text-white"
                         disabled={isSubmitting || selectedSlices.length === 0}
                     >
                         {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}

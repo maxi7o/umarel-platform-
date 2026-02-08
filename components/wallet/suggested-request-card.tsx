@@ -36,7 +36,7 @@ export function SuggestedRequestCard({ request }: SuggestedRequestCardProps) {
             <CardFooter className="pt-2 pb-4">
                 <Link
                     href={`/requests/${request.id}`}
-                    className="w-full text-sm font-medium text-orange-600 hover:text-orange-700 flex items-center justify-end gap-1"
+                    className="w-full text-sm font-medium text-stone-900 hover:text-stone-900 flex items-center justify-end gap-1"
                 >
                     Cotizar <ArrowRight className="w-3 h-3" />
                 </Link>

@@ -56,9 +56,9 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
                             className={cn(
                                 "flex items-start gap-3 p-4 rounded-lg border transition-all cursor-pointer",
                                 isSelected
-                                    ? "bg-orange-50/50 border-orange-300 dark:bg-orange-950/20 dark:border-orange-800"
+                                    ? "bg-stone-50/50 border-stone-300 dark:bg-orange-950/20 dark:border-orange-800"
                                     : "bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800",
-                                isAmbiguous && !isSelected && "border-orange-200 bg-orange-50/20"
+                                isAmbiguous && !isSelected && "border-stone-300 bg-stone-50/20"
                             )}
                             onClick={() => toggleSlice(slice.id)}
                         >
@@ -66,7 +66,7 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
                                 id={slice.id}
                                 checked={isSelected}
                                 onCheckedChange={() => toggleSlice(slice.id)}
-                                className="mt-1 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
+                                className="mt-1 data-[state=checked]:bg-stone-900 data-[state=checked]:border-orange-600"
                             />
                             <div className="flex-1">
                                 <div className="flex items-center justify-between">
@@ -74,7 +74,7 @@ export function SliceSelector({ slices, selectedSliceIds, onSelectionChange }: S
                                         {getIcon(slice.skills)}
                                         {slice.title}
                                         {isAmbiguous && (
-                                            <Badge variant="outline" className="ml-2 text-[10px] text-orange-600 bg-orange-50 border-orange-200">
+                                            <Badge variant="outline" className="ml-2 text-[10px] text-stone-900 bg-stone-50 border-stone-300">
                                                 High Ambiguity ⚠️
                                             </Badge>
                                         )}

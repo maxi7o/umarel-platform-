@@ -329,7 +329,7 @@ export function LocationInput({
                                     key={result.place_id}
                                     onClick={() => handleSelect(result)}
                                     type="button"
-                                    className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-orange-50 hover:text-orange-900 transition-colors"
+                                    className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-stone-50 hover:text-orange-900 transition-colors"
                                 >
                                     <Clock className="mr-3 h-4 w-4 shrink-0 text-stone-400 mt-0.5" />
                                     <div className="flex flex-col overflow-hidden">
@@ -348,7 +348,7 @@ export function LocationInput({
                             key={result.place_id}
                             onClick={() => handleSelect(result)}
                             type="button"
-                            className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-orange-50 hover:text-orange-900 transition-colors"
+                            className="w-full text-left relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none hover:bg-stone-50 hover:text-orange-900 transition-colors"
                         >
                             <MapPin className="mr-3 h-4 w-4 shrink-0 text-orange-500/70 mt-0.5" />
                             <div className="flex flex-col overflow-hidden">

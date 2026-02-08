@@ -38,7 +38,7 @@ export function EvidenceRoom({ disputeId, existingEvidence, userRole, status, ai
                 <Badge className={
                     v.decision === 'resolved_release' ? 'bg-emerald-500/20 text-emerald-300 border-none' :
                         v.decision === 'resolved_refund' ? 'bg-red-500/20 text-red-300 border-none' :
-                            'bg-yellow-500/20 text-yellow-300 border-none'
+                            'bg-stone-900/20 text-yellow-300 border-none'
                 }>
                     {v.decision === 'resolved_release' && 'RELEASE'}
                     {v.decision === 'resolved_refund' && 'REFUND'}
@@ -133,7 +133,7 @@ export function EvidenceRoom({ disputeId, existingEvidence, userRole, status, ai
             )}
 
             {!aiVerdict && !isResolved && existingEvidence.length > 0 && (
-                <div className="bg-blue-50 text-blue-800 p-4 rounded-md text-sm flex items-center gap-2">
+                <div className="bg-stone-50 text-stone-900 p-4 rounded-md text-sm flex items-center gap-2">
                     <div className="animate-spin w-4 h-4 rounded-full border-2 border-blue-500 border-t-transparent"></div>
                     <div>
                         <span className="font-bold">Council is deliberating...</span>

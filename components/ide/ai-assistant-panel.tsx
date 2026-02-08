@@ -107,7 +107,7 @@ export function AiAssistantPanel({
             <div className="p-4 border-b border-border/50 flex items-center justify-between bg-gradient-to-r from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
                 <div className="flex items-center gap-3">
                     <div className="relative">
-                        <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
+                        <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
                             <span className="text-2xl">👴</span>
                         </div>
                         <div className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></div>
@@ -137,11 +137,11 @@ export function AiAssistantPanel({
                             >
                                 <div className="flex-shrink-0 mt-1">
                                     {msg.role === 'user' ? (
-                                        <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-sm">
+                                        <div className="w-8 h-8 rounded-full bg-stone-900 flex items-center justify-center text-white shadow-sm">
                                             <User size={14} />
                                         </div>
                                     ) : (
-                                        <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200 shadow-sm">
+                                        <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center border border-stone-300 shadow-sm">
                                             <span className="text-sm">👴</span>
                                         </div>
                                     )}
@@ -151,7 +151,7 @@ export function AiAssistantPanel({
                                     <div
                                         className={`px-4 py-2.5 text-sm shadow-sm relative leading-relaxed
                                             ${msg.role === 'user'
-                                                ? 'bg-blue-600 text-white rounded-2xl rounded-tr-sm'
+                                                ? 'bg-stone-900 text-white rounded-2xl rounded-tr-sm'
                                                 : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl rounded-tl-sm'
                                             }`}
                                     >
@@ -172,7 +172,7 @@ export function AiAssistantPanel({
                                 animate={{ opacity: 1, y: 0 }}
                                 className="flex gap-3"
                             >
-                                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200 shadow-sm mt-1">
+                                <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center border border-stone-300 shadow-sm mt-1">
                                     <span className="text-sm">👴</span>
                                 </div>
                                 <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1 shadow-sm">
@@ -192,7 +192,7 @@ export function AiAssistantPanel({
                             key={i}
                             variant="secondary"
                             size="sm"
-                            className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 shadow-sm text-xs h-7 whitespace-nowrap hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200 transition-colors"
+                            className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 shadow-sm text-xs h-7 whitespace-nowrap hover:bg-stone-50 hover:text-stone-900 hover:border-stone-300 transition-colors"
                             onClick={() => handleSendMessage(action)}
                         >
                             {action}
@@ -238,7 +238,7 @@ export function AiAssistantPanel({
                             size="icon"
                             onClick={() => handleSendMessage()}
                             disabled={!inputValue.trim() && !isTyping}
-                            className={`h-9 w-9 rounded-xl transition-all ${inputValue.trim() ? 'bg-blue-600 hover:bg-blue-700 shadow-md transform hover:scale-105' : 'bg-slate-200 text-slate-400 opacity-50'}`}
+                            className={`h-9 w-9 rounded-xl transition-all ${inputValue.trim() ? 'bg-stone-900 hover:bg-stone-800 shadow-md transform hover:scale-105' : 'bg-slate-200 text-slate-400 opacity-50'}`}
                         >
                             <Send className="w-4 h-4" />
                         </Button>

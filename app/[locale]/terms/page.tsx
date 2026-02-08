@@ -48,9 +48,9 @@ export default async function TermsPage() {
                     <p>You grant Umarel a non-exclusive, worldwide, royalty-free license to use your User Generated Content (portfolios, reviews, profile data) for marketing and platform operation purposes.</p>
                 </section>
 
-                <div className="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+                <div className="bg-stone-50 p-6 rounded-lg mb-8 border border-stone-200">
                     <h2 className="text-2xl font-semibold mb-4 text-blue-900">5. Argentina Specific Terms (Cesión de Derechos)</h2>
-                    <p className="text-blue-800">Para usuarios en Argentina: La transferencia de derechos mencionada en la sección 4.1 se rige como una "Cesión de Derechos de Explotación" bajo la Ley 11.723. Los derechos morales (paternidad de la obra) permanecen con el autor, pero el comprador adquiere el derecho exclusivo de uso comercial.</p>
+                    <p className="text-stone-900">Para usuarios en Argentina: La transferencia de derechos mencionada en la sección 4.1 se rige como una "Cesión de Derechos de Explotación" bajo la Ley 11.723. Los derechos morales (paternidad de la obra) permanecen con el autor, pero el comprador adquiere el derecho exclusivo de uso comercial.</p>
                 </div>
 
                 <section className="mb-8">

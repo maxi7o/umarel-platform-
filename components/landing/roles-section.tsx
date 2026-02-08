@@ -19,7 +19,7 @@ export function RolesSection() {
 
                     {/* Client */}
                     <div className="group relative bg-white p-8 rounded-[2rem] border border-stone-100 shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-stone-200/80 transition-all duration-300 hover:-translate-y-2">
-                        <div className="h-16 w-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <div className="h-16 w-16 bg-stone-50 text-stone-900 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <Lightbulb className="w-8 h-8" />
                         </div>
                         <h3 className="text-2xl font-bold mb-3 font-archivo text-slate-900">{t('roleClientTitle')}</h3>
@@ -28,7 +28,7 @@ export function RolesSection() {
                         </p>
                         <div className="pt-6 border-t border-stone-100">
                             <Link href="/requests/create">
-                                <span className="text-blue-600 font-bold flex items-center group-hover:gap-2 transition-all">
+                                <span className="text-stone-900 font-bold flex items-center group-hover:gap-2 transition-all">
                                     {t('roleClientAction')} <ArrowRight className="ml-1 h-4 w-4" />
                                 </span>
                             </Link>
@@ -55,7 +55,7 @@ export function RolesSection() {
 
                     {/* Provider */}
                     <div className="group relative bg-white p-8 rounded-[2rem] border border-stone-100 shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-stone-200/80 transition-all duration-300 hover:-translate-y-2">
-                        <div className="h-16 w-16 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <div className="h-16 w-16 bg-stone-50 text-stone-900 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <Briefcase className="w-8 h-8" />
                         </div>
                         <h3 className="text-2xl font-bold mb-3 font-archivo text-slate-900">{t('roleProviderTitle')}</h3>
@@ -64,7 +64,7 @@ export function RolesSection() {
                         </p>
                         <div className="pt-6 border-t border-stone-100">
                             <Link href="/create-offering">
-                                <span className="text-orange-600 font-bold flex items-center group-hover:gap-2 transition-all">
+                                <span className="text-stone-900 font-bold flex items-center group-hover:gap-2 transition-all">
                                     {t('roleProviderAction')} <ArrowRight className="ml-1 h-4 w-4" />
                                 </span>
                             </Link>

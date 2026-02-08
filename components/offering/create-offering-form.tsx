@@ -308,7 +308,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                             size="sm"
                                             onClick={handleAIMagic}
                                             disabled={isLoading || isGenerating}
-                                            className="h-8 text-purple-600 border-purple-200 hover:bg-purple-50"
+                                            className="h-8 text-stone-900 border-stone-300 hover:bg-stone-50"
                                         >
                                             {isGenerating ? (
                                                 <Loader2 className="w-3 h-3 mr-2 animate-spin" />
@@ -393,7 +393,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 <button
                                     type="button"
                                     onClick={handleImageUpload}
-                                    className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed hover:border-orange-500 hover:bg-orange-50 transition-colors"
+                                    className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed hover:border-stone-900 hover:bg-stone-50 transition-colors"
                                 >
                                     <Upload className="h-6 w-6 mb-2 text-stone-400" />
                                     <span className="text-xs text-stone-500">{t('form.addImage')}</span>
@@ -404,8 +404,8 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
 
                     {/* === EXPERIENCE TAB (New) === */}
                     <TabsContent value="experience" className="space-y-8">
-                        <div className="bg-orange-50 p-6 rounded-xl border border-orange-100 flex gap-4 items-start">
-                            <div className="p-3 bg-white rounded-lg shadow-sm text-orange-600">
+                        <div className="bg-stone-50 p-6 rounded-xl border border-stone-200 flex gap-4 items-start">
+                            <div className="p-3 bg-white rounded-lg shadow-sm text-stone-900">
                                 <Users className="w-6 h-6" />
                             </div>
                             <div>
@@ -448,7 +448,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
 
                         <div className="space-y-4 pt-4 border-t border-stone-100">
                             <div className="flex items-center gap-3 mb-2">
-                                <BrainCircuit className="w-5 h-5 text-purple-600" />
+                                <BrainCircuit className="w-5 h-5 text-stone-900" />
                                 <h3 className="font-bold text-stone-900">AI Interviewer Config</h3>
                             </div>
 

@@ -150,9 +150,9 @@ function ClientDemo() {
                         className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%]"
                     >
                         <p className="text-sm text-slate-700 mb-2">Entendido. Lo publicamos así para que los techistas entiendan:</p>
-                        <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                        <div className="bg-stone-50 p-3 rounded-xl border border-stone-200">
                             <h5 className="font-bold text-blue-900 text-sm">Reparación Filtración Techo</h5>
-                            <p className="text-xs text-blue-700 mt-1">Incluye: Impermeabilización externa y pintura de cielorraso.</p>
+                            <p className="text-xs text-stone-900 mt-1">Incluye: Impermeabilización externa y pintura de cielorraso.</p>
                         </div>
                     </motion.div>
                 )}
@@ -161,7 +161,7 @@ function ClientDemo() {
             <div className="p-4 bg-white border-t flex gap-2 items-center">
                 <Button size="icon" variant="ghost" className="rounded-full text-slate-400"><ImageIcon size={20} /></Button>
                 <div className="flex-1 h-10 bg-slate-100 rounded-full px-4 flex items-center text-slate-400 text-sm">Escribí acá...</div>
-                <Button size="icon" className="rounded-full bg-blue-500 hover:bg-blue-600"><Mic size={20} /></Button>
+                <Button size="icon" className="rounded-full bg-blue-500 hover:bg-stone-900"><Mic size={20} /></Button>
             </div>
         </motion.div>
     );
@@ -178,7 +178,7 @@ function ProviderDemo() {
                     <h4 className="font-bold text-slate-900 text-xl">Hola, Juan</h4>
                     <p className="text-sm text-slate-500">Tenés 3 trabajos cerca.</p>
                 </div>
-                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">JD</div>
+                <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 font-bold">JD</div>
             </div>
 
             <motion.div
@@ -186,7 +186,7 @@ function ProviderDemo() {
                 className="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 mb-4"
             >
                 <div className="flex justify-between items-start mb-3">
-                    <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">Nuevo</span>
+                    <span className="bg-stone-100 text-stone-900 px-3 py-1 rounded-full text-xs font-bold">Nuevo</span>
                     <span className="text-lg font-bold text-slate-900">$85.000</span>
                 </div>
                 <h3 className="font-bold text-slate-800 text-lg mb-1">Fuga de Gas - Cocina</h3>

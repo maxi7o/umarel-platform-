@@ -197,7 +197,7 @@ export function ServiceRatingForm({
                 </div>
 
                 {/* Impact Note */}
-                <div className="text-sm text-muted-foreground bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+                <div className="text-sm text-muted-foreground bg-stone-50 dark:bg-blue-900/20 p-3 rounded-lg">
                     💡 {t.impactNote}
                 </div>
 

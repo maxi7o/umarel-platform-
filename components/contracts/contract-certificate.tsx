@@ -49,7 +49,7 @@ export function ContractCertificate({
 
             <CardHeader className="text-center space-y-4 pb-2">
                 <div className="flex justify-center mb-4">
-                    <div className="h-20 w-20 bg-slate-900 rounded-full flex items-center justify-center border-4 border-double border-orange-200">
+                    <div className="h-20 w-20 bg-slate-900 rounded-full flex items-center justify-center border-4 border-double border-stone-300">
                         <ShieldCheck className="h-10 w-10 text-orange-400" />
                     </div>
                 </div>

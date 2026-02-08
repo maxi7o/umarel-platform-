@@ -6,7 +6,7 @@ export default function ConstructionPage() {
         <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4 text-center">
             <div className="bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-700 max-w-md w-full">
                 <div className="flex justify-center gap-4 mb-8">
-                    <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                    <div className="w-16 h-16 bg-stone-900 rounded-full flex items-center justify-center shadow-lg animate-pulse">
                         <Lightbulb className="w-8 h-8 text-slate-900" />
                     </div>
                     <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
@@ -32,7 +32,7 @@ export default function ConstructionPage() {
                     </p>
                     <a
                         href="https://elentendido.ar"
-                        className="block mt-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-blue-900/20"
+                        className="block mt-3 bg-stone-900 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-blue-900/20"
                     >
                         Ir a ElEntendido.ar
                     </a>

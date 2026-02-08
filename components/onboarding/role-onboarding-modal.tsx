@@ -57,7 +57,7 @@ export function RoleOnboardingModal() {
 
                     {/* Role 1: CLIENT */}
                     <div
-                        className="flex-1 bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-blue-50/50 transition-colors"
+                        className="flex-1 bg-gradient-to-r from-stone-50 to-white dark:from-stone-800/50 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-stone-100/50 transition-colors"
                         onClick={() => handleSelectRole('client')}
                     >
                         <div className="flex items-start justify-between">
@@ -69,12 +69,12 @@ export function RoleOnboardingModal() {
                                     Tenés un proyecto o reparación para realizar.
                                 </p>
                                 <ul className="space-y-2">
-                                    <ThinkingPoint text="Pagá contra avance de obra" color="bg-blue-500" />
-                                    <ThinkingPoint text="Definición técnica con IA" color="bg-blue-500" />
-                                    <ThinkingPoint text="Dinero protegido en garantía" color="bg-blue-500" />
+                                    <ThinkingPoint text="Pagá contra avance de obra" color="bg-stone-900" />
+                                    <ThinkingPoint text="Definición técnica con IA" color="bg-stone-900" />
+                                    <ThinkingPoint text="Dinero protegido en garantía" color="bg-stone-900" />
                                 </ul>
                             </div>
-                            <Button variant="ghost" size="sm" className="text-blue-600">
+                            <Button variant="ghost" size="sm" className="text-stone-900 dark:text-white">
                                 <ArrowRight className="w-5 h-5" />
                             </Button>
                         </div>
@@ -82,7 +82,7 @@ export function RoleOnboardingModal() {
 
                     {/* Role 2: PROVIDER */}
                     <div
-                        className="flex-1 bg-gradient-to-r from-orange-50 to-white dark:from-orange-900/20 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-orange-50/50 transition-colors"
+                        className="flex-1 bg-gradient-to-r from-stone-50 to-white dark:from-stone-800/50 dark:to-stone-900 p-6 flex flex-col justify-between border-b border-stone-100 dark:border-stone-800 cursor-pointer hover:bg-stone-100/50 transition-colors"
                         onClick={() => handleSelectRole('provider')}
                     >
                         <div className="flex items-start justify-between">
@@ -94,12 +94,12 @@ export function RoleOnboardingModal() {
                                     Ofrecés servicios de construcción o mantenimiento.
                                 </p>
                                 <ul className="space-y-2">
-                                    <ThinkingPoint text="Cobro liberado al cumplir" color="bg-orange-500" />
-                                    <ThinkingPoint text="Sin visitas en vano" color="bg-orange-500" />
-                                    <ThinkingPoint text="Tu reputación es tu activo" color="bg-orange-500" />
+                                    <ThinkingPoint text="Cobro liberado al cumplir" color="bg-stone-900" />
+                                    <ThinkingPoint text="Sin visitas en vano" color="bg-stone-900" />
+                                    <ThinkingPoint text="Tu reputación es tu activo" color="bg-stone-900" />
                                 </ul>
                             </div>
-                            <Button variant="ghost" size="sm" className="text-orange-600">
+                            <Button variant="ghost" size="sm" className="text-stone-900 dark:text-white">
                                 <ArrowRight className="w-5 h-5" />
                             </Button>
                         </div>
@@ -107,7 +107,7 @@ export function RoleOnboardingModal() {
 
                     {/* Role 3: ENENDIDO */}
                     <div
-                        className="flex-1 bg-gradient-to-r from-yellow-50 to-white dark:from-yellow-900/20 dark:to-stone-900 p-6 flex flex-col justify-between cursor-pointer hover:bg-yellow-50/50 transition-colors relative"
+                        className="flex-1 bg-gradient-to-r from-stone-50 to-white dark:from-stone-800/50 dark:to-stone-900 p-6 flex flex-col justify-between cursor-pointer hover:bg-stone-100/50 transition-colors relative"
                         onClick={() => handleSelectRole('entendido')}
                     >
                         {/* Removed 'NUEVO' badge as requested */}
@@ -120,12 +120,12 @@ export function RoleOnboardingModal() {
                                     Tenés experiencia técnica y querés opinar.
                                 </p>
                                 <ul className="space-y-2">
-                                    <ThinkingPoint text="Monetizá tu experiencia" color="bg-yellow-500" />
-                                    <ThinkingPoint text="Validación por pares" color="bg-yellow-500" />
-                                    <ThinkingPoint text="Participación flexible" color="bg-yellow-500" />
+                                    <ThinkingPoint text="Monetizá tu experiencia" color="bg-stone-900" />
+                                    <ThinkingPoint text="Validación por pares" color="bg-stone-900" />
+                                    <ThinkingPoint text="Participación flexible" color="bg-stone-900" />
                                 </ul>
                             </div>
-                            <Button variant="ghost" size="sm" className="text-yellow-600">
+                            <Button variant="ghost" size="sm" className="text-stone-900 dark:text-white">
                                 <ArrowRight className="w-5 h-5" />
                             </Button>
                         </div>

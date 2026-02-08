@@ -42,7 +42,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
     return (
         <div className="container py-10 space-y-8">
             {/* Profile Header */}
-            <Card className="bg-gradient-to-r from-orange-50 to-white border-orange-100">
+            <Card className="bg-gradient-to-r from-orange-50 to-white border-stone-200">
                 <CardContent className="pt-6">
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <Avatar className="h-24 w-24 border-4 border-white shadow-lg">
@@ -52,7 +52,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
                         <div className="text-center md:text-left space-y-2 flex-1">
                             <h1 className="text-3xl font-bold font-archivo">{user.fullName}</h1>
                             <div className="flex items-center justify-center md:justify-start gap-2">
-                                <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                                <Badge variant="secondary" className="bg-stone-100 text-stone-900">
                                     {rank.title}
                                 </Badge>
                                 <span className="text-muted-foreground">{t("profile.memberSince} {new Date(user.createdAt).getFullYear()")}</span>
@@ -60,7 +60,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
                         </div>
                         <div className="text-center md:text-right p-4 bg-white/50 rounded-lg backdrop-blur-sm">
                             <div className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">{t("profile.auraPoints")}</div>
-                            <div className="text-4xl font-bold text-orange-600 font-archivo">{user.auraPoints}</div>
+                            <div className="text-4xl font-bold text-stone-900 font-archivo">{user.auraPoints}</div>
                         </div>
                     </div>
                 </CardContent>
@@ -113,7 +113,7 @@ export function ProfileClient({ user, leaderboard }: ProfileClientProps) {
                             {leaderboard.map((u, index) => (
                                 <div key={u.id} className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className={`font-bold w-6 text-center ${index < 3 ? 'text-orange-600 text-lg' : 'text-muted-foreground'}`}>
+                                        <div className={`font-bold w-6 text-center ${index < 3 ? 'text-stone-900 text-lg' : 'text-muted-foreground'}`}>
                                             #{index + 1}
                                         </div>
                                         <Avatar className="h-8 w-8">

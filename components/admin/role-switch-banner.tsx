@@ -54,7 +54,7 @@ export function RoleSwitchBanner() {
                         <div className="flex items-center gap-2">
                             <span className="font-semibold">MODO TESTING:</span>
                             <span>Viendo como</span>
-                            <Badge className="bg-white text-orange-600 hover:bg-white">
+                            <Badge className="bg-white text-stone-900 hover:bg-white">
                                 {roleSwitch.persona?.avatar} {roleSwitch.persona?.name}
                             </Badge>
                             <span className="text-sm opacity-90">
@@ -67,7 +67,7 @@ export function RoleSwitchBanner() {
                             variant="outline"
                             size="sm"
                             onClick={clearSwitch}
-                            className="bg-white text-orange-600 hover:bg-orange-50 border-white"
+                            className="bg-white text-stone-900 hover:bg-stone-50 border-white"
                         >
                             Volver a Admin
                         </Button>

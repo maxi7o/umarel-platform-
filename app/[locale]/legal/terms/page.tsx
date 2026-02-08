@@ -8,7 +8,7 @@ export default async function TermsPage() {
 
             <div className="prose prose-stone max-w-none">
 
-                <div className="bg-amber-50 p-4 rounded-lg border border-amber-200 text-sm mb-8">
+                <div className="bg-stone-50 p-4 rounded-lg border border-stone-300 text-sm mb-8">
                     <strong>Resumen para Humanos:</strong> "El Entendido" es una herramienta tecnológica para definir y pagar trabajos por etapas ("Slices").
                     No somos tus empleados ni tus jefes. La plata se guarda en custodia y solo se libera cuando hay evidencia aprobada.
                     Si frenás en la Etapa 1, no debés nada de la Etapa 2.

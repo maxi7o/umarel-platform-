@@ -80,12 +80,12 @@ export function StickyNoteButton({ targetId, targetType, initialCount = 0, onFee
                 <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 gap-1.5 text-stone-500 hover:text-yellow-600 hover:bg-yellow-50 relative group"
+                    className="h-8 gap-1.5 text-stone-500 hover:text-stone-900 hover:bg-stone-50 relative group"
                 >
                     <StickyNote className="w-4 h-4" />
                     <span className="text-xs font-medium">Opinar</span>
                     {initialCount > 0 && (
-                        <Badge variant="secondary" className="ml-1 h-5 min-w-[1.25rem] px-1 text-[10px] bg-yellow-100 text-yellow-700 group-hover:bg-yellow-200">
+                        <Badge variant="secondary" className="ml-1 h-5 min-w-[1.25rem] px-1 text-[10px] bg-stone-100 text-stone-900 group-hover:bg-yellow-200">
                             {initialCount}
                         </Badge>
                     )}
@@ -111,7 +111,7 @@ export function StickyNoteButton({ targetId, targetType, initialCount = 0, onFee
                         value={feedback}
                         onChange={(e) => setFeedback(e.target.value)}
                         placeholder="E.g., Este precio de materiales está un 20% arriba del mercado..."
-                        className="min-h-[100px] border-yellow-200 focus-visible:ring-yellow-500 bg-yellow-50/30"
+                        className="min-h-[100px] border-stone-300 focus-visible:ring-yellow-500 bg-stone-50/30"
                     />
 
                     <div className="flex justify-between items-center text-xs text-stone-500">
@@ -137,7 +137,7 @@ export function StickyNoteButton({ targetId, targetType, initialCount = 0, onFee
                         type="submit"
                         onClick={handleSubmit}
                         disabled={isSubmitting || feedback.length < 10}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                        className="bg-stone-900 hover:bg-stone-800 text-white"
                     >
                         {isSubmitting ? 'Analizando...' : 'Publicar Opinión'}
                     </Button>

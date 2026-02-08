@@ -68,14 +68,14 @@ export default function ScoutQueueClient() {
 
     const getScoreBadge = (score: number) => {
         if (score >= 9) return 'bg-green-100 text-green-800 border-green-300';
-        if (score >= 7) return 'bg-yellow-100 text-yellow-800 border-yellow-300';
+        if (score >= 7) return 'bg-stone-100 text-yellow-800 border-yellow-300';
         return 'bg-slate-100 text-slate-800 border-slate-300';
     };
 
     const getPlatformBadge = (platform: string) => {
         const colors = {
             instagram: 'bg-pink-100 text-pink-800',
-            facebook: 'bg-blue-100 text-blue-800',
+            facebook: 'bg-stone-100 text-stone-900',
             twitter: 'bg-sky-100 text-sky-800'
         };
         return colors[platform as keyof typeof colors] || 'bg-slate-100 text-slate-800';
@@ -145,7 +145,7 @@ export default function ScoutQueueClient() {
                                         </div>
 
                                         {lead.suggested_reply && (
-                                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 relative">
+                                            <div className="bg-stone-50 p-4 rounded-lg border border-stone-300 relative">
                                                 <p className="text-sm text-blue-900 font-medium pr-8">
                                                     {lead.suggested_reply}
                                                 </p>

@@ -21,7 +21,7 @@ export function CtaSection() {
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link href="/requests/create">
-                        <Button size="lg" className="h-14 px-8 bg-white hover:bg-slate-50 text-blue-600 font-bold w-full sm:w-auto rounded-xl shadow-lg transition-all hover:scale-105">
+                        <Button size="lg" className="h-14 px-8 bg-white hover:bg-slate-50 text-stone-900 font-bold w-full sm:w-auto rounded-xl shadow-lg transition-all hover:scale-105">
                             Publicar Proyecto <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                     </Link>

@@ -147,7 +147,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                         </div>
 
                         {!!offering.availability && (
-                            <div className="mb-6 p-3 bg-blue-50 text-blue-800 rounded-lg text-sm">
+                            <div className="mb-6 p-3 bg-stone-50 text-stone-900 rounded-lg text-sm">
                                 <strong>{t('availability')}:</strong> {offering.availability as string}
                             </div>
                         )}
@@ -181,7 +181,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                             <div className="flex items-center gap-4 mb-4">
                                 <Avatar className="h-14 w-14 border-2 border-white shadow-sm ring-1 ring-gray-100">
                                     <AvatarImage src={provider.avatarUrl || undefined} />
-                                    <AvatarFallback className="bg-orange-100 text-orange-800">
+                                    <AvatarFallback className="bg-stone-100 text-stone-900">
                                         {(provider.fullName || 'User').charAt(0)}
                                     </AvatarFallback>
                                 </Avatar>
@@ -189,7 +189,7 @@ export default async function OfferingDetailPage({ params }: { params: Promise<{
                                     <Link href={`/profile/${provider.id}`} className="font-semibold text-lg hover:underline decoration-gray-400 underline-offset-4">
                                         {provider.fullName || 'Unknown Provider'}
                                     </Link>
-                                    <div className="flex items-center gap-1 text-sm text-purple-600 font-medium">
+                                    <div className="flex items-center gap-1 text-sm text-stone-900 font-medium">
                                         <Shield className="h-3.5 w-3.5" />
                                         <span>{provider.auraPoints} Aura</span>
                                     </div>

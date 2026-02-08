@@ -78,7 +78,7 @@ export default async function ExperienceBookingPage({ params }: PageProps) {
                         </CardContent>
                     </Card>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-200">
+                    <div className="bg-stone-50 dark:bg-blue-950/30 p-4 rounded-lg text-sm text-stone-900 dark:text-blue-200">
                         <p className="font-semibold mb-1">Why an AI Interview?</p>
                         <p className="opacity-90">
                             Instead of filling out a boring form, our AI Agent helps you customize your experience and ensures the host is prepared for you.

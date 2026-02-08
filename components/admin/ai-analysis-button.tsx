@@ -31,7 +31,7 @@ export function AIAnalysisButton({ escrowId, analysis }: { escrowId: string, ana
                     AI Recommendation:
                     <span className={
                         result.recommendation === 'release_to_provider' ? 'text-green-600' :
-                            result.recommendation === 'refund_client' ? 'text-red-600' : 'text-yellow-600'
+                            result.recommendation === 'refund_client' ? 'text-red-600' : 'text-stone-900'
                     }>
                         {result.recommendation.replace(/_/g, ' ')}
                     </span>

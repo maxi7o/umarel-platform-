@@ -65,7 +65,7 @@ export function ImpactFeed({ contributions }: ImpactFeedProps) {
                                 </h4>
                                 <span className={cn(
                                     "text-xs font-bold px-2 py-0.5 rounded-full",
-                                    item.totalScore > 100 ? "bg-purple-100 text-purple-700" : "bg-stone-200 text-stone-700"
+                                    item.totalScore > 100 ? "bg-stone-100 text-stone-900" : "bg-stone-200 text-stone-700"
                                 )}>
                                     +{item.totalScore} Aura
                                 </span>
@@ -78,7 +78,7 @@ export function ImpactFeed({ contributions }: ImpactFeedProps) {
                                 {item.sliceId && (
                                     <>
                                         •
-                                        <Link href={`/slices/${item.sliceId}`} className="flex items-center gap-1 hover:text-orange-600 transition-colors">
+                                        <Link href={`/slices/${item.sliceId}`} className="flex items-center gap-1 hover:text-stone-900 transition-colors">
                                             Ver contexto <ExternalLink className="h-3 w-3" />
                                         </Link>
                                     </>

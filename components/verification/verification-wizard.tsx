@@ -92,7 +92,7 @@ export function VerificationWizard() {
             {[1, 2, 3, 4, 5].map((num) => (
                 <div
                     key={num}
-                    className={`h-2 rounded-full transition-all duration-300 ${num <= current ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'
+                    className={`h-2 rounded-full transition-all duration-300 ${num <= current ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'
                         }`}
                 />
             ))}
@@ -102,7 +102,7 @@ export function VerificationWizard() {
     if (isMobile === false) {
         return (
             <div className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden text-center p-8">
-                <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
+                <div className="w-20 h-20 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
                     <ShieldCheck size={40} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 mb-2">Dispositivo no permitido</h2>
@@ -141,14 +141,14 @@ export function VerificationWizard() {
                             exit={{ opacity: 0, x: -20 }}
                             className="text-center py-8"
                         >
-                            <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600">
+                            <div className="w-20 h-20 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-6 text-stone-900">
                                 <ShieldCheck size={40} />
                             </div>
                             <h2 className="text-2xl font-bold font-archivo text-slate-900 mb-4">{t('title')}</h2>
                             <p className="text-slate-500 mb-8 leading-relaxed">
                                 {t('subtitle')}
                             </p>
-                            <Button className="w-full h-12 text-lg rounded-xl bg-blue-600 hover:bg-blue-700" onClick={() => nextStep('dni_number')}>
+                            <Button className="w-full h-12 text-lg rounded-xl bg-stone-900 hover:bg-stone-800" onClick={() => nextStep('dni_number')}>
                                 Empezar
                                 <ChevronRight className="ml-2 w-5 h-5" />
                             </Button>
@@ -167,7 +167,7 @@ export function VerificationWizard() {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 1 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 1 ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -210,7 +210,7 @@ export function VerificationWizard() {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 2 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 2 ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -253,7 +253,7 @@ export function VerificationWizard() {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 3 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 3 ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -303,7 +303,7 @@ export function VerificationWizard() {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 4 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 4 ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -353,7 +353,7 @@ export function VerificationWizard() {
                                 {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 5 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 5 ? 'w-8 bg-stone-900' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>

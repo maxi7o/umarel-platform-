@@ -59,7 +59,7 @@ export function RequestDetailClient({ request, requestSlices, requestId }: Reque
                             </div>
                         </div>
                     </div>
-                    <Badge variant="outline" className="text-lg px-4 py-1 border-orange-200 bg-orange-50 text-orange-700">
+                    <Badge variant="outline" className="text-lg px-4 py-1 border-stone-300 bg-stone-50 text-stone-900">
                         {t("requestDetail.openForSlicing")}
                     </Badge>
                 </div>
@@ -99,7 +99,7 @@ export function RequestDetailClient({ request, requestSlices, requestId }: Reque
                                         </CardDescription>
                                     </div>
                                     <div className="flex items-center gap-1 bg-secondary px-3 py-1 rounded-full text-sm font-medium">
-                                        <ThumbsUp className="h-4 w-4 text-orange-600" />
+                                        <ThumbsUp className="h-4 w-4 text-stone-900" />
                                         <span>{slice.upvotes || 0} Aura</span>
                                     </div>
                                 </div>

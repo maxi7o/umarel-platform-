@@ -81,8 +81,8 @@ export default function PricingPage() {
                     <Card className="border-2 border-orange-500/20">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-2">
-                                <Heart className="h-8 w-8 text-orange-600" />
-                                <span className="text-3xl font-bold text-orange-600">3%</span>
+                                <Heart className="h-8 w-8 text-stone-900" />
+                                <span className="text-3xl font-bold text-stone-900">3%</span>
                             </div>
                             <CardTitle>Community Helpers</CardTitle>
                         </CardHeader>
@@ -98,8 +98,8 @@ export default function PricingPage() {
                     <Card className="border-2 border-blue-500/20">
                         <CardHeader>
                             <div className="flex items-center justify-between mb-2">
-                                <Shield className="h-8 w-8 text-blue-600" />
-                                <span className="text-3xl font-bold text-blue-600">5-6%</span>
+                                <Shield className="h-8 w-8 text-stone-900" />
+                                <span className="text-3xl font-bold text-stone-900">5-6%</span>
                             </div>
                             <CardTitle>Taxes & Payment Fees</CardTitle>
                         </CardHeader>
@@ -157,11 +157,11 @@ export default function PricingPage() {
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">→ Community helpers</span>
-                            <span className="font-semibold text-orange-600">$450 ARS (3%)</span>
+                            <span className="font-semibold text-stone-900">$450 ARS (3%)</span>
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">→ Taxes & payment fees</span>
-                            <span className="font-semibold text-blue-600">~$600 ARS (5-6%)</span>
+                            <span className="font-semibold text-stone-900">~$600 ARS (5-6%)</span>
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">→ Platform keeps</span>
@@ -218,7 +218,7 @@ export default function PricingPage() {
                 </p>
                 <div className="flex gap-4 justify-center">
                     <Link href="/requests/create">
-                        <Button size="lg" className="bg-orange-600 hover:bg-orange-700">
+                        <Button size="lg" className="bg-stone-900 hover:bg-stone-800">
                             Post a Request
                         </Button>
                     </Link>

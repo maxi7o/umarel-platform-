@@ -64,23 +64,23 @@ export default async function AdminDashboardPage() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <Card className="border-none shadow-md bg-gradient-to-br from-blue-500/10 to-transparent">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-bold text-blue-800">Citizens</CardTitle>
+                        <CardTitle className="text-sm font-bold text-stone-900">Citizens</CardTitle>
                         <Users className="h-5 w-5 text-blue-500" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-black">{userCount.value}</div>
-                        <p className="text-xs text-blue-600/60 font-medium">Registros orgánicos</p>
+                        <p className="text-xs text-stone-900/60 font-medium">Registros orgánicos</p>
                     </CardContent>
                 </Card>
 
                 <Card className="border-none shadow-md bg-gradient-to-br from-amber-500/10 to-transparent">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                        <CardTitle className="text-sm font-bold text-amber-800">Pending KYC</CardTitle>
+                        <CardTitle className="text-sm font-bold text-stone-900">Pending KYC</CardTitle>
                         <ShieldCheck className="h-5 w-5 text-amber-500" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-black">{pendingKycCount.value}</div>
-                        <p className="text-xs text-amber-600/60 font-medium font-bold">Por validar Verifik</p>
+                        <p className="text-xs text-stone-900/60 font-medium font-bold">Por validar Verifik</p>
                     </CardContent>
                 </Card>
 
@@ -141,7 +141,7 @@ export default async function AdminDashboardPage() {
                                     <CardDescription>Manage IDs & KYC documents</CardDescription>
                                 </CardHeader>
                                 <CardContent className="pt-4">
-                                    <div className="text-sm font-semibold text-blue-600">Explore Evidence Store →</div>
+                                    <div className="text-sm font-semibold text-stone-900">Explore Evidence Store →</div>
                                 </CardContent>
                             </Card>
                         </Link>
@@ -190,7 +190,7 @@ export default async function AdminDashboardPage() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="p-3 bg-slate-50 rounded-xl flex items-center gap-3">
-                                <div className="p-2 bg-blue-100 rounded-lg"><Zap className="h-4 w-4 text-blue-600" /></div>
+                                <div className="p-2 bg-stone-100 rounded-lg"><Zap className="h-4 w-4 text-stone-900" /></div>
                                 <div className="text-sm">
                                     <p className="font-bold text-slate-800">Verifik API Active</p>
                                     <p className="text-xs text-slate-500">Latency: 145ms</p>

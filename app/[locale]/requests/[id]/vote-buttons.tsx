@@ -30,7 +30,7 @@ export function VoteButtons({ sliceId }: { sliceId: string }) {
             <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 gap-1 hover:text-orange-600 hover:bg-orange-50"
+                className="h-8 gap-1 hover:text-stone-900 hover:bg-stone-50"
                 onClick={() => handleVote('up')}
             >
                 <ThumbsUp className="h-4 w-4" /> Upvote

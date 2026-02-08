@@ -11,7 +11,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const t = await getTranslations('maintenance');
 
   return (
-    <div className="flex flex-col min-h-screen font-sans selection:bg-orange-100 selection:text-orange-900 overflow-x-hidden w-full">
+    <div className="flex flex-col min-h-screen font-sans selection:bg-stone-100 selection:text-orange-900 overflow-x-hidden w-full">
       <HeroSection />
       <HowItWorksSection />
       <FaqSection />
