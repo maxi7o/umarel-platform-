@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Plus, Clock, Loader2, Users, X, Check, Image as ImageIcon } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Plus, Clock, Loader2, Users, X, Check, Image as ImageIcon, Briefcase, DollarSign, ArrowRight, LayoutGrid, Calendar } from 'lucide-react';
 import { IdeMode } from './universal-slice-ide';
 import { createSlice } from '@/lib/actions/slice-actions';
 import { useRouter } from 'next/navigation';
+import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 
 interface SliceWorkspaceProps {
     mode: IdeMode;
@@ -38,17 +40,22 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold tracking-tight text-foreground">
-                    {getTitle(mode)}
-                </h1>
+        <div className="space-y-6 h-full flex flex-col">
+            {/* WORKSPACE HEADER */}
+            <div className="flex items-center justify-between pb-4 border-b border-border/40">
+                <div>
+                    <h1 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
+                        {getIcon(mode)}
+                        {getTitle(mode)}
+                    </h1>
+                    <p className="text-xs text-muted-foreground mt-1">
+                        Workspace for {mode.toLowerCase().replace('_', ' ')}
+                    </p>
+                </div>
+
                 <div className="flex gap-2">
-                    <Button variant="outline" size="sm">
-                        <Clock className="w-4 h-4 mr-2" /> History
-                    </Button>
                     {mode === 'REQUEST_CREATION' && (
-                        <Button size="sm" onClick={handleCreateSlice} disabled={isCreating}>
+                        <Button size="sm" onClick={handleCreateSlice} disabled={isCreating} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
                             {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
                             Add Slice
                         </Button>
@@ -56,11 +63,11 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
                 </div>
             </div>
 
-            <div className="grid gap-6">
+            {/* MAIN CONTENT AREA */}
+            <div className="flex-1 overflow-y-auto pr-2">
+                {/* MOCK CONTENT based on Mode (Dynamic in real app) */}
                 {slices.length === 0 ? (
-                    <div className="text-center py-10 text-muted-foreground">
-                        No slices yet. Describe your problem to the AI or click "Add Slice".
-                    </div>
+                    renderMockContent(mode)
                 ) : (
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {slices.map((slice) => (
@@ -78,6 +85,18 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
     );
 }
 
+// --- ICONS & TITLES ---
+
+function getIcon(mode: IdeMode) {
+    switch (mode) {
+        case 'REQUEST_CREATION': return <Briefcase className="w-5 h-5 text-blue-500" />;
+        case 'QUOTE_PROPOSAL': return <DollarSign className="w-5 h-5 text-green-500" />;
+        case 'EXPERIENCE_DESIGN': return <Calendar className="w-5 h-5 text-purple-500" />;
+        case 'CRITIQUE_REVIEW': return <Check className="w-5 h-5 text-orange-500" />;
+        default: return <LayoutGrid className="w-5 h-5" />;
+    }
+}
+
 function getTitle(mode: IdeMode): string {
     switch (mode) {
         case 'REQUEST_CREATION': return "Draft Slices";
@@ -88,36 +107,70 @@ function getTitle(mode: IdeMode): string {
     }
 }
 
-function renderContent(mode: IdeMode) {
+// --- MOCK CONTENT RENDERING ---
+
+function renderMockContent(mode: IdeMode) {
     switch (mode) {
         case 'REQUEST_CREATION':
             return (
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    <SliceCard title="Diagnose Leak" status="draft" type="Standard" />
-                    <SliceCard title="Replace Pipe" status="draft" type="Standard" />
-                    <SliceCard title="Paint Wall" status="draft" type="Optional" />
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                    <SliceCard title="1. Diagnosis & Check" status="draft" type="Standard" description="Identify the source of the leak and assess damage." />
+                    <SliceCard title="2. Pipe Replacement" status="draft" type="Standard" description="Replace 2m of lead pipe with thermofusion." />
+                    <SliceCard title="3. Plaster & Paint" status="draft" type="Optional" description="Repair wall surface and paint 4m2 area." />
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="border-2 border-dashed border-muted rounded-xl flex flex-col items-center justify-center p-6 text-center text-muted-foreground hover:bg-muted/30 transition-colors cursor-pointer"
+                    >
+                        <Plus className="w-8 h-8 mb-2 opacity-50" />
+                        <span className="text-sm font-medium">Add another slice</span>
+                    </motion.div>
                 </div>
             );
         case 'QUOTE_PROPOSAL':
             return (
-                <div className="space-y-4">
-                    <QuoteRow title="Diagnose Leak" estimated="1h" price={5000} />
-                    <QuoteRow title="Replace Pipe" estimated="2h" price={12000} />
-                    <QuoteRow title="Paint Wall" estimated="4h" price={8000} />
-                    <div className="flex justify-end pt-4 border-t">
-                        <div className="text-right">
-                            <p className="text-sm text-muted-foreground">Total</p>
-                            <p className="text-2xl font-bold text-primary">$25,000</p>
+                <div className="space-y-6 max-w-3xl mx-auto">
+                    <div className="flex items-center justify-between bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm border border-blue-100">
+                        <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> Estimated Duration: <strong>2 Days</strong></span>
+                        <span>Start Recommendation: <strong>Next Monday</strong></span>
+                    </div>
+
+                    <div className="space-y-3">
+                        <QuoteRow title="1. Diagnosis & Check" estimated="2h" price={15000} />
+                        <QuoteRow title="2. Pipe Replacement" estimated="4h" price={45000} />
+                        <QuoteRow title="3. Plaster & Paint" estimated="6h" price={30000} />
+                    </div>
+
+                    <div className="flex flex-col items-end pt-6 border-t gap-2">
+                        <div className="flex items-center gap-8">
+                            <span className="text-muted-foreground">Subtotal</span>
+                            <span className="font-mono">$90.000</span>
                         </div>
+                        <div className="flex items-center gap-8">
+                            <span className="text-muted-foreground">Umarel Fee (5%)</span>
+                            <span className="font-mono">-$4.500</span>
+                        </div>
+                        <div className="flex items-center gap-8 mt-2 pt-2 border-t border-dashed min-w-[200px] justify-between">
+                            <span className="font-semibold">You Receive</span>
+                            <span className="text-2xl font-bold text-green-600">$85.500</span>
+                        </div>
+                        <Button className="mt-4 w-full sm:w-auto bg-green-600 hover:bg-green-700">
+                            Submit Proposal <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
                     </div>
                 </div>
             );
         case 'EXPERIENCE_DESIGN':
             return (
-                <div className="space-y-8 relative pl-8 border-l border-border/50">
-                    <TimelineItem time="19:00" title="Check-in & Welcome" capacity={50} type="Base" />
-                    <TimelineItem time="20:00" title="Main Show" capacity={50} type="Base" />
-                    <TimelineItem time="22:00" title="VIP Backstage Access" capacity={10} type="Optional Upgrade" />
+                <div className="relative pl-8 border-l-2 border-primary/20 space-y-8 ml-4">
+                    <TimelineItem time="19:00" title="Check-in & Welcome" capacity={50} type="Base" color="bg-blue-500" />
+                    <TimelineItem time="20:00" title="Main Show" capacity={50} type="Base" color="bg-purple-500" />
+                    <TimelineItem time="22:00" title="VIP Backstage Access" capacity={10} type="Optional Upgrade" color="bg-amber-500" />
+
+                    <button className="absolute -left-[19px] bottom-0 w-10 h-10 rounded-full bg-white border-2 border-dashed border-muted flex items-center justify-center hover:border-sidebar-primary-foreground hover:scale-110 transition-all">
+                        <Plus className="w-4 h-4 text-muted-foreground" />
+                    </button>
                 </div>
             );
         case 'CRITIQUE_REVIEW':
@@ -125,41 +178,50 @@ function renderContent(mode: IdeMode) {
                 <div className="grid gap-6 md:grid-cols-2">
                     <EvidenceCard
                         title="Wall Painting Finish"
-                        imgUrl="/placeholder-wall.jpg"
+                        imgUrl="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop"
                         status="pending"
+                        confidence={88}
                     />
                     <EvidenceCard
                         title="Pipe Connection"
-                        imgUrl="/placeholder-pipe.jpg"
+                        imgUrl="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?q=80&w=2074&auto=format&fit=crop"
                         status="approved"
+                        confidence={98}
                     />
                 </div>
             );
         default:
-            return <div>Select a mode to begin.</div>;
+            return <div className="text-muted-foreground italic">Select a mode to begin.</div>;
     }
 }
 
-// Sub-components for mock UI
-function SliceCard({ title, status, type }: { title: string, status: string, type: string }) {
+// --- SUB COMPONENTS ---
+
+function SliceCard({ title, status, type, description }: { title: string, status: string, type: string, description?: string }) {
     return (
-        <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer relative group">
-            <div className="flex justify-between items-start mb-2">
-                <span className="text-xs font-mono bg-muted px-2 py-0.5 rounded text-muted-foreground">{type}</span>
-                <span className="text-xs font-semibold text-orange-500 capitalize">{status}</span>
-            </div>
-            <h3 className="font-semibold text-lg">{title}</h3>
-            <p className="text-sm text-muted-foreground mt-1">AI-suggested based on description.</p>
+        <Card className="hover:shadow-lg transition-all cursor-pointer group border-l-4 border-l-blue-500">
+            <CardContent className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                    <Badge variant="secondary" className="text-[10px] font-normal">{type}</Badge>
+                    <Badge variant="outline" className={`text-[10px] capitalize ${status === 'active' ? 'text-green-600 border-green-200' : 'text-orange-500 border-orange-200'}`}>
+                        {status}
+                    </Badge>
+                </div>
+                <h3 className="font-semibold text-base mb-1 group-hover:text-blue-600 transition-colors">{title}</h3>
+                {description && <p className="text-xs text-muted-foreground line-clamp-2">{description}</p>}
+            </CardContent>
         </Card>
     );
 }
 
 function QuoteRow({ title, estimated, price }: { title: string, estimated: string, price: number }) {
     return (
-        <Card className="p-4 flex items-center justify-between">
-            <div>
-                <h3 className="font-medium">{title}</h3>
-                <p className="text-xs text-muted-foreground">Est: {estimated}</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-card border rounded-lg hover:border-primary/50 transition-colors group">
+            <div className="mb-2 sm:mb-0">
+                <h3 className="font-medium text-sm">{title}</h3>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Clock className="w-3 h-3" /> Est: {estimated}
+                </p>
             </div>
             <div className="flex items-center gap-4">
                 <div className="relative">
@@ -167,29 +229,27 @@ function QuoteRow({ title, estimated, price }: { title: string, estimated: strin
                     <input
                         type="number"
                         defaultValue={price}
-                        className="pl-6 w-24 h-9 rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        className="pl-6 w-28 h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-mono text-right"
                     />
                 </div>
             </div>
-        </Card>
+        </div>
     );
 }
 
-function TimelineItem({ time, title, capacity, type }: { time: string, title: string, capacity: number, type: string }) {
+function TimelineItem({ time, title, capacity, type, color }: { time: string, title: string, capacity: number, type: string, color: string }) {
     return (
-        <div className="relative mb-8 last:mb-0">
-            <div className="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary" />
-            </div>
+        <div className="relative group">
+            <div className={`absolute -left-[45px] top-4 w-4 h-4 rounded-full border-2 border-white shadow-sm z-10 ${color}`} />
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                <span className="font-mono text-sm text-muted-foreground w-16">{time}</span>
-                <Card className="flex-1 p-4">
+                <span className="font-mono text-xs font-bold text-muted-foreground w-12 pt-1">{time}</span>
+                <Card className="flex-1 p-4 hover:shadow-md transition-shadow cursor-move">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h4 className="font-semibold">{title}</h4>
-                            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">{type}</span>
+                            <h4 className="font-semibold text-sm">{title}</h4>
+                            <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded mt-1 inline-block">{type}</span>
                         </div>
-                        <div className="flex items-center gap-1 text-sm bg-blue-500/10 text-blue-600 px-2 py-1 rounded-full">
+                        <div className="flex items-center gap-1 text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
                             <Users className="w-3 h-3" />
                             <span>{capacity}</span>
                         </div>
@@ -200,26 +260,28 @@ function TimelineItem({ time, title, capacity, type }: { time: string, title: st
     );
 }
 
-function EvidenceCard({ title, imgUrl, status }: { title: string, imgUrl: string, status: 'pending' | 'approved' | 'rejected' }) {
+function EvidenceCard({ title, imgUrl, status, confidence }: { title: string, imgUrl: string, status: 'pending' | 'approved' | 'rejected', confidence: number }) {
     return (
-        <Card className="overflow-hidden">
-            <div className="aspect-video bg-muted relative flex items-center justify-center group">
-                <ImageIcon className="w-12 h-12 text-muted-foreground/50" />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <Button size="sm" variant="destructive"><X className="w-4 h-4 mr-2" /> Reject</Button>
-                    <Button size="sm" className="bg-green-600 hover:bg-green-700"><Check className="w-4 h-4 mr-2" /> Approve</Button>
+        <Card className="overflow-hidden border-0 shadow-md">
+            <div className="aspect-video bg-muted relative group overflow-hidden">
+                <img src={imgUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <Button size="sm" variant="destructive" className="h-8"><X className="w-4 h-4 mr-1" /> Reject</Button>
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700 h-8"><Check className="w-4 h-4 mr-1" /> Approve</Button>
+                </div>
+                <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded backdrop-blur-sm">
+                    AI Confidence: {confidence}%
                 </div>
             </div>
-            <div className="p-4">
+            <div className="p-3 bg-card border-t">
                 <div className="flex justify-between items-center">
-                    <h3 className="font-medium">{title}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full capitalize
-                        ${status === 'approved' ? 'bg-green-100 text-green-700' :
-                            status === 'rejected' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                    <h3 className="font-medium text-sm">{title}</h3>
+                    <Badge variant={status === 'approved' ? 'default' : status === 'rejected' ? 'destructive' : 'secondary'} className="capitalize text-[10px] h-5">
                         {status}
-                    </span>
+                    </Badge>
                 </div>
             </div>
         </Card>
     );
 }
+

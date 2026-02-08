@@ -100,7 +100,7 @@ export async function POST(
                 providerId,
                 totalAmount: breakdown.totalAmount,
                 sliceAmount: breakdown.slicePrice,
-                platformFee: breakdown.platformFee,
+                platformFee: breakdown.ecosystemFee,
                 communityRewardPool: breakdown.communityRewardPool,
                 paymentMethod: 'stripe', // Default, will be updated on actual payment
                 status: 'pending_escrow',
