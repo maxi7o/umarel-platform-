@@ -6,7 +6,8 @@ const resend = process.env.RESEND_API_KEY
     ? new Resend(process.env.RESEND_API_KEY)
     : null;
 
-const SYSTEM_EMAIL = 'notifications@umarel.org';
+const SYSTEM_EMAIL = 'notifications@elentendido.ar';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://elentendido.ar';
 
 export class NotificationService {
 
@@ -24,7 +25,7 @@ export class NotificationService {
                 <li>Tap <strong>"Start Job"</strong> when you arrive on site.</li>
                 <li>Get paid!</li>
             </ol>
-            <p><a href="https://umarel.org/slices/${sliceId}">View Job Details</a></p>
+            <p><a href="${APP_URL}/slices/${sliceId}">View Job Details</a></p>
         `;
 
         await this.sendEmail(email, subject, html, { type: 'PROPOSAL_ACCEPTED', sliceId });
@@ -41,7 +42,7 @@ export class NotificationService {
             <p>Hey ${providerName},</p>
             <p>The funds ($${amount}) for <strong>"${sliceTitle}"</strong> have been released to your Umarel Wallet.</p>
             <p>You can withdraw them to your bank account anytime.</p>
-            <p><a href="https://umarel.org/wallet">Go to Wallet</a></p>
+            <p><a href="${APP_URL}/wallet">Go to Wallet</a></p>
         `;
 
         await this.sendEmail(email, subject, html, { type: 'FUNDS_RELEASED', amount });
@@ -65,7 +66,7 @@ export class NotificationService {
             <p>The client has raised a dispute on <strong>"${sliceTitle}"</strong>.</p>
             <p><strong>Reason:</strong> ${reason}</p>
             <p>Please check the app to provide any additional evidence.</p>
-            <p><a href="https://umarel.org">View Details</a></p>
+            <p><a href="${APP_URL}">View Details</a></p>
         `, { type: 'DISPUTE_OPENED_PROVIDER' });
     }
 

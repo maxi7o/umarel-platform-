@@ -22,7 +22,7 @@ export async function sendAlert(type: AlertType, data: AlertData) {
 
     const payload = {
         username: "Umarel Ops Bot 🤖",
-        avatar_url: "https://umarel.org/bot-avatar.png",
+        avatar_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://elentendido.ar'}/bot-avatar.png`,
         embeds: [{
             title: `${getEmoji(type)} ${data.title}`,
             description: data.description,

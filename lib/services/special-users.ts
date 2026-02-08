@@ -9,7 +9,7 @@ export async function ensureSpecialUsers() {
     // 1. Ensure AI User
     await db.insert(users).values({
         id: AI_USER_ID,
-        email: 'ai@umarel.org',
+        email: 'ai@elentendido.ar',
         fullName: 'Umarel AI',
         role: 'admin',
         auraPoints: 999999
@@ -18,7 +18,7 @@ export async function ensureSpecialUsers() {
     // 2. Ensure Guest User
     await db.insert(users).values({
         id: GUEST_USER_ID,
-        email: 'guest@umarel.org',
+        email: 'guest@elentendido.ar',
         fullName: 'Guest User',
         role: 'user',
         auraPoints: 0

@@ -25,7 +25,7 @@ export function Footer() {
                     <Link href="/legal/privacy" className="hover:text-slate-900 transition-colors">
                         Privacidad
                     </Link>
-                    <Link href="mailto:soporte@umarel.org" className="hover:text-slate-900 transition-colors">
+                    <Link href="mailto:soporte@elentendido.ar" className="hover:text-slate-900 transition-colors">
                         Soporte
                     </Link>
                 </div>

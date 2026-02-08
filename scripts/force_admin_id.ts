@@ -4,7 +4,7 @@ import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 const TARGET_ID = '4831105b-a3ba-477c-973b-d463edc188a0';
-const TARGET_EMAIL = 'admin.test@umarel.org';
+const TARGET_EMAIL = 'admin.test@elentendido.ar';
 
 async function main() {
     console.log(`Force creating/updating admin user: ${TARGET_EMAIL} (${TARGET_ID})`);
