@@ -21,67 +21,77 @@ export default async function WalletPage() {
 
     const userId = user.id;
 
-    // 2. Fetch User & Wallet
-    const [dbUser] = await db.select().from(users).where(eq(users.id, userId));
-    const [wallet] = await db.select().from(userWallets).where(eq(userWallets.userId, userId));
 
-    // 3. Fetch Active Quotes
-    // Join with requests to get the title
-    const activeQuotes = await db.select({
-        id: quotes.id,
-        requestTitle: requests.title,
-        amount: quotes.amount,
-        currency: quotes.currency,
-        status: quotes.status,
-        createdAt: quotes.createdAt,
-    })
-        .from(quotes)
-        .innerJoin(requests, eq(quotes.requestId, requests.id))
-        .where(eq(quotes.providerId, userId))
-        .orderBy(desc(quotes.createdAt))
-        .limit(5);
+    let dbUser: any, wallet: any, activeQuotes: any[] = [], suggestedRequests: any[] = [], contributions: any[] = [];
 
-    // 4. Fetch Suggested Requests
-    // Open requests, not created by user
-    // In a real app, we'd filter by location/skills
-    const suggestedRequests = await db.select({
-        id: requests.id,
-        title: requests.title,
-        location: requests.location,
-        category: requests.category,
-        createdAt: requests.createdAt,
-    })
-        .from(requests)
-        .where(and(
-            eq(requests.status, 'open'),
-            ne(requests.userId, userId)
-        ))
-        .orderBy(desc(requests.createdAt))
-        .limit(3);
+    try {
+        // 2. Fetch User & Wallet
+        const userResult = await db.select().from(users).where(eq(users.id, userId));
+        dbUser = userResult[0];
 
-    // 5. Fetch History (Inefficient JSON filter for now)
-    const rawEvals = await db.select()
-        .from(contributionEvaluations)
-        .orderBy(desc(contributionEvaluations.createdAt))
-        .limit(50);
+        const walletResult = await db.select().from(userWallets).where(eq(userWallets.userId, userId));
+        wallet = walletResult[0];
 
-    let contributions = rawEvals
-        .map(e => {
-            const myContrib = e.contributions?.find((c: any) => c.userId === userId);
-            if (!myContrib) return null;
-            return {
-                id: e.id,
-                score: myContrib.score,
-                contributionType: myContrib.contributionType,
-                reasoning: myContrib.reasoning,
-                createdAt: e.createdAt,
-                sliceId: e.sliceId,
-                totalScore: e.totalScore || 0
-            };
+        // 3. Fetch Active Quotes
+        activeQuotes = await db.select({
+            id: quotes.id,
+            requestTitle: requests.title,
+            amount: quotes.amount,
+            currency: quotes.currency,
+            status: quotes.status,
+            createdAt: quotes.createdAt,
         })
-        .filter(Boolean) as any[];
+            .from(quotes)
+            .innerJoin(requests, eq(quotes.requestId, requests.id))
+            .where(eq(quotes.providerId, userId))
+            .orderBy(desc(quotes.createdAt))
+            .limit(5);
 
-    // --- MOCK DATA FOR DEMO IF EMPTY ---
+        // 4. Fetch Suggested Requests
+        suggestedRequests = await db.select({
+            id: requests.id,
+            title: requests.title,
+            location: requests.location,
+            category: requests.category,
+            createdAt: requests.createdAt,
+        })
+            .from(requests)
+            .where(and(
+                eq(requests.status, 'open'),
+                ne(requests.userId, userId)
+            ))
+            .orderBy(desc(requests.createdAt))
+            .limit(3);
+
+        // 5. Fetch History
+        const rawEvals = await db.select()
+            .from(contributionEvaluations)
+            .orderBy(desc(contributionEvaluations.createdAt))
+            .limit(50);
+
+        contributions = rawEvals
+            .map(e => {
+                const contribArray = Array.isArray(e.contributions) ? e.contributions : [];
+                const myContrib = contribArray.find((c: any) => c.userId === userId);
+                if (!myContrib) return null;
+                return {
+                    id: e.id,
+                    score: myContrib.score,
+                    contributionType: myContrib.contributionType,
+                    reasoning: myContrib.reasoning,
+                    createdAt: e.createdAt,
+                    sliceId: e.sliceId,
+                    totalScore: e.totalScore || 0
+                };
+            })
+            .filter(Boolean) as any[];
+
+    } catch (error) {
+        console.error("Wallet Data Fetch Error:", error);
+        // Fallback to avoid crash, will rely on mock data below or empty states
+    }
+
+    // --- MOCK DATA FOR DEMO IF EMPTY OR ERROR ---
     if (contributions.length === 0) {
         contributions = [
             {
