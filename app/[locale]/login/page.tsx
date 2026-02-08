@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useTranslations } from 'next-intl'
+import { createClient } from '@/lib/supabase/client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -134,8 +135,6 @@ function LoginForm() {
                                 const email = formData.get('email') as string;
                                 const password = formData.get('password') as string;
 
-                                // Client-side login to avoid server-side fetch issues
-                                const { createClient } = await import('@/lib/supabase/client');
                                 const supabase = createClient();
 
                                 const { error } = await supabase.auth.signInWithPassword({

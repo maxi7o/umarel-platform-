@@ -50,8 +50,8 @@ export function HowItWorksSection() {
                     </p>
                 </div>
 
-                {/* Steps Grid - Swiss Brutalism Style */}
-                <div className="grid md:grid-cols-4 gap-8 mb-24">
+                {/* Steps Grid - Swiss Brutalism Style - 2 Columns for Breathability */}
+                <div className="grid md:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
                     {steps.map((step, idx) => (
                         <div key={idx} className="group relative flex flex-col p-6 border border-stone-200 hover:border-stone-900 transition-colors duration-300 bg-stone-50/50 hover:bg-white min-h-[320px]">
                             {/* Number Background */}
