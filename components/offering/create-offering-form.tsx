@@ -184,7 +184,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
         const prompt = currentDesc && currentDesc.length > 10 ? currentDesc : currentTitle;
 
         if (!prompt || prompt.length < 5) {
-            toast.error("Please enter a rough title or description first so the AI knows what to polish!");
+            toast.error("Por favor ingresá un título o descripción preliminar para que la IA sepa qué mejorar.");
             return;
         }
 
@@ -214,12 +214,12 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                 form.setValue('hourlyRate', String(data.estimatedPrice));
             }
 
-            toast.success("✨ AI has optimized your specific listing!");
-            toast.info(`Optimized for value per unit. Reasoning: ${data.reasoning}`);
+            toast.success("✨ La IA ha optimizado tu propuesta");
+            toast.info(`Estrategia sugerida: ${data.reasoning}`);
 
         } catch (e) {
             console.error(e);
-            toast.error("AI could not generate suggestions. Try again.");
+            toast.error("La IA no pudo generar sugerencias. Intentá de nuevo.");
         } finally {
             setIsGenerating(false);
         }
@@ -231,10 +231,10 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
 
                 <Tabs defaultValue="basics" className="w-full">
                     <TabsList className="grid w-full grid-cols-4 mb-8">
-                        <TabsTrigger value="basics">Basics</TabsTrigger>
-                        <TabsTrigger value="experience">Experience</TabsTrigger>
-                        <TabsTrigger value="ops">Operations</TabsTrigger>
-                        <TabsTrigger value="pricing">Pricing</TabsTrigger>
+                        <TabsTrigger value="basics">Básicos</TabsTrigger>
+                        <TabsTrigger value="experience">Experiencia</TabsTrigger>
+                        <TabsTrigger value="ops">Operativa</TabsTrigger>
+                        <TabsTrigger value="pricing">Precios</TabsTrigger>
                     </TabsList>
 
                     {/* === BASICS TAB === */}
@@ -246,7 +246,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 <FormItem>
                                     <FormLabel>{t('form.titleLabel')}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="e.g. Italian Cooking Class or Plumbing Repair" {...field} />
+                                        <Input placeholder="Ej: Clase de Cocina Italiana o Reparación de Plomería" {...field} />
                                     </FormControl>
                                     <FormDescription>{t('form.titleDesc')}</FormDescription>
                                     <FormMessage />
@@ -287,7 +287,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                     <FormItem>
                                         <FormLabel>{t('form.skillsLabel')}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="e.g. Pasta making, Teaching, Storytelling" {...field} />
+                                            <Input placeholder="Ej: Docencia, Storytelling, Carpintería" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -315,12 +315,12 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                             ) : (
                                                 <Sparkles className="w-3 h-3 mr-2" />
                                             )}
-                                            {isGenerating ? "Developing..." : "Develop with AI"}
+                                            {isGenerating ? "Redactando..." : "Redactar con IA"}
                                         </Button>
                                     </div>
                                     <FormControl>
                                         <Textarea
-                                            placeholder="Describe what you want to offer and why you are passionate about it..."
+                                            placeholder="Describí qué querés ofrecer y por qué sos la persona indicada..."
                                             className="min-h-[150px]"
                                             {...field}
                                         />
@@ -338,8 +338,8 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center justify-between rounded-lg p-3 shadow-sm bg-white">
                                         <div className="space-y-0.5">
-                                            <FormLabel>Virtual Experience</FormLabel>
-                                            <FormDescription>Occurs online via video</FormDescription>
+                                            <FormLabel>Experiencia Virtual</FormLabel>
+                                            <FormDescription>Se realiza por videollamada</FormDescription>
                                         </div>
                                         <FormControl>
                                             <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -358,7 +358,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                             <FormControl>
                                                 <LocationInput
                                                     name="location"
-                                                    placeholder="Where will this happen?"
+                                                    placeholder="¿Dónde se realizará?"
                                                     required={!isVirtual}
                                                     value={field.value}
                                                     onChange={(val, data) => {
@@ -409,9 +409,9 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 <Users className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-lg text-orange-900">Group Dynamics</h3>
+                                <h3 className="font-bold text-lg text-stone-900">Dinámica del Servicio</h3>
                                 <p className="text-stone-600 text-sm mt-1">
-                                    Define how people join this experience. Is it a 1-on-1 session or a group activity?
+                                    Definí cómo participarán los clientes. ¿Es una sesión 1-a-1 o una actividad grupal?
                                 </p>
                             </div>
                         </div>
@@ -422,11 +422,11 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="minParticipants"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Minimum Participants</FormLabel>
+                                        <FormLabel>Mínimo de Participantes</FormLabel>
                                         <FormControl>
                                             <Input type="number" min="1" {...field} />
                                         </FormControl>
-                                        <FormDescription>Minimum people needed to active.</FormDescription>
+                                        <FormDescription>Personas necesarias para activar.</FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -436,9 +436,9 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="maxParticipants"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Maximum Capacity (Optional)</FormLabel>
+                                        <FormLabel>Capacidad Máxima (Opcional)</FormLabel>
                                         <FormControl>
-                                            <Input type="number" min="1" placeholder="Unlimited" {...field} />
+                                            <Input type="number" min="1" placeholder="Ilimitado" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -449,7 +449,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                         <div className="space-y-4 pt-4 border-t border-stone-100">
                             <div className="flex items-center gap-3 mb-2">
                                 <BrainCircuit className="w-5 h-5 text-stone-900" />
-                                <h3 className="font-bold text-stone-900">AI Interviewer Config</h3>
+                                <h3 className="font-bold text-stone-900">Entrevista con IA</h3>
                             </div>
 
                             <FormField
@@ -457,16 +457,16 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="initialQuestions"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>What should we ask interested people?</FormLabel>
+                                        <FormLabel>¿Qué deberíamos preguntar a los interesados?</FormLabel>
                                         <FormControl>
                                             <Textarea
-                                                placeholder={`e.g.\nDo you have your own equipment?\nAny allergies?\nWhat is your experience level?`}
+                                                placeholder={`Ej:\n¿Tenés equipamiento propio?\n¿Alguna alergia?\n¿Cuál es tu nivel de experiencia?`}
                                                 className="min-h-[120px] font-mono text-sm"
                                                 {...field}
                                             />
                                         </FormControl>
                                         <FormDescription>
-                                            Our AI Agent will interview candidates using these topics as a guide. Each line is a topic.
+                                            Nuestro Agente de IA entrevistará a los candidatos usando estos temas como guía.
                                         </FormDescription>
                                         <FormMessage />
                                     </FormItem>
@@ -485,7 +485,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                     <FormItem>
                                         <FormLabel>{t('form.availabilityLabel')}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="e.g. Weekends, Mon-Fri After 6PM" {...field} />
+                                            <Input placeholder="Ej: Fines de semana, Lun-Vie después de 18hs" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -499,10 +499,10 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                                         <div className="space-y-0.5">
                                             <FormLabel className="flex items-center gap-2">
-                                                <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                                                Instant Booking
+                                                <Zap className="w-4 h-4 text-stone-900 fill-stone-900" />
+                                                Reserva Instantánea
                                             </FormLabel>
-                                            <FormDescription>Skip approval if slot is free</FormDescription>
+                                            <FormDescription>Adjudicar sin aprobación manual</FormDescription>
                                         </div>
                                         <FormControl>
                                             <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -519,13 +519,13 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 <FormItem>
                                     <FormLabel className="flex items-center gap-2">
                                         <Calendar className="w-4 h-4" />
-                                        Calendar Sync URL (iCal)
+                                        URL de Sincronización (iCal)
                                     </FormLabel>
                                     <FormControl>
                                         <Input placeholder="https://calendar.google.com/calendar/ical/..." {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Paste your private iCal link here to automatically block busy times.
+                                        Pegá tu link privado de iCal para bloquear horarios ocupados automáticamente.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -541,11 +541,11 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="hourlyRate"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Price Base (per person/hour)</FormLabel>
+                                        <FormLabel>Precio Base (por hora/persona)</FormLabel>
                                         <FormControl>
-                                            <Input type="number" placeholder="50" {...field} />
+                                            <Input type="number" placeholder="5000" {...field} />
                                         </FormControl>
-                                        <FormDescription>Standard rate in USD</FormDescription>
+                                        <FormDescription>Tarifa en ARS</FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -556,28 +556,28 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 name="pricingStrategy"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Pricing Strategy (Experimental)</FormLabel>
+                                        <FormLabel>Estrategia de Precios</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select strategy" />
+                                                    <SelectValue placeholder="Seleccionar estrategia" />
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="standard">Standard (Fixed)</SelectItem>
+                                                <SelectItem value="standard">Estándar (Fijo)</SelectItem>
                                                 <SelectItem value="distressed">
                                                     <div className="flex items-center gap-2">
                                                         <TrendingDown className="w-4 h-4 text-stone-900" />
-                                                        <span>Distressed (Last Minute Drop)</span>
+                                                        <span>Último Minuto (Descuento automático)</span>
                                                     </div>
                                                 </SelectItem>
-                                                <SelectItem value="early_bird">Early Bird (Advance Discount)</SelectItem>
+                                                <SelectItem value="early_bird">Early Bird (Descuento anticipado)</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormDescription>
-                                            {field.value === 'distressed' && "Balances price vs. empty slots close to start time."}
-                                            {field.value === 'early_bird' && "Rewards booking weeks in advance."}
-                                            {field.value === 'standard' && "Price remains constant."}
+                                            {field.value === 'distressed' && "Baja el precio si quedan lugares vacíos cerca de la fecha."}
+                                            {field.value === 'early_bird' && "Premia a quienes reservan con semanas de antelación."}
+                                            {field.value === 'standard' && "El precio se mantiene constante."}
                                         </FormDescription>
                                         <FormMessage />
                                     </FormItem>
