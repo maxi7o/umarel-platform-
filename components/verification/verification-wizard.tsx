@@ -8,12 +8,13 @@ import { Camera, Upload, CheckCircle2, ChevronRight, ShieldCheck, User, CreditCa
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
-type Step = 'intro' | 'dni_number' | 'id_front' | 'id_back' | 'selfie' | 'success';
+type Step = 'intro' | 'dni_number' | 'cbu' | 'id_front' | 'id_back' | 'selfie' | 'success';
 
 export function VerificationWizard() {
     const t = useTranslations('verification');
     const [step, setStep] = useState<Step>('intro');
     const [dniNumber, setDniNumber] = useState('');
+    const [cbu, setCbu] = useState('');
     const [images, setImages] = useState<{ [key: string]: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -48,7 +49,7 @@ export function VerificationWizard() {
             const response = await fetch('/api/verify/dni', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ dniNumber, images }),
+                body: JSON.stringify({ dniNumber, cbu, images }),
             });
 
             if (!response.ok) {
@@ -188,6 +189,49 @@ export function VerificationWizard() {
                                 <Button variant="ghost" onClick={() => setStep('intro')}>Volver</Button>
                                 <Button
                                     disabled={dniNumber.length < 7}
+                                    onClick={() => nextStep('cbu')}
+                                    className="flex-1"
+                                >
+                                    Siguiente <ChevronRight className="ml-2 w-4 h-4" />
+                                </Button>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* CBU STEP */}
+                    {step === 'cbu' && (
+                        <motion.div
+                            key="cbu"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                        >
+                            <div className="flex gap-2 mb-8 justify-center">
+                                {[1, 2, 3, 4, 5].map((num) => (
+                                    <div
+                                        key={num}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 2 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                    />
+                                ))}
+                            </div>
+                            <h3 className="text-xl font-bold text-center mb-2">{t('steps.cbu')}</h3>
+                            <p className="text-sm text-slate-500 text-center mb-6">{t('instructions.cbu')}</p>
+
+                            <div className="mb-8">
+                                <input
+                                    type="text"
+                                    value={cbu}
+                                    onChange={(e) => setCbu(e.target.value)}
+                                    placeholder="CVU, CBU o Alias"
+                                    className="w-full h-14 bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 text-lg font-bold text-center focus:border-blue-500 focus:outline-none transition-colors"
+                                    autoFocus
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-4">
+                                <Button variant="ghost" onClick={() => setStep('dni_number')}>Volver</Button>
+                                <Button
+                                    disabled={cbu.length < 6}
                                     onClick={() => nextStep('id_front')}
                                     className="flex-1"
                                 >
@@ -206,10 +250,10 @@ export function VerificationWizard() {
                             exit={{ opacity: 0, x: -20 }}
                         >
                             <div className="flex gap-2 mb-8 justify-center">
-                                {[1, 2, 3, 4].map((num) => (
+                                {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 2 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 3 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -235,6 +279,7 @@ export function VerificationWizard() {
                             </div>
 
                             <div className="mt-8 flex justify-end">
+                                <Button variant="ghost" className="mr-4" onClick={() => setStep('cbu')}>Volver</Button>
                                 <Button
                                     disabled={!images.front}
                                     onClick={() => nextStep('id_back')}
@@ -255,10 +300,10 @@ export function VerificationWizard() {
                             exit={{ opacity: 0, x: -20 }}
                         >
                             <div className="flex gap-2 mb-8 justify-center">
-                                {[1, 2, 3, 4].map((num) => (
+                                {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 3 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 4 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>
@@ -305,10 +350,10 @@ export function VerificationWizard() {
                             exit={{ opacity: 0, x: -20 }}
                         >
                             <div className="flex gap-2 mb-8 justify-center">
-                                {[1, 2, 3, 4].map((num) => (
+                                {[1, 2, 3, 4, 5].map((num) => (
                                     <div
                                         key={num}
-                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 4 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
+                                        className={`h-2 rounded-full transition-all duration-300 ${num <= 5 ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`}
                                     />
                                 ))}
                             </div>

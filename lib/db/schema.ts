@@ -411,6 +411,10 @@ export const userWallets = pgTable('user_wallets', {
     mercadoPagoRefreshToken: text('mercado_pago_refresh_token'),
     mercadoPagoTokenExpiresAt: timestamp('mercado_pago_token_expires_at'),
     mercadoPagoPublicKey: text('mercado_pago_public_key'),
+    // Bank Details for Transfers
+    cbuAlias: text('cbu_alias'),
+    cbuNumber: text('cbu_number'),
+    bankName: text('bank_name'),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),
 });

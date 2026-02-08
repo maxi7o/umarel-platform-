@@ -744,12 +744,14 @@
         "idDetails": "Datos del Documento",
         "steps": {
             "dni": "Número de DNI",
+            "cbu": "Cuenta Bancaria (CBU/Alias)",
             "idFront": "Frente del DNI",
             "idBack": "Dorso del DNI",
             "selfie": "Selfie"
         },
         "instructions": {
             "dni": "Ingresá tu número de DNI sin puntos.",
+            "cbu": "Para transferirte cuando completes un trabajo. Debe ser tuya.",
             "id": "Buscá buena luz. Que se lean todos los datos.",
             "selfie": "Sin anteojos ni gorra. Mirá a la cámara."
         },

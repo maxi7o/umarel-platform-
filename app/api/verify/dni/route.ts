@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { verifyArgentinaDni } from '@/lib/services/verifik-service';
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
+import { users, userWallets } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function POST(req: NextRequest) {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { dniNumber, images } = await req.json();
+        const { dniNumber, cbu, images } = await req.json();
 
         if (!dniNumber || dniNumber.length < 7) {
             return NextResponse.json({ error: 'Invalid DNI number' }, { status: 400 });
@@ -62,6 +62,19 @@ export async function POST(req: NextRequest) {
                 kycSelfiePath: storagePaths.selfie || null
             })
             .where(eq(users.id, user.id));
+
+        // Store CBU if provided
+        if (cbu) {
+            await db.insert(userWallets)
+                .values({
+                    userId: user.id,
+                    cbuAlias: cbu
+                })
+                .onConflictDoUpdate({
+                    target: userWallets.userId,
+                    set: { cbuAlias: cbu }
+                });
+        }
 
         return NextResponse.json({
             success: true,
