@@ -3,7 +3,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { Shovel, Hammer, ArrowRight, Clipboard } from 'lucide-react';
+import { Sparkles, Search, ArrowRight, Clipboard } from 'lucide-react';
 import Link from 'next/link';
 
 export function ConstructionHero() {
@@ -36,7 +36,7 @@ export function ConstructionHero() {
 
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent font-medium text-sm mb-6 animate-fade-in-up">
-                    <Shovel className="w-4 h-4" />
+                    <Sparkles className="w-4 h-4" />
                     <span>New Opportunities Open</span>
                 </div>
 
@@ -58,7 +58,7 @@ export function ConstructionHero() {
                         className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg h-14 rounded-xl shadow-xl shadow-primary/20"
                     >
                         <Link href="/post-request">
-                            <Shovel className="mr-2 h-5 w-5" />
+                            <Sparkles className="mr-2 h-5 w-5" />
                             {t('cta.postButton')}
                         </Link>
                     </Button>
@@ -70,7 +70,7 @@ export function ConstructionHero() {
                         className="w-full border-2 border-muted-foreground/20 hover:border-foreground/50 text-foreground font-semibold text-lg h-14 rounded-xl"
                     >
                         <Link href="/browse">
-                            <Clipboard className="mr-2 h-5 w-5" />
+                            <Search className="mr-2 h-5 w-5" />
                             {t('cta.browseButton')}
                         </Link>
                     </Button>
