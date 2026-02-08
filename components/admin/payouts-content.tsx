@@ -16,11 +16,11 @@ export async function PayoutsContent() {
     }
 
     // Default empty structure if error or null
-    const safeData = previewData || {
-        totalAmount: 0,
-        payouts: [],
-        periodStart: new Date(),
-        periodEnd: new Date()
+    // Adapted to match PayoutTable interface (totalPool, totalScore, payouts)
+    const safeData = {
+        totalPool: (previewData as any)?.totalAmount ?? (previewData as any)?.totalPool ?? 0,
+        totalScore: (previewData as any)?.totalScore ?? 0,
+        payouts: (previewData as any)?.payouts ?? []
     };
 
     return (
