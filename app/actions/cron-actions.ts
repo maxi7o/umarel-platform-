@@ -6,7 +6,7 @@ import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { PayoutService } from '@/lib/services/payout-service';
 
-const ADMIN_EMAILS = ['admin@elentendido.ar', 'mhamu@umarel.org', 'maxi7o@gmail.com'];
+const ADMIN_EMAILS = ['admin@elentendido.ar'];
 
 async function checkAdminAccess() {
     const supabase = await createClient();
