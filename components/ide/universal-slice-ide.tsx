@@ -33,19 +33,41 @@ export function UniversalSliceIDE({
     const t = useTranslations('Common'); // Assuming common translations exist
 
     // Layout configuration
-    const aiPanelWidth = isAiPanelOpen ? 'w-1/3' : 'w-12';
-    const workspaceWidth = isAiPanelOpen ? 'w-2/3' : 'w-full';
+    const aiPanelWidth = isAiPanelOpen ? 'md:w-1/2 w-full' : 'md:w-16 w-12';
 
     return (
         <div className="flex h-screen w-full bg-background overflow-hidden relative">
 
-            {/* 🤖 Left Panel: AI Assistant (Context) */}
+            {/* 🛠️ Main Workspace (Left - 50%) */}
+            <div className="flex-1 flex flex-col h-full overflow-hidden bg-background relative z-0 w-full transition-all duration-300">
+
+                {/* Header moved inside workspace */}
+                <header className="h-14 border-b border-border flex items-center justify-between px-4 bg-background/80 backdrop-blur-md sticky top-0 z-20">
+                    <div className="flex items-center gap-2">
+                        <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                            {mode.replace('_', ' ')}
+                        </h2>
+                    </div>
+                </header>
+
+                <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-hide">
+                    <SliceWorkspace
+                        mode={mode}
+                        contextId={contextId}
+                        existingSlices={existingSlices}
+                    />
+                </main>
+            </div>
+
+
+            {/* 🤖 AI Assistant (Right - 50%) */}
             <motion.div
-                className={`${aiPanelWidth} border-r border-border flex flex-col transition-all duration-300 ease-in-out relative z-10 bg-card`}
+                className={`border-l border-border flex flex-col transition-all duration-300 ease-in-out relative z-10 bg-card h-full shadow-xl`}
                 initial={false}
-                animate={{ width: isAiPanelOpen ? '33.333333%' : '3rem' }}
+                animate={{ width: isAiPanelOpen ? '50%' : '0rem', opacity: isAiPanelOpen ? 1 : 0 }}
+                style={{ minWidth: isAiPanelOpen ? '400px' : '0px' }}
             >
-                <div className="flex-1 overflow-hidden relative">
+                <div className="flex-1 overflow-hidden relative h-full">
                     <AiAssistantPanel
                         isOpen={isAiPanelOpen}
                         mode={mode}
@@ -54,47 +76,8 @@ export function UniversalSliceIDE({
                 </div>
             </motion.div>
 
-            {/* 🛠️ Right Panel: Application Workspace (The Slices) */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden bg-background relative z-0">
-
-                {/* Top Header / Mode Switcher (For Dev/Demo purposes, or context switching) */}
-                <header className="h-14 border-b border-border flex items-center justify-between px-4 bg-background/80 backdrop-blur-md sticky top-0 z-20">
-                    <div className="flex items-center gap-2">
-                        {!isAiPanelOpen && (
-                            <Button variant="ghost" size="icon" onClick={() => setIsAiPanelOpen(true)}>
-                                <PanelLeft className="w-5 h-5" />
-                            </Button>
-                        )}
-                        <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                            {mode.replace('_', ' ')}
-                        </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        {/* Dev Mode Switcher */}
-                        <select
-                            value={mode}
-                            onChange={(e) => setMode(e.target.value as IdeMode)}
-                            className="bg-transparent border border-border rounded-md text-sm p-1"
-                        >
-                            <option value="REQUEST_CREATION">Request Creation</option>
-                            <option value="QUOTE_PROPOSAL">Quote Proposal</option>
-                            <option value="EXPERIENCE_DESIGN">Experience Design</option>
-                            <option value="CRITIQUE_REVIEW">Critique Review</option>
-                        </select>
-                    </div>
-                </header>
-
-                {/* Workspace Content */}
-                <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-hide">
-                    <SliceWorkspace
-                        mode={mode}
-                        contextId={contextId}
-                        existingSlices={existingSlices}
-                    />
-                </main>
-
-            </div>
         </div>
     );
 }
+
+
