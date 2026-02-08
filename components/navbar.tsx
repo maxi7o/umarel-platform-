@@ -75,7 +75,7 @@ export function Navbar({ user }: NavbarProps) {
 
                         {user && (
                             <Link href="/requests/create-universal">
-                                <Button size="sm" className="hidden sm:flex bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md border-0">
+                                <Button size="sm" className="hidden sm:flex bg-stone-900 hover:bg-stone-800 text-white shadow-md border-0 whitespace-nowrap">
                                     <PlusCircle className="mr-2 h-4 w-4" />
                                     Nuevo Proyecto
                                 </Button>
