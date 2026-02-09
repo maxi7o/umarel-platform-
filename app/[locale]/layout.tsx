@@ -15,6 +15,7 @@ import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { createClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { RoleImpersonationBar } from '@/components/dev/role-impersonation-bar';
+import { OrganizationSchema } from '@/components/seo/structured-data';
 
 // Swiss Brutalism Typography Stack
 const inter = Inter({
@@ -178,6 +179,7 @@ export default async function LocaleLayout({
                         {roleInfo && <RoleImpersonationBar info={roleInfo} />}
                     </MarketProvider>
                 </NextIntlClientProvider>
+                <OrganizationSchema />
             </body>
         </html>
     );

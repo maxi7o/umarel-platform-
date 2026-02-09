@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useMarket } from '@/lib/market-context';
 import { useTranslations } from 'next-intl';
 
+// Note: SEO metadata is handled in layout.tsx for client components
 export default function BrowsePage() {
     const { market } = useMarket();
     const t = useTranslations('browse');
