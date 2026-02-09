@@ -19,6 +19,21 @@ export const changeProposalStatusEnum = pgEnum('change_proposal_status', ['pendi
 export const currencyEnum = pgEnum('currency', ['ARS', 'USD', 'BRL', 'MXN', 'COP']);
 export const qualityLevelEnum = pgEnum('quality_level', ['functional', 'standard', 'premium']);
 export const materialAdvanceStatusEnum = pgEnum('material_advance_status', ['none', 'requested', 'approved', 'released', 'rejected']);
+export const notificationTypeEnum = pgEnum('notification_type', [
+    'payment_received',
+    'payment_released',
+    'proposal_received',
+    'proposal_accepted',
+    'proposal_rejected',
+    'milestone_completed',
+    'milestone_approved',
+    'audit_requested',
+    'audit_completed',
+    'verification_approved',
+    'verification_rejected',
+    'message_received',
+    'system_announcement'
+]);
 
 export const users = pgTable('users', {
     id: uuid('id').primaryKey().defaultRandom(),
@@ -844,6 +859,74 @@ export const disputeJurorsRelations = relations(disputeJurors, ({ one }) => ({
     }),
     user: one(users, {
         fields: [disputeJurors.userId],
+        references: [users.id],
+    }),
+}));
+
+// Notifications System
+export const userNotifications = pgTable('user_notifications', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').references(() => users.id).notNull(),
+    type: notificationTypeEnum('type').notNull(),
+    title: text('title').notNull(),
+    message: text('message').notNull(),
+
+    // Links
+    actionUrl: text('action_url'), // Where to navigate when clicked
+    relatedEntityId: uuid('related_entity_id'), // ID of related request/slice/payment
+    relatedEntityType: text('related_entity_type'), // 'request', 'slice', 'payment', etc.
+
+    // Status
+    isRead: boolean('is_read').default(false),
+    readAt: timestamp('read_at'),
+
+    // Metadata for rich notifications
+    metadata: jsonb('metadata'), // { amount, currency, userName, etc. }
+
+    // Preferences
+    emailSent: boolean('email_sent').default(false),
+    pushSent: boolean('push_sent').default(false),
+
+    createdAt: timestamp('created_at').defaultNow(),
+    expiresAt: timestamp('expires_at'), // Optional expiration for time-sensitive notifications
+});
+
+export const notificationPreferences = pgTable('notification_preferences', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').references(() => users.id).notNull().unique(),
+
+    // In-app notifications
+    inAppPayments: boolean('in_app_payments').default(true),
+    inAppProposals: boolean('in_app_proposals').default(true),
+    inAppMilestones: boolean('in_app_milestones').default(true),
+    inAppAudits: boolean('in_app_audits').default(true),
+    inAppMessages: boolean('in_app_messages').default(true),
+
+    // Email notifications
+    emailPayments: boolean('email_payments').default(true),
+    emailProposals: boolean('email_proposals').default(true),
+    emailMilestones: boolean('email_milestones').default(false),
+    emailAudits: boolean('email_audits').default(false),
+    emailMessages: boolean('email_messages').default(false),
+
+    // Push notifications (for future PWA)
+    pushPayments: boolean('push_payments').default(true),
+    pushProposals: boolean('push_proposals').default(true),
+    pushMilestones: boolean('push_milestones').default(false),
+
+    updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+export const userNotificationsRelations = relations(userNotifications, ({ one }) => ({
+    user: one(users, {
+        fields: [userNotifications.userId],
+        references: [users.id],
+    }),
+}));
+
+export const notificationPreferencesRelations = relations(notificationPreferences, ({ one }) => ({
+    user: one(users, {
+        fields: [notificationPreferences.userId],
         references: [users.id],
     }),
 }));
