@@ -21,21 +21,25 @@ export interface VerifikDniResponse {
 export async function verifyArgentinaDni(dni: string) {
     const apiToken = process.env.VERIFIK_API_TOKEN;
 
+    // Force mock in development to save credits and avoid API errors
+    if (process.env.NODE_ENV === 'development' && !process.env.FORCE_REAL_VERIFIK) {
+        console.log('Using Verifik Mock Service (Development Mode)');
+        return {
+            data: {
+                fullname: "MOCK USER VERIFIK",
+                firstname: "MOCK",
+                lastname: "USER",
+                documentNumber: dni,
+                documentType: "DNIAR",
+                gender: "M",
+                birthDate: "1990-01-01"
+            },
+            signature: "mock_signature"
+        };
+    }
+
     if (!apiToken) {
-        console.warn('VERIFIK_API_TOKEN is not set. Identity verification will be skipped or mocked.');
-        // Return a mock success in development if needed, or throw error
-        if (process.env.NODE_ENV === 'development') {
-            return {
-                data: {
-                    fullname: "MOCK USER VERIFIK",
-                    firstname: "MOCK",
-                    lastname: "USER",
-                    documentNumber: dni,
-                    documentType: "DNIAR"
-                },
-                signature: "mock_signature"
-            };
-        }
+        console.warn('VERIFIK_API_TOKEN is not set. Identity verification will be skipped.');
         throw new Error('Verification service unavailable');
     }
 

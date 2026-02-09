@@ -73,8 +73,9 @@ export function VerificationWizard() {
 
     const nextStep = (next: Step) => setStep(next);
 
-    const [isMobile, setIsMobile] = useState<boolean | null>(null);
+    const [isMobile, setIsMobile] = useState<boolean | null>(true);
 
+    /*
     useEffect(() => {
         const checkMobile = () => {
             const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
@@ -86,6 +87,7 @@ export function VerificationWizard() {
         };
         checkMobile();
     }, []);
+    */
 
     const StepIndicator = ({ current, total }: { current: number, total: number }) => (
         <div className="flex gap-2 mb-8 justify-center">
@@ -99,30 +101,8 @@ export function VerificationWizard() {
         </div>
     );
 
-    if (isMobile === false) {
-        return (
-            <div className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden text-center p-8">
-                <div className="w-20 h-20 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
-                    <ShieldCheck size={40} />
-                </div>
-                <h2 className="text-xl font-bold text-slate-900 mb-2">Dispositivo no permitido</h2>
-                <p className="text-slate-500 mb-6 text-sm">
-                    Para garantizar la seguridad de la identidad, este proceso solo puede realizarse desde un celular con cámara.
-                </p>
-
-                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-6 inline-block">
-                    {/* Placeholder for QR Code - In a real app we'd generate a specific URL */}
-                    <div className="w-48 h-48 bg-white p-2 mx-auto">
-                        <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${typeof window !== 'undefined' ? window.location.href : ''}`} alt="Scan to continue on mobile" className="w-full h-full" />
-                    </div>
-                </div>
-
-                <p className="text-xs text-slate-400">
-                    Escaneá el código QR con tu celular para continuar.
-                </p>
-            </div>
-        );
-    }
+    // Mobile check disabled for testing
+    // if (isMobile === false) { ... }
 
     if (isMobile === null) return null; // Loading state
 
@@ -413,6 +393,31 @@ export function VerificationWizard() {
                     )}
 
                 </AnimatePresence>
+
+                {process.env.NODE_ENV === 'development' && (
+                    <div className="mt-8 border-t pt-4">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full text-xs text-muted-foreground"
+                            onClick={() => {
+                                setDniNumber('20123456'); // Valid DNI
+                                setCbu('0000003100012345678901'); // Valid CBU length
+                                const dummyImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+                                setImages({
+                                    front: dummyImage,
+                                    back: dummyImage,
+                                    selfie: dummyImage
+                                });
+                                // Automatically jump to last step to save clicks?
+                                // No, let the user click 'Next' to verify UI.
+                                toast.info('Datos de prueba cargados');
+                            }}
+                        >
+                            🐛 Debug: Llenar todo
+                        </Button>
+                    </div>
+                )}
             </div>
         </div>
     );

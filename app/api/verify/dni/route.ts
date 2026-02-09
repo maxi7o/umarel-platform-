@@ -48,37 +48,54 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // Call Verifik
-        const result = await verifyArgentinaDni(dniNumber);
+        // Call Verifik (Graceful degradation)
+        let verificationData = null;
+        let biometricStatus = 'pending'; // Default: manual review required
 
-        // Update user record with Verifik data AND storage paths
+        try {
+            const result = await verifyArgentinaDni(dniNumber);
+            verificationData = result.data;
+            biometricStatus = 'verified'; // Auto-verified by API
+        } catch (verifikError) {
+            console.warn('Verifik API failed. Proceeding with pending status.', verifikError);
+            // We allow the user to continue, but their identity is not auto-verified.
+        }
+
+        // Update user record with Verifik data (if any) and storage paths
         await db.update(users)
             .set({
                 dniNumber: dniNumber,
-                dniVerifiedAt: new Date(),
-                biometricStatus: 'verified',
+                dniVerifiedAt: biometricStatus === 'verified' ? new Date() : null,
+                biometricStatus: biometricStatus,
                 kycFrontPath: storagePaths.front || null,
                 kycBackPath: storagePaths.back || null,
                 kycSelfiePath: storagePaths.selfie || null
             })
             .where(eq(users.id, user.id));
 
-        // Store CBU if provided
+        // Store CBU/Alias if provided
         if (cbu) {
+            const isNumericCbu = /^\d+$/.test(cbu);
+
             await db.insert(userWallets)
                 .values({
                     userId: user.id,
-                    cbuAlias: cbu
+                    cbuNumber: isNumericCbu ? cbu : null,
+                    cbuAlias: !isNumericCbu ? cbu : null
                 })
                 .onConflictDoUpdate({
                     target: userWallets.userId,
-                    set: { cbuAlias: cbu }
+                    set: {
+                        cbuNumber: isNumericCbu ? cbu : undefined, // Only update what changed
+                        cbuAlias: !isNumericCbu ? cbu : undefined
+                    }
                 });
         }
 
         return NextResponse.json({
             success: true,
-            data: result.data
+            data: verificationData,
+            status: biometricStatus
         });
 
     } catch (error) {
