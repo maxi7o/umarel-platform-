@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Clock, Loader2, Users, X, Check, Image as ImageIcon, Briefcase, DollarSign, ArrowRight, LayoutGrid, Calendar } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Plus, Clock, Loader2, Users, X, Check, Briefcase, DollarSign, ArrowRight, LayoutGrid, Calendar, Sparkles } from 'lucide-react';
 import { IdeMode } from './universal-slice-ide';
 import { createSlice } from '@/lib/actions/slice-actions';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
+import { AIProjectHelper } from './ai-project-helper';
 
 interface SliceWorkspaceProps {
     mode: IdeMode;
@@ -19,13 +20,14 @@ interface SliceWorkspaceProps {
 export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWorkspaceProps) {
     const [slices, setSlices] = useState(existingSlices);
     const [isCreating, setIsCreating] = useState(false);
+    const [showAiHelper, setShowAiHelper] = useState(false);
     const router = useRouter();
 
     const handleCreateSlice = async () => {
         setIsCreating(true);
         try {
             const newSlice = await createSlice({
-                requestId: contextId, // Ensure contextId is passed correctly
+                requestId: contextId,
                 title: 'New Draft Slice',
                 description: 'Created via IDE',
                 status: 'draft',
@@ -38,6 +40,53 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
             setIsCreating(false);
         }
     };
+
+    const handleApplyAiSuggestions = async (suggestions: any) => {
+        setIsCreating(true);
+        setShowAiHelper(false);
+        try {
+            // Create slices from milestones
+            const newSlices = [];
+            if (suggestions.suggestedMilestones && suggestions.suggestedMilestones.length > 0) {
+                for (const milestone of suggestions.suggestedMilestones) {
+                    const slice = await createSlice({
+                        requestId: contextId,
+                        title: milestone.title,
+                        description: milestone.description + (milestone.estimatedHours ? `\n\nEst. Hours: ${milestone.estimatedHours}` : ''),
+                        status: 'draft',
+                    });
+                    newSlices.push(slice);
+                }
+            } else {
+                // Fallback if no milestones suggested but user proceeded
+                const slice = await createSlice({
+                    requestId: contextId,
+                    title: suggestions.optimizedTitle || 'Project Kickoff',
+                    description: 'Initial project setup based on AI suggestion.',
+                    status: 'draft',
+                });
+                newSlices.push(slice);
+            }
+
+            setSlices([...slices, ...newSlices]);
+            router.refresh();
+        } catch (error) {
+            console.error('Failed to apply AI suggestions', error);
+        } finally {
+            setIsCreating(false);
+        }
+    };
+
+    if (showAiHelper) {
+        return (
+            <div className="h-full flex items-center justify-center p-4">
+                <AIProjectHelper
+                    onApplySuggestions={handleApplyAiSuggestions}
+                    onCancel={() => setShowAiHelper(false)}
+                />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6 h-full flex flex-col">
@@ -55,10 +104,16 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
 
                 <div className="flex gap-2">
                     {mode === 'REQUEST_CREATION' && (
-                        <Button size="sm" onClick={handleCreateSlice} disabled={isCreating} className="bg-stone-900 hover:bg-stone-800 text-white shadow-sm">
-                            {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
-                            Add Slice
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button size="sm" onClick={() => setShowAiHelper(true)} variant="outline" className="hidden sm:flex">
+                                <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                                AI Assist
+                            </Button>
+                            <Button size="sm" onClick={handleCreateSlice} disabled={isCreating} className="bg-stone-900 hover:bg-stone-800 text-white shadow-sm">
+                                {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+                                Add Slice
+                            </Button>
+                        </div>
                     )}
                 </div>
             </div>
@@ -67,10 +122,10 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
             <div className="flex-1 overflow-y-auto pr-2">
                 {/* MOCK CONTENT based on Mode (Dynamic in real app) */}
                 {slices.length === 0 ? (
-                    renderMockContent(mode)
+                    renderMockContent(mode, setShowAiHelper, handleCreateSlice)
                 ) : (
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {slices.map((slice) => (
+                        {slices.map((slice: any) => (
                             <SliceCard
                                 key={slice.id}
                                 title={slice.title}
@@ -78,6 +133,17 @@ export function SliceWorkspace({ mode, contextId, existingSlices = [] }: SliceWo
                                 type={slice.sliceType}
                             />
                         ))}
+                        {mode === 'REQUEST_CREATION' && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                onClick={handleCreateSlice}
+                                className="border-2 border-dashed border-muted rounded-xl flex flex-col items-center justify-center p-6 text-center text-muted-foreground hover:bg-muted/30 transition-colors cursor-pointer min-h-[150px]"
+                            >
+                                <Plus className="w-8 h-8 mb-2 opacity-50" />
+                                <span className="text-sm font-medium">Add another slice</span>
+                            </motion.div>
+                        )}
                     </div>
                 )}
             </div>
@@ -109,23 +175,29 @@ function getTitle(mode: IdeMode): string {
 
 // --- MOCK CONTENT RENDERING ---
 
-function renderMockContent(mode: IdeMode) {
+function renderMockContent(mode: IdeMode, setShowAiHelper: (show: boolean) => void, handleCreateSlice: () => void) {
     switch (mode) {
         case 'REQUEST_CREATION':
             return (
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-                    <SliceCard title="1. Diagnosis & Check" status="draft" type="Standard" description="Identify the source of the leak and assess damage." />
-                    <SliceCard title="2. Pipe Replacement" status="draft" type="Standard" description="Replace 2m of lead pipe with thermofusion." />
-                    <SliceCard title="3. Plaster & Paint" status="draft" type="Optional" description="Repair wall surface and paint 4m2 area." />
+                <div className="flex flex-col items-center justify-center h-[50vh] gap-6 text-center">
+                    <div className="p-6 bg-muted/30 rounded-full">
+                        <Briefcase className="w-12 h-12 text-muted-foreground opacity-50" />
+                    </div>
+                    <div className="max-w-md space-y-2">
+                        <h3 className="text-lg font-semibold">Start your Project</h3>
+                        <p className="text-muted-foreground text-sm">You can start by adding individual slices manually, or use our AI Assistant to structure the project for you.</p>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="border-2 border-dashed border-muted rounded-xl flex flex-col items-center justify-center p-6 text-center text-muted-foreground hover:bg-muted/30 transition-colors cursor-pointer"
-                    >
-                        <Plus className="w-8 h-8 mb-2 opacity-50" />
-                        <span className="text-sm font-medium">Add another slice</span>
-                    </motion.div>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full justify-center px-4">
+                        <Button onClick={() => setShowAiHelper(true)} className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-md border-0 w-full sm:w-auto">
+                            <Sparkles className="w-4 h-4 mr-2" />
+                            Use AI Assistant
+                        </Button>
+                        <Button variant="outline" onClick={handleCreateSlice} className="w-full sm:w-auto">
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add Manual Slice
+                        </Button>
+                    </div>
                 </div>
             );
         case 'QUOTE_PROPOSAL':
@@ -284,4 +356,3 @@ function EvidenceCard({ title, imgUrl, status, confidence }: { title: string, im
         </Card>
     );
 }
-

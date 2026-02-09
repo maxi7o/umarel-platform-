@@ -1,37 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { notifications } from '@/lib/db/schema';
-import { eq, desc } from 'drizzle-orm';
-import { markAsRead } from '@/lib/notifications';
-
-// Mock user ID
-const MOCK_USER_ID = '00000000-0000-0000-0000-000000000001';
+import { createClient } from '@/lib/supabase/server';
+import { InAppNotificationService } from '@/lib/services/in-app-notification-service';
 
 export async function GET(request: NextRequest) {
-    try {
-        const userNotifications = await db.select()
-            .from(notifications)
-            .where(eq(notifications.userId, MOCK_USER_ID))
-            .orderBy(desc(notifications.createdAt))
-            .limit(20);
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-        return NextResponse.json(userNotifications);
+    if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    try {
+        const searchParams = request.nextUrl.searchParams;
+        const limit = parseInt(searchParams.get('limit') || '20');
+
+        const notifications = await InAppNotificationService.getForUser(user.id, limit);
+        const unreadCount = await InAppNotificationService.getUnreadCount(user.id);
+
+        return NextResponse.json({
+            notifications,
+            unreadCount
+        });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch notifications' }, { status: 500 });
+        console.error('Failed to fetch notifications:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
 
 export async function PATCH(request: NextRequest) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     try {
         const body = await request.json();
-        const { id } = body;
+        const { id, markAllRead } = body;
 
-        if (id) {
-            await markAsRead(id);
+        if (markAllRead) {
+            await InAppNotificationService.markAllAsRead(user.id);
             return NextResponse.json({ success: true });
         }
-        return NextResponse.json({ error: 'ID required' }, { status: 400 });
+
+        if (id) {
+            await InAppNotificationService.markAsRead(id, user.id);
+            return NextResponse.json({ success: true });
+        }
+
+        return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to update notification' }, { status: 500 });
+        console.error('Failed to update notification:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
