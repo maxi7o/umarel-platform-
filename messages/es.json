@@ -797,6 +797,27 @@
         "submitting": "Subiendo...",
         "successTitle": "Documentos Recibidos",
         "successDesc": "Nuestro equipo (y la IA) va a validar tus datos. En unas horas te confirmamos.",
-        "backToProfile": "Volver al Perfil"
+        "backToProfile": "Volver al Perfil",
+        "status": {
+            "title": "Estado de Verificación",
+            "subtitle": "Seguí el progreso de tu verificación de identidad",
+            "verified": "Verificado",
+            "pending": "En Revisión",
+            "failed": "Rechazado",
+            "none": "No Iniciado",
+            "verifiedDesc": "Tu identidad ha sido verificada exitosamente",
+            "pendingDesc": "Estamos verificando tu documentación. Esto puede tomar hasta 24 horas.",
+            "failedDesc": "No pudimos verificar tu identidad. Por favor, intentá nuevamente con documentos más claros.",
+            "noneDesc": "Aún no has iniciado el proceso de verificación",
+            "whatNext": "¿Qué sigue?",
+            "startVerification": "Iniciar Verificación",
+            "updateStatus": "Actualizar Estado",
+            "createProfile": "Crear Perfil de Talento",
+            "retryVerification": "Reintentar Verificación",
+            "needHelp": "¿Necesitás ayuda?",
+            "helpDesc": "Si tenés problemas con la verificación, contactanos:",
+            "emailSupport": "📧 Email Soporte",
+            "liveChat": "💬 Chat en Vivo"
+        }
     }
 }
