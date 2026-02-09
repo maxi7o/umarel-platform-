@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CommentThread } from './comment-thread';
 import { SliceKanban } from './slice-kanban';
 import { QuoteBuilder } from './quote-builder';
 import { ChangeProposalCard } from './change-proposal-card';
-import { MessageSquare, KanbanSquare, Activity, LayoutList, ShieldCheck } from 'lucide-react';
+import { MessageSquare, KanbanSquare, Activity, LayoutList, ShieldCheck, Briefcase, FileText, BadgeDollarSign } from 'lucide-react';
 import { toast } from 'sonner';
 import { CurrencyDisplay } from '@/components/currency-display';
 import { useTranslations } from 'next-intl';
@@ -40,7 +41,23 @@ export function RequestInteractionLayout({
     const [comments, setComments] = useState(initialComments);
     const [quotes, setQuotes] = useState(initialQuotes);
     const [proposals, setProposals] = useState(initialProposals);
-    const [viewMode, setViewMode] = useState<'board' | 'timeline'>('timeline');
+
+    // Context & Roles
+    const [isDemo, setIsDemo] = useState(false);
+    useEffect(() => {
+        setIsDemo(request?.id === 'demo');
+    }, [request]);
+
+    const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
+
+    // View State
+    const [viewMode, setViewMode] = useState<'board' | 'timeline' | 'quotes'>('timeline');
+    useEffect(() => {
+        if (isOwner && quotes.length > 0) {
+            setViewMode('quotes');
+        }
+    }, [isOwner, quotes.length]);
+
     const [selectedQuote, setSelectedQuote] = useState<any | null>(null);
     const [quoteFeedbacks, setQuoteFeedbacks] = useState<any[]>([]);
 
@@ -76,11 +93,6 @@ export function RequestInteractionLayout({
         toast.error("Quote Rejected");
         setSelectedQuote(null);
     };
-
-    const [isDemo, setIsDemo] = useState(false);
-    useEffect(() => {
-        setIsDemo(request?.id === 'demo');
-    }, [request]);
 
     const handleCommentAdded = (newComment: any) => {
         setComments(prev => [...prev.filter(c => c.id !== newComment.id), newComment]);
@@ -135,8 +147,6 @@ export function RequestInteractionLayout({
         }
     };
 
-    const isOwner = currentUser?.id === request.userId || currentUser?.id === request.user?.id || isDemo;
-
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* 1. UNIFIED FOLDER HEADER */}
@@ -168,6 +178,49 @@ export function RequestInteractionLayout({
                             {t('phase.label')}: <strong className="ml-1 text-stone-900">{slices.length === 0 ? t('phase.defining') : t('phase.bidding')}</strong>
                         </Badge>
                     </div>
+                </div>
+            </div>
+
+            {/* REQUEST BRIEF & CONTEXT */}
+            <div className="bg-stone-50/50 -mt-6 mb-8 p-6 rounded-xl border border-stone-100">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="md:col-span-2 space-y-4">
+                        <div>
+                            <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">
+                                {t('brief.description') || 'MANIFIESTO DEL PROYECTO'}
+                            </h3>
+                            <p className="text-lg text-stone-800 leading-relaxed font-medium">
+                                {request.description}
+                            </p>
+                        </div>
+                        {/* Future: Photo Gallery here */}
+                    </div>
+
+                    {/* ACTION BOX (For Providers) */}
+                    {!isOwner && (
+                        <div className="flex flex-col justify-center items-start md:items-end md:text-right md:border-l md:border-stone-200 md:pl-8">
+                            <div className="mb-4">
+                                <span className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1 font-mono">
+                                    ESTADO
+                                </span>
+                                <div className="text-2xl font-bold text-stone-900 font-archivo">
+                                    Abierto a Cotizar
+                                </div>
+                            </div>
+
+                            <Button
+                                id="cta-to-quote"
+                                onClick={() => document.getElementById('quote-builder-section')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="w-full md:w-auto bg-stone-900 hover:bg-stone-800 text-white font-bold py-6 px-8 text-lg shadow-xl shadow-stone-200 flex items-center justify-center gap-2"
+                            >
+                                <BadgeDollarSign className="w-5 h-5" />
+                                Enviar Presupuesto
+                            </Button>
+                            <p className="mt-3 text-xs text-stone-500 max-w-[200px]">
+                                Revisá los detalles y enviá tu propuesta desglosada.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -262,12 +315,14 @@ export function RequestInteractionLayout({
                 {/* RIGHT: Sidebar (Tools & Context) */}
                 <div className="space-y-6">
                     {/* The Quote Builder */}
-                    <QuoteBuilder
-                        requestId={request.id}
-                        slices={slices}
-                        userId={currentUser?.id}
-                        onQuoteCreated={handleQuoteCreated}
-                    />
+                    <div id="quote-builder-section" className="scroll-mt-24">
+                        <QuoteBuilder
+                            requestId={request.id}
+                            slices={slices}
+                            userId={currentUser?.id}
+                            onQuoteCreated={handleQuoteCreated}
+                        />
+                    </div>
 
                     {/* Active Bids / Quotes */}
                     {quotes.length > 0 && (
@@ -356,6 +411,6 @@ export function RequestInteractionLayout({
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

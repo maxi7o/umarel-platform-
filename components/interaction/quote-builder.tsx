@@ -23,7 +23,7 @@ interface QuoteBuilderProps {
     onQuoteCreated?: (quote: any) => void;
 }
 
-export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, userId, onQuoteCreated }: QuoteBuilderProps) {
+export function QuoteBuilder({ requestId, requestTitle = 'Solicitud', slices, userId, onQuoteCreated }: QuoteBuilderProps) {
     const router = useRouter();
     const { market } = useMarket();
     const [selectedSlices, setSelectedSlices] = useState<string[]>([]);
@@ -136,7 +136,7 @@ export function QuoteBuilder({ requestId, requestTitle = 'Request', slices, user
                             className="bg-stone-50 hover:bg-stone-100 text-stone-900 border-stone-300"
                         >
                             {isDrafting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                            Auto-Quote
+                            Cotizar con IA
                         </Button>
                     </div>
                 </CardHeader>

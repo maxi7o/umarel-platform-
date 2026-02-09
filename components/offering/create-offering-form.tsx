@@ -66,7 +66,11 @@ const CATEGORIES = [
     { id: 'cleaning', label: 'Cleaning' },
     { id: 'gardening', label: 'Gardening' },
     { id: 'moving', label: 'Moving' },
-    { id: 'other', label: 'Other' },
+    { id: 'lifestyle', label: 'Lifestyle & Wellness' },
+    { id: 'education', label: 'Education & Coaching' },
+    { id: 'creative', label: 'Creative & Arts' },
+    { id: 'tech', label: 'Tech & Digital' },
+    { id: 'custom', label: '✨ Crear Categoría Nueva' },
 ];
 
 interface CreateOfferingFormProps {
@@ -80,6 +84,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [portfolioImages, setPortfolioImages] = useState<string[]>([]);
+    const [customCategory, setCustomCategory] = useState('');
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -107,6 +112,65 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
     const pricingStrategy = form.watch('pricingStrategy');
 
     async function onSubmit(values: FormValues) {
+        // Validate custom category
+        if (values.category === 'custom' && !customCategory.trim()) {
+            toast.error('Por favor ingresá el nombre de tu categoría personalizada');
+            return;
+        }
+
+        // Normalize custom category to prevent duplicates
+        let finalCategory = values.category;
+        if (values.category === 'custom') {
+            const normalized = customCategory.trim().toLowerCase();
+
+            // Check if it's too similar to existing categories (word-based matching)
+            const existingCategories = CATEGORIES.map(c => c.id.toLowerCase());
+            const customWords = normalized.split(/\s+/);
+
+            const similarCategory = existingCategories.find(cat => {
+                const catWords = cat.split(/[\s&]+/); // Split on spaces and &
+                return customWords.some(word =>
+                    catWords.some(catWord =>
+                        word.length > 3 && catWord.includes(word) || word.includes(catWord)
+                    )
+                );
+            });
+
+            if (similarCategory && similarCategory !== 'custom') {
+                toast.error(`Esta categoría es muy similar a "${similarCategory}". Usá esa en su lugar.`);
+                return;
+            }
+
+            // Use normalized version (lowercase, no extra spaces)
+            finalCategory = normalized
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+
+            // Lightweight AI validation (non-blocking, just a warning)
+            try {
+                const validationRes = await fetch('/api/experiences/ai-suggest', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: `Is "${finalCategory}" an appropriate category for a legal service marketplace? Answer with just "yes" or "no" and brief reason.`,
+                        mode: 'validation'
+                    })
+                });
+
+                if (validationRes.ok) {
+                    const validation = await validationRes.json();
+                    if (validation.title?.toLowerCase().includes('no')) {
+                        toast.error('Esta categoría podría no ser apropiada para la plataforma. Por favor revisá los términos de servicio.');
+                        return;
+                    }
+                }
+            } catch (e) {
+                // Validation failed, but don't block the user
+                console.warn('Category validation failed:', e);
+            }
+        }
+
         if (!isVirtual && !values.location) {
             form.setError('location', {
                 type: 'manual',
@@ -132,7 +196,7 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                     providerId: userId,
                     title: values.title,
                     description: values.description,
-                    category: values.category,
+                    category: finalCategory,
                     location: values.location,
                     locationDetails: values.locationDetails,
                     isVirtual: values.isVirtual,
@@ -280,6 +344,22 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                 )}
                             />
 
+                            {/* Custom Category Input - appears when 'custom' is selected */}
+                            {category === 'custom' && (
+                                <div className="col-span-1 md:col-span-2">
+                                    <FormLabel>Nombre de tu Categoría</FormLabel>
+                                    <Input
+                                        placeholder="Ej: Therian Coaching, VR Experiences, Astro Tourism..."
+                                        value={customCategory}
+                                        onChange={(e) => setCustomCategory(e.target.value)}
+                                        className="mt-2"
+                                    />
+                                    <p className="text-sm text-muted-foreground mt-2">
+                                        💡 Definí una categoría que describa tu servicio. Esto ayuda a que otros usuarios te encuentren.
+                                    </p>
+                                </div>
+                            )}
+
                             <FormField
                                 control={form.control}
                                 name="skills"
@@ -287,8 +367,11 @@ export function CreateOfferingForm({ userId }: CreateOfferingFormProps) {
                                     <FormItem>
                                         <FormLabel>{t('form.skillsLabel')}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Ej: Docencia, Storytelling, Carpintería" {...field} />
+                                            <Input placeholder="Ej: Therian, Roleplay, Outdoor, Mindfulness, VR..." {...field} />
                                         </FormControl>
+                                        <FormDescription className="text-xs">
+                                            Etiquetas para descubrimiento. Separá con comas. Pueden ser habilidades, temas, o palabras clave.
+                                        </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}

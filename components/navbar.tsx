@@ -1,7 +1,6 @@
 'use client'
 
-import { Link as I18nLink } from '@/i18n/routing'
-import Link from 'next/link'
+import { Link, useRouter, usePathname } from '@/i18n/routing'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { LogOut, LayoutDashboard, Bell, Menu, PlusCircle, Search, ShieldAlert, TestTube } from 'lucide-react'
@@ -16,12 +15,10 @@ import {
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { ReferralDialog } from '@/components/growth/referral-dialog';
 import { useTranslations } from 'next-intl'
-import { usePathname } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
 import { LOCALE_CONFIG } from '@/i18n/config'
 import { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -65,7 +62,20 @@ export function Navbar({ user }: NavbarProps) {
 
                     </div>
 
-                    {/* 2. ACTIONS & PROFILE */}
+                    {/* 2. CENTER NAV (Desktop) */}
+                    <div className="hidden md:flex items-center space-x-8">
+                        <Link href="/browse" className="text-sm font-medium text-slate-600 hover:text-stone-900 transition-colors flex items-center gap-2">
+                            <Search className="w-4 h-4" />
+                            {t('browse')}
+                        </Link>
+                        {!user && (
+                            <Link href="/audit" className="text-sm font-medium text-slate-600 hover:text-stone-900 transition-colors">
+                                {t('roleVerify')}
+                            </Link>
+                        )}
+                    </div>
+
+                    {/* 3. ACTIONS & PROFILE */}
                     <div className="flex items-center gap-2 sm:gap-4">
 
                         {/* Notifications - Hidden on very small screens */}
@@ -137,21 +147,6 @@ export function Navbar({ user }: NavbarProps) {
                                 <Link href="/login" className="hidden sm:block">
                                     <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium">
                                         {t('login')}
-                                    </Button>
-                                </Link>
-
-                                {/* Opiná */}
-                                <Link href="/audit" className="hidden sm:block">
-                                    <Button variant="outline" className="text-slate-700 hover:text-stone-900 hover:bg-stone-50 border-slate-200 font-medium transition-colors">
-                                        🧐 Opiná
-                                    </Button>
-                                </Link>
-
-                                {/* Cotizá - New Button */}
-                                {/* Navegá - Replaces Cotizá */}
-                                <Link href="/browse" className="hidden sm:block">
-                                    <Button variant="outline" className="text-slate-700 hover:text-stone-900 hover:bg-stone-50 border-slate-200 font-medium transition-colors">
-                                        🔍 Navegá
                                     </Button>
                                 </Link>
 

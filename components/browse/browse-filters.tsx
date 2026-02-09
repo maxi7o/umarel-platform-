@@ -40,14 +40,19 @@ export function BrowseFilters({
     const t = useTranslations('filters');
 
     const CATEGORIES = [
-        { id: 'tech', label: t('categories.tech') || "Tech & Digital", icon: '💻' },
-        { id: 'creative', label: t('categories.creative') || "Creative & Design", icon: '🎨' },
-        { id: 'events', label: t('categories.events') || "Events & Staff", icon: '🎉' },
-        { id: 'consulting', label: t('categories.consulting') || "Consulting", icon: '📊' },
-        { id: 'repairs', label: t('categories.repairs') || "Repairs & Maint.", icon: '🔧' },
-        { id: 'logistics', label: t('categories.logistics') || "Logistics", icon: '📦' },
-        { id: 'wellness', label: t('categories.wellness') || "Wellness", icon: '🌿' },
-        { id: 'other', label: t('categories.other') || "Other", icon: '✨' },
+        { id: 'experiences', label: t('categories.experiences') || "Experiences", icon: '✨' },
+        { id: 'lifestyle', label: t('categories.lifestyle') || "Lifestyle", icon: '🌿' },
+        { id: 'education', label: t('categories.education') || "Education", icon: '📚' },
+        { id: 'creative', label: t('categories.creative') || "Creative", icon: '🎨' },
+        { id: 'tech', label: t('categories.tech') || "Tech", icon: '💻' },
+        { id: 'plumbing', label: t('categories.plumbing') || "Plumbing", icon: '🔧' },
+        { id: 'electrical', label: t('categories.electrical') || "Electrical", icon: '⚡' },
+        { id: 'carpentry', label: t('categories.carpentry') || "Carpentry", icon: '🔨' },
+        { id: 'painting', label: t('categories.painting') || "Painting", icon: '🖌️' },
+        { id: 'cleaning', label: t('categories.cleaning') || "Cleaning", icon: '🧹' },
+        { id: 'gardening', label: t('categories.gardening') || "Gardening", icon: '🌻' },
+        { id: 'moving', label: t('categories.moving') || "Moving", icon: '📦' },
+        { id: 'custom', label: t('categories.custom') || "Custom", icon: '🌟' },
     ];
 
     return (
@@ -104,7 +109,7 @@ export function BrowseFilters({
                         {['all', 'requests', 'offerings'].map((type) => (
                             <div key={type} className="flex items-center space-x-2">
                                 <RadioGroupItem value={type} id={type} className="text-stone-900 border-stone-300" />
-                                <Label htmlFor={type} className="cursor-pointer text-stone-600 font-normal">
+                                <Label htmlFor={type} className="cursor-pointer text-stone-600 font-normal whitespace-nowrap">
                                     {t(type === 'all' ? 'allListings' : type === 'requests' ? 'requestsOnly' : 'offeringsOnly')}
                                 </Label>
                             </div>
@@ -122,9 +127,9 @@ export function BrowseFilters({
                     <div className="space-y-1">
                         <button
                             onClick={() => onCategoryChange(undefined)}
-                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${!selectedCategory
-                                    ? 'bg-stone-900 text-white font-medium shadow-md'
-                                    : 'text-stone-600 hover:bg-stone-100'
+                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all truncate ${!selectedCategory
+                                ? 'bg-stone-900 text-white font-medium shadow-md'
+                                : 'text-stone-600 hover:bg-stone-100'
                                 }`}
                         >
                             {t('allCategories')}
@@ -134,12 +139,12 @@ export function BrowseFilters({
                                 key={category.id}
                                 onClick={() => onCategoryChange(category.id)}
                                 className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-3 ${selectedCategory === category.id
-                                        ? 'bg-stone-900 text-white font-medium shadow-md'
-                                        : 'text-stone-600 hover:bg-stone-100'
+                                    ? 'bg-stone-900 text-white font-medium shadow-md'
+                                    : 'text-stone-600 hover:bg-stone-100'
                                     }`}
                             >
-                                <span className="text-base">{category.icon}</span>
-                                <span>{category.label}</span>
+                                <span className="text-base shrink-0">{category.icon}</span>
+                                <span className="truncate">{category.label}</span>
                             </button>
                         ))}
                     </div>

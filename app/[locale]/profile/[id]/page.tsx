@@ -25,7 +25,16 @@ interface ProfilePageProps {
 
 export async function generateMetadata({ params }: ProfilePageProps) {
     const { id } = await params;
-    const [user] = await db.select({ fullName: users.fullName }).from(users).where(eq(users.id, id));
+    let userId = id;
+
+    if (id === 'me') {
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return { title: 'Login Required' };
+        userId = user.id;
+    }
+
+    const [user] = await db.select({ fullName: users.fullName }).from(users).where(eq(users.id, userId));
     if (!user) return { title: 'User Not Found' };
     return { title: `${user.fullName} | Umarel Profile` };
 }
@@ -36,24 +45,38 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     // Check Authentication state
     const supabase = await createClient();
     const { data: { user: currentUser } } = await supabase.auth.getUser();
-    const isOwner = currentUser?.id === id;
+
+    let targetId = id;
+    if (id === 'me') {
+        if (!currentUser) {
+            // Redirect to login if trying to access 'me' without auth
+            return (
+                <div className="flex h-screen items-center justify-center">
+                    <p>Please log in to view your profile.</p>
+                </div>
+            );
+        }
+        targetId = currentUser.id;
+    }
+
+    const isOwner = currentUser?.id === targetId;
 
     // 1. Fetch User Base Data
-    const [user] = await db.select().from(users).where(eq(users.id, id));
+    const [user] = await db.select().from(users).where(eq(users.id, targetId));
     if (!user) notFound();
 
     // 2. Fetch Profile Details (Optional)
-    const [profile] = await db.select().from(profiles).where(eq(profiles.userId, id));
+    const [profile] = await db.select().from(profiles).where(eq(profiles.userId, targetId));
 
     // 3. Fetch Provider Metrics (Optional)
-    const [metrics] = await db.select().from(providerMetrics).where(eq(providerMetrics.providerId, id));
-    const stats = await getProviderStats(id);
+    const [metrics] = await db.select().from(providerMetrics).where(eq(providerMetrics.providerId, targetId));
+    const stats = await getProviderStats(targetId);
 
     // 4. Fetch Portfolio Evidence
     const evidence = await db
         .select()
         .from(sliceEvidence)
-        .where(eq(sliceEvidence.providerId, id))
+        .where(eq(sliceEvidence.providerId, targetId))
         .orderBy(desc(sliceEvidence.createdAt))
         .limit(6);
 
@@ -69,7 +92,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         .from(wizardMessages)
         .where(
             and(
-                eq(wizardMessages.userId, id),
+                eq(wizardMessages.userId, targetId),
                 eq(wizardMessages.isMarkedHelpful, true),
                 gte(wizardMessages.createdAt, sevenDaysAgo)
             )

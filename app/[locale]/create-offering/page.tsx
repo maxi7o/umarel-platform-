@@ -1,12 +1,19 @@
 import { CreateOfferingForm } from '@/components/offering/create-offering-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
-// Mock user for demo - in real app, get from session
-const MOCK_USER_ID = 'user-123';
+export default async function CreateOfferingPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations('createOffering');
+    const supabase = await createClient();
 
-export default function CreateOfferingPage() {
-    const t = useTranslations('createOffering');
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect(`/${locale}/ingresar?next=/${locale}/crear-talento`);
+    }
 
     return (
         <div className="container mx-auto max-w-3xl py-10 px-6">
@@ -25,7 +32,7 @@ export default function CreateOfferingPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <CreateOfferingForm userId={MOCK_USER_ID} />
+                    <CreateOfferingForm userId={user.id} />
                 </CardContent>
             </Card>
         </div>

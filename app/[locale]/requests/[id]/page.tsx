@@ -4,6 +4,7 @@ import { requests, slices, comments, quotes, users, questions, answers, changePr
 import { eq, desc, inArray } from 'drizzle-orm'
 import { RequestInteractionLayout } from '@/components/interaction/request-interaction-layout'
 import { getOpenSlicesForProvider } from '@/lib/services/slice-service';
+import { createClient } from '@/lib/supabase/server';
 
 // Mock data for development when DB is not connected
 const MOCK_REQUEST = {
@@ -86,7 +87,15 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
 
             // Fetch Quotes
             // Ideally join with provider (user)
-            const quotesResult = await db.select().from(quotes).where(eq(quotes.requestId, id));
+            const quotesResult = await db.select({
+                id: quotes.id,
+                amount: quotes.amount,
+                message: quotes.message,
+                status: quotes.status,
+                providerId: quotes.providerId,
+                createdAt: quotes.createdAt,
+                estimatedDeliveryDate: quotes.estimatedDeliveryDate
+            }).from(quotes).where(eq(quotes.requestId, id));
 
             // Manually fetch providers for quotes (for demo simplicity)
             // In production, use a join
@@ -113,9 +122,9 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
             }
 
             // Fetch user for request if needed
-            const [user] = await db.select().from(users).where(eq(users.id, request.userId));
-            if (user) {
-                request = { ...request, user };
+            const [requestOwner] = await db.select().from(users).where(eq(users.id, request.userId));
+            if (requestOwner) {
+                request = { ...request, user: requestOwner };
             }
 
             // Fetch Questions with answers
@@ -152,11 +161,13 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                 .where(eq(changeProposals.requestId, id))
                 .orderBy(desc(changeProposals.createdAt));
 
-            // Fetch a "current user" for interaction (simulating logged in user)
-            // In a real app, this would come from auth session
-            // Fetch "Maria" (Owner) for interaction
-            const [dbUser] = await db.select().from(users).where(eq(users.email, 'maria@demo.com'));
-            currentUser = dbUser;
+            const supabase = await createClient();
+            const { data: { user: authUser } } = await supabase.auth.getUser();
+
+            if (authUser) {
+                const [currentDbUser] = await db.select().from(users).where(eq(users.id, authUser.id));
+                currentUser = currentDbUser;
+            }
         }
 
     } catch (e) {

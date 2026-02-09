@@ -467,18 +467,47 @@
         "description": "No encontramos lo que buscabas."
     },
     "browse": {
-        "title": "Buscar",
-        "subtitle": "Encontrá oportunidades o talentos.",
-        "searchPlaceholder": "Buscar...",
+        "title": "Explorar el Ecosistema",
+        "subtitle": "Conectá con talento, iniciativas y oportunidades en tiempo real.",
+        "searchPlaceholder": "¿Qué estás buscando hoy?",
+        "search": "Buscar",
         "postRequest": "Publicar Iniciativa",
         "offerServices": "Ofrecer Talento",
+        "allListings": "Todo",
+        "requestsOnly": "Iniciativas",
+        "offeringsOnly": "Talentos",
         "showing": "Mostrando",
         "results": "resultados",
+        "loading": "Escaneando ecosistema...",
         "in": "en",
+        "noResultsTitle": "Sin señales",
+        "noResultsDesc": "Sé la señal en el ruido. Iniciá el primer proyecto en esta frecuencia.",
         "noResults": "Nada por acá en",
         "tryAdjusting": "Probá buscar otra cosa",
         "clearFilters": "Limpiar filtros",
-        "beFirstToOffer": "Sé el primero"
+        "beFirstToOffer": "Crear Señal",
+        "pathways": {
+            "title": "¿Qué estás buscando?",
+            "subtitle": "Elegí tu camino en el ecosistema",
+            "requests": {
+                "title": "Iniciativas",
+                "subtitle": "Proyectos que necesitan talento",
+                "forProviders": "Para Proveedores",
+                "forProvidersDesc": "Encontrá trabajo y proyectos para ejecutar",
+                "forUmarels": "Para Entendidos",
+                "forUmarelsDesc": "Auditá propuestas y validá calidad",
+                "cta": "Ver Iniciativas"
+            },
+            "offerings": {
+                "title": "Talentos",
+                "subtitle": "Servicios y experiencias disponibles",
+                "forClients": "Para Clientes",
+                "forClientsDesc": "Contratá expertos verificados",
+                "forUmarels": "Para Entendidos",
+                "forUmarelsDesc": "Proponé mejoras en servicios",
+                "cta": "Ver Talentos"
+            }
+        }
     },
     "filters": {
         "show": "Ver",
@@ -501,7 +530,11 @@
             "gardening": "Exteriores",
             "moving": "Logística",
             "experiences": "Experiencias",
-            "other": "Varios"
+            "lifestyle": "Estilo de Vida & Bienestar",
+            "education": "Educación & Coaching",
+            "creative": "Creatividad & Arte",
+            "tech": "Tecnología & Digital",
+            "custom": "✨ Crear Categoría Nueva"
         },
         "locationPlaceholder": "Localidad..."
     },
@@ -511,6 +544,9 @@
         "searching": "Buscando..."
     },
     "requestInteraction": {
+        "brief": {
+            "description": "Detalle del Pedido"
+        },
         "description": "Detalles",
         "details": "Ficha",
         "location": "Lugar",

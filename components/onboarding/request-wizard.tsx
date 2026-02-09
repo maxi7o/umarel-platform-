@@ -10,7 +10,7 @@ import { ArrowRight, ArrowLeft, Upload, MapPin, Search, CheckCircle2 } from 'luc
 import { useTranslations } from 'next-intl'
 import { createRequest } from '@/app/[locale]/requests/actions'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
+import { useRouter, Link } from '@/i18n/routing'
 
 interface RequestWizardProps {
     userId?: string
@@ -213,7 +213,7 @@ export function RequestWizard({ userId }: RequestWizardProps) {
                             </Button>
                         </div>
                         <p className="text-xs text-center text-slate-400 mt-4">
-                            Al publicar, aceptás nuestros <a href="/legal/terms" className="underline hover:text-orange-500" target="_blank">Términos</a> y <a href="/legal/privacy" className="underline hover:text-orange-500" target="_blank">Privacidad</a>.
+                            Al publicar, aceptás nuestros <Link href="/terms" className="underline hover:text-orange-500" target="_blank">Términos</Link> y <Link href="/privacy" className="underline hover:text-orange-500" target="_blank">Privacidad</Link>.
                         </p>
                     </motion.div>
                 )}

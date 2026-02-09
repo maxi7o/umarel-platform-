@@ -115,27 +115,29 @@ export default function BrowsePage() {
                     </div>
 
                     {/* Universal Search Bar */}
-                    <div className="max-w-4xl mx-auto bg-white dark:bg-stone-950 rounded-2xl shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-stone-100 dark:border-stone-800 p-2 flex flex-col md:flex-row gap-2 items-center">
-                        <div className="flex-1 relative w-full">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-stone-400" />
-                            <input
-                                placeholder={t('searchPlaceholder') || "What are you looking for?"}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full h-14 pl-12 pr-4 bg-transparent outline-none text-lg text-stone-900 dark:text-stone-50 placeholder:text-stone-400"
-                            />
-                        </div>
-                        <div className="h-8 w-[1px] bg-stone-200 dark:bg-stone-800 hidden md:block" />
-                        <div className="w-full md:w-auto">
-                            <LocationSelector
-                                currentLocation={location}
-                                onLocationChange={setLocation}
-                            />
-                        </div>
-                        <div className="hidden md:block">
-                            <Button className="h-14 px-8 rounded-xl bg-stone-900 hover:bg-stone-800 text-white shadow-lg font-medium transition-all hover:scale-105">
-                                {t('search') || "Search"}
-                            </Button>
+                    <div className="max-w-4xl mx-auto w-full px-4 md:px-0">
+                        <div className="bg-white dark:bg-stone-950 rounded-2xl shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-stone-100 dark:border-stone-800 p-2 flex flex-col md:flex-row gap-2 items-center">
+                            <div className="flex-1 relative w-full">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-stone-400" />
+                                <input
+                                    placeholder={t('searchPlaceholder') || "What are you looking for?"}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full h-14 pl-12 pr-4 bg-transparent outline-none text-lg text-stone-900 dark:text-stone-50 placeholder:text-stone-400"
+                                />
+                            </div>
+                            <div className="h-8 w-[1px] bg-stone-200 dark:bg-stone-800 hidden md:block" />
+                            <div className="w-full md:w-auto min-w-[200px]">
+                                <LocationSelector
+                                    currentLocation={location}
+                                    onLocationChange={setLocation}
+                                />
+                            </div>
+                            <div className="w-full md:w-auto">
+                                <Button className="h-14 w-full md:w-auto px-8 rounded-xl bg-stone-900 hover:bg-stone-800 text-white shadow-lg font-medium transition-all hover:scale-105">
+                                    {t('search') || "Search"}
+                                </Button>
+                            </div>
                         </div>
                     </div>
 
@@ -160,7 +162,8 @@ export default function BrowsePage() {
             <div className="container mx-auto max-w-7xl px-6 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     {/* Filters Sidebar - Clean & Sticky */}
-                    <aside className="lg:col-span-3">
+                    {/* Filters Sidebar - Clean & Sticky */}
+                    <aside className="lg:col-span-4 xl:col-span-3">
                         <div className="sticky top-24">
                             <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-100 dark:border-stone-800 p-6 shadow-sm">
                                 <BrowseFilters
@@ -184,7 +187,7 @@ export default function BrowsePage() {
                     </aside>
 
                     {/* Results Grid */}
-                    <main className="lg:col-span-9">
+                    <main className="lg:col-span-8 xl:col-span-9">
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
                                 {isLoading ? t('loading') : `${allItems.length} ${t('results')}`}
@@ -202,6 +205,120 @@ export default function BrowsePage() {
                                 </Link>
                             </div>
                         </div>
+
+                        {/* Pathways Section - Show when no filters active */}
+                        {selectedType === 'all' && !selectedCategory && !locationData && !debouncedQuery && (
+                            <div className="mb-12">
+                                <div className="text-center mb-8">
+                                    <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">
+                                        {t('pathways.title')}
+                                    </h2>
+                                    <p className="text-stone-500 dark:text-stone-400">
+                                        {t('pathways.subtitle')}
+                                    </p>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    {/* Iniciativas Card */}
+                                    <div
+                                        onClick={() => setSelectedType('requests')}
+                                        className="group relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-200 dark:border-blue-800 rounded-2xl p-8 cursor-pointer hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                                    >
+                                        <div className="absolute top-4 right-4 text-4xl opacity-20 group-hover:opacity-40 transition-opacity">
+                                            🏗️
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">
+                                            {t('pathways.requests.title')}
+                                        </h3>
+                                        <p className="text-blue-700 dark:text-blue-300 mb-6 text-sm">
+                                            {t('pathways.requests.subtitle')}
+                                        </p>
+
+                                        <div className="space-y-4 mb-6">
+                                            <div className="flex items-start gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <span className="text-white text-xs">✓</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-blue-900 dark:text-blue-100 text-sm">
+                                                        {t('pathways.requests.forProviders')}
+                                                    </p>
+                                                    <p className="text-blue-600 dark:text-blue-400 text-xs">
+                                                        {t('pathways.requests.forProvidersDesc')}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <span className="text-white text-xs">✓</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-blue-900 dark:text-blue-100 text-sm">
+                                                        {t('pathways.requests.forUmarels')}
+                                                    </p>
+                                                    <p className="text-blue-600 dark:text-blue-400 text-xs">
+                                                        {t('pathways.requests.forUmarelsDesc')}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white group-hover:shadow-lg transition-all">
+                                            {t('pathways.requests.cta')} →
+                                        </Button>
+                                    </div>
+
+                                    {/* Talentos Card */}
+                                    <div
+                                        onClick={() => setSelectedType('offerings')}
+                                        className="group relative bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 border-2 border-emerald-200 dark:border-emerald-800 rounded-2xl p-8 cursor-pointer hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                                    >
+                                        <div className="absolute top-4 right-4 text-4xl opacity-20 group-hover:opacity-40 transition-opacity">
+                                            🎨
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-emerald-900 dark:text-emerald-100 mb-2">
+                                            {t('pathways.offerings.title')}
+                                        </h3>
+                                        <p className="text-emerald-700 dark:text-emerald-300 mb-6 text-sm">
+                                            {t('pathways.offerings.subtitle')}
+                                        </p>
+
+                                        <div className="space-y-4 mb-6">
+                                            <div className="flex items-start gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <span className="text-white text-xs">✓</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-emerald-900 dark:text-emerald-100 text-sm">
+                                                        {t('pathways.offerings.forClients')}
+                                                    </p>
+                                                    <p className="text-emerald-600 dark:text-emerald-400 text-xs">
+                                                        {t('pathways.offerings.forClientsDesc')}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <span className="text-white text-xs">✓</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-emerald-900 dark:text-emerald-100 text-sm">
+                                                        {t('pathways.offerings.forUmarels')}
+                                                    </p>
+                                                    <p className="text-emerald-600 dark:text-emerald-400 text-xs">
+                                                        {t('pathways.offerings.forUmarelsDesc')}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white group-hover:shadow-lg transition-all">
+                                            {t('pathways.offerings.cta')} →
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {isLoading ? (
                             <div className="flex flex-col items-center justify-center py-32">

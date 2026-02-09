@@ -89,6 +89,8 @@ export async function GET(request: Request) {
                         distance = R * c;
                     }
 
+                    if (!user) return null;
+
                     return {
                         ...req,
                         type: 'request',
@@ -101,10 +103,12 @@ export async function GET(request: Request) {
                 })
             );
 
+            const validRequests = mappedRequests.filter(r => r !== null);
+
             if (radius > 0 && lat && lng) {
-                results.requests = mappedRequests.filter(r => r.distance <= radius || (includeVirtual && r.isVirtual));
+                results.requests = validRequests.filter((r: any) => r.distance <= radius || (includeVirtual && r.isVirtual));
             } else {
-                results.requests = mappedRequests;
+                results.requests = validRequests;
             }
         }
 
@@ -171,6 +175,8 @@ export async function GET(request: Request) {
                         distance = R * c;
                     }
 
+                    if (!provider) return null;
+
                     return {
                         ...offering,
                         type: 'offering',
@@ -194,10 +200,12 @@ export async function GET(request: Request) {
                 })
             );
 
+            const validOfferings = mappedOfferings.filter(o => o !== null);
+
             if (radius > 0 && lat && lng) {
-                results.offerings = mappedOfferings.filter(o => o.distance <= radius || (includeVirtual && o.isVirtual));
+                results.offerings = validOfferings.filter((o: any) => o.distance <= radius || (includeVirtual && o.isVirtual));
             } else {
-                results.offerings = mappedOfferings;
+                results.offerings = validOfferings;
             }
         }
 
@@ -214,6 +222,7 @@ export async function GET(request: Request) {
         results.total = results.requests.length + results.offerings.length;
 
         // --- MOCK DATA INJECTION IF EMPTY (FOR TESTING) ---
+        /*
         if (results.total === 0) {
             const { requests, offerings } = getMockBrowseResults();
 
@@ -221,6 +230,7 @@ export async function GET(request: Request) {
             if (type === 'all' || type === 'offerings') results.offerings = offerings;
             results.total = (results.requests?.length || 0) + (results.offerings?.length || 0);
         }
+        */
         // --------------------------------------------------
 
         return NextResponse.json(results);
