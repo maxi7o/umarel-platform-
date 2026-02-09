@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
         // Call Verifik (Graceful degradation)
         let verificationData = null;
-        let biometricStatus = 'pending'; // Default: manual review required
+        let biometricStatus: 'pending' | 'verified' | 'failed' | 'none' = 'pending'; // Default: manual review required
 
         try {
             const result = await verifyArgentinaDni(dniNumber);
