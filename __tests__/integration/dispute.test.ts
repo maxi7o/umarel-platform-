@@ -21,7 +21,6 @@ runIfMpAvailable('Dispute Resolution System', () => {
         providerId = uuidv4();
         adminId = uuidv4();
         const requestId = uuidv4();
-        const sliceId = uuidv4();
         testEscrowId = uuidv4();
 
         // Need user records for foreign keys
@@ -32,7 +31,8 @@ runIfMpAvailable('Dispute Resolution System', () => {
         ]);
 
         await db.insert(requests).values({ id: requestId, userId: clientId, title: 'Dispute Test', description: 'Test', status: 'open' });
-        await db.insert(slices).values({ id: sliceId, requestId, creatorId: clientId, title: 'Slice', description: 'Desc', status: 'in_progress' });
+        const [insertedSlice] = await db.insert(slices).values({ requestId, creatorId: clientId, title: 'Slice', description: 'Desc', status: 'active' }).returning();
+        const sliceId = insertedSlice.id;
 
         await db.insert(escrowPayments).values({
             id: testEscrowId,

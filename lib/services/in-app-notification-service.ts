@@ -87,7 +87,7 @@ export class InAppNotificationService {
             .select()
             .from(userNotifications)
             .where(eq(userNotifications.userId, userId))
-            .orderBy(desc(notifications.createdAt))
+            .orderBy(desc(userNotifications.createdAt))
             .limit(limit);
     }
 

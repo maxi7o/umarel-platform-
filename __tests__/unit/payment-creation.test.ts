@@ -18,10 +18,10 @@ vi.mock('@/lib/payments/factory', () => ({
     getPaymentStrategy: vi.fn()
 }));
 
-vi.mock('next/server', async (importOriginal) => {
-    const actual = await importOriginal();
+vi.mock('next/server', async () => {
+    const actual = await vi.importActual('next/server');
     return {
-        ...actual,
+        ...(actual as any),
         NextResponse: {
             json: vi.fn((body, init) => ({ body, init, status: init?.status || 200 }))
         }
